@@ -1,47 +1,46 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%12pt: grandezza carattere
-                                        %a4paper: formato a4
-                                        %openright: apre i capitoli a destra
-                                        %twoside: serve per fare un
-                                        %   documento fronteretro (oneside altrimenti)
-                                        %report: stile tesi (oppure book)
+% 12pt: grandezza carattere
+% a4paper: formato a4
+% openright: apre i capitoli a destra
+% twoside: serve per fare un
+% documento fronteretro (oneside altrimenti)
+% report: stile tesi (oppure book)
 \documentclass[12pt,a4paper,openright,oneside]{report}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per scrivere in italiano
+
+% libreria per scrivere in italiano
 \usepackage[italian]{babel}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per accettare i caratteri
+
+% libreria per accettare i caratteri
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
 \usepackage{soul}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per impostare il documento
+
+% libreria per impostare il documento
 \usepackage{fancyhdr}
 \usepackage{diagbox}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per avere l'indentazione
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   all'inizio dei capitoli, ...
+
+% libreria per avere l'indentazione all'inizio dei capitoli
 \usepackage{indentfirst}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per inserire grafici
+
+% libreria per inserire grafici
 \usepackage{graphicx}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per utilizzare font
-                                        %   particolari ad esempio
-                                        %   \textsc{}
+
+% libreria per utilizzare font particolari ad esempio \textsc{}
 \usepackage{newlfont}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per inserire testo barrato (striked-out)
+
+% libreria per inserire testo barrato (striked-out)
 \usepackage[normalem]{ulem}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per elenchi numerati nested (es. 1.1)
+
+% libreria per elenchi numerati nested (es. 1.1)
 \usepackage{enumitem}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
+
+% libreria per tabelle multipagina
 \usepackage{longtable}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per il rowspan e il colspan
+
+% libreria per il rowspan e il colspan
 \usepackage{multirow, multicol}
 \newcommand{\sr}{\rule[-0.45cm]{0pt}{1.4cm}}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
 \usepackage[table]{xcolor}
@@ -191,7 +190,7 @@
 		{\Large{\textbf{Semantic Smart Room}}}\\
 		
 		\vspace*{4mm}
-		{\small{\textit{\url{<github_repo_here>}}}}\\
+		{\small{\textit{\url{https://github.com/Martinocom/pervasive-semantic-exam}}}}\\
 		
 		\vspace*{4mm}
 		{\Large{Progettazione, creazione e l'uso delle Smart Things all'interno di una stanza, utilizzando metodologie di descrizione semantica per ricavare conoscenza sul sistema analizzato}}\\
@@ -225,14 +224,14 @@
 \pagenumbering{arabic} 
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter{Introduzione}
-Il crescente interesse verso Internet of Things e un esponenziale crescita nell'utilizzo di apparecchiature elettroniche onnipresenti eterogenee permette l'esplorazione e l'adattamento di diversi approcci per la realizzazione e lo sviluppo di soluzioni Smart. Questo studio si pone come l'obiettivo quello di analizzare le possibilità date e realizzare un progetto che unisca il mondo del Web Semantico e quello di Pervasive Computing, circoscritti nei contesti Smart quotidiani (quali ad esempio ambienti casalinghi o aziendali).\\
+Il crescente interesse verso Internet of Things e un'esponenziale crescita nell'utilizzo di apparecchiature elettroniche onnipresenti eterogenee permette l'esplorazione e l'adattamento di diversi approcci per la realizzazione e lo sviluppo di soluzioni Smart. Questo studio si pone come l'obiettivo quello di analizzare le possibilità date e realizzare un progetto che unisca il mondo del Web Semantico e quello di Pervasive Computing, circoscritti nei contesti Smart quotidiani (quali ad esempio ambienti casalinghi o aziendali).\\
 
 Avendo come caratteristica quella di essere una via di mezzo tra lo studio ed effettiva prototipazione, la seguente relazione si comporrà di diversi punti trattanti in modo dettagliato ogni aspetto che incide sulle decisioni da intraprendere. Le conclusioni tratte da ogni analisi effettuata permetteranno poi la realizzazione di un applicativo dimostrante le capacità di un sistema progettato per sfruttare la conoscenza a priori. 
 
 I seguenti punti riassumono la scaletta individuata:
 
 \begin{itemize}
-	\item introduzione all'IoT, Smart Things e standard W3C per la definizione di oggetti e le loro funzionalità all'interno di una Smart Room;
+	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Smart Things, Conoscenza);
 	
 	\item analisi nel campo del Semantic Web per descrivere la conoscenza relativa agli oggetti e all'ambiente in cui si trovano;
 	
@@ -253,6 +252,7 @@ Ove possibile, nell'intera struttura dell'analisi e del progetto, verranno prefe
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter{Definizioni e riferimenti}
+
 \section{Internet Of Things}
 L'ambito di Internet of Things \cite{iot} risulta essere particolarmente interessante per diversi motivi, nei quali, tra i principali, si può trovare la possibilità di interazione tra le diverse cose collocate all'interno di un environment. Esistono già numerose applicazioni che sfruttano le potenzialità delle Smart Things, ma le soluzioni proposte riguardano molte volte standard proprietari che non possono interagire direttamente con le diverse soluzioni presentate anche dai relativi competitor.\\
 
@@ -275,13 +275,13 @@ I principali problemi di natura umana, invece, risulta essere quello della priva
 
 Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio ad una macchina agricola smart, nella quale vi sono diversi sensori che comunicano il loro stato all'utilizzatore. Parlando dunque di privacy e proprietà, vi è un acceso dibattito sul chi effettivamente possiede quei dati, in quanto potrebbe averne accesso anche il produttore della macchina agricola: in questo caso si assisterebbe ad un'analisi comportamentale degli individui, favorendo la prevenzione dei guasti e l'ottimizzazione delle features più richieste a discapito del monitoraggio delle abitudini degli utilizzatori, le quali, dipendentemente dal contesto, potrebbero rendere identificabile un soggetto, anche se in partenza i dati risulterebbero anonimi.\\
 
+
 \section{W3C}
 \label{sec:w3c}
-Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, l'ente standardizzante W3C \cite{w3c}, insieme alla collaborazione di alcune marche famose, ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
+W3C \cite{w3c} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno.
 
-Uno dei primi progetti risulta essere quello della Thing Description \cite{td}, che permette, tramite l'uso di un file in formato JSON, la definizione del protocollo, delle proprietà osservabili e delle azioni in input e output che può svolgere un determinato oggetto. Ogni Smart Thing, che può essere raggiunta nella rete, deve includere al suo interno un riferimento a questa descrizione, in modo tale da permettere l'aggiunta di nuovi device all'ambiente smart senza doversi preoccupare della configurazione ad hoc per ogni apparecchio.\\
-
-La definizione della Thing Description offre numerosissimi vantaggi, non solo dal punto di vista pratico. Essa costituisce infatti un livello di conoscenza su quello che un particolare device è capace di fare ed esporre: grazie a questa è possibile ricavare ulteriore conoscenza con delle analisi più approfondite, entrando più nell'ottica del Web Semantico e dati connessi. Esistono infatti già ontologie standard, come SAREF \cite{saref}, le quali grazie alle annotazioni, che è possibile includere all'interno della Thing Description, rendono ancora più leggibili e standard le descrizioni, in modo da poter riconoscere particolari gruppi di device e le loro funzionalità.\\
+\subsection{WoT}
+Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, W3C ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
 
 
 \section{Smart Room}
@@ -293,6 +293,10 @@ Una Smart Room fornisce features personalizzabili in base all'utente che ne usuf
 Le stesse problematiche che riguardano il mondo dell'IoT possono essere trovate all'interno di una Smart Room, ad esempio considerando classico problema dell'interoperabilità tra oggetti eterogenei e i diversi modi nei quali essi potrebbero voler comunicare.\\
 
 I problemi che possono essere invece aggiunti in questo ambito riguardano più la personalizzazione da parte di diversi utenti e comportamenti discordanti quando più soggetti con preferenze differenti si trovano all'interno di uno stesso ambiente. Un esempio classico potrebbe essere riferito a due soggetti che hanno una preferenza discordante sull'intensità dell'aria condizionata, dove il primo utilizzatore preferisce un funzionamento moderato, mentre il secondo non lo gradisce affatto. Se entrambi si troveranno all'interno di uno stesso ambiente, il sistema dev'essere in grado di stabilire la situazione ottimale, facendo valere le preferenze e priorità.\\
+
+
+\section{Smart Thing}
+Un oggetto Smart \cite{smartthing} è un'entità connessa, facente intrinsecamente parte di una rete (verosimilmente, formata da altri oggetti connessi). Possiede capacità di comunicare ed interagire con ulteriori entità, che possono essere di diverso tipo: macchine, umani e/o altre Smart Things. Può essere capace di eseguire semplici ragionamenti sullo stato proprio e quello dell'ambiente, oppure essere un semplice sensore/attuatore con proprietà e funzioni esposte; infatti, è possibile differenziare gli oggetti in base alla loro \quotes{intelligenza}: digital, connected, responsive e intelligent.
 
 
 \section{Conoscenza, ontologie e RDF}
