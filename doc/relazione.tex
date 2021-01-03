@@ -110,6 +110,43 @@
 	commentstyle=\color{dkgreen},
 	stringstyle=\color{redstrings}
 }
+
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{numb}{RGB}{106, 109, 32}
+\definecolor{string}{rgb}{0.64,0.08,0.08}
+
+\lstdefinelanguage{json}{
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	frame=single,
+	rulecolor=\color{black},
+	showspaces=false,
+	showtabs=false,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+	breakatwhitespace=true,
+	basicstyle=\ttfamily\codesize,
+	upquote=true,
+	morestring=[b]",
+	stringstyle=\color{string},
+	tabsize=2,
+	literate=
+	*{0}{{{\color{numb}0}}}{1}
+	{1}{{{\color{numb}1}}}{1}
+	{2}{{{\color{numb}2}}}{1}
+	{3}{{{\color{numb}3}}}{1}
+	{4}{{{\color{numb}4}}}{1}
+	{5}{{{\color{numb}5}}}{1}
+	{6}{{{\color{numb}6}}}{1}
+	{7}{{{\color{numb}7}}}{1}
+	{8}{{{\color{numb}8}}}{1}
+	{9}{{{\color{numb}9}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1},
+}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%3d graph
 \usepackage{pgfplots}
@@ -315,46 +352,47 @@ Essendo questo studio relativo a metodologie nuove ed emergenti (come descritto 
 \section{Thing Description}
 Nella sezione precedente è stato possibile individuare il candidato per questa successiva analisi, che pone in evidenza i punti salienti e criticità del modello selezionato. È stato scelto di non descrivere i modelli rimanenti per via delle scelte intraprese nel capitolo \ref{new_tecnologies}, puntando direttamente su uno standard coprente essenzialmente tutto l'ambito di cui si sta trattando in questo capitolo.\\
 
-Una \textbf{Thing Description} è il blocco centrale di costruzione del Web of Things e si compone principalmente di 4 componenti che descrivono: 
+Una \textbf{Thing Description} \cite{td} è il blocco centrale di costruzione del Web of Things e si compone principalmente di 4 componenti che descrivono: 
 \begin{itemize}
-	\setlength\itemsep{-0.5em}
+	\setlength\itemsep{-0.7em}
 	\item la Thing stessa,
 	\item le funzionalità della Thing,
 	\item il set di classi e attributi usati per facilitare il machine-understandability,
-	\item collezione di Web Link che esprimono collegamenti con ulteriori oggetti o descrizioni.
+	\item il set di Web Link che collega l'oggetto ad ulteriori oggetti o descrizioni.
 \end{itemize}
 
-Generalmente una Thing Description viene creata utilizzando il linguaggio JSON. Un esempio di una descrizione può essere trovato nel Codice \ref{lst:td}
+La descrizione dell'oggetto Smart può quindi finire ad essere da una parte molto estesa, dall'altra, grazie proprio alla sua completezza, permettere di coprire aspetti non banali come protocolli di sicurezza e forme di espressione dei dati e/o protocolli di comunicazione.
+Generalmente una Thing Description viene creata utilizzando il linguaggio JSON. Un esempio di una descrizione può essere trovato nel Codice \ref{lst:td}.
 
-\begin{lstlisting}[caption={Esempio di una Thing Description},captionpos=b,label=lst:td]
+\begin{lstlisting}[language=json,caption={Esempio di una Thing Description},label=lst:td]
 {
-	"@context": "https://www.w3.org/2019/wot/td/v1",
-	"id": "urn:dev:ops:32473-WoTLamp-1234",
-	"title": "MyLampThing",
-	"securityDefinitions": {
-		"basic_sc": {"scheme": "basic", "in":"header"}
-	},
-	"security": ["basic_sc"],
-	"properties": {
-		"status" : {
-			"type": "string",
-			"forms": [{"href": "https://mylamp.example.com/status"}]
-		}
-	},
-	"actions": {
-		"toggle" : {
-			"forms": [{"href": "https://mylamp.example.com/toggle"}]
-		}
-	},
-	"events":{
-		"overheating":{
-			"data": {"type": "string"},
-			"forms": [{
-				"href": "https://mylamp.example.com/oh",
-				"subprotocol": "longpoll"
-			}]
-		}
-	}
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+  "id": "urn:dev:ops:32473-WoTLamp-1234",
+  "title": "MyLampThing",
+  "securityDefinitions": {
+    "basic_sc": {"scheme": "basic", "in":"header"}
+  },
+  "security": ["basic_sc"],
+  "properties": {
+    "status" : {
+      "type": "string",
+      "forms": [{"href": "https://mylamp.example.com/status"}]
+    }
+  },
+  "actions": {
+    "toggle" : {
+      "forms": [{"href": "https://mylamp.example.com/toggle"}]
+    }
+  },
+  "events":{
+    "overheating":{
+      "data": {"type": "string"},
+      "forms": [{
+        "href": "https://mylamp.example.com/oh",
+        "subprotocol": "longpoll"
+      }]
+    }
+  }
 }
 \end{lstlisting}
 
@@ -380,12 +418,19 @@ Le principali ontologie che possono essere incluse all'interno di una Thing Desc
 	
 	\item \textbf{IoT Lite} \cite{iot-lite}: versione lite di \quotes{\textit{Semantic Sensor Network Ontology}} \cite{ssno}, descrivente i principali attributi per quanto riguarda i sensori e le loro caratteristiche.
 	
-	\item \textbf{IoT-O} \cite{ioto}: di principio modella la conoscenza orizzontale sulle Smart Things, ma è progettata per essere estesa con le informazioni in verticale. Include la già citata SSN \cite{ssno}, aggiungendo inoltre ontologie come quelle per l'attuazione e il ciclo di vita.
-	
-	\item \textbf{IoT-OWL-S}
+	\item \textbf{IoT-O} \cite{ioto}\cite{iot-paper}: di principio modella la conoscenza orizzontale sulle Smart Things, ma è progettata per essere estesa con le informazioni in verticale. Include la già citata SSN \cite{ssno}, aggiungendo inoltre ontologie come quelle per l'attuazione e il ciclo di vita.
+
 \end{itemize}
 
-Per i dettagli relativi a queste ontologie, si può far riferimento a  \quotes{\textit{Introducing Thing Descriptions and Interactions: An Ontology for the Web of Things}} \cite{td-paper2}, dove ad esempio nel capitolo 2.1 del sono descritti anche modi nei quali queste ontologie furono utilizzate.
+Per i dettagli relativi a queste ontologie, si può far riferimento a  \quotes{\textit{Introducing Thing Descriptions and Interactions: An Ontology for the Web of Things}} \cite{td-paper2}, dove ad esempio nel capitolo 2.1 del sono descritti anche modi nei quali queste ontologie furono utilizzate. Sempre nello stesso documento esistono riferimenti a raccolte come \textit{OWL-IoT-S} \cite{owliot}, per le quali però non vi sono, al giorno di oggi, riferimenti facilmente accessibili e recuperabili, se non l'ontologia stessa: queste possono essere usata per un ulteriore confronto, ma non verranno utilizzate al fine di realizzare il progetto finale.\\
+
+Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description:
+\begin{itemize}
+	\item \textbf{DBpedia} \cite{dbpedia}: ontologia contenente un numero elevatissimo di informazioni riguardanti diversi ambiti di quella che si può definire \quotes{human knowledge}. È utile ad individuare e descrivere caratteristiche generali di classi di oggetti (ad esempio, avendo una lampadina si possono ricavare informazioni su cos'è, come funziona e quali tipi di lampadine ci sono).
+\end{itemize}
+
+
+
 
 
 
