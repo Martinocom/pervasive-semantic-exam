@@ -345,8 +345,6 @@ Esistono di conseguenza alcuni modelli definiti e conosciuti per poter ovviare a
 	\item Infine, è possibile definire un proprio standard per la definizione della conoscenza, in modo da essere facilmente scrivibile e leggibile in un formato standard (come XML-based o JSON-based).
 \end{itemize}
 
-Generalmente parlando, quando si crea della conoscenza nell'ambito del Web Semantico, si definisce un'ontologia \cite{ontology}: una raccolta di concetti in un determinato ambito. Grazie a questa è possibile ricavare, capire e creare nuova conoscenza, combinando opportunamente attributi noti e collegabili ad altre ontologie. Uno scenario simile si addice perfettamente a ciò che risulta essere 
-
 Tra tutte le scelte descritte, solo l'ultima risulta essere molto meno indicata rispetto alle altre; una propria definizione di una descrizione non standard porterebbe presto a diverse difficoltà di lettura, manutenzione e completezza, nonché introdurrebbe un nuovo diverso e incompatibile linguaggio con quelli già esistenti. Di conseguenza, è lecito pensare che le prime due possano essere prese in considerazione, in base a quelli sono i requisiti dell'applicazione che poi si vorrà realizzare.\\
 
 Nonostante possa sembrare che gli altri due modelli descritti siano la scelta migliore da compiere, nell'ambito di Web Semantico e Smart Things vi è un emergente standard proveniente direttamente da W3C \cite{w3c}: si tratta infatti della \textbf{Thing Description} \cite{td}, la quale ha come l'obiettivo principale quello di rendere agevole la descrizione, la lettura e l'inferenza delle informazioni su quello che è l'oggetto preso in considerazione. Anche se coi modelli descritti sarebbe possibile descrivere completamente una Smart Thing scelta, l'utilizzo di uno standard nato esattamente per coprire questo ambito risulta essere altamente raccomandato, onde evitare di ricadere nella ridefinizione di principi già esistenti e confermati dalla comunità.\\
@@ -436,13 +434,55 @@ Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie
 
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Agenti e il mondo WoT}           %crea il capitolo
+\chapter{Definizione di Smart Descripted Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
+
+Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things. È utile coniare un nuovo termine, ovvero quello di \textbf{Smart \textit{\underline{Descripted}} Things}, per far riferimento agli oggetti non soltanto Smart, ma anche aventi informazioni tali da essere compliant alla Thing Description.
+
+\section{Requisiti per la piattaforma}
+Una piattaforma per la creazione delle Smart Descripted Things deve possedere alcune importanti caratteristiche:
+
+\begin{itemize}
+	\setlength\itemsep{0em}
+	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti;
+
+	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
+	
+	\item \textbf{standard}: deve garantire l'interoperabilità tra diverse piattaforme che utilizzano lo stesso standard;
+\end{itemize}
+
+È altresì importante sottolineare l'importanza di alcuni aspetti cruciali più relativi al progetto in considerazione, e non generici per una qualsiasi implementazione:
+
+\begin{itemize}
+	\setlength\itemsep{0em}
+	\setuldepth{come}
+	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
+	
+	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
+	
+	\item \textbf{\ul{\textit{opzionale}} supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
+\end{itemize}
+
+\section{Scelta della piattaforma}
+Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things \cite{wot}. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot-architecture}.\\
+
+Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
+
+\begin{itemize}
+	\item \textbf{Mozilla IoT} \cite{mozilla-iot}: piattaforma open-source mantenuta da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
+	
+	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
+	
+	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
+\end{itemize}
+
+Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su Arduino: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso. Inoltre, una delle librerie proposte è stata sviluppata da un programmatore indipendente.\\
+
+SmartThings di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi IFTTT \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
+
 
 
 
