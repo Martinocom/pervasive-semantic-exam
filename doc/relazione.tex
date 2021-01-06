@@ -31,6 +31,9 @@
 % libreria per inserire testo barrato (striked-out)
 \usepackage[normalem]{ulem}
 
+% Permette di avere la sottolineatura attaccata alla parola. Commentare per default
+\setuldepth{come}
+
 % libreria per elenchi numerati nested (es. 1.1)
 \usepackage{enumitem}
 
@@ -352,6 +355,7 @@ Nonostante possa sembrare che gli altri due modelli descritti siano la scelta mi
 Essendo questo studio relativo a metodologie nuove ed emergenti (come descritto nel capitolo \ref{new_tecnologies}), è più corretto ai fini dello stesso progetto concentrasi quindi sull'analisi di quest'ultima metodologia. È importante però sottolineare sin dal principio che nonostante la Thing Description sia un formato riconducibile (in parte) al terzo elemento dell'elenco, vi è la possibilità (se non la necessità) di includere ontologie esistenti all'interno della descrizione, in modo da poter standardizzare non solo le informazioni riguardanti l'oggetto stesso ma anche di attributi che lo compongono (ad esempio, riferendosi ai nomi delle classi di cui attributi possono esserne le istanze).\\
 
 \section{Thing Description}
+\label{sec:thing_description}
 Nella sezione precedente è stato possibile individuare il candidato per questa successiva analisi, che pone in evidenza i punti salienti e criticità del modello selezionato. È stato scelto di non descrivere i modelli rimanenti per via delle scelte intraprese nel capitolo \ref{new_tecnologies}, puntando direttamente su uno standard coprente essenzialmente tutto l'ambito di cui si sta trattando in questo capitolo.\\
 
 Una \textbf{Thing Description} \cite{td} è il blocco centrale di costruzione del Web of Things e si compone principalmente di 4 componenti che descrivono: 
@@ -436,13 +440,23 @@ Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Definizione di Smart Descripted Things}           %crea il capitolo
+\chapter{Creazione di Smart Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things. È utile coniare un nuovo termine, ovvero quello di \textbf{Smart \textit{\underline{Descripted}} Things}, per far riferimento agli oggetti non soltanto Smart, ma anche aventi informazioni tali da essere compliant alla Thing Description.
+Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things.
+
+\section{Smart Descripted Thing}
+È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, coniare un nuovo termine, anche per il solo fine di questa relazione, e di definire una \textbf{Smart \textit{\ul{Descripted}} Thing} come l'entità che si vuole costruire su una piattaforma successivamente scelta.\\
+
+Una \textbf{Smart \textit{\ul{Descripted}} Thing} non è un semplice oggetto connesso: è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite uno (o più) protocolli standard. L'oggetto così definito dev'essere descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile coi sistemi attualmente esistenti.\\
+
+Come ulteriore requisito, si pone quello di rendere le things capaci di offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono utilizzare sia la conoscenza basilare, offerta dalla descrizione, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (ed eventualmente, su altri oggetti presenti nell'ambiente).\\
+
+Da questo momento in poi, \textbf{Smart \textit{\ul{Descripted}} Thing} e Smart Thing diventano sinonimi, se non diversamente specificato.
 
 \section{Requisiti per la piattaforma}
+\label{sec:iot_platform}
 Una piattaforma per la creazione delle Smart Descripted Things deve possedere alcune importanti caratteristiche:
 
 \begin{itemize}
@@ -458,7 +472,6 @@ Una piattaforma per la creazione delle Smart Descripted Things deve possedere al
 
 \begin{itemize}
 	\setlength\itemsep{0em}
-	\setuldepth{come}
 	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
 	
 	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
@@ -482,6 +495,10 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso. Inoltre, una delle librerie proposte è stata sviluppata da un programmatore indipendente.\\
 
 \textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
+
+Mozilla, dall'altro canto, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
+
+Considerando di come l'approccio intrapreso da Mozilla copra essenzialmente tutti i requisiti, esso indubbiamente risulta essere il framework di sviluppo che da questo momento verrà preso in considerazione.
 
 
 
