@@ -450,6 +450,7 @@ Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie
 Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things.
 
 \section{Web Thing}
+\label{sec:webthing}
 È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, definire in modo preciso cosa viene inteso per "Smart Thing" in questo contesto.\\
 
 Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Web Thing} non è un semplice oggetto connesso: facendo parte del Web Of Things (riferimenti nel capitolo \ref{sec:wot}) è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite il protocollo standard HTTP. L'oggetto così definito \mbox{dev'essere} descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile.\\
@@ -560,7 +561,20 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 \end{itemize}
 
 
- 
+\subsection{Analisi del framework scelto}
+Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
+
+\textbf{WebThings Gateway} è un software che può essere lanciato all'interno di un Raspberry, sotto il sistema Linux oppure in ambiente Docker. Risulta essere il punto di controllo dell'intero sistema delle Things connesse, il quale si interfaccia con esse e permette il loro utilizzo. È utile sottolineare come questa soluzione sia adottata dalla maggior parte dei competitor sul mercato, con l'enorme differenza di avere, in questo caso, il pieno controllo su quello che è l'esecuzione e dati: il codice sorgente, infatti, risulta essere accessibile in tutte e tre le soluzioni. Inoltre, per puntualizzare alcuni aspetti tecnici, un \quotes{\textit{raccoglitore}} di questo tipo rappresenta, in un certo senso, un Single Point of Failure dell'intero sistema: dall'altra parte però risulta essere impensabile aggiungere della potenza computazionale ad oggetti come lampadine per permettere una strutturazione a rete completamente connessa tra oggetti, oppure, rendere il tutto perfettamente raggiungibile con collegamenti indiretti\footnote{anche se esistono protocolli di comunicazione che permettono un tale scambio di messaggi; questi necessitano però di un ulteriore hub per funzionare.}\\
+
+Essendo il Gateway parte che permette la comunicazione tra gli oggetti, è essenziale poterlo tenere in esecuzione. Per fortuna, non vi è bisogno di una complessa configurazione per avviarlo e, come descritto prima, può essere lanciato su diverse piattaforme supportate.\\
+
+\textbf{WebThings Framework} è una collezione di componenti riusabili che permettono la creazione delle Web Things: avendo definito nella sezione \ref{sec:webthing} che il sistema sviluppato si predilige meglio a supportare le \textbf{\ul{Web}} Things piuttosto che \textit{\ul{Smart}} Things, è un ottimo punto di partenza sapere che anche il nome stesso indica la correttezza della scelta effettuata. Una Web Thing può essere successivamente scoperta da un gateway o un client e può essere implementata in diversi modi e linguaggi:
+
+\begin{itemize}
+	\item \textbf{Mozilla Libraries}: librerie proposte direttamente da Mozilla, includenti NodeJs, Python, Java, Rust, Arduino.
+	
+	\item \textbf{Third Party Libraries}: librerie proposte direttamente dalla community, includenti Moddlable, Atmosphere, IoT.js, C\#, Go, ESP-IDF, PHP e Python.
+\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
