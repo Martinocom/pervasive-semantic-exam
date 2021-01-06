@@ -237,6 +237,8 @@ I seguenti punti riassumono la scaletta individuata:
 	
 	\item analisi nel campo del Semantic Web per descrivere la conoscenza relativa agli oggetti e all'ambiente in cui si trovano;
 	
+	\item analisi nel campo dello sviluppo per scoprire framework disponibili per la creazione delle Things,
+	
 	\item creazione degli oggetti (virtualmente o fisicamente) aventi caratteristiche rilevate nei precedenti punti;
 	
 	\item focus sulle metodologie a disposizione per sfruttare la conoscenza descritta;
@@ -417,6 +419,7 @@ Per ulteriori dettagli sul modello, si rimanda alla \underline{documentazione uf
 
 
 \section{Ontologie note}
+\label{sec:ontologie_note}
 Considerando l'adozione della Thing Description come entità per avere a disposizione le informazioni riguardanti un oggetto, è utile pensare sin dall'inizio alla conoscenza già posseduta nel campo dell'IoT. Avendo la possibilità di includere ontologie all'interno della stessa TD, è opportuno pensare che esistano delle raccolte di dati già ben strutturate e pronte all'uso, in modo da rendere più agevole l'esplorazione della conoscenza che si va a creare. Inoltre, la sola Thing Description, come definito nella precedente sezione, non è sufficiente per essere ritenuta una conoscenza valida per il mondo del Web Semantico.\\
 
 Una grande caratteristica delle ontologie è il fatto di poter essere collegate tra di loro: la conoscenza forma così un unico sistema nel quale si possono estrarre o inferire informazioni: ad esempio, sapendo che l'oggetto in questione è una lampadina, anche senza una Thing Description si può assumere che essa abbia modi per accendersi, spegnersi ed eventualmente regolare la propria intensità. Anche una semplice descrizione di cosa sia effettivamente l'oggetto può essere considerata conoscenza utile: sapendo ad esempio di avere una certa tipologia di climatizzatore, si può inferire il modo in cui debba essere eseguita la sua manutenzione, basandosi sulla tecnologia e/o componenti che usa internamente.\\
@@ -441,13 +444,18 @@ Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie
 
 
 
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Creazione di Things}           %crea il capitolo
+\chapter{Analisi delle Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things.
+È di estrema importanza sapere il concetto base sul quale si sta lavorando: in questo capitolo verrà definita l'entità di prima classe (la Thing) e verrano progettate ad alto livello le funzionalità delle thing scelte per la successiva implementazione.
+
 
 \section{Web Thing}
 \label{sec:webthing}
@@ -459,66 +467,9 @@ Come ulteriore aggiunta a quello che è la descrizione generale, si richiede all
 
 Da questo momento in poi quindi, non ha più senso di parlare di Smart Things: ogni qual volta si incontrerà il termine \quotes{\textit{Thing}} si farà riferimento alla \textbf{Web Thing}, se non indicato diversamente.
 
-\section{Requisiti per la piattaforma}
-\label{sec:iot_platform}
-Una piattaforma per la creazione delle Smart Descripted Things deve possedere alcune importanti caratteristiche:
-
-\begin{itemize}
-	\setlength\itemsep{0em}
-	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti;
-
-	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
-	
-	\item \textbf{standard}: deve garantire l'interoperabilità tra diverse piattaforme che utilizzano lo stesso standard;
-\end{itemize}
-
-È altresì importante sottolineare l'importanza di alcuni aspetti cruciali più relativi al progetto in considerazione, e non generici per una qualsiasi implementazione:
-
-\begin{itemize}
-	\setlength\itemsep{0em}
-	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
-	
-	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
-	
-	\item \textbf{\ul{\textit{opzionale}} supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
-\end{itemize}
-
-\section{Scelta della piattaforma}
-Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things \cite{wot}. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot-architecture}.\\
-
-Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
-
-\begin{itemize}
-	\item \textbf{Mozilla IoT} \cite{mozilla-iot}: piattaforma open-source mantenuta da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
-	
-	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
-	
-	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
-\end{itemize}
-
-Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso. Inoltre, una delle librerie proposte è stata sviluppata da un programmatore indipendente.\\
-
-\textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
-
-Mozilla, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
-
-Considerando di come l'approccio intrapreso da Mozilla copra essenzialmente tutti i requisiti, esso indubbiamente risulta essere il framework di sviluppo che da questo momento verrà preso in considerazione.
-
 
 \section{Modellazione delle Things}
-
-Per procedere alla progettazione, creazione e test delle things create, è opportuno suddividere questa sezione in più punti:
-
-\begin{itemize}
-	\setlength\itemsep{-0.7em}
-	\item scelta delle Smart Thing da progettare,
-	\item analisi sulle possibili strade da intraprendere nel framework selezionato,
-	\item implementazione delle Things,
-	\item test.
-\end{itemize}
-
-
-\subsection{Scelta delle Things e funzionalità}
+\label{sec:modellazione-things}
 Prima di passare alla progettazione, è opportuno selezionare alcuni oggetti della vita quotidiana che potrebbero essere in qualche modo rappresentativi per il modello che si vuole simulare. Trattandosi di un'esplorazione che ha come obiettivo quello di mettere il focus su una Smart Room, è di notevole importanza selezionare oggetti e le relative funzionalità ad alto livello, in modo che risultino importanti per le analisi svolte.\\
 
 All'interno di una stanza è infatti possibile trovare diversi oggetti di uso quotidiano che potrebbero essere visti in modo diverso, se connessi. Tra i dispositivi più utilizzati nell'ambito di una stanza possiamo trovare ad esempio lampadine, TV, prese elettriche, tapparelle e/o finestre, ventilatori e/o climatizzatori e sveglie. Per motivi di semplicità e per non perdersi inutilmente nella definizione di troppe Thing, si è deciso di optare per i seguenti oggetti:
@@ -561,6 +512,62 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 \end{itemize}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{Analisi dei Framework di sviluppo}           %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
+
+Considerando l'imminente programmazione delle things, si procede all'analisi dei framework a disposizione del programmatore per la creazione delle Web Things.
+
+\section{Requisiti per la piattaforma}
+\label{sec:iot_platform}
+Una piattaforma per la creazione delle Things deve possedere alcune importanti caratteristiche:
+
+\begin{itemize}
+	\setlength\itemsep{0em}
+	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti;
+
+	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
+	
+	\item \textbf{standard}: deve garantire l'interoperabilità tra diverse piattaforme che utilizzano lo stesso standard;
+\end{itemize}
+
+È altresì importante sottolineare l'importanza di alcuni aspetti cruciali più relativi al progetto in considerazione, e non generici per una qualsiasi implementazione:
+
+\begin{itemize}
+	\setlength\itemsep{0em}
+	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
+	
+	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
+	
+	\item \textbf{\ul{\textit{opzionale}} supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
+\end{itemize}
+
+\section{Piattaforme disponibili}
+Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things \cite{wot}. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot-architecture}.\\
+
+Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
+
+\begin{itemize}
+	\item \textbf{Mozilla IoT} \cite{mozilla-iot}: piattaforma open-source mantenuta da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
+	
+	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
+	
+	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
+\end{itemize}
+
+
+Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso. Inoltre, una delle librerie proposte è stata sviluppata da un programmatore indipendente.\\
+
+\textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
+
+Mozilla, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
+
+Considerando di come l'approccio intrapreso da Mozilla copra essenzialmente tutti i requisiti, esso indubbiamente risulta essere il framework di sviluppo che da questo momento verrà preso in considerazione.
+
+
 \subsection{Analisi del framework scelto}
 Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
 
@@ -577,9 +584,58 @@ Essendo il Gateway parte che permette la comunicazione tra gli oggetti, è essen
 \end{itemize}
 
 
-Una volta definito precisamente il framework scelto, è opportuno delineare una strada da percorrere per il processo di sviluppo. La scelta è ampia e permette alla maggior parte dei programmatori a scegliere il modello che più si addice alle sue competenze e disponibilità di hardware: in questo caso le piattaforme prediligenti l'uso di device esterni, quali Raspberry o Arduino sono meno indicate, in quanto non attualmente in possesso.
+Una volta definito precisamente il framework scelto, è opportuno delineare una strada da percorrere per il processo di sviluppo. La scelta è ampia e permette alla maggior parte dei programmatori a scegliere il modello che più si addice alle sue competenze e disponibilità di hardware: in questo caso le piattaforme prediligenti l'uso di device esterni, quali Raspberry o Arduino sono meno indicate, in quanto non attualmente in possesso.\\
 
 Per poter comunque sperimentare la creazione di nuove Things, con l'annessa possibilità di prototipazione e test, è utile selezionare una delle modalità che permettono di ottenere il risultato richiesto anche nei requisiti definiti nel capitolo \ref{sec:iot_platform}. In base all'esperienza del programmatore, è più conveniente utilizzare la piattaforma \textbf{Java}, nella quale si hanno ormai consolidate conoscenze. Per non ricadere però in una classica implementazione, si preferisce adottare il linguaggio \textbf{Kotlin}, pienamente compatibile, per agevolare ulteriormente lo sviluppo.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{Implementazione delle Things}           %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
+
+\section{Scelta dell'IDE}
+Avendo scelto come linguaggio Kotlin, si procede alla configurazione dell'ambiente di sviluppo: in questo caso, vi è necessità di un IDE capace di facilitare lo sviluppo, considerando anche il linguaggio scelto. Esistono tre soluzioni più indicate in questo caso: Eclipse, IntelliJ e Visual Studio Code.\\
+
+\textbf{Eclipse} è uno strumento gratis che permette un facile e agevole sviluppo in diversi linguaggi, tra cui il linguaggio Java. Anche se possiede il supporto a Koltin, esso non è nativo e a volte presenta dei problemi sia coi suggerimenti che con la compilazione.\\
+
+\textbf{IntelliJ} è uno strumento versatile che permette uno sviluppo in diversi linguaggi, tra cui nativamente Java e Kotlin. Risulta essere la miglior scelta, anche se nella versione gratuita non offre tutte le funzionalità offerte nel pacchetto premium. La facilità con la quale però si integra con Kotlin, rende il suo utilizzo meno faticoso rispetto ad Eclipse.\\
+
+\textbf{Visual Studio Code} è un editor di testo avanzato con diversi plugin per la maggior parte dei linguaggi conosciuti. È molto più povero delle due alternative proposte sopra: nonostante ciò è molto utile per il confronto dei file e per una veloce apertura dei file per l'esplorazione.\\
+
+Mettendo in evidenza tutti i vantaggi e svantaggi, è chiaro che IntelliJ, se fosse nella versione premium, vincerebbe il primato della classifica. Essendoci però diversi problemi riguardanti il supporto di Kotlin su Eclipse è comunque preferibile utilizzare IntelliJ nella sua versione gratuita, per poter avere una rapida e indolore prototipazione di oggetti, senza perdere tempo sulla configurazione dell'ambiente di sviluppo. A parità di utilità, oltre a IntelliJ, si ritiene opportuno avere a disposizione Visual Studio Code per rapidi confronti e anteprime.\\
+
+\section{Definizioni delle Description}
+Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è possibile far riferimento a più documenti che definiscono lo standard: per essere compliant al framework, si preferisce utilizzare il riferimento di Mozilla \cite{mozilla-iot} per questo standard, anche se in versione \quotes{\textit{non ufficiale}}.\\
+
+Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di questa relazione, si indicano come allegati le seguenti descrizioni degli oggetti:
+
+\begin{itemize}
+	\setlength\itemsep{-0.3em}
+	
+	\item \textbf{Lampadina}: \texttt{attachments/td/lamp.json}
+	
+	\item \textbf{TV}: \texttt{attachments/td/tv.json}
+	
+	\item \textbf{Ventilatore}: \texttt{attachments/td/fan.json}
+	
+	\item \textbf{Tapparella}: \texttt{attachments/td/shutter.json}
+\end{itemize}
+
+La \textbf{lampadina} verrà presa come riferimento per la definizione dei successivi oggetti: non vi sarà, infatti, una ripetizione nella descrizione del procedimento per gli oggetti indicati nelle successive sezioni; verranno analizzati soltanto i punti cruciali ed eventuali differenze e/o difficoltà incontrate nella definizione di esse.
+
+
+\subsection{Lampadina}
+
+\subsection{TV}
+
+\subsection{Ventilatore}
+
+\subsection{Tapparella}
+
+
 
 
 
