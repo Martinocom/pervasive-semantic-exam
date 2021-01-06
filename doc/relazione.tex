@@ -299,6 +299,7 @@ I problemi che possono essere invece aggiunti in questo ambito riguardano più l
 
 
 \section{Smart Thing}
+\label{sec:smart_thing}
 Un oggetto Smart \cite{smartthing} è un'entità connessa, facente intrinsecamente parte di una rete (verosimilmente, formata da altri oggetti connessi). Possiede capacità di comunicare ed interagire con ulteriori entità, che possono essere di diverso tipo: macchine, umani e/o altre Smart Things. Può essere capace di eseguire semplici ragionamenti sullo stato proprio e quello dell'ambiente, oppure essere un semplice sensore/attuatore con proprietà e funzioni esposte; infatti, è possibile differenziare gli oggetti in base alla loro \quotes{intelligenza}: digital, connected, responsive e intelligent.
 
 
@@ -449,7 +450,7 @@ Considerando l'insieme delle possibilità scoperte, si procede di conseguenza al
 \section{Smart Descripted Thing}
 È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, coniare un nuovo termine, anche per il solo fine di questa relazione, e di definire una \textbf{Smart \textit{\ul{Descripted}} Thing} come l'entità che si vuole costruire su una piattaforma successivamente scelta.\\
 
-Una \textbf{Smart \textit{\ul{Descripted}} Thing} non è un semplice oggetto connesso: è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite uno (o più) protocolli standard. L'oggetto così definito dev'essere descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile coi sistemi attualmente esistenti.\\
+Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Smart \textit{\ul{Descripted}} Thing} non è un semplice oggetto connesso: è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite uno (o più) protocolli standard. L'oggetto così definito dev'essere descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile coi sistemi attualmente esistenti.\\
 
 Come ulteriore requisito, si pone quello di rendere le things capaci di offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono utilizzare sia la conoscenza basilare, offerta dalla descrizione, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (ed eventualmente, su altri oggetti presenti nell'ambiente).\\
 
@@ -496,10 +497,25 @@ Basandosi sui criteri definiti nella sezione precedente, è quindi possibile sca
 
 \textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
 
-Mozilla, dall'altro canto, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
+Mozilla, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
 
 Considerando di come l'approccio intrapreso da Mozilla copra essenzialmente tutti i requisiti, esso indubbiamente risulta essere il framework di sviluppo che da questo momento verrà preso in considerazione.
 
+
+\section{Modellazione delle Things}
+
+Per procedere alla progettazione, creazione e test delle things create, è opportuno suddividere questa sezione in più punti:
+
+\begin{itemize}
+	\setlength\itemsep{-0.7em}
+	\item scelta delle Smart Thing da progettare,
+	\item analisi sulle possibili strade da intraprendere nel framework selezionato,
+	\item implementazione delle Things,
+	\item test.
+\end{itemize}
+
+\subsection{Scelta delle Things}
+Prima di passare alla progettazione, è opportuno selezionare alcuni oggetti della vita quotidiana che potrebbero essere in qualche modo rappresentativi per il modello che si vuole simulare. Trattandosi di un'esplorazione che ha come obiettivo quello di mettere il focus su una Smart Room, è di notevole importanza selezionare oggetti che possano risultare importanti per le analisi svolte.\\
 
 
 
