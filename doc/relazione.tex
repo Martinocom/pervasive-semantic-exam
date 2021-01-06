@@ -517,7 +517,50 @@ Per procedere alla progettazione, creazione e test delle things create, è oppor
 \end{itemize}
 
 
+\subsection{Scelta delle Things e funzionalità}
+Prima di passare alla progettazione, è opportuno selezionare alcuni oggetti della vita quotidiana che potrebbero essere in qualche modo rappresentativi per il modello che si vuole simulare. Trattandosi di un'esplorazione che ha come obiettivo quello di mettere il focus su una Smart Room, è di notevole importanza selezionare oggetti e le relative funzionalità ad alto livello, in modo che risultino importanti per le analisi svolte.\\
 
+All'interno di una stanza è infatti possibile trovare diversi oggetti di uso quotidiano che potrebbero essere visti in modo diverso, se connessi. Tra i dispositivi più utilizzati nell'ambito di una stanza possiamo trovare ad esempio lampadine, TV, prese elettriche, tapparelle e/o finestre, ventilatori e/o climatizzatori e sveglie. Per motivi di semplicità e per non perdersi inutilmente nella definizione di troppe Thing, si è deciso di optare per i seguenti oggetti:
+
+\begin{itemize}
+	\item \textbf{Lampadina}: oggetto rappresentativo e onnipresente in casa; è facile immaginarsi le sue funzionalità al completo ed è immediatamente collegabile al discorso di \quotes{\textit{smartness}}, in quanto sul mercato esisto già diverse soluzioni che propongono lampadine \quotes{\textit{smart}}. Una lampadina pensata allo studio in questione deve possedere le seguenti funzionalità:
+	\begin{itemize}
+		\setlength\itemsep{-0.0em}
+		\item spegnersi ed accendersi,
+		\item toggle (cambiare di stato),
+		\item regolazione di intensità,
+		\item offrire possibilità di leggere i parametri (ad esempio, lo stato attuale, l'intensità corrente).
+	\end{itemize}
+	
+	\item \textbf{Televisore}: oggetto comune all'interno delle case, offrente diverse possibilità. Nell'esempio trattato non dovrà coprire tutte le funzionalità, soprattutto perchè con l'avvento delle Smart TV le features disponibili sono presenti in quantità sbalorditiva, ma comunque dovrà disporre di funzionalità come:
+	\begin{itemize}
+		\setlength\itemsep{-0.0em}
+		\item spegnersi ed accendersi,
+		\item toggle (cambiare di stato),
+		\item cambiare canale,
+		\item regolare volume e luminosità,
+		\item offrire possibilità di leggere i parametri (ad esempio, il canale o il volume attualmente impostato).
+	\end{itemize}
+	
+	\item \textbf{Ventilatore}: più semplice di un climatizzatore, rappresenta l'oggetto che può interagire meglio con l'ambiente per cambiarne lo stato (in questo caso temperatura). Le funzionalità richieste sono:
+	\begin{itemize}
+		\setlength\itemsep{-0.0em}
+		\item spegnersi ed accendersi,
+		\item impostare l'intensità,
+		\item offrire possibilità di leggere i parametri (ad esempio, lo stato in cui si trova attualmente).
+	\end{itemize}
+	
+	\item \textbf{Tapparella}: insieme alla finestra e lampadina, possono modificare lo stato dell'ambiente (in questo caso luminosità). Deve permettere alcune semplici funzionalità:
+	\begin{itemize}
+		\setlength\itemsep{-0.0em}
+		\item abbassarsi o alzarsi completamente,
+		\item abbassarsi o alzarsi specificando l'altezza,
+		\item offrire possibilità di leggere i parametri (ad esempio, l'altezza in cui si trova attualmente).
+	\end{itemize}
+\end{itemize}
+
+
+ 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
