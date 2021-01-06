@@ -608,14 +608,14 @@ Avendo scelto come linguaggio Kotlin, si procede alla configurazione dell'ambien
 Mettendo in evidenza tutti i vantaggi e svantaggi, è chiaro che IntelliJ, se fosse nella versione premium, vincerebbe il primato della classifica. Essendoci però diversi problemi riguardanti il supporto di Kotlin su Eclipse è comunque preferibile utilizzare IntelliJ nella sua versione gratuita, per poter avere una rapida e indolore prototipazione di oggetti, senza perdere tempo sulla configurazione dell'ambiente di sviluppo. A parità di utilità, oltre a IntelliJ, si ritiene opportuno avere a disposizione Visual Studio Code per rapidi confronti e anteprime.\\
 
 \section{Definizioni delle Description}
-Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è possibile far riferimento a più documenti che definiscono lo standard: per essere compliant al framework, si preferisce utilizzare il riferimento di Mozilla \cite{mozilla-iot} per questo standard, anche se in versione \quotes{\textit{non ufficiale}}.\\
+Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è possibile far riferimento a più documenti che definiscono lo standard: per essere compliant al framework, si preferisce utilizzare il riferimento di \texttt{webthings.io}, anche se in versione \quotes{\textit{non ufficiale}}.\\
 
 Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di questa relazione, si indicano come allegati le seguenti descrizioni degli oggetti:
 
 \begin{itemize}
 	\setlength\itemsep{-0.3em}
 	
-	\item \textbf{Lampadina}: \texttt{attachments/td/lamp.json}
+	\item \textbf{Lampadina}: \texttt{attachments/td/bulb.json}
 	
 	\item \textbf{TV}: \texttt{attachments/td/tv.json}
 	
@@ -626,8 +626,115 @@ Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di q
 
 La \textbf{lampadina} verrà presa come riferimento per la definizione dei successivi oggetti: non vi sarà, infatti, una ripetizione nella descrizione del procedimento per gli oggetti indicati nelle successive sezioni; verranno analizzati soltanto i punti cruciali ed eventuali differenze e/o difficoltà incontrate nella definizione di esse.
 
+\subsection{Definizione base}
+Si parte da una descrizione senza considerare eventuali ontologie da creare; si predispone però quest'ultima già in modo da avere un contesto indicato, in modo da essere individuabile all'interno di uno schema definito di Things conosciute con proprietà simili.\\
 
-\subsection{Lampadina}
+Come contesti si possono utilizzare due piattaforme più famose: \href{https://webthings.io/schemas/}{\texttt{WebThings.io Schema}}\footnote{\url{https://webthings.io/schemas/}} oppure \href{http://iotschema.org/docs/full.html}{\texttt{IoT Schema}}\footnote{\url{http://iotschema.org/docs/full.html}}. Siccome la scelta del documento di riferimento è caduta anche precedentemente su \texttt{WebThings.io}, si preferisce continuare ad usare la stessa piattaforma anche per la definizione del contesto.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{eps/light.png}
+	\caption{Rappresentazione di funzionalità e attributi di una lampadina secondo \texttt{WebThings.io Schema}.}
+	\label{fig:web-things-io-light-schema}
+\end{figure}
+
+Partendo come esempio dalla lampadina, essa è identificabile tramite lo schema come una \quotes{\textit{Light}}. Nella figura \ref{fig:web-things-io-light-schema} è possibile apprezzare le funzionalità e attributi richiesti.\\
+
+
+Si definisce quindi la Web Thing come compliant al contesto di \texttt{WebThings.io Schema} e come tipologia oggetto come una \quotes{\textit{Light}}, utilizzando la formattazione JSON:
+
+\begin{lstlisting}[language=json,caption={Inizio di una TD della lampadina},label=lst:start-td-lamp]
+  "@context": "https://webthings.io/schemas/",
+  "@type": ["Light", "OnOffSwitch"],
+  [...]
+\end{lstlisting}
+
+Segue la definizione di parametri necessari all'identificazione della Thing all'interno di un ambiente: vengono forniti un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}). \\
+
+\begin{lstlisting}[language=json,caption={Attributi di base di una lampadina},label=lst:start2-td-lamp]
+  [...]
+  "id": "https://mywebthingserver.com/things/bulb",
+  "title":"Bulb",
+  "description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+\end{lstlisting}
+
+Successivamente, per essere compliant allo schema indicato, si definisco le proprietà che una generica lampadina possiede. Si vuole notare che lo schema in figura \ref{fig:web-things-io-light-schema} dimostra \uline{tutte} le possibilità di un oggetto, ma soltanto alcune sono richieste nella fase di implementazione; altre sono semplicemente opzionali.\\
+
+Ogni proprietà definita, se contiene un campo \texttt{@type} è compliant allo schema; di conseguenza deve indicare tutti i parametri richiesti, in modo da offrire l'universalità nella lettura della thing e dei suoi attributi. Da notare che esistono due campi con denominazione \textit{type}: il primo, con la chiocciola (@) serve per evidenziare il tipo di proprietà attribuita allo scheda scelto, la seconda definisce il tipo di dato che restituisce quella determinata proprietà.\\
+
+\begin{lstlisting}[language=json,caption={Proprietà di una lampadina},label=lst:start3-td-lamp]
+  "properties": {
+  	
+	"on": {
+	  "@type": "OnOffProperty",
+	  "type": "boolean",
+	  "title": "On/Off",
+	  "description": "It's true when the bulb is on; it's false when turned off",
+	  "links": [{"href": "/things/bulb/properties/on"}]
+	},
+
+	"brightness" : {
+	  "@type": "BrightnessProperty",
+	  "type": "integer",
+	  "title": "Brightness",
+	  "description": "The level of light from 0-100",
+	  "minimum" : 0,
+	  "maximum" : 100,
+	  "links": [{"href": "/things/lamp/properties/brightness"}]
+	}
+}
+\end{lstlisting}
+
+Si vuole notare che con questo set di proprietà la lampadina è già perfettamente compatibile con i requisiti definiti nel capitolo \ref{sec:modellazione-things}: infatti, le proprietà indicata non sono di sola lettura ed essendo quindi modificabili, lo stato della lampadina può essere definito impostando opportunamente il loro valore. Per motivi di completezza, si preferisce aggiungere inoltre un ulteriore campo, relativo alle azioni che possono essere svolte sull'oggetto stesso, in modo tale da poter, ad esempio, animare l'aumento o la diminuzione dell'intensità luminosa della lampadina stessa: 
+
+\begin{lstlisting}[language=json,caption={Azioni di una lampadina},label=lst:start4-td-lamp]
+"actions": {
+  "fade": {
+    "@type": "FadeAction",
+    "title": "Fade",
+    "description": "Fade the lamp to a given level",
+    "input": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "duration": {
+          "type": "integer",
+          "minimum": 0,
+          "unit": "milliseconds"
+        }
+      }
+    },
+	"links": [{"href": "/things/lamp/actions/fade"}]
+  }
+},
+\end{lstlisting}
+
+Si vuole sottolineare che è possibile specificare eventi scaturiti da una lampadina, ma nel caso studiato non vi è presente tale richiesta.
+Infine, per completare la TD, vengono indicati tutti i link disponibili su quell'oggetto: in questo caso, vengono specificati collegamenti alle proprietà, azioni e una differente rappresentazione della lampadina, in formato HTML
+
+\begin{lstlisting}[language=json,caption={Link di una lampadina},label=lst:start5-td-lamp]
+"links": [
+  {
+    "rel": "properties",
+    "href": "/things/lamp/properties"
+  },
+  {
+    "rel": "actions",
+    "href": "/things/lamp/actions"
+  },
+  {
+    "rel": "alternate",
+    "mediaType": "text/html",
+    "href": "/things/lamp"
+  }
+]
+\end{lstlisting}
+
+
 
 \subsection{TV}
 
