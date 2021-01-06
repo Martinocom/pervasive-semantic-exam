@@ -165,12 +165,11 @@
 \def\lstlistingautorefname{Codice}
 %
 \oddsidemargin=30pt \evensidemargin=20pt	%impostano i margini
-\hyphenation{sil-la-ba-zio-ne thread findbugs package gradle}
-					   %serve per la sillabazione: tra parentesi
-					   %vanno inserite come nell'esempio le parole
-%					   %che latex non riesce a tagliare nel modo giusto andando a capo.
 
-%
+% Imposta la sillabazione per le parole che latex spezza male (senza virgole)
+\hyphenation{sil-la-ba-zio-ne thread findbugs package gradle dev}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%comandi per l'impostazione
                                         %   della pagina, vedi il manuale
                                         %   della libreria fancyhdr
@@ -234,7 +233,7 @@ Avendo come caratteristica quella di essere una via di mezzo tra lo studio ed ef
 I seguenti punti riassumono la scaletta individuata:
 
 \begin{itemize}
-	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Smart Things, Conoscenza);
+	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Things, Conoscenza);
 	
 	\item analisi nel campo del Semantic Web per descrivere la conoscenza relativa agli oggetti e all'ambiente in cui si trovano;
 	
@@ -284,7 +283,10 @@ Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio a
 W3C \cite{w3c} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno.
 
 \subsection{WoT}
+\label{sec:wot}
 Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, W3C ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
+
+Risulta essere una visione più ampia e grande di IoT, in quanto può includere quest'ultima al suo interno: mentre IoT risulta essere un concetto a \quotes{\textit{basso}} livello, WoT è visto come un'astrazione ad un livello più alto. Non vi sono più infatti protocolli specifici, ma il concetto di risorse accessibili via HTTP: sparisce tutta la complessità di capire il come avviene la comunicazione, grazie all'adozione di hub capaci di \quotes{\textit{tradurre}} comandi in diversi protocolli utilizzati sotto dalle things.
 
 
 \section{Smart Room}
@@ -313,7 +315,7 @@ Le ontologie \cite{ontology} sono la raccolta dei concetti dato un determinato a
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Web Semantico e Smart Things}           %crea il capitolo
+\chapter{Web Semantico e Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 In questo capitolo verranno analizzati le possibilità date a disposizione per descrivere le Things, in modo da poter utilizzare in modo interoperabile la conoscenza che presentano.
@@ -441,20 +443,20 @@ Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Creazione di Smart Things}           %crea il capitolo
+\chapter{Creazione di Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
 Considerando l'insieme delle possibilità scoperte, si procede di conseguenza alla definizione e creazione delle Things.
 
-\section{Smart Descripted Thing}
-È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, coniare un nuovo termine, anche per il solo fine di questa relazione, e di definire una \textbf{Smart \textit{\ul{Descripted}} Thing} come l'entità che si vuole costruire su una piattaforma successivamente scelta.\\
+\section{Web Thing}
+È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, definire in modo preciso cosa viene inteso per "Smart Thing" in questo contesto.\\
 
-Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Smart \textit{\ul{Descripted}} Thing} non è un semplice oggetto connesso: è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite uno (o più) protocolli standard. L'oggetto così definito dev'essere descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile coi sistemi attualmente esistenti.\\
+Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Web Thing} non è un semplice oggetto connesso: facendo parte del Web Of Things (riferimenti nel capitolo \ref{sec:wot}) è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite il protocollo standard HTTP. L'oggetto così definito \mbox{dev'essere} descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile.\\
 
-Come ulteriore requisito, si pone quello di rendere le things capaci di offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono utilizzare sia la conoscenza basilare, offerta dalla descrizione, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (ed eventualmente, su altri oggetti presenti nell'ambiente).\\
+Come ulteriore aggiunta a quello che è la descrizione generale, si richiede alle Things di poter offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono così utilizzare sia le informazioni basilari, offerte intrinsecamente dalla descrizione in un formato standard, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (ed eventualmente, su altri oggetti presenti nell'ambiente).\\
 
-Da questo momento in poi, \textbf{Smart \textit{\ul{Descripted}} Thing} e Smart Thing diventano sinonimi, se non diversamente specificato.
+Da questo momento in poi quindi, non ha più senso di parlare di Smart Things: ogni qual volta si incontrerà il termine \quotes{\textit{Thing}} si farà riferimento alla \textbf{Web Thing}, se non indicato diversamente.
 
 \section{Requisiti per la piattaforma}
 \label{sec:iot_platform}
@@ -514,8 +516,7 @@ Per procedere alla progettazione, creazione e test delle things create, è oppor
 	\item test.
 \end{itemize}
 
-\subsection{Scelta delle Things}
-Prima di passare alla progettazione, è opportuno selezionare alcuni oggetti della vita quotidiana che potrebbero essere in qualche modo rappresentativi per il modello che si vuole simulare. Trattandosi di un'esplorazione che ha come obiettivo quello di mettere il focus su una Smart Room, è di notevole importanza selezionare oggetti che possano risultare importanti per le analisi svolte.\\
+
 
 
 
@@ -754,13 +755,13 @@ La questione, inizialmente, risulta essere banale se osservata da solo un punto 
 	
 	\item \textbf{Scoperta nuove funzionalità}: un sistema descritto in modo tale da permettere ad una macchina di fare del reasoning sopra, rende possibile la scoperta di ulteriori funzionalità (o proprietà) del sistema, non inizialmente previste. Sapendo, ad esempio, di avere 4 lampadine connesse in fila, si può dedurre che accendendo e spegnendole in un certo ordine si possono creare sequenze di luci. Nel caso di un entità centrale, ad esempio, il reasoning potrebbe essere fatto ogni tal volta che un nuovo oggetto viene aggiunto al sistema, ragionando su quelle che sono le azioni e proprietà di quell'oggetto.
 	
-	\item \textbf{Sicurezza}: analizzando i dati a disposizione, eventualmente derivandone nuovi, si possono individuare pattern comportamentali di individui che utilizzano quotidianamente oggetti Smart. Grazie alla descrizione dello stato, essa è univoca e osservabile sempre: se un malintenzionato volesse procedere in modo molto contrastante con quelle che sono le solite abitudini degli utilizzatori, il sistema potrebbe provvedere all'avviso o addirittura blocco delle azioni malevole. Inoltre, la verifica sui comportamenti dei singoli oggetti, analizzando il loro stato, porta ad un'incremento dell'affidabilità degli stessi, nonché aggiunge uno strato di protezione contro Smart Things malevole, che senza un monitoraggio attivo del loro stato attuale, potrebbero essere immerse nel sistema e risultare invisibili e/o camuffate; ad esempio, conoscendo un classico comportamento di una lampadina, se essa cominciasse ad eseguire azioni non comuni a questa tipologia di oggetto, il sistema potrebbe avvisare l'utente e/o bloccare un tale azione.
+	\item \textbf{Sicurezza}: analizzando i dati a disposizione, eventualmente derivandone nuovi, si possono individuare pattern comportamentali di individui che utilizzano quotidianamente oggetti Smart. Grazie alla descrizione dello stato, essa è univoca e osservabile sempre: se un malintenzionato volesse procedere in modo molto contrastante con quelle che sono le solite abitudini degli utilizzatori, il sistema potrebbe provvedere all'avviso o addirittura blocco delle azioni malevole. Inoltre, la verifica sui comportamenti dei singoli oggetti, analizzando il loro stato, porta ad un'incremento dell'affidabilità degli stessi, nonché aggiunge uno strato di protezione contro Things malevole, che senza un monitoraggio attivo del loro stato attuale, potrebbero essere immerse nel sistema e risultare invisibili e/o camuffate; ad esempio, conoscendo un classico comportamento di una lampadina, se essa cominciasse ad eseguire azioni non comuni a questa tipologia di oggetto, il sistema potrebbe avvisare l'utente e/o bloccare un tale azione.
 	
 	\item \textbf{Individuazione oggetti}: nel caso in cui la Thing Description non fosse disponibile, oppure nel caso in cui non sia completa, avendo a disposizione una quantità di dati sufficiente, è possibile non solo individuare pattern comportamentali di oggetti, ma anche oggetti stessi, permettendo la loro corretta classificazione. Questo aspetto può portare ad una semplificazione di interrogazioni che potrebbero essere fatte all'interno dell'ambiente, chiedendo, ad esempio, di elencare tutti i dispositivi le cui funzionalità corrispondono ad una determinata interessata caratteristica. Questo aspetto è comunque strettamente legato a tutto quello che è descritto già nel punto soprastante, riguardante la sicurezza.
 	
 \end{itemize}
 
-Dare semantica agli oggetti quindi, non solo nel modello degli Agenti BDI, vuol dire aggiungere potenzialità e nuove possibilità all'environment analizzato: rendere le cose ancora più connesse e parlanti, garantendo, oltretutto, un maggior controllo su quello che succede all'interno del sistema incrementandone la sicurezza; il tutto porterebbe ad una riduzione dei costi di manutenzione, prevenzione dei guasti e/o la limitazione dei danni dovuti ad essi, nonché garantirebbe una vasta disponibilità di dati che possono essere marcati come "smart", in quanto ben definibili, collegabili e capibili da una macchina.\\
+Dare semantica agli oggetti quindi, non solo nel modello degli Agenti BDI, vuol dire aggiungere potenzialità e nuove possibilità all'environment analizzato: rendere le cose ancora più connesse e parlanti, garantendo, oltretutto, un maggior controllo su quello che succede all'interno del sistema incrementandone la sicurezza; il tutto porterebbe ad una riduzione dei costi di manutenzione, prevenzione dei guasti e/o la limitazione dei danni dovuti ad essi, nonché garantirebbe una vasta disponibilità di dati che possono essere marcati come \quotes{\textit{smart}}, in quanto ben definibili, collegabili e capibili da una macchina.\\
 
 
 Purtroppo attualmente in campo non esistono standard che definiscono questo tipo di soluzioni, anche se come descritto in \textit{\quotes{Building Cyber-Physical Systems - A Smart BuildingUse Case}} \cite{smartbuilding}, si può però pensare di poter usufruire delle ontologie definite, ad esempio, tramite RDF \cite{rdf}. Per realizzare un test di quello che viene poi definito, si può pensare a SPARQL \cite{sparql} per quanto riguarda l'interrogazione della conoscenza creata.
