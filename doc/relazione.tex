@@ -47,6 +47,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
 \usepackage[table]{xcolor}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
 										%	con colonne centrate
@@ -608,7 +609,9 @@ Avendo scelto come linguaggio Kotlin, si procede alla configurazione dell'ambien
 Mettendo in evidenza tutti i vantaggi e svantaggi, è chiaro che IntelliJ, se fosse nella versione premium, vincerebbe il primato della classifica. Essendoci però diversi problemi riguardanti il supporto di Kotlin su Eclipse è comunque preferibile utilizzare IntelliJ nella sua versione gratuita, per poter avere una rapida e indolore prototipazione di oggetti, senza perdere tempo sulla configurazione dell'ambiente di sviluppo. A parità di utilità, oltre a IntelliJ, si ritiene opportuno avere a disposizione Visual Studio Code per rapidi confronti e anteprime.\\
 
 \section{Definizioni delle Description}
-Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è possibile far riferimento a più documenti che definiscono lo standard: per essere compliant al framework, si preferisce utilizzare il riferimento di \texttt{webthings.io}, anche se in versione \quotes{\textit{non ufficiale}}.\\
+Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è possibile far riferimento a più documenti che definiscono lo standard: per essere compliant al framework, si preferisce utilizzare il riferimento di \texttt{webthings.io}, anche se in versione \quotes{\textit{non ufficiale}}. Inoltre, considerando lo \quotes{\textit{stato del documento}} relativo alla Web Thing API è \textbf{necessario} utilizzare quello come riferimento ufficiale, in quanto copre tutte le caratteristiche nella libreria sottostante: eventuali aggiunte messe a disposizione dal W3C (ovvero, le raccomandazioni ufficiali) potrebbero non essere supportate.\\
+
+\quotes{\textit{This specification started as a draft W3C member submission by Mozilla, but continues to be maintained to document the API currently implemented by the WebThings IoT platform while it converges with the W3C standards as they mature.}}
 
 Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di questa relazione, si indicano come allegati le seguenti descrizioni degli oggetti:
 
@@ -714,7 +717,7 @@ Si vuole notare che con questo set di proprietà la lampadina è già perfettame
 \end{lstlisting}
 
 Si vuole sottolineare che è possibile specificare eventi scaturiti da una lampadina, ma nel caso studiato non vi è presente tale richiesta.
-Infine, per completare la TD, vengono indicati tutti i link disponibili su quell'oggetto: in questo caso, vengono specificati collegamenti alle proprietà, azioni e una differente rappresentazione della lampadina, in formato HTML
+Infine, per completare la TD, vengono indicati tutti i link disponibili su quell'oggetto: in questo caso, vengono specificati collegamenti alle proprietà, azioni e una differente rappresentazione della lampadina, in formato HTML:\\
 
 \begin{lstlisting}[language=json,caption={Link di una lampadina},label=lst:start5-td-lamp]
 "links": [
@@ -734,13 +737,54 @@ Infine, per completare la TD, vengono indicati tutti i link disponibili su quell
 ]
 \end{lstlisting}
 
-
+La Thing Description così creata è completa e rispetta tutti i requisiti. L'unica cosa mancante sono i riferimenti ad ontologie esterne, che verranno prese in considerazione nella successiva sezione. Il documento nella sua interezza può essere trovato direttamente in allegati (\texttt{attachments/td/bulb.json})
 
 \subsection{TV}
 
 \subsection{Ventilatore}
 
 \subsection{Tapparella}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
