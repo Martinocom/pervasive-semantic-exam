@@ -650,11 +650,11 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 \section{Piattaforme disponibili}
 Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things \cite{wot}. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot-architecture}.\\
 
-Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
+Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart: alcuni di essi sono indicati direttamente nel documento di implementazione dello standard W3C\footnote{\url{https://w3c.github.io/wot-thing-description/testing/report.html}}, altri reperibili online.
 
 \begin{itemize}
 	% Experimental, still trying to search infos
-	\item \textbf{WoT-TD-Java} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
+	\item [TO DO] \textbf{Yggdrasil} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
 	
 	
 	% Confirmed to work but has something that isn't working
@@ -671,12 +671,16 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
 	
 	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
+	
+	\item \textbf{Node Red Nodegen} \cite{nodered}: tool a linea di comando che può generare dei nodi Node-RED, basato su diverse descrizioni, tra le quali la Thing Description.
 \end{itemize}
 
 
 Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso.\\
 
 \textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
+
+\textbf{Node Red Nodegen} purtroppo non si presta allo scopo attuale del progetto: la creazione dei cosiddetti nodi Node-RED è legata ad un ulteriore piattaforma di sviluppo (appunto, la Node-RED) e la sua documentazione è soltanto parzialmente disponibile in inglese.\\
 
 A disposizione rimangono ulteriori candidati; di conseguenza è necessario approfondire le caratteristiche dei singoli framework, in base anche alle specifiche richieste, in modo da scegliere il migliore.\\
 
@@ -707,7 +711,7 @@ Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica complet
 Come ultima nota, le differenze possono essere trovate sul seguente collegamento: \url{https://github.com/WebThingsIO/wiki/wiki/Mozilla-W3C-Differences}
 
 
-\subsection{Yggdrasil}
+\subsection{[TO DO] Yggdrasil}
 Libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
 
 La documentazione è reperibile soltanto dal repository stesso e risulta essere al livello nettamente inferiore rispetto a quella offerta da WebThings Framework. Il linguaggio utilizzato è soltanto Java, e quindi la scelta deve per forza ricadere su di esso (o eventualmente su linguaggi java-based, tipo Kotlin).\\
