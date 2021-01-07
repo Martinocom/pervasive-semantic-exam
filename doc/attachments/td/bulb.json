@@ -1,62 +1,48 @@
 {
-    "@context": "https://webthings.io/schemas/",
-    "@type": ["Light", "OnOffSwitch"],
-    "id": "https://mywebthingserver.com/things/bulb",
-    "title":"Bulb",
-    "description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+	"id": "https://mywebthingserver.com/things/bulb",
+	"title":"Bulb",
+	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+  
+  "properties": {
+		
+		"on": {
+			"type": "boolean",
+			"title": "On/Off",
+			"description": "It's true when the bulb is on; it's false when turned off",
+			"forms": [{"href": "/things/bulb/properties/on"}]
+		},
+		
+		"brightness" : {
+			"type": "number",
+			"title": "Brightness",
+			"description": "The level of light from 0-100",
+			"minimum" : 0,
+			"maximum" : 100,
+			"forms": [{"href": "/things/lamp/properties/brightness"}]
+		}
+	},
 
-    "properties": {
-        "on": {
-          "@type": "OnOffProperty",
-          "type": "boolean",
-          "title": "On/Off",
-          "description": "It's true when the bulb is on; it's false when turned off",
-          "links": [{"href": "/things/bulb/properties/on"}]
-        },
-        "brightness" : {
-          "@type": "BrightnessProperty",
-          "type": "integer",
-          "title": "Brightness",
-          "description": "The level of light from 0-100",
-          "minimum" : 0,
-          "maximum" : 100,
-          "links": [{"href": "/things/lamp/properties/brightness"}]
-        }
-    },
-
-    "actions": {
-        "fade": {
-          "@type": "FadeAction",
-          "title": "Fade",
-          "description": "Fade the lamp to a given level",
-          "input": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "duration": {
-                "type": "integer",
-                "minimum": 0,
-                "unit": "milliseconds"
-              }
-            }
-          },
-          "links": [{"href": "/things/lamp/actions/fade"}]
-        }
-      },
-
-    "links": [{
-        "rel": "properties",
-        "href": "/things/lamp/properties"
-    }, {
-        "rel": "actions",
-        "href": "/things/lamp/actions"
-    }, {
-        "rel": "alternate",
-        "mediaType": "text/html",
-        "href": "/things/lamp"
-    }]
+  "actions": {
+		"fade": {
+			"title": "Fade",
+			"description": "Fade the lamp to a given level",
+			"input": {
+				"type": "object",
+				"properties": {
+					"level": {
+						"type": "integer",
+						"minimum": 0,
+						"maximum": 100
+					},
+					"duration": {
+						"type": "integer",
+						"minimum": 0,
+						"unit": "milliseconds"
+					}
+				}
+			},
+			"links": [{"href": "/things/lamp/actions/fade"}]
+		}
+	},
 }

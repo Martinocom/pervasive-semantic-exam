@@ -1,6 +1,5 @@
 \contentsline {lstlisting}{\numberline {3.1}Esempio di una Thing Description}{16}{lstlisting.3.1}%
-\contentsline {lstlisting}{\numberline {6.1}Inizio di una TD della lampadina}{36}{lstlisting.6.1}%
-\contentsline {lstlisting}{\numberline {6.2}Attributi di base di una lampadina}{36}{lstlisting.6.2}%
-\contentsline {lstlisting}{\numberline {6.3}Proprietà di una lampadina}{37}{lstlisting.6.3}%
-\contentsline {lstlisting}{\numberline {6.4}Azioni di una lampadina}{37}{lstlisting.6.4}%
-\contentsline {lstlisting}{\numberline {6.5}Link di una lampadina}{38}{lstlisting.6.5}%
+\contentsline {lstlisting}{\numberline {4.1}Inizio di una TD della lampadina}{25}{lstlisting.4.1}%
+\contentsline {lstlisting}{\numberline {4.2}Proprietà di una lampadina}{26}{lstlisting.4.2}%
+\contentsline {lstlisting}{\numberline {4.3}Azioni di una lampadina}{26}{lstlisting.4.3}%
+\contentsline {lstlisting}{\numberline {4.4}Link di una lampadina}{27}{lstlisting.4.4}%
