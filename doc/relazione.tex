@@ -416,7 +416,7 @@ Si può notare che la prima riga del documento faccia riferimento ad un \quotes{
 
 Come ulteriore approfondimento alla Thing Description, è utile citare \quotes{\textit{On Modeling the Physical World as a Collection of Things: The W3C Thing Description Ontology}} \cite{td-paper}, nel quale si possono trovare riferimenti all'importanza di avere dati standardizzati e strutturati. Nello stesso documento vengono inoltre citati altri enti, proponenti uno stack di sviluppo diverso \cite{open-connectivity}, dal quale è possibile derivare la Thing Description.\\
 
-Per ulteriori dettagli sul modello, si rimanda alla \underline{documentazione ufficiale} \cite{td}. È però interessante sottolineare che quest'ultima non è l'unica fonte di riferimento alla quale vi è possibile attendere: esistono versioni, anche più semplici, dello stesso standard descritti in modi diversi. Una di queste, che potrebbe diventare uno spunto per le successive analisi, risulta essere quella di Mozilla, che tratta la Thing Description come parte integrante della sua visione di Web of Things. L'intero documento, denominato \href{https://webthings.io/api/}{\textbf{Web Thing API}} \cite{web_thing_api}, descrive non solo lo standard stesso, ma anche il modo nel quale poi l'oggetto potrà comunicare. È da notare però che il documento in considerazione è al momento indicato come non ufficiale, di conseguenza soggetto a modifiche.\\
+Per ulteriori dettagli sul modello, si rimanda alla \underline{documentazione ufficiale} \cite{td}. È però doveroso sottolineare che quest'ultima non è l'unica fonte di riferimento alla quale vi è possibile attendere: esistono versioni, anche più semplici, dello stesso standard descritti in modi diversi. Una di queste, che potrebbe diventare uno spunto per le successive analisi, risulta essere quella di \texttt{WebThings.io}, che tratta la Thing Description come parte integrante della sua visione di Web of Things. L'intero documento, denominato \href{https://webthings.io/api/}{\textbf{Web Thing API}} \cite{webthings}, descrive non solo lo standard stesso, ma anche il modo nel quale poi l'oggetto potrà comunicare. È da notare però che il documento in considerazione è al momento indicato come non ufficiale, di conseguenza soggetto a modifiche.\\
 
 
 \section{Ontologie note}
@@ -540,10 +540,14 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 \begin{itemize}
 	\setlength\itemsep{0em}
 	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
-	
+	\begin{itemize}
+		\setlength\itemsep{0em}
+		\item A sua volta, la Thing Description dev'essere conforme agli standard raccomandati dal W3C, soprattutto per quanto riguarda la possibilità di far riferimenti a diverse ontologie per abilitare il supporto ai Linked Data.
+	\end{itemize}
+
 	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
 	
-	\item \textbf{\ul{\textit{opzionale}} supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
+	\item \textbf{supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
 \end{itemize}
 
 \section{Piattaforme disponibili}
@@ -552,7 +556,9 @@ Parlando di un contesto nel quale vi è una presenza della descrizione di ciò c
 Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
 
 \begin{itemize}
-	\item \textbf{Mozilla IoT} \cite{mozilla-iot}: piattaforma open-source mantenuta da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
+	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
+	
+	\item \textbf{WoT-TD-Java} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
 	
 	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
 	
@@ -564,9 +570,38 @@ Basandosi sui criteri definiti nella sezione precedente, è quindi possibile sca
 
 \textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
 
-Mozilla, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso dellle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{mozilla-iot-framework}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione. Il tutto è completamente conforme agli standard definiti dall'ente W3C, in quanto Mozilla stessa ne fa parte: infatti, come citato nella sezione \ref{sec:thing_description}, la Thing Description è anche descritta secondo la visione dell'azienda stessa, nella loro pagina di riferimento \cite{web_thing_api}.\\
+\texttt{WebThings.io}, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
 
-Considerando di come l'approccio intrapreso da Mozilla copra essenzialmente tutti i requisiti, esso indubbiamente risulta essere il framework di sviluppo che da questo momento verrà preso in considerazione.
+In ultima analisi, vi è una libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
+
+Considerando validi entrambi gli ultimi due approcci, vi è necessità di trovare differenze che possano determinare in qualche modo l'effettiva superiorità di uno rispetto all'altro.
+
+\begin{itemize}
+	\item L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Things; dall'altra parte si può trovare un repository con una documentazione interna, non al livello di quella offerta da WebThings Framework.
+	
+	\item Vi sono diverse possibilità di scelta nel linguaggio e modo di implementare all'interno di \texttt{WebThings.io}, mentre la libreria offre il supporto soltanto a Java (ed eventualmente linguaggi che si basano su di esso, tipo Kotlin).
+	
+	\item \texttt{WebThings.io} utilizza una propria versione di API non pienamente compatibile con gli standard W3C, mentre la libreria cerca di essere quasi totalmente compliant alle raccomandazioni ufficiali.
+\end{itemize}
+
+Mentre entrambi i primi punti danno un'estrema forza al framework di \texttt{WebThings.io}, il terzo punto, analizzato in dettaglio, porta a dover completamente escludere la sua scelta. In particolare, vi è una netta incompatibilità con quello che è lo standard W3C e l'effettiva API della libreria. Si tratta infatti di un concetto estremamente importante e necessario ai fini del progetto, il quale può venire fuori soltanto leggendo la documentazione ufficiale di entrambe le specifiche.
+
+\begin{itemize}
+	\item Il framework di \textbf{\texttt{WebThings.io}} specifica\footnote{\url{https://webthings.io/api/\#context-member}} che il contesto di una Thing Description debba essere un campo indicante un URI, che punta essenzialmente ad un'ontologia nota per definire i membri di una Thing.
+	
+	\item Le specifiche del W3C specificano\footnote{\url{https://www.w3.org/TR/wot-thing-description/\#thing}} \footnote{\url{https://www.w3.org/TR/wot-thing-description/\#sec-context-extensions}}, invece, che vi possono esistere più contesti nei quali l'oggetto può essere definito, in modo da garantire una descrizione ancora più completa e standard, utilizzando diverse ontologie, anche meno collegate all'ambito di WoT (esempio, ontologia che definisce le unità di misura standard.)
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{eps/specification-conflict.png}
+	\caption{Netto conflitto di specifiche tra \texttt{WebThings.io} e raccomandazioni del W3C.}
+	\label{fig:specification-conflict}
+\end{figure}
+
+Come da figura \ref{fig:specification-conflict}, entrambe le definizioni collidono, e per puntualizzare il problema, si vuole sottolineare come \href{https://www.w3.org/TR/wot-thing-description/#example-28}{\ul{l'esempio 28}} del \href{https://www.w3.org/TR/wot-thing-description/#semantic-annotations}{\ul{capitolo 7.1}} della descrizione del W3C \textbf{\uline{NON}} sia compatibile con le specifiche di \texttt{WebThings.io}, e che quindi risulterebbe essere completamente illeggibile e inutilizzabile.\\
+
+Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 58 - \url{https://github.com/WebThingsIO/webthing-java/issues/58}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
 
 
 \subsection{Analisi del framework scelto}
