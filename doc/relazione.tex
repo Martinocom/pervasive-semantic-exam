@@ -704,6 +704,8 @@ Come da figura \ref{fig:specification-conflict}, entrambe le definizioni collido
 
 Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 58 - \url{https://github.com/WebThingsIO/webthing-java/issues/58}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
 
+Come ultima nota, le differenze possono essere trovate sul seguente collegamento: \url{https://github.com/WebThingsIO/wiki/wiki/Mozilla-W3C-Differences}
+
 
 \subsection{Yggdrasil}
 Libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
@@ -734,7 +736,7 @@ Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-w
 Similmente al framework di WebThings, nonostante un vasto supporto alle specifiche di W3C, non vi sono quelle richieste dai requisiti posti. Per questo motivo anche Arena Web Hub dev'essere scartato.
 
 \subsection{ThingWeb.io}
-Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche ThingWeb.io tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
+Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
 
 Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.
 
@@ -744,6 +746,17 @@ Per controllare il supporto per i contesti, è necessario recarsi più a fondo n
 	\caption{La Thing Description letta da ThingWeb risulta essere completa di tutti i campi. Sono evidenziati i contesti indicati e il loro utilizzo. Fonte: \url{http://www.thingweb.io/hands-on-intro-raspberry.html}}
 	\label{fig:context-ok-thingweb}
 \end{figure}
+
+Per specificare meglio il supporto alla Thing Description, si può far riferimento al parser della TD, come nella figura \ref{fig:context-ok-thingweb_2}; in esso, quando viene incontrato il campo \texttt{@context} viene effettuato un controllo: in base alla tipologia del dato (stringa o array) vengono istanziate le rispettive risorse.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.9]{eps/context_ok_thingweb_2.png}
+	\caption{Nella riga 35 è chiaramente visibile il supporto a più definizioni di contesti. Fonte: \url{https://github.com/eclipse/thingweb.node-wot/blob/master/packages/td-tools/src/td-parser.ts}}
+	\label{fig:context-ok-thingweb_2}
+\end{figure}
+
+
 
 Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per cui rimane il candidato principale.
 
