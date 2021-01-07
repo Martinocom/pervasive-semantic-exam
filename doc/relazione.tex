@@ -651,10 +651,10 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 	
 	
 	
-	
 	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
 	
 	\item \textbf{Arena Web Hub} \cite{arenawh}: framework proposto dalla commissione europea, facende parte del progetto \href{https://www.f-interop.eu/}{F-Interop}.
+	
 	
 	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
 	
@@ -662,25 +662,18 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 \end{itemize}
 
 
-Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso. Inoltre, una delle librerie proposte è stata sviluppata da un programmatore indipendente.\\
+Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso.\\
 
 \textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
 
-\texttt{WebThings.io}, dall'altro canto, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
+A disposizione rimangono ulteriori candidati; di conseguenza è necessario approfondire le caratteristiche dei singoli framework, in base anche alle specifiche richieste, in modo da scegliere il migliore.\\
 
-In ultima analisi, vi è una libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
 
-Considerando validi entrambi gli ultimi due approcci, vi è necessità di trovare differenze che possano determinare in qualche modo l'effettiva superiorità di uno rispetto all'altro.
+\subsection{WebThings.io - WebThings}
+\label{sec:webthingsio}
+\texttt{WebThings.io}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
 
-\begin{itemize}
-	\item L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Things; dall'altra parte si può trovare un repository con una documentazione interna, non al livello di quella offerta da WebThings Framework.
-	
-	\item Vi sono diverse possibilità di scelta nel linguaggio e modo di implementare all'interno di \texttt{WebThings.io}, mentre la libreria offre il supporto soltanto a Java (ed eventualmente linguaggi che si basano su di esso, tipo Kotlin).
-	
-	\item \texttt{WebThings.io} utilizza una propria versione di API non pienamente compatibile con gli standard W3C, mentre la libreria cerca di essere quasi totalmente compliant alle raccomandazioni ufficiali.
-\end{itemize}
-
-Mentre entrambi i primi punti danno un'estrema forza al framework di \texttt{WebThings.io}, il terzo punto, analizzato in dettaglio, porta a dover completamente escludere la sua scelta. In particolare, vi è una netta incompatibilità con quello che è lo standard W3C e l'effettiva API della libreria. Si tratta infatti di un concetto estremamente importante e necessario ai fini del progetto, il quale può venire fuori soltanto leggendo la documentazione ufficiale di entrambe le specifiche.
+L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Things. Purtroppo la documentazione si discosta da quello che è lo standard ufficiale per la Thing Description:
 
 \begin{itemize}
 	\item Il framework di \textbf{\texttt{WebThings.io}} specifica\footnote{\url{https://webthings.io/api/\#context-member}} che il contesto di una Thing Description debba essere un campo indicante un URI, che punta essenzialmente ad un'ontologia nota per definire i membri di una Thing.
@@ -698,6 +691,37 @@ Mentre entrambi i primi punti danno un'estrema forza al framework di \texttt{Web
 Come da figura \ref{fig:specification-conflict}, entrambe le definizioni collidono, e per puntualizzare il problema, si vuole sottolineare come \href{https://www.w3.org/TR/wot-thing-description/#example-28}{\ul{l'esempio 28}} del \href{https://www.w3.org/TR/wot-thing-description/#semantic-annotations}{\ul{capitolo 7.1}} della descrizione del W3C \textbf{\uline{NON}} sia compatibile con le specifiche di \texttt{WebThings.io}, e che quindi risulterebbe essere completamente illeggibile e inutilizzabile.\\
 
 Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 58 - \url{https://github.com/WebThingsIO/webthing-java/issues/58}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
+
+
+\subsection{Yggdrasil}
+Libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
+
+La documentazione è reperibile soltanto dal repository stesso e risulta essere al livello nettamente inferiore rispetto a quella offerta da WebThings Framework. Il linguaggio utilizzato è soltanto Java, e quindi la scelta deve per forza ricadere su di esso (o eventualmente su linguaggi java-based, tipo Kotlin).\\
+
+L'osservazione sulla compatibilità cade solo sulla versione di JSON-LD utilizzata, che nel caso di questo framework risulta essere la 1.0, mentre le specifiche del W3C indicano la 1.1 come riferimento ufficiale.
+
+
+\subsection{Arena Web Hub}
+Framework basato su Node.js contenente esempi di backend e frontend. È un tentativo di standardizzare protocolli differenti, in modo da creare interoperabilità tra essi: infatti, al suo interno, vengono implementati ben tre gateway (Web Hub, Mozilla Gateway e Eclipse Thing Web) che possono essere creati in modo da supportare differenti soluzioni. Le Things vengono create dopo che uno dei tre gateway è stato istanziato, chiamando il metodo \texttt{.produce()}, il quale come l'unico argomento prende in considerazione la Thing Description.\\
+
+Il problema di questa implementazione è simile a quello descritto nella sezione \ref{sec:webthingsio}, trattante del framework di Web Things. Infatti, anche in questa implementazione non è chiaro il supporto per le annotazioni di ontologie diverse da quella standard. L'unica cosa citata nella documentazione è:
+
+\begin{quote}
+\textit{Note that the examples include a client-side Web of Things library (see "client/wot.js") with an adaptation layer for different Web of Things platforms. A further library is planned \ul{to make it easy to work with semantic annotations that describe the kinds of things (e.g. a light), their capabilities (e.g. dimmable), and the context in which they reside (e.g. my kitchen)}.}
+\end{quote}
+
+Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-webhub/blob/master/webhub.js}}, disponibile su GitHub e visibile in figura \ref{fig:context-overwritten}, è possibile comprendere che il supporto alle annotazioni è infatti \textbf{assente}, ma tecnicamente previsto. Il metodo \texttt{.produce()} sovrascrive tutti i parametri della Thing Description in modo da renderla conforme alle specifiche della libreria stessa, puntando il contesto a quello ufficiale specificato dall'ente W3C. In questo modo, ancora una volta, viene impedita la possibilità di collegarvi ulteriori ontologie e di definire una maggiore conoscenza sulla Thing descritta.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.9]{eps/context_overwritten.png}
+	\caption{Il contesto farà riferimento alle raccomandazioni del W3C, ma non si possono aggiungere ulteriori contesti.}
+	\label{fig:context-overwritten}
+\end{figure}
+
+Per questo motivo anche Arena Web Hub dev'essere scartato.
+
+
 
 
 \subsection{Analisi del framework scelto}
