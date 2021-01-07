@@ -118,6 +118,7 @@
 \definecolor{delim}{RGB}{20,105,176}
 \definecolor{numb}{RGB}{106, 109, 32}
 \definecolor{string}{rgb}{0.64,0.08,0.08}
+\definecolor{stringDark}{rgb}{0.34,0.34,0.64}
 
 \lstdefinelanguage{json}{
 	numbers=left,
@@ -148,7 +149,11 @@
 	{\{}{{{\color{delim}{\{}}}}{1}
 	{\}}{{{\color{delim}{\}}}}}{1}
 	{[}{{{\color{delim}{[}}}}{1}
-	{]}{{{\color{delim}{]}}}}{1},
+	{]}{{{\color{delim}{]}}}}{1}
+	{"actions"}{{{\color{stringDark}{"actions"}}}}{9}
+	{"properties"}{{{\color{stringDark}{"properties"}}}}{12}
+	{"@context"}{{{\color{stringDark}{"@context"}}}}{10}
+	{"@type"}{{{\color{stringDark}{"@type"}}}}{7},
 }
 
 %
@@ -551,6 +556,7 @@ Si parte da una descrizione basilare senza considerare eventuali ontologie da ag
 
 Successivamente, si definisco le proprietà che una generica lampadina possiede: queste vengono specificate nel documento ufficiale nel capitolo \textit{\href{https://www.w3.org/TR/wot-thing-description/\#propertyaffordance}{5.3.1.1 - PropertyAffordance}}. Una PropertyAffordance è una sottoclasse di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#interactionaffordance}{InteractionAffordance}} e un'istanza di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}}: è importante sottolineare questa gerarchia, perchè grazie ad essa vengono definiti campi opzionali e obbligatori da inserire in ogni proprietà.
 
+\clearpage
 \begin{lstlisting}[language=json,caption={Proprietà di una lampadina},label=lst:start3-td-lamp]
 	"properties": {
 		
@@ -576,6 +582,7 @@ Si vuole notare che con questo set di proprietà la lampadina è già perfettame
 
 L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-description/\#actionaffordance}{ActionAffordance}}, una sottoclasse di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#interactionaffordance}{InteractionAffordance}}. Può definire, in modo opzionale, l'input e l'output fornito, compliant con il \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}}. A sua volta, il \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}} può avere diverse implementazioni: in questo caso si utilizza un \textit{\href{https://www.w3.org/TR/wot-thing-description/\#objectschema}{ObjectSchema}}.
 
+\clearpage
 \begin{lstlisting}[language=json,caption={Azioni di una lampadina},label=lst:start4-td-lamp]
 	"actions": {
 		"fade": {
@@ -735,10 +742,12 @@ Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-w
 
 Similmente al framework di WebThings, nonostante un vasto supporto alle specifiche di W3C, non vi sono quelle richieste dai requisiti posti. Per questo motivo anche Arena Web Hub dev'essere scartato.
 
+
+\clearpage
 \subsection{ThingWeb.io}
 Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
 
-Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.
+Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.\\
 
 \begin{figure}[h]
 	\centering
@@ -747,7 +756,7 @@ Per controllare il supporto per i contesti, è necessario recarsi più a fondo n
 	\label{fig:context-ok-thingweb}
 \end{figure}
 
-Per specificare meglio il supporto alla Thing Description, si può far riferimento al parser della TD, come nella figura \ref{fig:context-ok-thingweb_2}; in esso, quando viene incontrato il campo \texttt{@context} viene effettuato un controllo: in base alla tipologia del dato (stringa o array) vengono istanziate le rispettive risorse.
+Per specificare meglio il supporto alla Thing Description, si può far riferimento al parser della TD, come nella figura \ref{fig:context-ok-thingweb_2}; in esso, quando viene incontrato il campo \texttt{@context} viene effettuato un controllo: in base alla tipologia del dato (stringa o array) vengono istanziate le rispettive risorse.\\
 
 \begin{figure}[h]
 	\centering
@@ -757,12 +766,15 @@ Per specificare meglio il supporto alla Thing Description, si può far riferimen
 \end{figure}
 
 
-
 Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per cui rimane il candidato principale.
 
 
 \clearpage
-\subsection{Analisi del framework scelto}
+
+
+\subsection{[TO DO] Analisi del framework scelto}
+
+\begin{comment}
 Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
 
 \textbf{WebThings Gateway} è un software che può essere lanciato all'interno di un Raspberry, sotto il sistema Linux oppure in ambiente Docker. Risulta essere il punto di controllo dell'intero sistema delle Things connesse, il quale si interfaccia con esse e permette il loro utilizzo. È utile sottolineare come questa soluzione sia adottata dalla maggior parte dei competitor sul mercato, con l'enorme differenza di avere, in questo caso, il pieno controllo su quello che è l'esecuzione e dati: il codice sorgente, infatti, risulta essere accessibile in tutte e tre le soluzioni. Inoltre, per puntualizzare alcuni aspetti tecnici, un \quotes{\textit{raccoglitore}} di questo tipo rappresenta, in un certo senso, un Single Point of Failure dell'intero sistema: dall'altra parte però risulta essere impensabile aggiungere della potenza computazionale ad oggetti come lampadine per permettere una strutturazione a rete completamente connessa tra oggetti, oppure, rendere il tutto perfettamente raggiungibile con collegamenti indiretti\footnote{anche se esistono protocolli di comunicazione che permettono un tale scambio di messaggi; questi necessitano però di un ulteriore hub per funzionare.}\\
@@ -781,7 +793,7 @@ Essendo il Gateway parte che permette la comunicazione tra gli oggetti, è essen
 Una volta definito precisamente il framework scelto, è opportuno delineare una strada da percorrere per il processo di sviluppo. La scelta è ampia e permette alla maggior parte dei programmatori a scegliere il modello che più si addice alle sue competenze e disponibilità di hardware: in questo caso le piattaforme prediligenti l'uso di device esterni, quali Raspberry o Arduino sono meno indicate, in quanto non attualmente in possesso.\\
 
 Per poter comunque sperimentare la creazione di nuove Things, con l'annessa possibilità di prototipazione e test, è utile selezionare una delle modalità che permettono di ottenere il risultato richiesto anche nei requisiti definiti nel capitolo \ref{sec:iot_platform}. In base all'esperienza del programmatore, è più conveniente utilizzare la piattaforma \textbf{Java}, nella quale si hanno ormai consolidate conoscenze. Per non ricadere però in una classica implementazione, si preferisce adottare il linguaggio \textbf{Kotlin}, pienamente compatibile, per agevolare ulteriormente lo sviluppo.
-
+\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
