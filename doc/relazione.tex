@@ -19,6 +19,7 @@
 \usepackage{fancyhdr}
 \usepackage{diagbox}
 
+
 % libreria per avere l'indentazione all'inizio dei capitoli
 \usepackage{indentfirst}
 
@@ -158,6 +159,11 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%multiline comments
 \usepackage{verbatim}
+
+
+\usepackage[font={small,it}]{caption}
+
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%impostazioni per il cambiamento di titolo
 										%	in lstlistoflistings
@@ -647,15 +653,21 @@ Parlando di un contesto nel quale vi è una presenza della descrizione di ciò c
 Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart:
 
 \begin{itemize}
+	% Experimental, still trying to search infos
 	\item \textbf{WoT-TD-Java} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
 	
 	
-	
+	% Confirmed to work but has something that isn't working
 	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
 	
 	\item \textbf{Arena Web Hub} \cite{arenawh}: framework proposto dalla commissione europea, facende parte del progetto \href{https://www.f-interop.eu/}{F-Interop}.
 	
 	
+	% Candidates
+	\item \textbf{ThingWeb.io} \cite{thingweb}: framework proposto dal gruppo di sviluppo Eclipse che abbraccia le definizioni del WoT specificate dal documento ufficiale del W3C
+	
+	
+	% Cited but they won't work for our purpose
 	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
 	
 	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
@@ -669,7 +681,7 @@ Basandosi sui criteri definiti nella sezione precedente, è quindi possibile sca
 A disposizione rimangono ulteriori candidati; di conseguenza è necessario approfondire le caratteristiche dei singoli framework, in base anche alle specifiche richieste, in modo da scegliere il migliore.\\
 
 
-\subsection{WebThings.io - WebThings}
+\subsection{WebThings.io}
 \label{sec:webthingsio}
 \texttt{WebThings.io}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
 
@@ -683,7 +695,7 @@ L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben d
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.5]{eps/specification-conflict.png}
+	\includegraphics[scale=0.55]{eps/specification-conflict.png}
 	\caption{Netto conflitto di specifiche tra \texttt{WebThings.io} e raccomandazioni del W3C.}
 	\label{fig:specification-conflict}
 \end{figure}
@@ -710,20 +722,33 @@ Il problema di questa implementazione è simile a quello descritto nella sezione
 \textit{Note that the examples include a client-side Web of Things library (see "client/wot.js") with an adaptation layer for different Web of Things platforms. A further library is planned \ul{to make it easy to work with semantic annotations that describe the kinds of things (e.g. a light), their capabilities (e.g. dimmable), and the context in which they reside (e.g. my kitchen)}.}
 \end{quote}
 
-Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-webhub/blob/master/webhub.js}}, disponibile su GitHub e visibile in figura \ref{fig:context-overwritten}, è possibile comprendere che il supporto alle annotazioni è infatti \textbf{assente}, ma tecnicamente previsto. Il metodo \texttt{.produce()} sovrascrive tutti i parametri della Thing Description in modo da renderla conforme alle specifiche della libreria stessa, puntando il contesto a quello ufficiale specificato dall'ente W3C. In questo modo, ancora una volta, viene impedita la possibilità di collegarvi ulteriori ontologie e di definire una maggiore conoscenza sulla Thing descritta.\\
+Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-webhub/blob/master/webhub.js}}, disponibile su GitHub e visibile in figura \ref{fig:context-overwritten}, è possibile comprendere che il supporto alle annotazioni è infatti \textbf{assente}, ma tecnicamente previsto. Il metodo \texttt{.produce()} sovrascrive tutti i parametri della Thing Description in modo da renderla conforme alle specifiche della libreria stessa, puntando il contesto a quello ufficiale specificato dall'ente W3C. In questo modo, ancora una volta, viene impedita la possibilità di collegarvi ulteriori ontologie e di definire una maggiore conoscenza sulla Thing descritta: infatti, non vi è alcun modo per aggiungerle successivamente e nell'oggetto che definisce la struttura delle Thing vi è una completa assenza del riferimento al contesto.\\
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.9]{eps/context_overwritten.png}
-	\caption{Il contesto farà riferimento alle raccomandazioni del W3C, ma non si possono aggiungere ulteriori contesti.}
+	\includegraphics[scale=1]{eps/context_overwritten.png}
+	\caption{La libreria implementata sovrascrive alcuni campi della Thing Description con i propri valori, rendendo inutilizzabili le ontologie eventualmente indicante nel contesto. Fonte: \url{https://github.com/draggett/arena-webhub/blob/master/webhub.js}, riga 414}
 	\label{fig:context-overwritten}
 \end{figure}
 
-Per questo motivo anche Arena Web Hub dev'essere scartato.
+Similmente al framework di WebThings, nonostante un vasto supporto alle specifiche di W3C, non vi sono quelle richieste dai requisiti posti. Per questo motivo anche Arena Web Hub dev'essere scartato.
+
+\subsection{ThingWeb.io}
+Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche ThingWeb.io tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
+
+Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{eps/context_ok_thingweb.png}
+	\caption{La Thing Description letta da ThingWeb risulta essere completa di tutti i campi. Sono evidenziati i contesti indicati e il loro utilizzo. Fonte: \url{http://www.thingweb.io/hands-on-intro-raspberry.html}}
+	\label{fig:context-ok-thingweb}
+\end{figure}
+
+Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per cui rimane il candidato principale.
 
 
-
-
+\clearpage
 \subsection{Analisi del framework scelto}
 Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
 
