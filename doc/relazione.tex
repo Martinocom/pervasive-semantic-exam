@@ -520,11 +520,7 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 
 
 \section{Creazione della Thing Description}
-Indipendentemente dalle successive scelte, è già possibile definire a priori la conoscenza che potrà essere inclusa alle Thing scelte. I framework che poi utilizzeranno la conoscenza posseduta dovranno di conseguenza supportare quelli che sono gli standard definiti dalle raccomandazioni del W3C, riguardanti la Thing Description.
-
-
-\section{Definizioni delle Description}
-Prima di procedere a codificare gli oggetti, è utile definire in principio le Thing Description caratterizzanti gli oggetti indicati nella sezione \ref{sec:modellazione-things}. Inoltre, come già definito nel capitolo \ref{sec:ontologie_note}, è doveroso poter includervi delle ontologie per essere più vicini al mondo dei Linked Data. Considerando poi che la TD viene definita a priori, senza scegliere ancora un framework per lo sviluppo, è opportuno far riferimento alle indicazioni ufficiali del W3C, seguendo quindi la documentazione indicata come linea guida, all'indirizzo \url{https://www.w3.org/TR/wot-thing-description/}.\\
+Indipendentemente dalle successive scelte, è già possibile definire a priori la conoscenza che potrà essere inclusa alle Thing scelte. I framework che poi utilizzeranno la conoscenza posseduta dovranno, di conseguenza, supportare quelli che sono gli standard definiti dalle raccomandazioni del W3C, riguardanti la Thing Description, disponibile come guida all'indirizzo \url{https://www.w3.org/TR/wot-thing-description/}. Quest'ultima deve comprendere tutte le caratteristiche definite nella sezione \ref{sec:modellazione-things} e come già definito nel capitolo \ref{sec:ontologie_note}, è doveroso potervi includere delle ontologie per essere più vicini al mondo dei Linked Data.
 
 Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di questa relazione, si indicano come allegati le seguenti descrizioni degli oggetti:
 
@@ -543,13 +539,13 @@ Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di q
 La \textbf{lampadina} verrà presa come riferimento per la definizione dei successivi oggetti: non vi sarà, infatti, una ripetizione nella descrizione del procedimento per gli oggetti indicati nelle successive sezioni; verranno analizzati soltanto i punti cruciali ed eventuali differenze e/o difficoltà incontrate nella definizione di esse.
 
 \subsection{Definizione base}
-Si parte da una descrizione senza considerare eventuali ontologie da creare; comunque viene indicata un'ontologia base, ovvero quella che definisce a priori le caratteristiche di una Thing Description. Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}).\\
+Si parte da una descrizione basilare senza considerare eventuali ontologie da aggiungere; comunque ne viene indicata di base, ovvero quella che definisce a priori le caratteristiche di una Thing Description. Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}).\\
 
 \begin{lstlisting}[language=json,caption={Inizio di una TD della lampadina},label=lst:start-td-lamp]
 	"@context": "https://www.w3.org/2019/wot/td/v1",
 	"id": "https://mywebthingserver.com/things/bulb",
 	"title":"Bulb",
-	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its brightness.",
 	[...]
 \end{lstlisting}
 
