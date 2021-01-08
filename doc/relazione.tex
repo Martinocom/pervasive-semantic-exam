@@ -35,6 +35,21 @@
 % Permette di avere la sottolineatura attaccata alla parola. Commentare per default
 \setuldepth{come}
 
+% Permette di avere citazioni con un background diverso
+\usepackage[most]{tcolorbox}
+\usepackage{lipsum}
+
+\definecolor{backquote}{RGB}{242, 242, 242}
+
+\newtcolorbox{myquote}[1][]{%
+	enhanced, breakable, 
+	size=normal,
+	frame hidden, boxrule=10pt,
+	sharp corners,
+	colback=backquote,
+	#1
+}
+
 % libreria per elenchi numerati nested (es. 1.1)
 \usepackage{enumitem}
 
@@ -47,7 +62,7 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
-\usepackage[table]{xcolor}
+\usepackage{xcolor}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per tabelle multipagina
@@ -295,22 +310,32 @@ Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio a
 \section{Web of Things}
 \label{sec:w3c}
 \label{sec:wot}
-W3C {\cite{w3c}} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno.\\
+W3C {\cite{w3c}} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno. Grazie a questo ente si possono apprezzare standard moderni che promuovono un Web sicuro, interoperabile e veloce.\\
 
-Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, di conseguenza, ridurre la frammentazione attuale portata dal caotico IoT, il W3C ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
+La nascita del \textbf{Web of Things} \cite{wot} è trascinata dall'inefficienza e frammentazione che l'industria dell IoT ha portato negli anni, sia in case che industrie. L'eterogeneità delle Smart Things e i diversi protocolli di comunicazione hanno causato una fragile struttura connessa, difficilmente mantenibile e non scalabile, perlopiù legata ad un unico fornitore.\\
 
-Risulta essere una visione più ampia e grande di IoT, in quanto può includere quest'ultima al suo interno: mentre IoT risulta essere un concetto a \quotes{\textit{basso}} livello, WoT è visto come un'astrazione ad un livello più alto. Non vi sono più infatti protocolli specifici, ma il concetto di risorse accessibili via HTTP: sparisce tutta la complessità di capire il come avviene la comunicazione, grazie all'adozione di hub capaci di \quotes{\textit{tradurre}} comandi in diversi protocolli utilizzati sotto dalle things. Possiede una serie di \quotes{\textit{building blocks}}, i quali costituiscono le fondamenta per la creazione di una rete completamente connessa e potenzialmente capace di contenere più di una semplice conoscenza su quello che sono le Things all'interno di un dato environment:
+Il gruppo di ricerca ha così cominciato a definire norme che potessero in qualche modo rappresentare uno standard, o almeno, ottime raccomandazioni, sul come costruire il mondo di domani in questo ambito: come definito nel \quotes{\textit{A resource oriented architecture for the Web of Things}} \cite{resource-oriented-wot}, Internet delle cose è letteralmente esploso e per poter affrontare un problema di dimensioni elevate si è fatto ricorso al ben noto e vastamente utilizzato protocollo di comunicazione \textbf{REST}. Grazie all'adozione di uno standard definito, che tratta ogni cosa come una risorsa, è stato possibile identificare, delimitare e incapsulare le funzionalità delle Thing all'iterno di una rete complessa a piacere, definendo un'architettura di base composta da alcuni \quotes{\textit{building blocks}}.\\
 
-\begin{itemize}
-	\item WoT Thing Description (TD) - descrizione (semantica) delle Things.
-	\item WoT Binding Templates - i protocolli per interagire con le Things possono variare, per cui esiste una parte che ne specifica tutti i dettagli.
-	\item WoT Scripting API - parte opzionale che specifica il come debbano essere costruite applicazioni Web utilizzanti il Web of Things.
-	\item WoT Security and Privacy Guidelines - parte che si occupa di sicurezza e privacy.
-\end{itemize}
+Un elevato numero di dispositivi componenti immerso all'interno di un ambiente comporta però indubbiamente nuove sfide per chiunque decida di cimentarsi nello sviluppo di questi sistemi: affrontarle tutte potrebbe diventare problematico, in quanto la generale predisposizione all'eterogeneità delle Things e loro caratteristiche non facilita ne la progettazione ne l'effettiva realizzazione dei sistemi connessi. In  \quotes{\textit{The Web of Things: Challenges and Opportunities}} \cite{wot-challenges} sono ben descritte le caratteristiche di un sistema open che abbraccia l'espressività di REST e le sfide da affrontare:
 
-Oltre questo, il Web of Things possiede due parti fondamentali: Interests Group e Working Group.
-Mentre il primo si occupa di proporre diversi standard e di discutere di protocolli con le diverse aziende che ne fanno parte, per creare degli standard unificati, il secondo si occupa di specificare esplicitamente consigli e linee guida da seguire una volta che si decidono le caratteristiche caratterizzanti lo standard stesso.
+{\itshape
+\begin{myquote}
+	...(an) open WoT would require
+	
+	\begin{itemize}
+		\setlength\itemsep{-0.2em}
+		\item URIs as addresses for things serving as proxies for physical and abstract entities;
+		\item a way to retrieve metadata for things in a standard format, such as JavaScript Object Notation for Linked Data (JSON-LD);
+		\item owner, purpose, access control, and terms and conditions relationships to other things;
+		\item things modeled as events, properties, and actions;
+		\item discrete property values that can smoothly change between data points;
+		\item bindings to scripting APIs and multiple protocols; and
+		\item a variety of communication patterns: pull, push, publish-subscribe, and peer-to-peer.
+	\end{itemize}
+\end{myquote}
+}
 
+Il lavoro così svolto permette quindi di avere un'astrazione molto più completa di quello che era il risultato dell'IoT: il WoT ne rappresenta quindi una conseguente evoluzione ed estensione, capace di offrire non solo maggiori potenzialità in campo puramente tecnologico, ma anche semantico. Le Things, infatti, potrebbero essere viste non solo come semplici oggetti che monitorano o agiscono sull'ambiente, ma che interagiscono tra di loro per raggiungere obiettivi stabiliti; diventerebbero quinti entità intelligenti, connesse, pro-attive e reattive, capaci di offrire la propria conoscenza disponibile non solo per umani, ma anche per altre Things: il tutto il più possibilmente compatibile e compliant a standard definiti.
 
 \section{Smart Room}
 Una stanza "Smart" \cite{smartroom} è un ambiente che utilizza al suo interno più oggetti smart, interconnessi tra di loro. Grazie all'Internet of Things, essi sono capaci di fornire features di diverso tipo, partendo da quelle semplici richiedenti l'input dell'utente, arrivando a quelle intelligenti senza che vi sia un'esplicita richiesta per l'attuazione. Nel caso di studio in Pervasive Computing, non si tratta dunque soltanto di una stanza con alcuni oggetti smart all'interno di essa, comandabili tramite lo smartphone, ma Things che riescono a percepire l'ambiente e decidere autonomamente e coordinatamente azioni da svolgere per accomodare il loro utilizzatore nel miglior modo possibile, in modo da creare un ambiente unico dove tecnologia e umani condividono lo stesso environment, interagendo tra di loro.
@@ -334,6 +359,7 @@ L'eterogeneità delle informazioni è intrinsecamente presente in ogni ambiente 
 Una mancanza di contesto e di informazioni collegabili tra di loro rende il lavoro dei computer, per quanto riguarda l'analisi del mondo che circonda gli umani, complessa e macchinosa. Per questo motivo sin dall'anno 2007 vi sono diversi movimenti per spingere l'adozione sempre più grande dei \quotes{Linked Data} \cite{linkeddata}: dati sui quali si possono eseguire query semantiche. Quest'ultime non sono nient'altro che un modo per le macchine di ragionare sulla conoscenza che hanno a disposizione, non più scritta in modo da essere capita soltanto da un umano. La rappresentazione dei dati dunque, non riguarda più soltanto quello che si può sapere, ma anche la derivazione di nuovi dati a partire da quelli esistenti, per creare una fonte potenzialmente infinitamente profonda di collegamenti tra tutte le informazioni che si hanno a disposizione, abbattendo i cosiddetti muri virtuali che separano attualmente la conoscenza posseduta.\\
 
 Le ontologie \cite{ontology} sono la raccolta dei concetti dato un determinato ambito, mentre il formato più comune per scrivere conoscenza è RDF \cite{rdf}. L'obiettivo di questi è poter mantenere un modello di dati semplici, che permetta a chiunque la rappresentazione di un qualsiasi concetto. Il tutto è basato sul principio di \quotes{\textit{triplette}}, le quali possiedono il \textit{"soggetto"}, \textit{"predicato"} e \textit{"l'oggetto"} interessato, in quello che può essere definito come un grafo etichettato che esprime dunque le relazioni che intercorrono tra le cose. La localizzazione delle risorse deve avvenire tramite l'uso di URI ed è possibile specificare tipi di dati (anche nuovi). Globalmente parlando, ogni risorsa creata può essere referenziata da altre, in modo tale da creare una struttura connessa e unica, con tutta la conoscenza che fino a quel momento si aveva.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
