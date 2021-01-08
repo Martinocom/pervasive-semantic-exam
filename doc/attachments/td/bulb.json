@@ -1,5 +1,10 @@
 {
-	"@context": "https://www.w3.org/2019/wot/td/v1",
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{
+			"saref": "https://w3id.org/saref#"
+		}
+	],
 	"id": "https://mywebthingserver.com/things/bulb",
 	"title":"Bulb",
 	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",

@@ -361,6 +361,7 @@ Una mancanza di contesto e di informazioni collegabili tra di loro rende il lavo
 Le ontologie \cite{ontology} sono la raccolta dei concetti dato un determinato ambito, mentre il formato più comune per scrivere conoscenza è RDF \cite{rdf}. L'obiettivo di questi è poter mantenere un modello di dati semplici, che permetta a chiunque la rappresentazione di un qualsiasi concetto. Il tutto è basato sul principio di \quotes{\textit{triplette}}, le quali possiedono il \textit{"soggetto"}, \textit{"predicato"} e \textit{"l'oggetto"} interessato, in quello che può essere definito come un grafo etichettato che esprime dunque le relazioni che intercorrono tra le cose. La localizzazione delle risorse deve avvenire tramite l'uso di URI ed è possibile specificare tipi di dati (anche nuovi). Globalmente parlando, ogni risorsa creata può essere referenziata da altre, in modo tale da creare una struttura connessa e unica, con tutta la conoscenza che fino a quel momento si aveva.
 
 \subsection{Conoscenza in WoT}
+\label{knowledge-wot}
 Come già descritto nel capitolo \ref{sec:wot}, l'obiettivo è quello di raggiungere un alto livello di interoperabilità tra le cose intelligenti connesse. Per affrontare una tematica così vasta è quindi necessario pensare anche alla quantità e qualità di informazioni che intrinsecamente saranno a disposizione: la semantica permette di aggiungere un ulteriore strato e di pensare ai dati non più come informazioni grezze a disposizione del programmatore, ma come fonte di possibili inferenze e/o reasoning.\\
 
 Per rilasciare quindi le piene potenzialità di un sistema del genere occorre conoscenza che sia facile da capire e integrare all'interno di altre soluzioni. Come definito in \quotes{\textit{SPITFIRE: toward a semantic web of things}} \cite{semantic-wot}, si può pensare ad un \textit{Semantic} Web of Things, dove contestualmente alla posizione, all'appartenenza e al cosa può fare una Thing si descrive ciò che in qualche modo la rappresenta: ovviamente, questo richiede un metodo machine-readable, capace di estrapolare le informazioni necessarie, e il modo migliore, standard e ampiamente utilizzato per ottenere il risultato atteso è quello di usare, creare e/o includere ontologie.\\
@@ -488,13 +489,25 @@ Le principali ontologie che possono essere incluse all'interno di una Thing Desc
 
 Per i dettagli relativi a queste ontologie, si può far riferimento a  \quotes{\textit{Introducing Thing Descriptions and Interactions: An Ontology for the Web of Things}} \cite{td-paper2}, dove ad esempio nel capitolo 2.1 del sono descritti anche modi nei quali queste ontologie furono utilizzate. Sempre nello stesso documento esistono riferimenti a raccolte come \textit{OWL-IoT-S} \cite{owliot}, per le quali però non vi sono, al giorno di oggi, riferimenti facilmente accessibili e recuperabili, se non l'ontologia stessa: queste possono essere usata per un ulteriore confronto, ma non verranno utilizzate al fine di realizzare il progetto finale.\\
 
-Uscendo dal mondo strettamente IoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description:
+Rimanendo nel tema delle caratteristiche di una Thing, si potrebbero ontologie standardizzanti ulteriori parametri, ad esempio:
+\begin{itemize}
+	\item \textbf{OM} - Ontology of unit of Measure, che spazia all'interno del terreno appartenente alle unità di misura, quantità e dimensioni.
+\end{itemize}
+
+Uscendo dal mondo strettamente WoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description:
 \begin{itemize}
 	\item \textbf{DBpedia} \cite{dbpedia}: ontologia contenente un numero elevatissimo di informazioni riguardanti diversi ambiti di quella che si può definire \quotes{human knowledge}. È utile ad individuare e descrivere caratteristiche generali di classi di oggetti (ad esempio, avendo una lampadina si possono ricavare informazioni su cos'è, come funziona e quali tipi di lampadine ci sono).
 \end{itemize}
 
 
+\subsection{Ontologie utilizzate}
+Per scopi di questo progetto, è impensabile poter includere tutte le ontologie, per cui è necessario effettuare una selezione di alcune di esse a priori, per poter concentrarsi meglio sia sulla dimostrazione della fattibilità che sulle conclusioni che si possono trarre dalle analisi effettuate.\\
 
+L'ontologia meglio definita e mantenuta dal punto di vista di WoT risulta essere \textbf{SAREF}, in quanto le altre due proposte non sono mantenute adeguatamente. Ciò ovviamente non toglie nessun credito sulle ontologie create, ma pone alcune riflessioni sull'effettiva adozione di queste all'interno del Web Semantico: è alquanto inutile aggiungere della conoscenza di cui nessuno potrà usufruire. Onde evitare di dedicare tempo per usare ontologie non più mantenute, risulta essere più fruttuoso esplorarne una definita in modo migliore e mantenuta adeguatamente. Inoltre, SAREF copre una vastità di concetti che sono semplicemente rappresentati diversamente sulle altre due proposte: ad esempio, il concetto di \textit{Function}\footnote{\url{https://w3id.org/saref\#Function}} di SAREF e quello di \textit{Operation}\footnote{\url{https://www.irit.fr/recherches/MELODI/ontologies/IoT-O.html\#Operation}} di IoT-O sono molto simili; la differenza sta soltanto nella possibilità di scendere nei dettagli relativi alla funzione stessa, che nel caso di SAREF può essere ulteriormente precisata.\\
+
+Le ontologie come \textbf{OM} 
+
+Anche \textbf{DBpedia} verrà utilizzata, per quanto possibile, nelle Things successivamente descritte: risulta essere una delle più famose ontologie e stabilisce un fermo punto di riferimento per l'ottenimento della conoscenza.
 
 
 
@@ -648,7 +661,14 @@ L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-descriptio
 
 La Thing Description così creata è completa e rispetta tutti i requisiti. L'unica cosa mancante sono i riferimenti ad ontologie esterne, che verranno prese in considerazione nella successiva sezione. Il documento nella sua interezza può essere trovato direttamente in allegati (\texttt{attachments/td/bulb.json})
 
+\subsection{Aggiunta della semantica}
+Una Thing Description così creata offre già una conoscenza base per identificare proprietà azioni ed eventi che sono presenti all'interno della Thing stessa. Per motivi descritti nel capitolo \ref{knowledge-wot} è doveroso considerare anche l'aggiunta di una o più ontologie per arricchire la descrizione dell'oggetto con della semantica standard e riusabile in diversi ambiti. Inoltre, come definito nella sezione \ref{sec:ontologie_note}, si conferma lo scarto delle ontologie minori e si preferisce utilizzare quelle più utilizzate e/o meglio mantenute.\\
 
+Per includere ontologie nella Thing Description, occorre specificarle nell'attributo \texttt{@Context}, indicando un array di ontologie di riferimento come valore; è inoltre importante non dimenticarsi di lasciare l'ontologia di riferimento per la Thing Description stessa.
+
+\begin{lstlisting}[language=json,caption={Aggiunta del contesto per includere ontologie},label=lst:semantic-td1]
+	
+\end{lstlisting}
 
 
 
