@@ -292,15 +292,24 @@ I principali problemi di natura umana, invece, risulta essere quello della priva
 Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio ad una macchina agricola smart, nella quale vi sono diversi sensori che comunicano il loro stato all'utilizzatore. Parlando dunque di privacy e proprietà, vi è un acceso dibattito sul chi effettivamente possiede quei dati, in quanto potrebbe averne accesso anche il produttore della macchina agricola: in questo caso si assisterebbe ad un'analisi comportamentale degli individui, favorendo la prevenzione dei guasti e l'ottimizzazione delle features più richieste a discapito del monitoraggio delle abitudini degli utilizzatori, le quali, dipendentemente dal contesto, potrebbero rendere identificabile un soggetto, anche se in partenza i dati risulterebbero anonimi.\\
 
 
-\section{W3C}
+\section{Web of Things}
 \label{sec:w3c}
-W3C \cite{w3c} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno.
-
-\subsection{WoT}
 \label{sec:wot}
-Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, W3C ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
+W3C {\cite{w3c}} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno.\\
 
-Risulta essere una visione più ampia e grande di IoT, in quanto può includere quest'ultima al suo interno: mentre IoT risulta essere un concetto a \quotes{\textit{basso}} livello, WoT è visto come un'astrazione ad un livello più alto. Non vi sono più infatti protocolli specifici, ma il concetto di risorse accessibili via HTTP: sparisce tutta la complessità di capire il come avviene la comunicazione, grazie all'adozione di hub capaci di \quotes{\textit{tradurre}} comandi in diversi protocolli utilizzati sotto dalle things.
+Per risolvere (in parte) problematiche relative ai competitor con i diversi metodi di comunicazione, di conseguenza, ridurre la frammentazione attuale portata dal caotico IoT, il W3C ha instaurato il \textbf{WoT} \cite{wot}. Il Web of Things risulta essere un set di standard per quanto riguarda la garanzia dell'interoperabilità tra le Smart Things, che si basa sulla definizione di oggetti con descrizioni, eventi e proprietà, disponibili grazie all'identificazione tramite URI. I livelli di approfondimento di una struttura stabilita dall'ente possono variare e partono dal classico esempio d'uso di un utente semplice, arrivando a gestire casi di Smart Environment in aziende e la definizione dei Digital Twin per l'osservazione, analisi e simulazione dei comportamenti.\\
+
+Risulta essere una visione più ampia e grande di IoT, in quanto può includere quest'ultima al suo interno: mentre IoT risulta essere un concetto a \quotes{\textit{basso}} livello, WoT è visto come un'astrazione ad un livello più alto. Non vi sono più infatti protocolli specifici, ma il concetto di risorse accessibili via HTTP: sparisce tutta la complessità di capire il come avviene la comunicazione, grazie all'adozione di hub capaci di \quotes{\textit{tradurre}} comandi in diversi protocolli utilizzati sotto dalle things. Possiede una serie di \quotes{\textit{building blocks}}, i quali costituiscono le fondamenta per la creazione di una rete completamente connessa e potenzialmente capace di contenere più di una semplice conoscenza su quello che sono le Things all'interno di un dato environment:
+
+\begin{itemize}
+	\item WoT Thing Description (TD) - descrizione (semantica) delle Things.
+	\item WoT Binding Templates - i protocolli per interagire con le Things possono variare, per cui esiste una parte che ne specifica tutti i dettagli.
+	\item WoT Scripting API - parte opzionale che specifica il come debbano essere costruite applicazioni Web utilizzanti il Web of Things.
+	\item WoT Security and Privacy Guidelines - parte che si occupa di sicurezza e privacy.
+\end{itemize}
+
+Oltre questo, il Web of Things possiede due parti fondamentali: Interests Group e Working Group.
+Mentre il primo si occupa di proporre diversi standard e di discutere di protocolli con le diverse aziende che ne fanno parte, per creare degli standard unificati, il secondo si occupa di specificare esplicitamente consigli e linee guida da seguire una volta che si decidono le caratteristiche caratterizzanti lo standard stesso.
 
 
 \section{Smart Room}
