@@ -1,10 +1,10 @@
 {
-  "@context": "https://www.w3.org/2019/wot/td/v1",
+	"@context": "https://www.w3.org/2019/wot/td/v1",
 	"id": "https://mywebthingserver.com/things/bulb",
 	"title":"Bulb",
 	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
   
-  "properties": {
+  	"properties": {
 		
 		"on": {
 			"type": "boolean",
@@ -23,7 +23,7 @@
 		}
 	},
 
-  "actions": {
+  	"actions": {
 		"fade": {
 			"title": "Fade",
 			"description": "Fade the lamp to a given level",
@@ -44,5 +44,5 @@
 			},
 			"links": [{"href": "/things/lamp/actions/fade"}]
 		}
-	},
+	}
 }
