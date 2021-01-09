@@ -35,7 +35,7 @@
 			"type": "boolean",
 			"title": "On/Off",
 			"description": "It's true when the bulb is on; it's false when turned off",
-			"forms": [{"href": "/things/bulb/properties/status"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/status"}]
 		},
 		
 		"brightness" : {
@@ -44,7 +44,7 @@
 			"description": "The level of light from 0-100",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "/things/lamp/properties/brightness"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/brightness"}]
 		}
 	},
 
@@ -68,13 +68,13 @@
 					}
 				}
 			},
-			"forms": [{"href": "/things/lamp/actions/fade"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/fade"}]
 		},
 
 		"toggle": {
 			"title": "Toggle",
 			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
-			"forms": [{"href": "/things/lamp/actions/toggle"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/toggle"}]
 		}
 	}
 }
