@@ -175,6 +175,26 @@
 	{"@type"}{{{\color{stringDark}{"@type"}}}}{7},
 }
 
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	basicstyle=\ttfamily\codesize,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%3d graph
 \usepackage{pgfplots}
@@ -886,7 +906,83 @@ Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tut
 \clearpage
 
 
-\subsection{[TO DO] Analisi del framework scelto}
+\subsection{Analisi del framework scelto}
+\begin{titlepage}
+	\begin{center}
+		\Large{DA QUESTO PUNTO IN POI LA RELAZIONE È IN BOZZA}
+	\end{center}
+\end{titlepage}
+
+La procedura di installazione del framework può essere seguita direttamente sul suo \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. I seguenti passaggi sono stati effettuati sul sistema operativo Windows 10. Si vuole notare, inoltre, che \texttt{ThingWeb.io} offre il cosiddetto \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}} per creare e validare la struttura di una Thing Description.\\
+
+Si procede dunque all'installazione di dipendenze con il comando:
+\begin{lstlisting}[language=bash]
+	# Installazione dipendenze
+	npm install -g --production windows-build-tools
+\end{lstlisting}
+
+Successivamente, viene seguito il tutorial per lanciare un progetto \textit{stand-alone}:
+\begin{lstlisting}[language=bash]
+	# Clonazione progetto
+	git clone https://github.com/eclipse/thingweb.node-wot
+	
+	# Installazione dipendenze
+	cd .\thingweb.node-wot\
+	npm install
+	
+	# Lancio dell'applicazione
+	npm run build
+\end{lstlisting}
+
+Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework i file \texttt{.js} che contiene qualche riga di codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti.\\
+
+Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
+
+Una volta soddisfatto il soprastante requisito, vi è necessità di spostarsi nella cartella \texttt{/thingweb.node-wot/packages/cli} e crearvi una nuova cartella, chiamata ad esempio \quotes{\textit{res}}: all'interno di questa verranno collocati i file di lancio e le Thing Description dalle quali creare gli oggetti.\\
+
+Prendendo come esempio sempre la lampadina, è necessario copiare la \texttt{semantic-bulb.json} all'interno di \texttt{/thingweb.node-wot/packages/cli/res} e crearvi un ulteriore file, chiamato ad esempio \texttt{bulb.js}, composto nel seguente modo:
+\begin{lstlisting}[language=JavaScript]
+fs = require('fs');
+
+try {
+	// Reading file
+	fs.readFile("./res/semantic-bulb.json", function(error, data) {
+		if (error) {
+			console.log("Error when reading")
+		} else {
+			try {
+				// Converting JSON into object
+				let obj = JSON.parse(data)
+				WoT.produce(obj)
+				.then(thing => {
+					// Exposing thing to public
+					thing.expose()
+				})
+				.catch(error => {
+					console.log(error)
+				})
+				
+			} catch (error) {
+				console.log(error)
+			}
+		}
+	})
+} catch (error){
+	console.log(error)
+}
+\end{lstlisting}
+
+Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possibile lanciare l'applicazione con:
+
+\begin{lstlisting}[language=bash]
+	# Avvio dell'applicazione leggente il file di lancio della lampadina
+	npm start ./res/bulb.js
+\end{lstlisting}
+
+È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
+
+Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.
+
 
 \begin{comment}
 Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
@@ -926,17 +1022,6 @@ Avendo scelto come linguaggio Kotlin, si procede alla configurazione dell'ambien
 \textbf{Visual Studio Code} è un editor di testo avanzato con diversi plugin per la maggior parte dei linguaggi conosciuti. È molto più povero delle due alternative proposte sopra: nonostante ciò è molto utile per il confronto dei file e per una veloce apertura dei file per l'esplorazione.\\
 
 Mettendo in evidenza tutti i vantaggi e svantaggi, è chiaro che IntelliJ, se fosse nella versione premium, vincerebbe il primato della classifica. Essendoci però diversi problemi riguardanti il supporto di Kotlin su Eclipse è comunque preferibile utilizzare IntelliJ nella sua versione gratuita, per poter avere una rapida e indolore prototipazione di oggetti, senza perdere tempo sulla configurazione dell'ambiente di sviluppo. A parità di utilità, oltre a IntelliJ, si ritiene opportuno avere a disposizione Visual Studio Code per rapidi confronti e anteprime.\\
-
-
-
-
-
-\begin{titlepage}
-	\begin{center}
-		\Large{DA QUESTO PUNTO IN POI LA RELAZIONE È IN BOZZA}
-	\end{center}
-\end{titlepage}
-
 
 
 
