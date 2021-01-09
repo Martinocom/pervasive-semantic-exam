@@ -3,6 +3,8 @@
 	"id": "https://mywebthingserver.com/things/bulb",
 	"title":"Bulb",
 	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+    "security": ["nosec_sc"],
   
   	"properties": {
 		
@@ -42,7 +44,7 @@
 					}
 				}
 			},
-			"links": [{"href": "/things/lamp/actions/fade"}]
+			"forms": [{"href": "/things/lamp/actions/fade"}]
 		}
 	}
 }

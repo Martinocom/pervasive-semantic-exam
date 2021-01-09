@@ -10,6 +10,8 @@
 	"id": "https://mywebthingserver.com/things/bulb",
 	"title":"Bulb",
 	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+    "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+    "security": ["nosec_sc"],
 
 	"saref:isUsedFor": "saref:Lighting",
 	"saref:accomplishes": "saref:Lighting",
@@ -66,13 +68,13 @@
 					}
 				}
 			},
-			"links": [{"href": "/things/lamp/actions/fade"}]
+			"forms": [{"href": "/things/lamp/actions/fade"}]
 		},
 
 		"toggle": {
 			"title": "Toggle",
 			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
-			"links": [{"href": "/things/lamp/actions/toggle"}]
+			"forms": [{"href": "/things/lamp/actions/toggle"}]
 		}
 	}
 }
