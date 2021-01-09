@@ -130,10 +130,12 @@
 	stringstyle=\color{redstrings}
 }
 
+
 \definecolor{delim}{RGB}{20,105,176}
 \definecolor{numb}{RGB}{106, 109, 32}
 \definecolor{string}{rgb}{0.64,0.08,0.08}
 \definecolor{stringDark}{rgb}{0.34,0.34,0.64}
+
 
 \lstdefinelanguage{json}{
 	numbers=left,
@@ -150,6 +152,7 @@
 	morestring=[b]",
 	stringstyle=\color{string},
 	tabsize=2,
+	identifierstyle=\namespaces,
 	literate=
 	*{0}{{{\color{numb}0}}}{1}
 	{1}{{{\color{numb}1}}}{1}
@@ -165,9 +168,10 @@
 	{\}}{{{\color{delim}{\}}}}}{1}
 	{[}{{{\color{delim}{[}}}}{1}
 	{]}{{{\color{delim}{]}}}}{1}
-	{"actions"}{{{\color{stringDark}{"actions"}}}}{9}
-	{"properties"}{{{\color{stringDark}{"properties"}}}}{12}
+	{"actions"}{{{\color{stringDark}{actions}}}}{9}
+	{"properties"}{{{\color{stringDark}{properties}}}}{12}
 	{"@context"}{{{\color{stringDark}{"@context"}}}}{10}
+	{"@id"}{{{\color{stringDark}{"id"}}}}{5}
 	{"@type"}{{{\color{stringDark}{"@type"}}}}{7},
 }
 
@@ -545,7 +549,7 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 		\setlength\itemsep{-0.0em}
 		\item spegnersi ed accendersi,
 		\item regolazione di intensità,
-		\item offrire possibilità di leggere i parametri (ad esempio, lo stato attuale, l'intensità corrente).
+		\item offrire possibilità di leggere i parametri (ad esempio, lo stato attuale, l'intensità luminosa corrente).
 	\end{itemize}
 	
 	\item \textbf{Televisore}: oggetto comune all'interno delle case, offrente diverse possibilità. Nell'esempio trattato non dovrà coprire tutte le funzionalità, soprattutto perchè con l'avvento delle Smart TV le features disponibili sono presenti in quantità sbalorditiva, ma comunque dovrà disporre di funzionalità come:
@@ -582,13 +586,9 @@ Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di q
 
 \begin{itemize}
 	\setlength\itemsep{-0.3em}
-	
 	\item \textbf{Lampadina}: \texttt{attachments/td/bulb.json}
-	
 	\item \textbf{TV}: \texttt{attachments/td/tv.json}
-	
 	\item \textbf{Ventilatore}: \texttt{attachments/td/fan.json}
-	
 	\item \textbf{Tapparella}: \texttt{attachments/td/shutter.json}
 \end{itemize}
 
@@ -664,13 +664,69 @@ La Thing Description così creata è completa e rispetta tutti i requisiti. L'un
 \subsection{Aggiunta della semantica}
 Una Thing Description così creata offre già una conoscenza base per identificare proprietà azioni ed eventi che sono presenti all'interno della Thing stessa. Per motivi descritti nel capitolo \ref{knowledge-wot} è doveroso considerare anche l'aggiunta di una o più ontologie per arricchire la descrizione dell'oggetto con della semantica standard e riusabile in diversi ambiti. Inoltre, come definito nella sezione \ref{sec:ontologie_note}, si conferma lo scarto delle ontologie minori e si preferisce utilizzare quelle più utilizzate e/o meglio mantenute.\\
 
+Per motivi di compatibilità, e per poter mettere a confronto le descrizioni, si preferisce mantenerle separate: per quelle \quotes{semantiche} verranno utilizzati allegati diversi:
+\begin{itemize}
+	\setlength\itemsep{-0.3em}
+	\item \textbf{Lampadina}: \texttt{attachments/td/semantic-bulb.json}
+	\item \textbf{TV}: \texttt{attachments/td/semantic-tv.json}
+	\item \textbf{Ventilatore}: \texttt{attachments/td/semantic-fan.json}
+	\item \textbf{Tapparella}: \texttt{attachments/td/semantic-shutter.json}
+\end{itemize}
+
 Per includere ontologie nella Thing Description, occorre specificarle nell'attributo \texttt{@Context}, indicando un array di ontologie di riferimento come valore; è inoltre importante non dimenticarsi di lasciare l'ontologia di riferimento per la Thing Description stessa.
 
 \begin{lstlisting}[language=json,caption={Aggiunta del contesto per includere ontologie},label=lst:semantic-td1]
-	
+"@context": [
+	"https://www.w3.org/2019/wot/td/v1",
+	{
+		"saref": "https://w3id.org/saref#",
+		"om": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+	}
+]
 \end{lstlisting}
 
+Nell'ontologia di SAREF esiste una definizione di \textit{LightingSwitch}: questo possiede però alcune proprietà che non riguardano l'esempio, per cui si preferisce aggiungere della semantica che effettivamente rappresenti il caso analizzato. Vengono aggiunti quindi attributi che descrivono a cosa serve l'oggetto, che azioni può svolgere e che proprietà possiede:
 
+\begin{lstlisting}[language=json,caption={Aggiunta di semantica per la lampadina},label=lst:semantic-td2]
+"saref:isUsedFor": "saref:Lighting",
+"saref:accomplishes": "saref:Lighting",
+"saref:hasFunction": [{	
+	"@id": "https://mywebthingserver.com/things/bulb/toggle",
+	"@type": "saref:OnOffFunction",
+	"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
+	}, {
+		"@id": "https://mywebthingserver.com/things/bulb/fade",
+		"@type": "saref:LevelControlFunction",
+		"saref:hasDescription": "Fade the lamp to a given level."
+	}
+],
+"saref:hasState": {
+	"@id": "https://mywebthingserver.com/things/bulb/status",
+	"@type": "saref:OnOffState"
+}
+\end{lstlisting}
+
+Essendo lo stato un valore binario, ON (\textit{true}) oppure OFF (\textit{false}), non vi è bisogno di standardizzare l'unità di misura. Nel caso della luminosità, si tratta di una scala custom, che non rispecchia alcun valore reale in termini di candele o lumens, per cui non vi è possibilità di definirla meglio. Nel caso dell'azione di \texttt{fade} invece, è possibile definire meglio l'unità di misura, utilizzando la corrispettiva ontologia:
+
+\begin{lstlisting}[language=json,caption={Unità di misure standardizzate},label=lst:semantic-td3]
+[...]
+"input": {
+	"type": "object",
+	"properties": {
+		"level": {
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 100
+		},
+		"duration": {
+			"type": "integer",
+			"minimum": 0,
+			"unit": "om:millisecond-Time"
+		}
+	}
+}
+[...]
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
