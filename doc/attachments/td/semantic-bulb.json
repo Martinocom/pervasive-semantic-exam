@@ -1,0 +1,78 @@
+{
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{
+			"saref": "https://w3id.org/saref#",
+			"om": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+		}
+	],
+	"@type": "saref:LightingDevice",
+	"id": "https://mywebthingserver.com/things/bulb",
+	"title":"Bulb",
+	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
+
+	"saref:isUsedFor": "saref:Lighting",
+	"saref:accomplishes": "saref:Lighting",
+	"saref:hasFunction": [{	
+			"@id": "https://mywebthingserver.com/things/bulb/toggle",
+			"@type": "saref:OnOffFunction",
+			"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
+		}, {
+			"@id": "https://mywebthingserver.com/things/bulb/fade",
+			"@type": "saref:LevelControlFunction",
+			"saref:hasDescription": "Fade the lamp to a given level."
+		}
+	],
+	"saref:hasState": {
+		"@id": "https://mywebthingserver.com/things/bulb/status",
+		"@type": "saref:OnOffState"
+	},
+
+  	"properties": {	
+		"status": {
+			"type": "boolean",
+			"title": "On/Off",
+			"description": "It's true when the bulb is on; it's false when turned off",
+			"forms": [{"href": "/things/bulb/properties/status"}]
+		},
+		
+		"brightness" : {
+			"type": "number",
+			"title": "Brightness",
+			"description": "The level of light from 0-100",
+			"minimum" : 0,
+			"maximum" : 100,
+			"forms": [{"href": "/things/lamp/properties/brightness"}]
+		}
+	},
+
+  	"actions": {
+		"fade": {
+			"@type": "saref:LevelControlFunction",
+			"title": "Fade",
+			"description": "Fade the lamp to a given level",
+			"input": {
+				"type": "object",
+				"properties": {
+					"level": {
+						"type": "integer",
+						"minimum": 0,
+						"maximum": 100
+					},
+					"duration": {
+						"type": "integer",
+						"minimum": 0,
+						"unit": "om:millisecond-Time"
+					}
+				}
+			},
+			"links": [{"href": "/things/lamp/actions/fade"}]
+		},
+
+		"toggle": {
+			"title": "Toggle",
+			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
+			"links": [{"href": "/things/lamp/actions/toggle"}]
+		}
+	}
+}
