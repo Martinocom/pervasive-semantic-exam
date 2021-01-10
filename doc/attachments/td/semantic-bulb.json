@@ -50,8 +50,7 @@
 
   	"actions": {
 		"fade": {
-			"@type": "saref:LevelControlFunction",
-			"title": "Fade",
+			"title": "fade",
 			"description": "Fade the lamp to a given level",
 			"input": {
 				"type": "object",
@@ -72,7 +71,7 @@
 		},
 
 		"toggle": {
-			"title": "Toggle",
+			"title": "toggle",
 			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
 			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/toggle"}]
 		}
