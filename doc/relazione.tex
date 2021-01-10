@@ -915,6 +915,8 @@ Si scelgono come strumenti di sviluppo i seguenti programmi:
 
 \begin{itemize}
 	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma per creare dei prototipi è la scelta migliore.
+	
+	\item \textbf{Postman}: per mandare i messaggi di test secondo il protocollo REST alle Web Things create, per testare il loro funzionamento e risposte senza necessità di creare applicazioni ad hoc.
 \end{itemize}
 
 Si vuole inoltre notare che tutto il successivo capitolo fa riferimento al sistema operativo Windows 10, eseguito su una macchina aventi le caratteristiche espresse nella tabella \ref{tab:pc-spec}.\\
@@ -1010,11 +1012,46 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
+Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thing Description per creare un oggetto: nel caso dei test effettuati, non sembra però produrre il risultato atteso, in quanto produce una Thing non coerente con la descrizione, lasciando alcuni dei campi non valorizzati, nonostante la loro palese presenza.
+
 
 \section{Test della WebThing}
 Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
-Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. Viene creato un ulteriore file, chiamato \texttt{test-bulb.js} nel quale vi è modo di prendere la Thing Description della Thing, capire le sue proprietà/eventi/azioni e interagire con loro.
+Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e delle invocazioni delle azioni ed eventi.
+
+\begin{lstlisting}[language=JavaScript]
+	// First lines declare global variables
+	fs = require('fs');
+	let status, brightnessLevel					// Riferimenti alle variabili
+	
+	[...]
+	
+	WoT.produce(obj).then(thing => {
+		// Init variables after thing is ready
+		status = false                          // Bulb is off
+		brightnessLevel = 0                     // Since it's off
+		
+		// Example of property reader handler
+		thing.setPropertyReadHandler("status", async () => {
+			return status
+		})
+		
+		// Example of property writer handler
+		thing.setPropertyWriteHandler("brightness", async(value) => {
+			brightnessLevel = value
+		})
+		
+		// Example of action handler
+		thing.setActionHandler("toggle", (parameters) => {
+			// Do some stuff...
+		})
+	})
+
+	[...]
+\end{lstlisting}
+
+Il programmatore dev'essere a conoscenza delle proprietà e azioni che una Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.
 
 
 
