@@ -815,16 +815,16 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 
 Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso.\\
 
-\textbf{SmartThings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
+\textbf{SmartThings} \cite{smartthings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
 
-\textbf{Node Red Nodegen} purtroppo non si presta allo scopo attuale del progetto: la creazione dei cosiddetti nodi Node-RED è legata ad un ulteriore piattaforma di sviluppo (appunto, la Node-RED) e la sua documentazione è soltanto parzialmente disponibile in inglese.\\
+\textbf{Node Red Nodegen} \cite{nodered} purtroppo non si presta allo scopo attuale del progetto: la creazione dei cosiddetti nodi Node-RED è legata ad un ulteriore piattaforma di sviluppo (appunto, la Node-RED) e la sua documentazione è soltanto parzialmente disponibile in inglese.\\
 
 A disposizione rimangono ulteriori candidati; di conseguenza è necessario approfondire le caratteristiche dei singoli framework, in base anche alle specifiche richieste, in modo da scegliere il migliore.\\
 
 
 \subsection{WebThings.io}
 \label{sec:webthingsio}
-\texttt{WebThings.io}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
+\texttt{WebThings.io} \cite{webthings}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
 
 L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Things. Purtroppo la documentazione si discosta da quello che è lo standard ufficiale per la Thing Description:
 
@@ -857,7 +857,7 @@ L'osservazione sulla compatibilità cade solo sulla versione di JSON-LD utilizza
 
 
 \subsection{Arena Web Hub}
-Framework basato su Node.js contenente esempi di backend e frontend. È un tentativo di standardizzare protocolli differenti, in modo da creare interoperabilità tra essi: infatti, al suo interno, vengono implementati ben tre gateway (Web Hub, Mozilla Gateway e Eclipse Thing Web) che possono essere creati in modo da supportare differenti soluzioni. Le Things vengono create dopo che uno dei tre gateway è stato istanziato, chiamando il metodo \texttt{.produce()}, il quale come l'unico argomento prende in considerazione la Thing Description.\\
+Framework \cite{arenawh} basato su Node.js contenente esempi di backend e frontend. È un tentativo di standardizzare protocolli differenti, in modo da creare interoperabilità tra essi: infatti, al suo interno, vengono implementati ben tre gateway (Web Hub, Mozilla Gateway e Eclipse Thing Web) che possono essere creati in modo da supportare differenti soluzioni. Le Things vengono create dopo che uno dei tre gateway è stato istanziato, chiamando il metodo \texttt{.produce()}, il quale come l'unico argomento prende in considerazione la Thing Description.\\
 
 Il problema di questa implementazione è simile a quello descritto nella sezione \ref{sec:webthingsio}, trattante del framework di Web Things. Infatti, anche in questa implementazione non è chiaro il supporto per le annotazioni di ontologie diverse da quella standard. L'unica cosa citata nella documentazione è:
 
@@ -879,7 +879,7 @@ Similmente al framework di WebThings, nonostante un vasto supporto alle specific
 
 \clearpage
 \subsection{ThingWeb.io}
-Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
+Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} \cite{thingweb} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
 
 Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.\\
 
@@ -903,17 +903,41 @@ Per specificare meglio il supporto alla Thing Description, si può far riferimen
 Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per cui rimane il candidato principale.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{Implementazione delle Web Things}           %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
+
+\section{Introduzione}
+
+Si scelgono come strumenti di sviluppo i seguenti programmi:
+
+\begin{itemize}
+	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma per creare dei prototipi è la scelta migliore.
+\end{itemize}
+
+Si vuole inoltre notare che tutto il successivo capitolo fa riferimento al sistema operativo Windows 10, eseguito su una macchina aventi le caratteristiche espresse nella tabella \ref{tab:pc-spec}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Component}   & \multicolumn{1}{c|}{\textbf{Name}} \\ \hline
+		\textbf{Motherboard} & MSI Z270 M7                        \\ \hline
+		\textbf{CPU}         & Intel i7-7700k                     \\ \hline
+		\textbf{GPU}         & Gigabyte GTX 1080Ti                \\ \hline
+		\textbf{RAM}         & Ballistix DDR4 @ 2400MHz           \\ \hline
+		\textbf{Disk}        & SSD Samsung Evo Pro 750 1TB                \\ \hline
+	\end{tabular}
+	\caption{\label{tab:pc-spec} Configurazione del PC in considerazione.}
+\end{table}
+
 \clearpage
 
 
-\subsection{Analisi del framework scelto}
-\begin{titlepage}
-	\begin{center}
-		\Large{DA QUESTO PUNTO IN POI LA RELAZIONE È IN BOZZA}
-	\end{center}
-\end{titlepage}
-
-La procedura di installazione del framework può essere seguita direttamente sul suo \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. I seguenti passaggi sono stati effettuati sul sistema operativo Windows 10. Si vuole notare, inoltre, che \texttt{ThingWeb.io} offre il cosiddetto \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}} per creare e validare la struttura di una Thing Description.\\
+\section{Configurazione Framework}
+La procedura di configurazione del framework può essere seguita direttamente sul suo \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. In questa relazione verrà preso in considerazione il metodo descritto sul repository come \textit{\quotes{As a standalone application}}.
 
 Si procede dunque all'installazione di dipendenze con il comando:
 \begin{lstlisting}[language=bash]
@@ -921,7 +945,7 @@ Si procede dunque all'installazione di dipendenze con il comando:
 	npm install -g --production windows-build-tools
 \end{lstlisting}
 
-Successivamente, viene seguito il tutorial per lanciare un progetto \textit{stand-alone}:
+Successivamente, viene seguito il tutorial per lanciare il progetto:
 \begin{lstlisting}[language=bash]
 	# Clonazione progetto
 	git clone https://github.com/eclipse/thingweb.node-wot
@@ -934,7 +958,9 @@ Successivamente, viene seguito il tutorial per lanciare un progetto \textit{stan
 	npm run build
 \end{lstlisting}
 
-Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework i file \texttt{.js} che contiene qualche riga di codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti.\\
+
+\section{Configurazione della Web Thing}
+Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework i file \texttt{.js} che contiene qualche riga di codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
 
 Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
 
@@ -942,34 +968,34 @@ Una volta soddisfatto il soprastante requisito, vi è necessità di spostarsi ne
 
 Prendendo come esempio sempre la lampadina, è necessario copiare la \texttt{semantic-bulb.json} all'interno di \texttt{/thingweb.node-wot/packages/cli/res} e crearvi un ulteriore file, chiamato ad esempio \texttt{bulb.js}, composto nel seguente modo:
 \begin{lstlisting}[language=JavaScript]
-fs = require('fs');
-
-try {
-	// Reading file
-	fs.readFile("./res/semantic-bulb.json", function(error, data) {
-		if (error) {
-			console.log("Error when reading")
-		} else {
-			try {
-				// Converting JSON into object
-				let obj = JSON.parse(data)
-				WoT.produce(obj)
-				.then(thing => {
-					// Exposing thing to public
-					thing.expose()
-				})
-				.catch(error => {
+	fs = require('fs');
+	
+	try {
+		// Reading file
+		fs.readFile("./res/semantic-bulb.json", function(error, data) {
+			if (error) {
+				console.log("Error when reading")
+			} else {
+				try {
+					// Converting JSON into object
+					let obj = JSON.parse(data)
+					WoT.produce(obj)
+					.then(thing => {
+						// Exposing thing to public
+						thing.expose()
+					})
+					.catch(error => {
+						console.log(error)
+					})
+					
+				} catch (error) {
 					console.log(error)
-				})
-				
-			} catch (error) {
-				console.log(error)
+				}
 			}
-		}
-	})
-} catch (error){
-	console.log(error)
-}
+		})
+	} catch (error){
+		console.log(error)
+	}
 \end{lstlisting}
 
 Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possibile lanciare l'applicazione con:
@@ -981,50 +1007,11 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.
 
+\section{Test della WebThing}
+Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
-\begin{comment}
-Mozilla WebThings offre due distinti moduli per la gestione e creazione delle Smart Things: il WebThings Gateway e WebThings Framework.\\
-
-\textbf{WebThings Gateway} è un software che può essere lanciato all'interno di un Raspberry, sotto il sistema Linux oppure in ambiente Docker. Risulta essere il punto di controllo dell'intero sistema delle Things connesse, il quale si interfaccia con esse e permette il loro utilizzo. È utile sottolineare come questa soluzione sia adottata dalla maggior parte dei competitor sul mercato, con l'enorme differenza di avere, in questo caso, il pieno controllo su quello che è l'esecuzione e dati: il codice sorgente, infatti, risulta essere accessibile in tutte e tre le soluzioni. Inoltre, per puntualizzare alcuni aspetti tecnici, un \quotes{\textit{raccoglitore}} di questo tipo rappresenta, in un certo senso, un Single Point of Failure dell'intero sistema: dall'altra parte però risulta essere impensabile aggiungere della potenza computazionale ad oggetti come lampadine per permettere una strutturazione a rete completamente connessa tra oggetti, oppure, rendere il tutto perfettamente raggiungibile con collegamenti indiretti\footnote{anche se esistono protocolli di comunicazione che permettono un tale scambio di messaggi; questi necessitano però di un ulteriore hub per funzionare.}\\
-
-Essendo il Gateway parte che permette la comunicazione tra gli oggetti, è essenziale poterlo tenere in esecuzione. Per fortuna, non vi è bisogno di una complessa configurazione per avviarlo e, come descritto prima, può essere lanciato su diverse piattaforme supportate.\\
-
-\textbf{WebThings Framework} è una collezione di componenti riusabili che permettono la creazione delle Web Things: avendo definito nella sezione \ref{sec:webthing} che il sistema sviluppato si predilige meglio a supportare le \textbf{\ul{Web}} Things piuttosto che \textit{\ul{Smart}} Things, è un ottimo punto di partenza sapere che anche il nome stesso indica la correttezza della scelta effettuata. Una Web Thing può essere successivamente scoperta da un gateway o un client e può essere implementata in diversi modi e linguaggi:
-
-\begin{itemize}
-	\item \textbf{Mozilla Libraries}: librerie proposte direttamente da Mozilla, includenti NodeJs, Python, Java, Rust, Arduino.
-	
-	\item \textbf{Third Party Libraries}: librerie proposte direttamente dalla community, includenti Moddlable, Atmosphere, IoT.js, C\#, Go, ESP-IDF, PHP e Python.
-\end{itemize}
-
-
-Una volta definito precisamente il framework scelto, è opportuno delineare una strada da percorrere per il processo di sviluppo. La scelta è ampia e permette alla maggior parte dei programmatori a scegliere il modello che più si addice alle sue competenze e disponibilità di hardware: in questo caso le piattaforme prediligenti l'uso di device esterni, quali Raspberry o Arduino sono meno indicate, in quanto non attualmente in possesso.\\
-
-Per poter comunque sperimentare la creazione di nuove Things, con l'annessa possibilità di prototipazione e test, è utile selezionare una delle modalità che permettono di ottenere il risultato richiesto anche nei requisiti definiti nel capitolo \ref{sec:iot_platform}. In base all'esperienza del programmatore, è più conveniente utilizzare la piattaforma \textbf{Java}, nella quale si hanno ormai consolidate conoscenze. Per non ricadere però in una classica implementazione, si preferisce adottare il linguaggio \textbf{Kotlin}, pienamente compatibile, per agevolare ulteriormente lo sviluppo.
-\end{comment}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
-\clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Implementazione delle Things}           %crea il capitolo
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
-
-\section{Scelta dell'IDE}
-Avendo scelto come linguaggio Kotlin, si procede alla configurazione dell'ambiente di sviluppo: in questo caso, vi è necessità di un IDE capace di facilitare lo sviluppo, considerando anche il linguaggio scelto. Esistono tre soluzioni più indicate in questo caso: Eclipse, IntelliJ e Visual Studio Code.\\
-
-\textbf{Eclipse} è uno strumento gratis che permette un facile e agevole sviluppo in diversi linguaggi, tra cui il linguaggio Java. Anche se possiede il supporto a Koltin, esso non è nativo e a volte presenta dei problemi sia coi suggerimenti che con la compilazione.\\
-
-\textbf{IntelliJ} è uno strumento versatile che permette uno sviluppo in diversi linguaggi, tra cui nativamente Java e Kotlin. Risulta essere la miglior scelta, anche se nella versione gratuita non offre tutte le funzionalità offerte nel pacchetto premium. La facilità con la quale però si integra con Kotlin, rende il suo utilizzo meno faticoso rispetto ad Eclipse.\\
-
-\textbf{Visual Studio Code} è un editor di testo avanzato con diversi plugin per la maggior parte dei linguaggi conosciuti. È molto più povero delle due alternative proposte sopra: nonostante ciò è molto utile per il confronto dei file e per una veloce apertura dei file per l'esplorazione.\\
-
-Mettendo in evidenza tutti i vantaggi e svantaggi, è chiaro che IntelliJ, se fosse nella versione premium, vincerebbe il primato della classifica. Essendoci però diversi problemi riguardanti il supporto di Kotlin su Eclipse è comunque preferibile utilizzare IntelliJ nella sua versione gratuita, per poter avere una rapida e indolore prototipazione di oggetti, senza perdere tempo sulla configurazione dell'ambiente di sviluppo. A parità di utilità, oltre a IntelliJ, si ritiene opportuno avere a disposizione Visual Studio Code per rapidi confronti e anteprime.\\
-
-
-
+Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. Viene creato un ulteriore file, chiamato \texttt{test-bulb.js} nel quale vi è modo di prendere la Thing Description della Thing, capire le sue proprietà/eventi/azioni e interagire con loro.
 
 
 
