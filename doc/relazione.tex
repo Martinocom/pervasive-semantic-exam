@@ -1018,7 +1018,7 @@ Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thi
 \section{Test della WebThing}
 Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
-Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e delle invocazioni delle azioni ed eventi.
+Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.
 
 \begin{lstlisting}[language=JavaScript]
 	// First lines declare global variables
@@ -1051,7 +1051,7 @@ Per completare il test, è necessario verificare se vi è possibilità di intera
 	[...]
 \end{lstlisting}
 
-Il programmatore dev'essere a conoscenza delle proprietà e azioni che una Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.
+Un ulteriore limite del framework scoperto durante l'effettiva realizzazione della Thing è che il programmatore dev'essere a conoscenza delle proprietà e azioni che quella Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente, partendo solo da una Thing Description; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.
 
 
 
