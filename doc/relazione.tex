@@ -1015,7 +1015,7 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thing Description per creare un oggetto: nel caso dei test effettuati, non sembra però produrre il risultato atteso, in quanto produce una Thing non coerente con la descrizione, lasciando alcuni dei campi non valorizzati, nonostante la loro palese presenza.
 
 
-\section{Test della WebThing}
+\section{Test della Web Thing}
 Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
 Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.
@@ -1051,12 +1051,35 @@ Per completare il test, è necessario verificare se vi è possibilità di intera
 	[...]
 \end{lstlisting}
 
-Un ulteriore limite del framework scoperto durante l'effettiva realizzazione della Thing è che il programmatore dev'essere a conoscenza delle proprietà e azioni che quella Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente, partendo solo da una Thing Description; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.
+Un ulteriore limite del framework scoperto durante l'effettiva realizzazione della Thing è che il programmatore dev'essere a conoscenza delle proprietà e azioni che quella Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente, partendo solo da una Thing Description; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.\\
+
+Per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:\\
 
 
+\begin{itemize}
+	\item \texttt{GET http://localhost:8080/bulb/properties/status}\\
+	Ritorna lo stato attuale della Thing in formato di una stringa. Il ritorno dipende dalla proprietà richiesta, ma risulta essere una stringa che rappresenta l'oggetto. Nel caso dello stato risulta essere così formata:
+	\begin{lstlisting}[language=JavaScript]
+	  true
+	\end{lstlisting}
+	
+	\item \texttt{PUT http://localhost:8080/bulb/properties/status}\\
+	Imposta lo stato attuale della Thing. Ha necessità di specificare il \texttt{Content-Type} impostato a \texttt{application/json} e un \texttt{body} nel quale specificare il valore da impostare. Nel caso dell'impostazione dello stato, il \texttt{body} risulta essere come segue: 
+	\begin{lstlisting}[language=JavaScript]
+	  true
+	\end{lstlisting}
+	La chiamata non ritorna nulla, se non un classico HTTP Status.
+
+	\item \texttt{POST http://localhost:8080/bulb/actions/toggle}\\
+	Effettua uno scambio di stato attuale: se la lampadina è accesa, si spegnerà; viceversa, se è spenta si accenderà. Non ha bisogno di specificare alcun contenuto, in quanto è un'azione che non richiede nessun parametro. L'output sarà semplicemente l'HTTP Status ottenuto dalla richiesta.
+\end{itemize}
+
+Purtroppo anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano. Anche in questo caso è stato già aperto un ticket di supporto\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373}.\\
+
+Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo successivo.
 
 
-
+\section{Dettagli sulle rimanenti Web Thing}
 
 
 
