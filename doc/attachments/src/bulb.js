@@ -1,7 +1,6 @@
 const { stat } = require('fs');
 
 fs = require('fs');
-
 let status, brightnessLevel
 
 try {
@@ -22,6 +21,7 @@ try {
                 .then(thing => {
                     console.log("Thing created succesfully. Binding to attributes...")
 
+                    
                     // Init variables
                     status = false                          // Bulb is off
                     brightnessLevel = 0                     // Since it's off
@@ -35,7 +35,7 @@ try {
                     thing.setPropertyWriteHandler("status", async(value) => {
                         console.log("Writing status")
                         console.log(value)
-                        if (checkPropertyWrite("boolean" === typeof value)) {
+                        if (checkPropertyWrite("boolean", value)) {
                             status = value
                         }
                     })
@@ -48,25 +48,26 @@ try {
                     thing.setPropertyWriteHandler("brightness", async(value) => {
                         console.log("Writing brightness")
                         console.log(value)
-                        if (checkPropertyWrite("number" === typeof value)) {
+                        if (checkPropertyWrite("number", typeof value)) {
                          brightnessLevel = value
                         }
                     })
 
                     // Handler for toggle
-                    thing.setActionHandler("toggle", (parameters) => {
+                    thing.setActionHandler("toggle", async(parameters) => {
                         return new Promise((resolve, reject) => {
                             console.log("handling toggle action")
                             console.log(parameters)
+                            status = !status
+                            console.log("Now status is " + status)
                             resolve();
                         })
                     });
 
                     // Handler for fade
-                    thing.setActionHandler("fade", (params) => {
+                    thing.setActionHandler("fade", async(params) => {
                         console.log("handling fade action")
                         console.log(params)
-                        console.log(options)
                         return true
                     })
 
@@ -100,13 +101,15 @@ try {
 }
 
 function checkPropertyWrite(expected, actual) {
-    let output = "Property " + expected + " written with " + actual;
-    if (expected === actual) {
+    let output = "Property " + expected + " written with type " + typeof actual;
+    if (expected === typeof actual) {
         console.log("PASS: " + output);
+        console.log(actual)
         return true
     }
     else {
         console.log("FAIL: " + output);
+        console.log(actual)
         return false
     }
 }
