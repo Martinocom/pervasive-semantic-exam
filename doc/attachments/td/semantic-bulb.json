@@ -35,7 +35,12 @@
 			"type": "boolean",
 			"title": "On/Off",
 			"description": "It's true when the bulb is on; it's false when turned off",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/status"}]
+			"forms": [
+				{
+					"href": "https://mywebthingserver.com/things/bulb/status",
+					"contentType": "application/json"
+				}
+			]
 		},
 		
 		"brightness" : {
