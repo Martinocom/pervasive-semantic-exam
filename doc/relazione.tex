@@ -790,9 +790,8 @@ Parlando di un contesto nel quale vi è una presenza della descrizione di ciò c
 Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart: alcuni di essi sono indicati direttamente nel documento di implementazione dello standard W3C\footnote{\url{https://w3c.github.io/wot-thing-description/testing/report.html}}, altri reperibili online.
 
 \begin{itemize}
-	% Experimental, still trying to search infos
-	\item [TO DO] \textbf{Yggdrasil} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
-	
+	% Experimental, leaving as comment, in case.
+	%\item [TO DO] \textbf{Yggdrasil} \cite{wot-td-java}: libreria in fase di sviluppo per la creazione della Thing Description usando RDF4J, Turtle e %JSON-LD 1.0. Tenta di essere compliant allo standard suggerito dall'ente W3C riguardante la definizione della TD.
 	
 	% Confirmed to work but has something that isn't working
 	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
@@ -848,12 +847,14 @@ Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica complet
 Come ultima nota, le differenze possono essere trovate sul seguente collegamento: \url{https://github.com/WebThingsIO/wiki/wiki/Mozilla-W3C-Differences}
 
 
+\begin{comment}
 \subsection{[TO DO] Yggdrasil}
 Libreria creata pensando per un ambito più ampio, quello degli Agenti, ma che si adatta bene ad una classica programmazione grazie al fatto di essere una libreria Java per la creazione della Thing Description e, a differenza del framework di \texttt{WebThings.io}, risulta essere maggiormente compatibile con le indicazioni del W3C per quanto riguarda la definizione di quest'ultima.\\
 
 La documentazione è reperibile soltanto dal repository stesso e risulta essere al livello nettamente inferiore rispetto a quella offerta da WebThings Framework. Il linguaggio utilizzato è soltanto Java, e quindi la scelta deve per forza ricadere su di esso (o eventualmente su linguaggi java-based, tipo Kotlin).\\
 
 L'osservazione sulla compatibilità cade solo sulla versione di JSON-LD utilizzata, che nel caso di questo framework risulta essere la 1.0, mentre le specifiche del W3C indicano la 1.1 come riferimento ufficiale.
+\end{comment}
 
 
 \subsection{Arena Web Hub}
@@ -900,7 +901,7 @@ Per specificare meglio il supporto alla Thing Description, si può far riferimen
 \end{figure}
 
 
-Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per cui rimane il candidato principale.
+Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per risulta essere la scelta definitiva.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
@@ -914,7 +915,7 @@ Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tut
 Si scelgono come strumenti di sviluppo i seguenti programmi:
 
 \begin{itemize}
-	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma per creare dei prototipi è la scelta migliore.
+	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma è sufficientemente ricco di feature per snellire il lavoro.
 	
 	\item \textbf{Postman}: per mandare i messaggi di test secondo il protocollo REST alle Web Things create, per testare il loro funzionamento e risposte senza necessità di creare applicazioni ad hoc.
 \end{itemize}
@@ -969,7 +970,7 @@ Una volta verificato che l'applicazione si apre senza maggiori problemi, è poss
 
 Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
 
-Una volta soddisfatto il soprastante requisito, vi è necessità di spostarsi nella cartella \texttt{/thingweb.node-wot/packages/cli} e crearvi una nuova cartella, chiamata ad esempio \quotes{\textit{res}}: all'interno di questa verranno collocati i file di lancio e le Thing Description dalle quali creare gli oggetti.\\
+Una volta soddisfatto il soprastante requisito, vi è necessità di spostarsi nella cartella \texttt{/thingweb.node-wot/packages/cli} e crearvi una nuova cartella, chiamata ad esempio \texttt{res}: all'interno di questa verranno collocati i file di lancio e le Thing Description dalle quali creare gli oggetti.\\
 
 Prendendo come esempio sempre la lampadina, è necessario copiare la \texttt{semantic-bulb.json} all'interno di \texttt{/thingweb.node-wot/packages/cli/res} e crearvi un ulteriore file, chiamato ad esempio \texttt{bulb.js}, composto nel seguente modo:
 \begin{lstlisting}[language=JavaScript]
@@ -1012,7 +1013,7 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thing Description per creare un oggetto: nel caso dei test effettuati, non sembra però produrre il risultato atteso, in quanto produce una Thing non coerente con la descrizione, lasciando alcuni dei campi non valorizzati, nonostante la loro palese presenza.
+Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}; il metodo tenterà quindi di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.
 
 
 \section{Test della Web Thing}
