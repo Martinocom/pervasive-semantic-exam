@@ -218,7 +218,7 @@
 \oddsidemargin=30pt \evensidemargin=20pt	%impostano i margini
 
 % Imposta la sillabazione per le parole che latex spezza male (senza virgole)
-\hyphenation{sil-la-ba-zio-ne thread findbugs package gradle dev In-ter-ac-tion-Af-for-dance}
+\hyphenation{sil-la-ba-zio-ne thread findbugs package gradle dev In-ter-ac-tion-Af-for-dance POST}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%comandi per l'impostazione
@@ -1064,11 +1064,11 @@ Un ulteriore limite del framework scoperto durante l'effettiva realizzazione del
 
 Si ricorda inoltre che dopo aver stabilito i handler, bisogna richiamare il metodo \texttt{.expose()} per rendere visibile la Thing.\\
 
-Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373#issuecomment-758490819} quelli che possono essere i modi per interagire con la Thing, per cui ogni framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{https://w3c.github.io/wot-thing-description/\#http-binding-assertions} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
+Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373\#issuecomment-758490819}} quelli che possono essere i modi per interagire con la Thing, per cui ogni framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
 
-Di conseguenza, \texttt{WebThing.io} non possiede\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.
+Di conseguenza, \texttt{WebThing.io} non possiede\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.
 
-Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
+Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{\url{https://www.postman.com/downloads/}} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
 
 \begin{itemize}
 	\item \texttt{GET http://localhost:8080/bulb/properties/status}\\
@@ -1088,7 +1088,7 @@ Al lato pratico, per controllare la risposta della Thing in merito alle chiamate
 	Effettua uno scambio di stato attuale: se la lampadina è accesa, si spegnerà; viceversa, se è spenta si accenderà. Non ha bisogno di specificare alcun contenuto, in quanto è un'azione che non richiede nessun parametro. L'output sarà semplicemente l'HTTP Status ottenuto dalla richiesta.
 \end{itemize}
 
-Purtroppo anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano. Anche in questo caso è stato già aperto un ticket di supporto\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373}.\\
+Come definito precedentemente, anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano. Anche in questo caso è stato già aperto un ticket di supporto\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} che cerca di mettere più in chiaro la necessità di avere ben note le API, soprattutto se la Thing creata espone effettivamente un'interfaccia RESTful.\\
 
 Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo successivo.
 
