@@ -1064,7 +1064,11 @@ Un ulteriore limite del framework scoperto durante l'effettiva realizzazione del
 
 Si ricorda inoltre che dopo aver stabilito i handler, bisogna richiamare il metodo \texttt{.expose()} per rendere visibile la Thing.\\
 
-Per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
+Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373#issuecomment-758490819} quelli che possono essere i modi per interagire con la Thing, per cui ogni framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{https://w3c.github.io/wot-thing-description/\#http-binding-assertions} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
+
+Di conseguenza, \texttt{WebThing.io} non possiede\footnote{https://github.com/eclipse/thingweb.node-wot/issues/373} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.
+
+Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
 
 \begin{itemize}
 	\item \texttt{GET http://localhost:8080/bulb/properties/status}\\
