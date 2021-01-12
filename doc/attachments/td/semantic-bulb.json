@@ -13,7 +13,6 @@
     "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
     "security": ["nosec_sc"],
 
-	"saref:isUsedFor": "saref:Lighting",
 	"saref:accomplishes": "saref:Lighting",
 	"saref:hasFunction": [{	
 			"@id": "https://mywebthingserver.com/things/bulb/toggle",
