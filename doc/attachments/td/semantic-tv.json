@@ -1,18 +1,30 @@
 {
-	"@context": "https://www.w3.org/2019/wot/td/v1",
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{
+			"saref": "https://w3id.org/saref#",
+			"om": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+		}
+	],
+	"@type": "saref:Multimedia",
 	"id": "https://mywebthingserver.com/things/tv",
 	"title":"TV",
-	"description": "A simple (not-so-smart) TV that can be controller remotely.",
+	"description": "A simple (not-so) Smart TV that can be controlled remotely.",
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
-    "security": ["nosec_sc"],
+	"security": ["nosec_sc"],
+	
+	"saref:hasState": {
+		"@id": "https://mywebthingserver.com/things/tv/status",
+		"@type": "saref:OnOffState"
+	},
   
     "properties": {
 		
-		"on": {
+		"status": {
 			"type": "boolean",
 			"title": "On/Off",
 			"description": "It's true when the TV is on; it's false when turned off",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/status"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/tv/status"}]
 		},
 		
 		"channel" : {
@@ -21,7 +33,7 @@
 			"description": "The number of the channel",
 			"minimum" : 0,
 			"maximum" : 255,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/channel"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/tv/channel"}]
         },
         	
 		"volume" : {
@@ -30,7 +42,7 @@
 			"description": "The value of the volume",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/volume"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/tv/volume"}]
         },
         		
 		"brightness" : {
@@ -39,7 +51,7 @@
 			"description": "The value of the Brightness",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/brightness"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/tv/brightness"}]
 		}
 	}
 }
