@@ -1,0 +1,50 @@
+{
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{
+			"saref": "https://w3id.org/saref#",
+			"om": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+		}
+	],
+	"@type": "saref:HVAC",
+	"id": "https://mywebthingserver.com/things/fan",
+	"title":"Fan",
+	"description": "A simple fan that can be remotely controlled.",
+	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+    "security": ["nosec_sc"],
+  
+	"saref:accomplishes": [
+		"saref:WellBeing",
+		"saref:Comfort"
+	],
+
+	"saref:hasState": {
+		"@id": "https://mywebthingserver.com/things/fan/status",
+		"@type": "saref:MultiLevelState"
+	},
+
+	"saref:hasFunction": [{	
+		"@id": "https://mywebthingserver.com/things/fan/cool-down",
+		"@type": "saref:ActuatingFunction",
+		"saref:hasDescription": "Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused."
+	}],
+
+  	"properties": {
+		"status" : {
+			"type": "number",
+			"title": "Status",
+			"description": "The level of intensity from 0 to 3. At 0 fan is off, at 3 at full speed.",
+			"minimum" : 0,
+			"maximum" : 3,
+			"forms": [{"href": "https://mywebthingserver.com/things/fan/status"}]
+		}
+	},
+
+  	"actions": {
+		"cool-down": {
+			"title": "Cool Down",
+			"description": "Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused.",
+			"forms": [{"href": "https://mywebthingserver.com/things/fan/actions/cool-down"}]
+		}
+	}
+}

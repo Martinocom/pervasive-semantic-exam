@@ -1,0 +1,27 @@
+{
+	"@context": "https://www.w3.org/2019/wot/td/v1",
+	"id": "https://mywebthingserver.com/things/fan",
+	"title":"Fan",
+	"description": "A simple fan that can be remotely controlled.",
+	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+    "security": ["nosec_sc"],
+  
+  	"properties": {
+		"state" : {
+			"type": "number",
+			"title": "State",
+			"description": "The level of intensity from 0 to 3. At 0 fan is off, at 3 at full speed.",
+			"minimum" : 0,
+			"maximum" : 3,
+			"forms": [{"href": "https://mywebthingserver.com/things/fan/intensity"}]
+		}
+	},
+
+  	"actions": {
+		"cool-down": {
+			"title": "Cool Down",
+			"description": "Make the fan cool work above his normal scale level for some time, preventing to burn the motor if abused.",
+			"forms": [{"href": "https://mywebthingserver.com/things/fan/actions/cool-down"}]
+		}
+	}
+}
