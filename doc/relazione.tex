@@ -880,9 +880,16 @@ Similmente al framework di WebThings, nonostante un vasto supporto alle specific
 
 \clearpage
 \subsection{ThingWeb.io}
-Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} \cite{thingweb} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esisten sia sul repository, sia nella pagina ufficiale del progetto.\\
+Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} \cite{thingweb} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esiste sia sul repository, sia nella pagina ufficiale del progetto.\\
 
-Per controllare il supporto per i contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano come questa abbia al suo interno una Thing Description, che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.\\
+Esistono due concetti importanti per quanto riguarda il framework di ThingWeb.io:
+\begin{itemize}
+	\item \textbf{Thing \textit{esposta}} è l'effettiva implementazione della Thing, con le sue proprietà, metodi ed eventi. Risulta essere quindi l'effettiva Thing Virtuale che il programmatore può eseguire attraverso un file di lancio\footnote{La questione è spiegata meglio nel capitolo \ref{sec:configuring:wt}}.
+	
+	\item \textbf{Thing \textit{consumata}} è la Thing che vede l'utilizzatore. Si differenzia dalla prima in quanto può solo interagirvi, e non gestirla completamente: Thing \textit{consumata} è soltanto una facility per interfacciarsi meglio con proprietà e funzioni sottostanti, ma non per gestire, nel verso senso della parola, la Thing virtuale. Si può pensare alla Thing \textit{consumata} come una sorte di interfaccia o un layer che permette di comunicare con l'oggetto.
+\end{itemize}
+
+Per scongiurare l'ipotesi del mancato supporto ai diversi contesti, è necessario recarsi più a fondo nella documentazione: le specifiche riguardanti il primo lancio di una Thing all'interno di un Raspberry indicano, ad esempio una Thing Description che, come visibile dalla figura \ref{fig:context-ok-thingweb}, è completa di tutti i campi indicati nella raccomandazione del W3C, compresi alcuni aggiuntivi contesti rispetto a quello base.\\
 
 \begin{figure}[h]
 	\centering
@@ -966,6 +973,7 @@ Se il framework non dovesse funzionare o presentare problemi all'avvio, si può 
 
 
 \section{Configurazione della Web Thing}
+\label{sec:configuring:wt}
 Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework i file \texttt{.js} che contiene qualche riga di codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
 
 Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
@@ -1013,13 +1021,13 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Si precisa, inoltre, che esiste un metodo \texttt{.consume} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}; il metodo tenterà quindi di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.
+Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}, richiamando \texttt{.produce()} e poi \texttt{.expose()} sulla Thing \textit{\quotes{prodotta}}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.
 
 
 \section{Test della Web Thing}
 Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
-Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.
+Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce()} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.
 
 \begin{lstlisting}[language=JavaScript]
 	// First lines declare global variables
@@ -1054,8 +1062,9 @@ Per completare il test, è necessario verificare se vi è possibilità di intera
 
 Un ulteriore limite del framework scoperto durante l'effettiva realizzazione della Thing è che il programmatore dev'essere a conoscenza delle proprietà e azioni che quella Thing può svolgere: è infatti al momento impossibile creare Web Things capaci di auto-configurarsi completamente, partendo solo da una Thing Description; se si dovesse dimenticare di inserire all'interno del codice variabili e riferimenti ai handler, le proprietà saranno comunque accessibili, ma il loro valore rimarrà sempre nullo.\\
 
-Per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:\\
+Si ricorda inoltre che dopo aver stabilito i handler, bisogna richiamare il metodo \texttt{.expose()} per rendere visibile la Thing.\\
 
+Per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{https://www.postman.com/downloads/} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
 
 \begin{itemize}
 	\item \texttt{GET http://localhost:8080/bulb/properties/status}\\
