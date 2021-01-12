@@ -1,18 +1,38 @@
 {
-	"@context": "https://www.w3.org/2019/wot/td/v1",
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{
+			"saref": "https://w3id.org/saref#",
+			"om": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+		}
+	],
+	"@type": "saref:Actuator",
 	"id": "https://mywebthingserver.com/things/shutter",
 	"title":"Shutter",
 	"description": "A simple shutter that can be regulated to dimm or block external light.",
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
-    "security": ["nosec_sc"],
-  
+	"security": ["nosec_sc"],
+	
+
+	"saref:accomplishes": [
+		"saref:Lighting", 
+		"saref:Safety"
+	],
+
+	"saref:hasFunction": [{	
+			"@id": "https://mywebthingserver.com/things/shutter/move",
+			"@type": "saref:LevelControlFunction",
+			"saref:hasDescription": "Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0))."
+		}
+	],
+
   	"properties": {
 		
 		"is-open": {
 			"type": "boolean",
 			"title": "Is open",
 			"description": "Value is true if his 'level' is minor that the openess treshold",
-			"forms": [{"href": "https://mywebthingserver.com/things/shutter/is-open"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/is-open"}]
 		},
 		
 		"openess-treshold" : {
@@ -21,7 +41,7 @@
 			"description": "Value (in percentage) when to consider the shutter closed. 0 means always opened, 100 means always closed. A value of 20 means that shutter needs to roll 20% of his length to be considered open.",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/shutter/openess-treshold"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/openess-treshold"}]
         },
 
         "level" : {
@@ -30,7 +50,7 @@
 			"description": "Value (in percentage) of the current aperture of the shutter. 0 means it's all down (no light), 100 means it's all up (full light)",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/shutter/level"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/level"}]
         }
 	},
 
@@ -43,7 +63,7 @@
                 "minimum": -100,
 				"maximum": 100		
 		    },
-			"forms": [{"href": "https://mywebthingserver.com/things/shutter/actions/move"}]
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/move"}]
 	    }
 	}
 }
