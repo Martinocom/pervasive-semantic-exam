@@ -1094,7 +1094,17 @@ Una volta apportato che è possibile creare, avviare e interagire con una singol
 
 
 \section{Dettagli sulle rimanenti Web Thing}
+Non ci sono dettagli relativi alle differenze tra Thing \textit{non-semantiche}, tranne la completa assenza delle \texttt{actions} in alcune di esse;  per quelle \textit{semantiche} è opportuno invece sottolineare alcuni punti essenziali:
 
+\begin{itemize}
+	\item per identificare i dispositivi che in qualche modo regolano la luminosità della stanza, senza però avere un sensore che effettivamente misuri il livello di luminosità, i dispositivi quali \textbf{lampadina}, \textbf{TV} e \textbf{tapparella} sono stati segnati come \quotes{\textit{oggetti capaci di illuminare}}\footnote{\texttt{"saref:accomplishes": "saref:Lighting"}}. Ovviamente il discorso non è del tutto preciso, in quanto la tapparella può \quotes{illuminare} solo in presenza di luce esterna e la TV non è un dispositivo utilizzato per illuminare la stanza: sono comunque tutti e tre responsabili a variarne la luminosità.
+	
+	\item la \textbf{tapparella} è stata identificata come un dispositivo di sicurezza\footnote{\texttt{"saref:accomplishes": "saref:Safety"}}, perchè la chiusura di essa garantisce, in qualche modo, una maggiore sicurezza alla struttura in cui essa si trova. Ciò però non equivale a definire un meccanismo di chiusura completamente sicuro, come ad esempio una porta chiusa a chiave. 
+	
+	\item sia la \textbf{TV} che il \textbf{ventilatore} sono ritenuti oggetti capaci di offrire il \textit{WellBeing} e \textit{Comfort}\footnote{\texttt{"saref:accomplishes": ["saref:WellBeing", "saref:Comfort"]}}: questo perchè SAREF non specifica cosa definiscono queste istanze di classi. Prendendo come definizione di \quotes{WellBeing} un qualcosa che "fa star bene" e la definizione di \quotes{Comfort} un qualcosa che offre una certa comodità, entrambi indubbiamente cadono a poter essere definite tali.
+	
+	\item le tre osservazioni sopra fanno emergere la necessità di estensione dell'ontologia, per definire meglio i collegamenti semantici che vi possono essere tra di esse.
+\end{itemize}
 
 
 
