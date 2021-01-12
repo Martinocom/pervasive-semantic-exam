@@ -13,6 +13,12 @@
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
 	"security": ["nosec_sc"],
 	
+	"saref:accomplishes": [
+		"saref:Lighting",
+		"saref:WellBeing",
+		"saref:Comfort"
+	],
+
 	"saref:hasState": {
 		"@id": "https://mywebthingserver.com/things/tv/status",
 		"@type": "saref:OnOffState"
