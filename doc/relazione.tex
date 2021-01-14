@@ -1021,7 +1021,9 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}, richiamando \texttt{.produce()} e poi \texttt{.expose()} sulla Thing \textit{\quotes{prodotta}}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.
+Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}, richiamando \texttt{.produce()} e poi \texttt{.expose()} sulla Thing \textit{\quotes{prodotta}}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.\\
+
+Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni a tutte le Things. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.
 
 
 \section{Test della Web Thing}
