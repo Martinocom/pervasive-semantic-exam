@@ -682,6 +682,7 @@ L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-descriptio
 La Thing Description così creata è completa e rispetta tutti i requisiti. L'unica cosa mancante sono i riferimenti ad ontologie esterne, che verranno prese in considerazione nella successiva sezione. Il documento nella sua interezza può essere trovato direttamente in allegati (\texttt{attachments/td/bulb.json})
 
 \subsection{Aggiunta della semantica}
+\label{sec:adding-semantic}
 Una Thing Description così creata offre già una conoscenza base per identificare proprietà azioni ed eventi che sono presenti all'interno della Thing stessa. Per motivi descritti nel capitolo \ref{knowledge-wot} è doveroso considerare anche l'aggiunta di una o più ontologie per arricchire la descrizione dell'oggetto con della semantica standard e riusabile in diversi ambiti. Inoltre, come definito nella sezione \ref{sec:ontologie_note}, si conferma lo scarto delle ontologie minori e si preferisce utilizzare quelle più utilizzate e/o meglio mantenute.\\
 
 Per motivi di compatibilità, e per poter mettere a confronto le descrizioni, si preferisce mantenerle separate: per quelle \quotes{semantiche} verranno utilizzati allegati diversi:
@@ -833,7 +834,7 @@ L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben d
 
 Come da figura \ref{fig:specification-conflict}, entrambe le definizioni collidono, e per puntualizzare il problema, si vuole sottolineare come \href{https://www.w3.org/TR/wot-thing-description/#example-28}{\ul{l'esempio 28}} del \href{https://www.w3.org/TR/wot-thing-description/#semantic-annotations}{\ul{capitolo 7.1}} della descrizione del W3C \textbf{\uline{NON}} sia compatibile con le specifiche di \texttt{WebThings.io}, e che quindi risulterebbe essere completamente illeggibile e inutilizzabile.\\
 
-Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 58 - \url{https://github.com/WebThingsIO/webthing-java/issues/58}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
+Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 157 - \url{https://github.com/WebThingsIO/api/issues/157}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
 
 Come ultima nota, le differenze possono essere trovate sul seguente collegamento: \url{https://github.com/WebThingsIO/wiki/wiki/Mozilla-W3C-Differences}
 
@@ -1141,7 +1142,9 @@ Nonostante il fatto di aver scelto un framework supportante la Thing Description
 	\item \textbf{Esempi di codice non sufficienti}: quelli forniti sono per la maggior parte piccoli o contrastanti; mentre in uno la Thing utilizza solo variabili interne al codice, in un altro fa uso soltanto di metodi come \texttt{thing.readProperty()} asincroni che cambiano completamente la struttura del programma. Inoltre, non è specificato in nessun modo che non vi è un \texttt{binding} tra parametri \quotes{locali} e quelli della thing, portando ad una errata conclusione sul fatto di poter utilizzare solo i primi per definirla completamente.
 \end{itemize}
 
-L'elenco completo delle \textit{issues} aperte nei repository di diversi framework è il seguente:
+Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono essere prese necessariamente come una nota negativa: si vuole notare infatti la volontà sia dell'utilizzo di queste piattaforme, sia al contribuire alla loro crescita segnalando potenziali problemi, rischi e mancanze. È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, anche se non ampiamente attiva, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte  hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
+
+È comunque un'importante fattore che ha segnato notevolmente il progetto, per cui si preferiscono esplicitamente elencare le \textit{issues} aperte:
 
 \begin{itemize}
 	\item \textbf{[WebThings]} Issue 157\\
@@ -1157,9 +1160,21 @@ L'elenco completo delle \textit{issues} aperte nei repository di diversi framewo
 	Validazione dei dati attraverso il \texttt{form} della Thing Description
 \end{itemize}
 
-È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, anche se non ampiamente attiva, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte nei rispettivi \textit{repository} hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
 
 
+
+\section{Criticità nell'implementazione delle Things}
+La maggior parte delle cose qui elencate risulta essere frutto di compromesso tra funzionalità e API del framework usato parzialmente disponibili e/o scarsamente documentate. Si tratta perlopiù di piccoli accorgimenti che avrebbero portato via del tempo e non avrebbero incluso nel progetto una significativa quantità e qualità di informazioni.
+
+\begin{itemize}
+	\item Nelle Things è possibile trovare una semplificazione per quanto riguarda gli eventi che durano nel tempo: ad esempio, nella lampadina, chiamando la funzione \texttt{fade} ed eseguendo successivamente uno spegnimento della stessa, l'azione di \texttt{fade} non si vermerà e vorrà comunque raggiungere il proprio valore (di default 60). L'intensità luminosa quindi verrà impostata a 0 a causa dello spegnimento, ma poi continuerà a crescere fino al valore stabilito dalla funzione di \texttt{fade}. La correzione richiede un controllo su chi esegue la scrittura sulla proprietà \texttt{brightness}: se è l'utente ad aggiornarla, l'azione deve fermarsi; se è la lampadina stessa, l'azione deve continuare.
+	
+	\item Al momento, non vi è un controllo esplicito sulla correttezza dei parametri passati. È quindi erroneamente possibile, ad esempio, impostare la luminosità di una lampadina come una stringa (\texttt{"esempio"}), senza che la Thing se ne accorga.
+	
+	\item Non vi sono criteri di sicurezza implementati, anche se è possibile definirli all'interno della Thing Description stessa. Questo è solo per semplificare il lavoro e dimostrare le potenzialità del framework e della Thing Description: per coprire ogni aspetto non vi sono tempo e risorse necessarie all'esplorazione e documentazione.
+	
+	\item Come scritto nel capitolo \ref{sec:adding-semantic}, la costruzione delle Thing ha fatto emergere la necessità di sviluppare e/o estendere ontologie, in quanto vi sono alcuni aspetti intrinseci delle cose che potrebbero essere rappresentate con maggior dettaglio, ma sempre per motivi di mancanza di tempo e risorse non è possibile coprire ogni aspetto riguardante la Thing Description
+\end{itemize} 
 
 
 
