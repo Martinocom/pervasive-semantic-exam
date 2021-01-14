@@ -13,6 +13,7 @@
     "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
     "security": ["nosec_sc"],
 
+	"saref:isUsedFor": "saref:Lighting",
 	"saref:accomplishes": "saref:Lighting",
 	"saref:hasFunction": [{	
 			"@id": "https://mywebthingserver.com/things/bulb/toggle",
@@ -33,6 +34,9 @@
 		"status": {
 			"type": "boolean",
 			"title": "On/Off",
+			"observable": true,
+			"readOnly" : false,
+            "writeOnly" : false,
 			"description": "It's true when the bulb is on; it's false when turned off",
 			"forms": [
 				{
@@ -45,6 +49,9 @@
 		"brightness" : {
 			"type": "number",
 			"title": "Brightness",
+			"observable": true,
+			"readOnly" : false,
+            "writeOnly" : false,
 			"description": "The level of light from 0-100",
 			"minimum" : 0,
 			"maximum" : 100,
@@ -63,11 +70,6 @@
 						"type": "integer",
 						"minimum": 0,
 						"maximum": 100
-					},
-					"duration": {
-						"type": "integer",
-						"minimum": 0,
-						"unit": "om:millisecond-Time"
 					}
 				}
 			},
