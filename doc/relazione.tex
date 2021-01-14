@@ -1160,12 +1160,17 @@ Al lato pratico, per controllare la risposta della Thing in merito alle chiamate
 	Effettua uno scambio di stato attuale: se la lampadina è accesa, si spegnerà; viceversa, se è spenta si accenderà. Non ha bisogno di specificare alcun contenuto, in quanto è un'azione che non richiede nessun parametro. L'output sarà semplicemente l'HTTP Status ottenuto dalla richiesta.
 \end{itemize}
 
-Come definito precedentemente, anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano. Anche in questo caso è stato già aperto un ticket di supporto\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} che cerca di mettere più in chiaro la necessità di avere ben note le API, soprattutto se la Thing creata espone effettivamente un'interfaccia RESTful.\\
+Come definito precedentemente, anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano e all'assenza di un pieno supporto al controllo dei dati in arrivo: infatti, la documentazione non parla in alcun modo di protocollo REST, se non facendo riferimento allo standard W3C che generalizza il discorso. L'assenza di controllo dei dati di arrivo, invece, è un problema conosciuto e in fase di implementazione, in quanto non attualmente prioritario. Anche in questo caso è stato già aperto un ticket di supporto\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} che cerca di mettere più in chiaro la necessità di avere ben note le API, soprattutto se la Thing creata espone effettivamente un'interfaccia RESTful.\\
 
 Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo \ref{sec:other-things}.
 
 
-\section{Diff}
+\section{Note aggiuntive sulle ulteriori Thing}
+\label{sec:other-things}
+In questa sezione verranno trattate solo maggiori differenze o dettagli degni di nota sulle things diverse dalla lampadina utilizzata come \quotes{\textit{Thing Esempio}}.
+
+
+
 
 \section{Criticità rilevate nel Framework}
 Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
