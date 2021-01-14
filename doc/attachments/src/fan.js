@@ -6,7 +6,7 @@ let localRef = {
         name: "status",
         value: 0
     },
-    thing = null
+    thing: null
 }
 
 // Temp variable for controlling the SpeedUp function
@@ -24,7 +24,7 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-fan.json", funct
     localRef.thing.writeProperty(localRef.status.name, localRef.status.value)
 
     // Setting actions
-    localRef.thing.setActionHandler("cool-down", async(parameters) => {
+    localRef.thing.setActionHandler("speed-up", async(parameters) => {
         if (isReadyToSpeedUp) {
             speedUp()
         }

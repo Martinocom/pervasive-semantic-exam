@@ -41,9 +41,9 @@
 	},
 
   	"actions": {
-		"cool-down": {
-			"title": "Cool Down",
-			"description": "Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused.",
+		"speed-up": {
+			"title": "Speed Up",
+			"description": "Make the fan spin faster than normally possible for short time. Has controls to prevent abusing this command.",
 			"forms": [{"href": "https://mywebthingserver.com/things/fan/actions/cool-down"}]
 		}
 	}
