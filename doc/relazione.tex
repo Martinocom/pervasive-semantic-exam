@@ -1023,20 +1023,19 @@ Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possi
 
 Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce()} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.\\
 
-Se la Thing espone le sue proprietà in modalità di scrittura e lettura, è possibile utilizzare un unico breve comando: altrimenti, è necessario procedere alla definizione dei singoli handler. Si che nel caso della \textbf{Thing \textit{esposta}}, essa contiene già tutte le variabili lette dalla Thing Description: infatti, per leggere e/o scrivere e/o osservare le diverse proprietà che espone una Thing è necessario avvalersi di tre metodi messi a disposizione dall'API:
+\subsection{Operazioni preliminari}
+
+Nel caso della \textbf{Thing \textit{esposta}}, vi è un esplicito riferimento all'API contenente tutte le variabili lette dalla Thing Description: infatti, per leggere e/o scrivere e/o osservare le diverse proprietà che espone una Thing è necessario avvalersi di tre metodi messi a disposizione dall'API:
 \begin{lstlisting}[language=JavaScript]
-	// Auto Read-Write in one line
-	thing.writeProperty("propertyName", propertyValue)
-	
 	// Read, write or obsere a property
 	thing.readProperty("propertyName").then((data) => {})
 	thing.writeProperty("propertyName", value).then(() => {})
 	thing.observeProperty("propertyName", (data) => {})
 \end{lstlisting}
 
-È comunque comodo tenere un riferimento a variabili locali per delle verifiche interne, dovute ad un cambio in una variabile osservata, o per motivi di sviluppo e/o controllo. Il risultato di tutte queste considerazioni, includendo l'uso del modulo \texttt{common.js} porta ad una soluzione descritta nel codice \ref{lst:bulb.js}. Si ricorda che tutti i sorgenti sono disponibili in allegati.
+È comunque comodo tenere un riferimento a variabili locali per delle verifiche interne, dovute ad un cambio in una variabile osservata, o per motivi di sviluppo e/o controllo: esse possono essere usate per poter agevolmente tenere il codice sotto controllo, anche se questo aggiunge una leggera complessità. Le prime righe del codice si riferiscono dunque all'importazione della libreria \texttt{common} e degli attributi che potranno essere trovati nella Thing. Come esempio, si può prendere il codice della lampadina:
 
-\begin{lstlisting}[language=JavaScript,caption={Parti essenziali del codice sorgente di \texttt{bulb.js}},label=lst:bulb.js]]
+\begin{lstlisting}[language=JavaScript,caption={Inizio del codice di \texttt{bulb.js}},label=lst:bulb.js]]
 const common = require('./common');
 
 // Reference to local variable
@@ -1051,7 +1050,12 @@ let localRef = {
 	},
 	thing: null
 }
+\end{lstlisting}
 
+\subsection{Scrittura dei parametri di default}
+Si procede quindi al richiamo delle funzionalità comuni, che permettono agevolmente di creare una Thing a partire da un file. Una funzione di \texttt{callback} permetterà di ottenere l'oggetto e consentirà di richiamare i metodi relativi alla Thing \textit{esposta}. È qui che si inizializzano le proprietà della Thing ai valori di default. Si prende come esempio sempre il file della lampadina:
+
+\begin{lstlisting}[language=JavaScript,caption={Creazione della Thing e inizializzazione proprietà read/write in \texttt{bulb.js}}]]
 common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", function(thing) {
 	// Save reference to the thing
 	localRef.thing = thing
@@ -1060,38 +1064,77 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", func
 	localRef.thing.writeProperty(localRef.status.name, localRef.status.value)
 	localRef.thing.writeProperty(localRef.brightness.name, localRef.brightness.value)
 	
-	// Observing status
-	localRef.thing.observeProperty(localRef.status.name, async(data) => {
-		// If status changes, look at the brightness
-		let brightness = await localRef.thing.readProperty(localRef.brightness.name)
-		
-		// If bulb is on
-		if (data == true) {
-			// Brightness shoud be higher than 0
-			if (brightness <= 0) {
-				writeProperty(localRef.brightness.name, 100)
-			}
-		} else {
-			// Bulb is off, brightness should be 0
-			if (brightness > 0) {
-				writeProperty(localRef.brightness.name, 0)
-			}
-		}
-	})
-
-	[...]
-	
-	   // Toggle reads current status and switch it
-	localRef.thing.setActionHandler("toggle", async(params) => {
-		return localRef.thing.readProperty(localRef.status.name)
-		.then((data) => {
-			return writeProperty(localRef.status.name, !data)
-		})
-	});
-
 	[...]
 })
 \end{lstlisting}
+
+\subsection{Osservare e reagire al cambiamento di proprietà}
+Vi è necessità poi di specificare comportamenti degli oggetti, che potrebbero avere influenze su uno o più parametri. Per questo motivo si predispongono funzioni che \textit{osservano} le proprietà e reagiscono al loro cambiamento. Una lampadina, ad esempio, può avere i seguenti comportamenti:
+
+\begin{itemize}
+	\item passaggio da OFF a ON causa il cambiamento della luminosità da un valore a 0 a un valore maggiore di 0. Per comodità, si assume che la lampadina che si accende voglia arrivare alla massina luminosità disponibile (in questo caso 100). La stessa cosa funziona al contrario, passando dallo stato ON allo stato OFF.
+	
+	\item passaggio da una luminosità maggiore di 0 ad un valore di luminosità pari a 0 causa lo spegnimento della lampadina. La stessa cosa funziona al contrario: quando la luminosità viene impostata a 0, la lampadina verrà spenta.
+\end{itemize}
+
+È quindi possibile definire il codice come segue:
+
+\begin{lstlisting}[language=JavaScript,caption={Reagire al cambiamento delle proprietà in \texttt{bulb.js}}]]
+// Observing status
+localRef.thing.observeProperty(localRef.status.name, async(data) => {
+	// If status changes, look at the brightness
+	let brightness = await localRef.thing.readProperty(localRef.brightness.name)
+	
+	// If bulb is on
+	if (data == true) {
+		// Brightness shoud be higher than 0
+		if (brightness <= 0) {
+			writeProperty(localRef.brightness.name, 100)
+		}
+	} else {
+		// Bulb is off, brightness should be 0
+		if (brightness > 0) {
+			writeProperty(localRef.brightness.name, 0)
+		}
+	}
+})
+[...]
+\end{lstlisting}
+
+Un'importante nota va proprio in merito a questa funzione: per quanto comoda, essa viene richiamata ogni tal volta che una proprietà viene cambiata. Non è possibile infatti differenziare da un cambiamento proveniente \quotes{dall'interno} della Thing da quello proveniente da un utente esterno. Questo può causare comportamenti indesiderati, soprattutto quando si vanno ad aggiornare più proprietà insieme o quando vi si comincia a creare una dipendenza circolare tra le due proprietà:\\
+
+	\textit{La diminuzione della luminosità a 0 scatta lo spegnimento della lampadina, ma lo spegnimento della lampadina scatta il cambiamento sulla luminosità che dev'essere impostata a 0, che a sua volta scatta lo spegnimento della lampadina che causa l'impostazione della luminosità...}\\
+	
+È necessario notare che \texttt{.writeProperty()} è una funzione che permette la scrittura dei parametri sia interni che esterni della thing. È formata nel seguente modo:
+
+\begin{lstlisting}[language=JavaScript]]
+function writeProperty(name, value) {
+	// Write object locally
+	for (const key of Object.keys(localRef)) {
+		if (key == name) {
+			localRef[key].value = value
+		}
+	}
+	
+	// Wirte object remotely
+	return localRef.thing.writeProperty(name, value)
+}
+\end{lstlisting}
+
+
+\subsection{Chiamare le azioni}
+Come ultima cosa, vi è necessità di specificare il comportamento delle azioni che si hanno quando si interagisce con la Thing. Per comodità, si assume che le operazioni non possano essere interrotte, anche se nella realtà è possibile interagire con la Thing in qualsiasi momento, a volte producendo risultati inattesi: ad esempio, attivando il comando \texttt{fade} sulla lampadina è possibile spegnerla e/o accenderla, ma l'esecuzione del comando continuerà finché non raggiungerà il valore impostato, cambiando di conseguenza lo stato in cui essa si trova. Un esempio di come può essere impostata un'azione è nel seguente codice:
+
+\begin{lstlisting}[language=JavaScript,caption={Reagire all'invocazione dell'azione in \texttt{bulb.js}}]]
+// Toggle reads current status and switch it
+localRef.thing.setActionHandler("toggle", async(params) => {
+	return localRef.thing.readProperty(localRef.status.name)
+	.then((data) => {
+		return writeProperty(localRef.status.name, !data)
+	})
+});
+\end{lstlisting}
+
 
 Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373\#issuecomment-758490819}} quelli che possono essere i modi per interagire con la Thing, per cui ogni framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
 
@@ -1107,7 +1150,7 @@ Al lato pratico, per controllare la risposta della Thing in merito alle chiamate
 	\end{lstlisting}
 	
 	\item \texttt{PUT http://localhost:8080/bulb/properties/status}\\
-	Imposta lo stato attuale della Thing. Ha necessità di specificare il \texttt{Content-Type} impostato a \texttt{application/json} e un \texttt{body} nel quale specificare il valore da impostare. Nel caso dell'impostazione dello stato, il \texttt{body} risulta essere come segue: 
+	Imposta lo stato attuale della Thing. Ha necessità di specificare il \texttt{Content-Type} impostato a \texttt{application/json} e un \texttt{body} nel quale specificare il valore da impostare. Nel caso dell'impostazione dello stato a \texttt{true}, il \texttt{body} risulta essere come segue: 
 	\begin{lstlisting}[language=JavaScript]
 	  true
 	\end{lstlisting}
@@ -1121,6 +1164,8 @@ Come definito precedentemente, anche qui si riconoscono i limiti del framework, 
 
 Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo \ref{sec:other-things}.
 
+
+\section{Diff}
 
 \section{Criticità rilevate nel Framework}
 Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità

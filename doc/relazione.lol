@@ -4,4 +4,4 @@
 \contentsline {lstlisting}{\numberline {4.3}Azioni di una lampadina}{30}{lstlisting.4.3}%
 \contentsline {lstlisting}{\numberline {4.4}Aggiunta del contesto per includere ontologie}{31}{lstlisting.4.4}%
 \contentsline {lstlisting}{\numberline {4.5}Aggiunta di semantica per la lampadina}{31}{lstlisting.4.5}%
-\contentsline {lstlisting}{\numberline {6.1}Parti essenziali del codice sorgente di \texttt {bulb.js}}{49}{lstlisting.6.1}%
+\contentsline {lstlisting}{\numberline {6.1}Inizio del codice di \texttt {bulb.js}}{49}{lstlisting.6.1}%
