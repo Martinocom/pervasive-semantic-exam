@@ -1122,7 +1122,42 @@ Una volta apportato che è possibile creare, avviare e interagire con una singol
 
 
 \section{Criticità rilevate nel Framework}
+Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
 
+\begin{itemize}
+	\item \textbf{Creazione di una Thing a partire da Thing Description testuale impossibile}: vi è necessità infatti di passare un oggetto creato appositamente: è quello che poi pensa alla creazione della Thing vera e propria. Esiste quindi questo \quotes{doppio passaggio}, nel quale una Thing Description viene letta, poi ne viene fatta la conversione in un oggetto, che a sua volta viene convertito in una Thing Description dal framework.
+	
+	\item \textbf{Assenza di dettagliata documentazione}: il framework spesso fa riferimenti alla documentazione generica fornita come linee guida del W3C; generalmente questo non causa problemi con progetti piccoli, ma comincia a diventare complesso da gestire quando le variabili in campo sono molteplici:
+		\begin{itemize}
+			\item in particolare, non vi è una chiara documentazione RESTful, in quanto viene indicato come riferimento soltanto il \href{https://w3c.github.io/wot-thing-description/#http-binding-assertions}{\textit{Protocol Binding Based on HTTP}}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}}. Esso specifica comandi differenziando per il tipo di \texttt{op} del \texttt{Form} della Thing Description, ma non menziona ad esempio in nessun modo come viene composto l'URL che permette la lettura e/o scrittura di proprietà.
+			
+			\item esiste inoltre una piccola confusione per quanto riguarda variabili locali e della Thing Stessa: è più indicato infatti usare le seconde, asincrone, direttamente collegate alla Thing Stessa, piuttosto che quelle locali, come da alcuni esempi\footnote{\url{https://github.com/eclipse/thingweb.node-wot/blob/master/examples/testthing/testthing.js}} che sono reperibili nel \textit{repository} ufficiale.
+			
+			\item non vi sono dettagli riguardanti la validazione dei dati che arrivano alla Thing: anche se impostato, di default il \texttt{form} viene completamente ignorato e non vi è alcun controllo sul \texttt{DataSchema} in arrivo. Vi è necessità di eseguire una selezione manuale di attributi validi e non.
+			
+			\item non vi è alcun standard per quanto riguarda la formattazione dei dati: per impostare lo stato di una lampadina a \texttt{true} occorre semplicemente mandare un messaggio \texttt{PUT} sulla proprietà dello stato con il \texttt{body} avente soltanto la parola "\texttt{true}" al suo interno. La formattazione così ottenuta potrebbe risultare illeggibile e portare a problemi relativi ad oggetti più complessi.
+		\end{itemize}
+	
+	\item \textbf{Esempi di codice non sufficienti}: quelli forniti sono per la maggior parte piccoli o contrastanti; mentre in uno la Thing utilizza solo variabili interne al codice, in un altro fa uso soltanto di metodi come \texttt{thing.readProperty()} asincroni che cambiano completamente la struttura del programma. Inoltre, non è specificato in nessun modo che non vi è un \texttt{binding} tra parametri \quotes{locali} e quelli della thing, portando ad una errata conclusione sul fatto di poter utilizzare solo i primi per definirla completamente.
+\end{itemize}
+
+L'elenco completo delle \textit{issues} aperte nei repository di diversi framework è il seguente:
+
+\begin{itemize}
+	\item \textbf{[WebThings]} Issue 157\\
+	\url{https://github.com/WebThingsIO/api/issues/157}\\
+	Assenza di supporto per più \texttt{@context}
+	
+	\item \textbf{[ThingWeb.io]} Issue 373\\
+	\url{https://github.com/eclipse/thingweb.node-wot/issues/373}\\
+	Assenza di documentazione di REST API
+	
+	\item \textbf{[ThingWeb.io]} Issue 375\\
+	\url{https://github.com/eclipse/thingweb.node-wot/issues/375}\\
+	Validazione dei dati attraverso il \texttt{form} della Thing Description
+\end{itemize}
+
+È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, anche se non ampiamente attiva, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte nei rispettivi \textit{repository} hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
 
 
 
