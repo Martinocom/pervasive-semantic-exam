@@ -99,12 +99,8 @@ async function fade(desiredLevel) {
 
         // After writing sleep 250ms and do it again
         promise.then(async() => {
-            await sleep(150)
+            await common.sleep(150)
             fade(desiredLevel)
         })
     })
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

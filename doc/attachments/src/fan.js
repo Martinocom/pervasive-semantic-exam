@@ -11,7 +11,8 @@ let localRef = {
 
 // Temp variable for controlling the SpeedUp function
 let isReadyToSpeedUp = false
-let COOLDOWN_TIMEOUT = 5000
+let SPEEDUP_TIMEOUT = 5000
+let COOLDOWN_TIMEOUT = 10000
 let MAX_STATUS = 3
 let MAX_OC_STATUS = 4
 
@@ -45,15 +46,16 @@ function speedUp() {
     isReadyToSpeedUp = false
 
     // Update thing property (overclock to 4)
-    writeProperty(localRef.status.name, MAX_OC_STATUS).then(() => {
-        // After updating, wait 5 seconds
-        setTimeout(function(){ 
-            // And then update property again (go back on max)
-            writeProperty(localRef.status.name, MAX_STATUS).then(() => {
-                // After updating start the cooldown countdown
-                cooldown()
-            })
-        }, COOLDOWN_TIMEOUT);
+    writeProperty(localRef.status.name, MAX_OC_STATUS)
+    .then(async() => {
+        // After updating, wait 5 seconds and update property again (go back on max)
+        await common.sleep(SPEEDUP_TIMEOUT)
+        return writeProperty(localRef.status.name, MAX_STATUS)
+    })
+    .then(async() => {
+        // Finally wait the cooldown and enable it again
+        await common.sleep(COOLDOWN_TIMEOUT)
+        isReadyToSpeedUp = true
     })
 }
 

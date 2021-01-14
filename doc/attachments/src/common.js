@@ -47,6 +47,10 @@ class Common {
         console.log("[ERROR] " + message)
         console.log(error)
     }
+
+    static sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }
 
 module.exports = Common
