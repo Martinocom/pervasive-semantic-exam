@@ -11,3 +11,4 @@
 \contentsline {lstlisting}{]}{52}{lstlisting.6.-5}%
 \contentsline {lstlisting}{\numberline {6.5}Reagire all'invocazione dell'azione in \texttt {bulb.js}}{52}{lstlisting.6.5}%
 \contentsline {lstlisting}{\numberline {6.6}Solzuione proposta per la dipendenza tra proprietà della Thing}{56}{lstlisting.6.6}%
+\contentsline {lstlisting}{\numberline {6.7}Solzuione definitiva per la dipendenza tra proprietà della Thing}{57}{lstlisting.6.7}%

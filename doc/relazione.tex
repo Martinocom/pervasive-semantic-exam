@@ -1214,8 +1214,44 @@ localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
 ...
 \end{lstlisting}
 
-Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa. Per questo motivo si preferisce lasciare il codice più \textit{vulnerabile} a inconsistenze ma funzionante.\\
+Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa.\\
 
+Il problema descritto dunque viene affrontato in maniera diversa: anziché utilizzare le proprietà per impostare lo stato della TV, si ridefinisce la Thing Description in modo da prevedere azioni che modificano lo stato. Le proprietà diventano tutte di sola lettura e l'unica ad essere osservata rimane quella relativa allo stato, il quale definisce se la TV si trova in uno stato \quotes{accesa} o \quotes{spenta}. L'allegato \texttt{tv.js} contiene la soluzione corretta al problema, definendo le specifiche azioni (e relativi controlli) per garantire l'integrità della Thing: anche se minimale, il cambiamento risolve completamente il problema.
+
+\begin{lstlisting}[language=JavaScript,caption={Solzuione definitiva per la dipendenza tra proprietà della Thing},label=lst:solution2]
+// Set write/read properties
+localRef.thing.writeProperty(localRef.status.name, localRef.status.value)
+...
+
+// Overwrite behaviour on writing properties: just update them with local data
+localRef.thing.setPropertyWriteHandler(localRef.status.name, async(data) => {
+	return localRef.status.value
+})
+localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
+	return localRef.channel.value
+})
+...
+
+// Observe status changes
+localRef.thing.observeProperty(localRef.status.name, async(data) => {
+	if (data) {
+		// TV changes its state to ON -> set default values
+	} else {
+		// TV changes its state to OFF -> set OFF values
+	}
+})
+
+// Toggle it
+localRef.thing.setActionHandler("toggle", async(params) => {
+	let status = await localRef.thing.readProperty(localRef.status.name)
+	return writeProperty(localRef.status.name, !status)
+})
+
+// Change Channel
+localRef.thing.setActionHandler("set-channel", async(params) => {
+	return checkIfCanWrite(localRef.channel.name, params.channel)
+})
+\end{lstlisting}
 
 \subsection{Problemi della Tapparella}
 Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto che ogni azione effettuata produce un effetto immediato: l'abbassamento o l'innalzamento della Thing non ha il tempo di delay e applica il valore desiderato senza considerare l'eventuale tempo di movimento dovuto a reali parti meccaniche. Questa semplificazione è utile per presentare le potenzialità della Thing, senza andare troppo in dettaglio su come affrontare alcune problematiche intrinseche alla programmazione della Thing stessa.
