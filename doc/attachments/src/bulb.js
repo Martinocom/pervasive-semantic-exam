@@ -8,7 +8,9 @@ let localRef = {
     },
     brightness: {
         name: "brightness",
-        value: 0
+        value: 0,
+        maxValue: 100,
+        minValue: 0
     },
     thing: null
 }
@@ -30,12 +32,12 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", func
         if (data == true) {
             // Brightness shoud be higher than 0
             if (brightness <= 0) {
-                writeProperty(localRef.brightness.name, 100)
+                writeProperty(localRef.brightness.name, localRef.brightness.maxValue)
             }
         } else {
             // Bulb is off, brightness should be 0
             if (brightness > 0) {
-                writeProperty(localRef.brightness.name, 0)
+                writeProperty(localRef.brightness.name, localRef.brightness.minValue)
             }
         }
     })

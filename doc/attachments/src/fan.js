@@ -4,7 +4,9 @@ const common = require('./common');
 let localRef = {
     status: {
         name: "status",
-        value: 0
+        value: 0,
+        maxValue: 3,
+        maxOcValue: 4
     },
     thing: null
 }
@@ -13,8 +15,6 @@ let localRef = {
 let isReadyToSpeedUp = false
 let SPEEDUP_TIMEOUT = 5000
 let COOLDOWN_TIMEOUT = 10000
-let MAX_STATUS = 3
-let MAX_OC_STATUS = 4
 
 common.createThingFromThingDescriptionFile(WoT, "./res/semantic-fan.json", function(thing) {
     // Save reference to the thing
@@ -46,11 +46,11 @@ function speedUp() {
     isReadyToSpeedUp = false
 
     // Update thing property (overclock to 4)
-    writeProperty(localRef.status.name, MAX_OC_STATUS)
+    writeProperty(localRef.status.name, localRef.status.maxOcValue)
     .then(async() => {
         // After updating, wait 5 seconds and update property again (go back on max)
         await common.sleep(SPEEDUP_TIMEOUT)
-        return writeProperty(localRef.status.name, MAX_STATUS)
+        return writeProperty(localRef.status.name, localRef.status.maxValue)
     })
     .then(async() => {
         // Finally wait the cooldown and enable it again
