@@ -29,17 +29,25 @@
 		"status": {
 			"type": "boolean",
 			"title": "On/Off",
+			"readOnly" : false,
+			"writeOnly" : false,
+			"observable": true,
 			"description": "It's true when the TV is on; it's false when turned off",
-			"forms": [{"href": "https://mywebthingserver.com/things/tv/status"}]
+			"forms": [{"href": "/status"}]
 		},
 		
 		"channel" : {
 			"type": "number",
 			"title": "Channel",
 			"description": "The number of the channel",
-			"minimum" : 1,
+			"minimum" : 0,
 			"maximum" : 255,
-			"forms": [{"href": "https://mywebthingserver.com/things/tv/channel"}]
+			"readOnly" : false,
+            "writeOnly" : false,
+			"forms": [{
+					"href": "/channel"
+				}
+			]
         },
         	
 		"volume" : {
@@ -48,7 +56,7 @@
 			"description": "The value of the volume",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/tv/volume"}]
+			"forms": [{"href": "/volume"}]
         },
         		
 		"brightness" : {
@@ -57,7 +65,7 @@
 			"description": "The value of the Brightness",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/tv/brightness"}]
+			"forms": [{"href": "/brightness"}]
 		}
 	}
 }

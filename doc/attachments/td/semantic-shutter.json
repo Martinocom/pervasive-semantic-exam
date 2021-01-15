@@ -31,7 +31,7 @@
 		"is-open": {
 			"type": "boolean",
 			"title": "Is open",
-			"description": "Value is true if his 'level' is minor that the openess treshold",
+			"description": "Value is true if 'level' major than the openess treshold",
 			"forms": [{"href": "https://mywebthingserver.com/things/bulb/is-open"}]
 		},
 		
