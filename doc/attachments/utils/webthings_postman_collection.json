@@ -354,10 +354,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"level\": 60\r\n}"
+							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/fan/actions/fade",
+							"raw": "http://localhost:8080/fan/actions/speed-up",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -366,7 +366,386 @@
 							"path": [
 								"fan",
 								"actions",
-								"fade"
+								"speed-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TV",
+			"item": [
+				{
+					"name": "All properties",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tv/all/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tv",
+								"all",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/tv/actions/toggle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tv",
+								"actions",
+								"toggle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"channel\": 20\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/tv/actions/set-channel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tv",
+								"actions",
+								"set-channel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Brightness",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brightness\": 20\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/tv/actions/set-brightness",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tv",
+								"actions",
+								"set-brightness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Volume",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"volume\": 20\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/tv/actions/set-volume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tv",
+								"actions",
+								"set-volume"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shutter",
+			"item": [
+				{
+					"name": "All properties",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/all/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"all",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change openess treshold",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "35",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/properties/openess-treshold",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"properties",
+								"openess-treshold"
+							]
+						},
+						"description": "Toggle Bulb"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Level",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "60",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/properties/level",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"properties",
+								"level"
+							]
+						},
+						"description": "Toggle Bulb"
+					},
+					"response": []
+				},
+				{
+					"name": "Move",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"level\": 60\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/actions/move",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"actions",
+								"move"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/actions/open",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"actions",
+								"open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/shutter/actions/close",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shutter",
+								"actions",
+								"close"
 							]
 						}
 					},
