@@ -180,7 +180,7 @@
 \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
 
 \lstdefinelanguage{JavaScript}{
-	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, async, await, let},
 	keywordstyle=\color{blue}\bfseries,
 	ndkeywords={class, export, boolean, throw, implements, import, this},
 	ndkeywordstyle=\color{darkgray}\bfseries,
@@ -1026,7 +1026,7 @@ Per completare il test, è necessario verificare se vi è possibilità di intera
 \subsection{Operazioni preliminari}
 
 Nel caso della \textbf{Thing \textit{esposta}}, vi è un esplicito riferimento all'API contenente tutte le variabili lette dalla Thing Description: infatti, per leggere e/o scrivere e/o osservare le diverse proprietà che espone una Thing è necessario avvalersi di tre metodi messi a disposizione dall'API:
-\begin{lstlisting}[language=JavaScript]
+\begin{lstlisting}[language=JavaScript,caption={Metodi per leggere, scrivere o osservare}]
 	// Read, write or obsere a property
 	thing.readProperty("propertyName").then((data) => {})
 	thing.writeProperty("propertyName", value).then(() => {})
@@ -1035,7 +1035,7 @@ Nel caso della \textbf{Thing \textit{esposta}}, vi è un esplicito riferimento a
 
 È comunque comodo tenere un riferimento a variabili locali per delle verifiche interne, dovute ad un cambio in una variabile osservata, o per motivi di sviluppo e/o controllo: esse possono essere usate per poter agevolmente tenere il codice sotto controllo, anche se questo aggiunge una leggera complessità. Le prime righe del codice si riferiscono dunque all'importazione della libreria \texttt{common} e degli attributi che potranno essere trovati nella Thing. Come esempio, si può prendere il codice della lampadina:
 
-\begin{lstlisting}[language=JavaScript,caption={Inizio del codice di \texttt{bulb.js}},label=lst:bulb.js]]
+\begin{lstlisting}[language=JavaScript,caption={Inizio del codice di \texttt{bulb.js}},label=lst:bulb.js]
 const common = require('./common');
 
 // Reference to local variable
@@ -1055,7 +1055,7 @@ let localRef = {
 \subsection{Scrittura dei parametri di default}
 Si procede quindi al richiamo delle funzionalità comuni, che permettono agevolmente di creare una Thing a partire da un file. Una funzione di \texttt{callback} permetterà di ottenere l'oggetto e consentirà di richiamare i metodi relativi alla Thing \textit{esposta}. È qui che si inizializzano le proprietà della Thing ai valori di default. Si prende come esempio sempre il file della lampadina:
 
-\begin{lstlisting}[language=JavaScript,caption={Creazione della Thing e inizializzazione proprietà read/write in \texttt{bulb.js}}]]
+\begin{lstlisting}[language=JavaScript,caption={Creazione della Thing e inizializzazione proprietà read/write in \texttt{bulb.js}}]
 common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", function(thing) {
 	// Save reference to the thing
 	localRef.thing = thing
@@ -1079,7 +1079,7 @@ Vi è necessità poi di specificare comportamenti degli oggetti, che potrebbero 
 
 È quindi possibile definire il codice come segue:
 
-\begin{lstlisting}[language=JavaScript,caption={Reagire al cambiamento delle proprietà in \texttt{bulb.js}}]]
+\begin{lstlisting}[language=JavaScript,caption={Reagire al cambiamento delle proprietà in \texttt{bulb.js}}]
 // Observing status
 localRef.thing.observeProperty(localRef.status.name, async(data) => {
 	// If status changes, look at the brightness
@@ -1125,7 +1125,7 @@ function writeProperty(name, value) {
 \subsection{Chiamare le azioni}
 Come ultima cosa, vi è necessità di specificare il comportamento delle azioni che si hanno quando si interagisce con la Thing. Per comodità, si assume che le operazioni non possano essere interrotte, anche se nella realtà è possibile interagire con la Thing in qualsiasi momento, a volte producendo risultati inattesi: ad esempio, attivando il comando \texttt{fade} sulla lampadina è possibile spegnerla e/o accenderla, ma l'esecuzione del comando continuerà finché non raggiungerà il valore impostato, cambiando di conseguenza lo stato in cui essa si trova. Un esempio di come può essere impostata un'azione è nel seguente codice:
 
-\begin{lstlisting}[language=JavaScript,caption={Reagire all'invocazione dell'azione in \texttt{bulb.js}}]]
+\begin{lstlisting}[language=JavaScript,caption={Reagire all'invocazione dell'azione in \texttt{bulb.js}}]
 // Toggle reads current status and switch it
 localRef.thing.setActionHandler("toggle", async(params) => {
 	return localRef.thing.readProperty(localRef.status.name)
@@ -1171,9 +1171,53 @@ Una volta apportato che è possibile creare, avviare e interagire con una singol
 \label{sec:other-things}
 In questa sezione verranno trattate solo maggiori differenze o dettagli degni di nota sulle things diverse dalla lampadina utilizzata come \quotes{\textit{Thing Esempio}}.
 
+
+\subsection{Dettagli sulla TV}
+A differenza della \textit{lampadina}, la \textbf{TV} possiede la proprietà \texttt{brightness} che può essere impostata a \texttt{0} anche quando la TV è accesa: questo essenzialmente vuol dire che la retroilluminazione del dispositivo è sparita, ma esso continua a far vedere le immagini: questa impostazione potrebbe essere utilizzata di notte. Di conseguenza, l'unico cambiamento che la TV deve osservare è quello relativo al suo stato.\\
+
+Nella \textbf{TV} è possibile portare le proprietà in uno stato inconsistente a causa di una mancanza di controllo sull'effettivo stato di accensione della TV; infatti, se la TV è spenta, non dovrebbe essere possibile impostare il suo volume, canale o luminosità: questo però è permesso. Si presenta quindi la necessità di verificare il valore della proprietà \texttt{status} prima (e/o dopo) aver impostato i parametri:
+
 \begin{itemize}
-	\item A differenza della \textit{lampadina}, la \textbf{TV} possiede la proprietà \texttt{brightness} che può essere impostata a \texttt{0} anche quando la TV è accesa: questo essenzialmente vuol dire che la retroilluminazione del dispositivo è sparita, ma esso continua a far vedere le immagini: questa impostazione potrebbe essere utilizzata di notte. Di conseguenza, l'unico cambiamento che la TV deve osservare è quello relativo al suo stato: 
+	\item se si imposta solo un \texttt{observer} (\texttt{.observeProperty()}) sulla proprietà \texttt{status}, ogni cambiamento dello stato sulla TV controlla tutte le proprietà annesse \textbf{dopo} che lo stato sia cambiato. Quindi, spegnendo la TV lo stato passerà da \texttt{true} a \texttt{false}, impedendo ogni ulteriore modifica di proprietà.
+	
+	\item se si imposta solo un \texttt{writeHandler} (\texttt{.setPropertyWriteHandler()}) sulla proprietà \texttt{status}, ogni cambiamento dello stato sulla TV controlla tutte le proprietà annesse \textbf{prima} che lo stato cambi. Quindi, accendendo la TV si cercherà di modificare i parametri quando ancora lo stato non risulterà essere impostato a \texttt{true}, portando la TV in uno stato inconsistente (accesa, con volume, canale e luminosità impostate a 0).
+	
+	\item utilizzando invece l'\texttt{observer} e il \texttt{writeHandler} insieme, teoricamente è possibile coprire entrambi i casi descritti: purtroppo il Framework non facilita il lavoro con proprietà dipendenti tra di loro e il codice (disponibile anche come allegato\footnote{\texttt{attachments/src/tv-not-working.js}}) risulta essere complesso.
 \end{itemize}
+
+\begin{lstlisting}[language=JavaScript,caption={Solzuione proposta per la dipendenza tra proprietà della Thing},label=lst:solution]
+// Observing status of status property (AFTER write)
+localRef.thing.observeProperty(localRef.status.name, async(data) => {
+	if (data) {
+		// TV passed from OFF to ON: all properties to DEFAULT
+	}
+})
+
+// Handling write of status property (BEFORE write)
+localRef.thing.setPropertyWriteHandler(localRef.status.name, async(data) => {
+	if (!data) {
+		// TV passed from ON to OFF: all properties to OFF
+	}
+	return data
+})
+
+// Override behavior on writing status for other properties
+localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
+	let isTvOn = await localRef.thing.readProperty(localRef.status.name)
+	let currentValue = await localRef.thing.readProperty(propertyName)
+	if (isTvOn) {
+		return data
+	} else {
+		return currentValue
+	}
+})
+...
+\end{lstlisting}
+
+Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa. Per questo motivo si preferisce lasciare il codice più \textit{vulnerabile} a inconsistenze ma funzionante.
+
+
+\subsection{Problemi della Tapparella}
 
 
 
@@ -1214,6 +1258,10 @@ Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono
 	\item \textbf{[ThingWeb.io]} Issue 375\\
 	\url{https://github.com/eclipse/thingweb.node-wot/issues/375}\\
 	Validazione dei dati attraverso il \texttt{form} della Thing Description
+	
+	\item \textbf{[ThingWeb.io]} Issue 376\\
+	\url{https://github.com/eclipse/thingweb.node-wot/issues/376}\\
+	\texttt{observeProperty()} ha un valore diverso da \texttt{readProperty()}\\
 \end{itemize}
 
 
