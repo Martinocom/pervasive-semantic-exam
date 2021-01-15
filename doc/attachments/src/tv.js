@@ -5,7 +5,6 @@ let localRef = {
     status: {
         name: "status",
         value: false,
-        isPendingRequest: false
     },
     channel: {
         name: "channel",
@@ -39,42 +38,66 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-tv.json", functi
     localRef.thing.writeProperty(localRef.volume.name, localRef.volume.value)
     localRef.thing.writeProperty(localRef.brightness.name, localRef.brightness.value)
 
-    // Observing status
-    localRef.thing.observeProperty(localRef.status.name, async(data) => {
-        reactoToStatusChange(data)
+    // Overwrite behaviour on writing properties: just update them with local data
+    localRef.thing.setPropertyWriteHandler(localRef.status.name, async(data) => {
+        return localRef.status.value
+    })
+    localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
+        return localRef.channel.value
+    })
+    localRef.thing.setPropertyWriteHandler(localRef.volume.name, async(data) => {
+        return localRef.volume.value
+    })
+    localRef.thing.setPropertyWriteHandler(localRef.brightness.name, async(data) => {
+        return localRef.brightness.value
     })
 
-    // In case of TV, brightness CAN be 0 since it means "no backlight"; still it should be visible
+
+    // Observe status changes
+    localRef.thing.observeProperty(localRef.status.name, async(data) => {
+        if (data) {
+            // TV changes its state to ON -> set default values
+            writeProperty(localRef.brightness.name, localRef.brightness.default)
+            writeProperty(localRef.volume.name, localRef.volume.default)
+            writeProperty(localRef.channel.name, localRef.channel.default)
+        } else {
+            // TV changes its state to OFF -> set OFF values
+            writeProperty(localRef.brightness.name, localRef.brightness.off)
+            writeProperty(localRef.volume.name, localRef.volume.off)
+            writeProperty(localRef.channel.name, localRef.channel.off)
+        }
+    })
+
+
+    // Toggle it
+    localRef.thing.setActionHandler("toggle", async(params) => {
+        let status = await localRef.thing.readProperty(localRef.status.name)
+        return writeProperty(localRef.status.name, !status)
+    })
+
+    // Change Channel
+    localRef.thing.setActionHandler("set-channel", async(params) => {
+        return checkIfCanWrite(localRef.channel.name, params.channel)
+    })
+
+    // Change Brightness
+    localRef.thing.setActionHandler("set-brightness", async(params) => {
+        return checkIfCanWrite(localRef.brightness.name, params.brightness)
+    })
+
+    // Change Volume
+    localRef.thing.setActionHandler("set-volume", async(params) => {
+        return checkIfCanWrite(localRef.volume.name, params.volume)
+    })
 })
 
-async function reactoToStatusChange(data) {
-    if (localRef.status.isPendingRequest == false) {
-        localRef.status.isPendingRequest = true
-        if (data != localRef.status.value) {
-            // If it was off and now it's true, I need to turn on all params
-            if (data) {
-                Promise.all([
-                    writeProperty(localRef.channel.name, localRef.channel.default),
-                    writeProperty(localRef.volume.name, localRef.volume.default),
-                    writeProperty(localRef.brightness.name, localRef.brightness.default)
-                ]).then((values) => {
-                    localRef.status.value = data
-                    localRef.status.isPendingRequest = false
-                    return
-                })
-            } else {
-                // If it was on and now it's false, I need to turn off all params
-                Promise.all([
-                    writeProperty(localRef.channel.name, localRef.channel.off),
-                    writeProperty(localRef.volume.name, localRef.volume.off),
-                    writeProperty(localRef.brightness.name, localRef.brightness.off)
-                ]).then((values) => {
-                    localRef.status.value = data
-                    localRef.status.isPendingRequest = false
-                    return
-                })
-            }
-        }
+async function checkIfCanWrite(propertyName, valueToWrite) {
+    let status = await localRef.thing.readProperty(localRef.status.name)
+
+    if (status) {
+        return writeProperty(propertyName, valueToWrite)
+    } else {
+        return "Tv is turned OFF. Impossible to perform [" + propertyName + "] update."
     }
 }
 

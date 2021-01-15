@@ -29,10 +29,9 @@
 		"status": {
 			"type": "boolean",
 			"title": "On/Off",
-			"readOnly" : false,
-			"writeOnly" : false,
-			"observable": true,
 			"description": "It's true when the TV is on; it's false when turned off",
+			"readOnly" : true,
+			"observable": true,
 			"forms": [{"href": "/status"}]
 		},
 		
@@ -40,20 +39,17 @@
 			"type": "number",
 			"title": "Channel",
 			"description": "The number of the channel",
+			"readOnly": true,
 			"minimum" : 0,
 			"maximum" : 255,
-			"readOnly" : false,
-            "writeOnly" : false,
-			"forms": [{
-					"href": "/channel"
-				}
-			]
+			"forms": [{"href": "/channel"}]
         },
         	
 		"volume" : {
 			"type": "number",
 			"title": "Volume",
 			"description": "The value of the volume",
+			"readOnly": true,
 			"minimum" : 0,
 			"maximum" : 100,
 			"forms": [{"href": "/volume"}]
@@ -63,9 +59,58 @@
 			"type": "number",
 			"title": "Brightness",
 			"description": "The value of the Brightness",
+			"readOnly": true,
 			"minimum" : 0,
 			"maximum" : 100,
 			"forms": [{"href": "/brightness"}]
 		}
+	},
+
+	"actions": {
+		"toggle": {
+			"title": "Toggle",
+			"description": "Turn on the TV if it's off or turn the TV off when it's on.",
+			"forms": [{"href": "/toggle"}]
+		}, 
+
+		"set-channel": {
+			"title": "Set Channel",
+			"description": "Change to desired channel. Must be a number from 0 to 255.",
+			"forms": [{"href": "/set-channel"}],
+			"input": {
+				"type": "number",
+				"title": "Channel Number",
+				"description": "The number of the channel from 0 to 255",
+				"minimum" : 0,
+				"maximum" : 255
+			}
+		},
+
+		"set-brightness": {
+			"title": "Set Brightness",
+			"description": "Change to desired Brightness. Must be a number from 0 to 100.",
+			"forms": [{"href": "/set-brightness"}],
+			"input": {
+				"type": "number",
+				"title": "Brightness value",
+				"description": "Brightness value (in percentage) from 0 to 100",
+				"minimum" : 0,
+				"maximum" : 100
+			}
+		},
+
+		"set-volume": {
+			"title": "Set Volume",
+			"description": "Change to desired Volume. Must be a number from 0 to 100.",
+			"forms": [{"href": "/set-volume"}],
+			"input": {
+				"type": "number",
+				"title": "Volume value",
+				"description": "The volume value from 0 to 100",
+				"minimum" : 0,
+				"maximum" : 100
+			}
+		}
 	}
+	
 }
