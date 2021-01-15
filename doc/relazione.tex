@@ -1171,6 +1171,10 @@ Una volta apportato che è possibile creare, avviare e interagire con una singol
 \label{sec:other-things}
 In questa sezione verranno trattate solo maggiori differenze o dettagli degni di nota sulle things diverse dalla lampadina utilizzata come \quotes{\textit{Thing Esempio}}.
 
+\begin{itemize}
+	\item A differenza della \textit{lampadina}, la \textbf{TV} possiede la proprietà \texttt{brightness} che può essere impostata a \texttt{0} anche quando la TV è accesa: questo essenzialmente vuol dire che la retroilluminazione del dispositivo è sparita, ma esso continua a far vedere le immagini: questa impostazione potrebbe essere utilizzata di notte. Di conseguenza, l'unico cambiamento che la TV deve osservare è quello relativo al suo stato: 
+\end{itemize}
+
 
 
 
@@ -1224,6 +1228,8 @@ La maggior parte delle cose qui elencate risulta essere frutto di compromesso tr
 	\item Al momento, non vi è un controllo esplicito sulla correttezza dei parametri passati. È quindi erroneamente possibile, ad esempio, impostare la luminosità di una lampadina come una stringa (\texttt{"esempio"}), senza che la Thing se ne accorga.
 	
 	\item Non vi sono criteri di sicurezza implementati, anche se è possibile definirli all'interno della Thing Description stessa. Questo è solo per semplificare il lavoro e dimostrare le potenzialità del framework e della Thing Description: per coprire ogni aspetto non vi sono tempo e risorse necessarie all'esplorazione e documentazione.
+	
+	\item Per ognuna delle Thing viene supposto un valore di \textit{default} che si imposta automaticamente ad ogni accensione e spegnimento del dispositivo. Generalmente, si tratta di valori nulli, booleani \texttt{false} e interi pari a 0 quando le Things risultano essere spente, mentre valori di default predefiniti quando vengono accese. Una miglioria delle stesse potrebbe essere quella di includere un file di configurazione che salva automaticamente l'ultima impostazione dell'utente; di conseguenza alla riaccensione del dispositivo i valori verrebbero presi da questo file (e non impostati \textit{di default}).
 	
 	\item Come scritto nel capitolo \ref{sec:adding-semantic}, la costruzione delle Thing ha fatto emergere la necessità di sviluppare e/o estendere ontologie, in quanto vi sono alcuni aspetti intrinseci delle cose che potrebbero essere rappresentate con maggior dettaglio, ma sempre per motivi di mancanza di tempo e risorse non è possibile coprire ogni aspetto riguardante la Thing Description
 \end{itemize} 
