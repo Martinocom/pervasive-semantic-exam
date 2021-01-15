@@ -1214,11 +1214,11 @@ localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
 ...
 \end{lstlisting}
 
-Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa. Per questo motivo si preferisce lasciare il codice più \textit{vulnerabile} a inconsistenze ma funzionante.
+Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa. Per questo motivo si preferisce lasciare il codice più \textit{vulnerabile} a inconsistenze ma funzionante.\\
 
 
 \subsection{Problemi della Tapparella}
-
+Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto che ogni azione effettuata produce un effetto immediato: l'abbassamento o l'innalzamento della Thing non ha il tempo di delay e applica il valore desiderato senza considerare l'eventuale tempo di movimento dovuto a reali parti meccaniche. Questa semplificazione è utile per presentare le potenzialità della Thing, senza andare troppo in dettaglio su come affrontare alcune problematiche intrinseche alla programmazione della Thing stessa.
 
 
 
