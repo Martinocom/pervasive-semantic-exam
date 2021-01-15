@@ -52,7 +52,7 @@ async function reactoToStatusChange(data) {
         localRef.status.isPendingRequest = true
         if (data != localRef.status.value) {
             // If it was off and now it's true, I need to turn on all params
-            if (status) {
+            if (data) {
                 Promise.all([
                     writeProperty(localRef.channel.name, localRef.channel.default),
                     writeProperty(localRef.volume.name, localRef.volume.default),
