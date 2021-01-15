@@ -30,21 +30,12 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-shutter.json", f
     localRef.thing.writeProperty(localRef.openessTreshold.name, localRef.openessTreshold.value)
     localRef.thing.writeProperty(localRef.level.name, localRef.level.value)
 
-    localRef.thing.observeProperty(localRef.isOpen.name, async(data) => {
+    // Overwrite behaviour on writing isOpen - it will just update it's value
+    localRef.thing.setPropertyWriteHandler(localRef.isOpen.name, async(data) => {
         let level = await localRef.thing.readProperty(localRef.level.name)
-        
-        if (data) {
-            // Shutter should be open at maximum only if level is currently not
-            if (level < localRef.level.maxValue) {
-                writeProperty(localRef.level.name, localRef.level.maxValue)
-            }
-        } else {
-            // Shutter should be closed at threshold only if leves is currently not
-            let currentTreshold = await localRef.thing.readProperty(localRef.openessTreshold.name)
-            if (level > currentTreshold) {
-                writeProperty(localRef.level.name, currentTreshold)
-            }  
-        }
+        let treshold = await localRef.thing.readProperty(localRef.openessTreshold.name)
+        console.log(level + " > " + treshold)
+        return level > treshold
     })
 
     // Observe treshold changes
@@ -68,6 +59,17 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-shutter.json", f
         return localRef.thing.writeProperty(localRef.level.name, level)
     })
 
+    // Open it
+    localRef.thing.setActionHandler("open", async(params) => {
+        return localRef.thing.writeProperty(localRef.level.name, localRef.level.maxValue)
+    })
+
+    // Close it
+    localRef.thing.setActionHandler("close", async(params) => {
+        let treshold = await localRef.thing.readProperty(localRef.openessTreshold.name)
+        return localRef.thing.writeProperty(localRef.level.name, treshold)
+    })
+
 })
 
 async function checkShutterOpeness(currentLevel, levelTreshold, isOpen) {
@@ -76,7 +78,7 @@ async function checkShutterOpeness(currentLevel, levelTreshold, isOpen) {
             // If current level (30) is higher than treshold (10) and shutter is NOT open, go and open it
             writeProperty(localRef.isOpen.name, true)
         }
-    } else if (currentLevel < levelTreshold) {
+    } else if (currentLevel <= levelTreshold) {
         if (isOpen) {
             // If current level (15) is lower than treshold (30) and shutters IS open, go and close it
             writeProperty(localRef.isOpen.name, false)

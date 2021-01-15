@@ -31,7 +31,8 @@
 		"is-open": {
 			"type": "boolean",
 			"title": "Is open",
-			"description": "Value is true if 'level' major than the openess treshold",
+			"readOnly": true,
+			"description": "Value is true if 'level' major than the openess treshold. Read-only: cannot write. Writing will cause refreshing this variable.",
 			"forms": [{"href": "https://mywebthingserver.com/things/bulb/is-open"}]
 		},
 		
@@ -64,6 +65,16 @@
 				"maximum": 100		
 		    },
 			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/move"}]
+		},
+		"open": {
+			"title": "Open",
+			"description": "Set the level of the shutter to 100.",
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/open"}]
+		},
+		"close": {
+			"title": "Close",
+			"description": "Set the level of the shutter to <openess-treshold>.",
+			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/close"}]
 	    }
 	}
 }
