@@ -76,6 +76,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per l'inserimento di link nella
                                         %   bibliografia
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks]{hyperref}
+
+% Per poter splittare bibliografica e sitografia
+%\usepackage[backend=biber, style=numeric, defernumbers]{biblatex}
+\usepackage[backend=bibtex,
+style=numeric,
+%style=alphabetic,
+bibencoding=ascii,
+%style=reading,
+sorting=ynt
+]{biblatex}
+\addbibresource{relazione}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per l'inserimento testuale
 										%	di frecce direzionali
@@ -234,6 +246,7 @@
 \linespread{1.3}                        %comando per impostare l'interlinea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%definisce nuovi comandi
 %
+
 \begin{document}
 \begin{titlepage}
 	\begin{center}
@@ -488,7 +501,7 @@ Anche se non può essere propriamente ritenuta una rappresentazione della conosc
 
 Di conseguenza, anche se di primo impatto essa non sembra legata al mondo del Web Semantico, in un certo senso ne rappresenta l'estensione: si può considerarla come un \quotes{utilizzatore} di una conoscenza già posseduta che può essere tranquillamente riutilizzata per Smart Things simili fra loro. La somiglianza può, di conseguenza, essere un buon punto di partenza per ricavare nuova conoscenza, anche in casi di assenza della Thing Description: infatti, si potrebbe ad esempio assumere che, qualsiasi oggetto avente la funzionalità di impostare una luminosità, possa effettivamente essere una fonte di luce che, opportunamente regolata, può portare all'effetto voluto dall'utilizzatore: questo indipendentemente dalla natura dell'oggetto stesso, che potrebbe benissimo essere una semplice radiosveglia con dei LED.\\
 
-Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD11 \cite{json-ld}. Inoltre, esiste effettivamente uno modello che definisce le linee guida per la Thing Description, considerata come ontologia (\textbf{Thing Description Ontology} \cite{td-ontology}), ma al momento risulta essere soltanto una bozza. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
+Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD11 \cite{json-ld}. Inoltre, esiste effettivamente uno modello che definisce le linee guida per la Thing Description, considerata come ontologia (\textbf{Thing Description Ontology} \cite{td}), ma al momento risulta essere soltanto una bozza. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
 
 Come ulteriore approfondimento alla Thing Description, è utile citare \quotes{\textit{On Modeling the Physical World as a Collection of Things: The W3C Thing Description Ontology}} \cite{td-paper}, nel quale si possono trovare riferimenti all'importanza di avere dati standardizzati e strutturati. Nello stesso documento vengono inoltre citati altri enti, proponenti uno stack di sviluppo diverso \cite{open-connectivity}, dal quale è possibile derivare la Thing Description.\\
 
@@ -778,7 +791,7 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 \end{itemize}
 
 \section{Piattaforme disponibili}
-Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things \cite{wot}. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot-architecture}.\\
+Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot}.\\
 
 Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart: alcuni di essi sono indicati direttamente nel documento di implementazione dello standard W3C\footnote{\url{https://w3c.github.io/wot-thing-description/testing/report.html}}, altri reperibili online.
 
@@ -1756,7 +1769,7 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 
 \paragraph{Librerie}
 \begin{itemize}
-	\item \textbf{TornadoFX} \cite{tornadofx} - facilita la creazione delle interfacce utente, utilizzando una sintassi pesantemente basata sull'uso di Kotlin. Facilita la creazione dei layout e l'applicazione dello stile, che a differenza di JavaFX (su cui è basato) non è scritto in \textit{CSS} custom, ma sempre tramite codice Kotlin. Per il suo utilizzo è comunque necessario includere dipendenze di JavaFX.
+	\item \textbf{TornadoFX} \cite{tornadofx} - facilita la creazione delle interfacce utente, utilizzando una sintassi pesantemente basata sull'uso di Kotlin. Facilita la creazione dei layout e l'applicazione dello stile, che a differenza di JavaFX (su cui è basato) non è scritto in \textit{CSS} custom, ma sempre tramite codice Kotlin. Per il suo utilizzo è comunque necessario includere dipendenze di JavaFX \cite{javafx}.
 \end{itemize}
 	
 \paragraph{Tool}
@@ -3054,7 +3067,12 @@ Nonostante lo sforzo del team nella realizzazione di tutte le funzionalità, all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
-\bibliography{relazione}
-\bibliographystyle{siam}
+
+%\printbibliography[title={Whole bibliography}]
+\printbibliography[keyword={article},title={Bibliografia}]
+\printbibliography[keyword={online},title={Sitografia}]
+
+%\bibliography{relazione}
+%\bibliographystyle{siam}
 
 \end{document}
