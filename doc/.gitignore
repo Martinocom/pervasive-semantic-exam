@@ -25,4 +25,6 @@
 *.tex~
 *.bbl
 *.blg
+*-blx.bib
+*.run.xml
 relazione.pdf
