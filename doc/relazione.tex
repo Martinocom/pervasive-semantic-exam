@@ -525,6 +525,7 @@ Uscendo dal mondo strettamente WoT, è possibile individuare ulteriori ontologie
 
 
 \subsection{Ontologie utilizzate}
+%TODO completare la descrizione delle ontologie utilizate
 Per scopi di questo progetto, è impensabile poter includere tutte le ontologie, per cui è necessario effettuare una selezione di alcune di esse a priori, per poter concentrarsi meglio sia sulla dimostrazione della fattibilità che sulle conclusioni che si possono trarre dalle analisi effettuate.\\
 
 L'ontologia meglio definita e mantenuta dal punto di vista di WoT risulta essere \textbf{SAREF}, in quanto le altre due proposte non sono mantenute adeguatamente. Ciò ovviamente non toglie nessun credito sulle ontologie create, ma pone alcune riflessioni sull'effettiva adozione di queste all'interno del Web Semantico: è alquanto inutile aggiungere della conoscenza di cui nessuno potrà usufruire. Onde evitare di dedicare tempo per usare ontologie non più mantenute, risulta essere più fruttuoso esplorarne una definita in modo migliore e mantenuta adeguatamente. Inoltre, SAREF copre una vastità di concetti che sono semplicemente rappresentati diversamente sulle altre due proposte: ad esempio, il concetto di \textit{Function}\footnote{\url{https://w3id.org/saref\#Function}} di SAREF e quello di \textit{Operation}\footnote{\url{https://www.irit.fr/recherches/MELODI/ontologies/IoT-O.html\#Operation}} di IoT-O sono molto simili; la differenza sta soltanto nella possibilità di scendere nei dettagli relativi alla funzione stessa, che nel caso di SAREF può essere ulteriormente precisata.\\
@@ -1322,30 +1323,20 @@ La maggior parte delle cose qui elencate risulta essere frutto di compromesso tr
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{L'uso della conoscenza}           %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
+
+%TODO aggiungere modo di usare conoscenza nella Thing Description
+\section{Configurazione}
+
+\section{Utilizzo}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
@@ -1411,7 +1402,7 @@ Per schematizzare il ciclo di esecuzione di un Agente BDI si può far riferiment
 	\label{fig:jacamo}
 \end{figure}
 
-L'utilizzo di un Agente BDI ha bisogno di una sua codifica: per poter programmare gli agenti occorre utilizzare linguaggi come AgentSpeak, o meglio ancora Jason e vi è necessità di calarli all'interno di un ambiente definito, in quanto non è possibile utilizzarli esattamente come se fossero una \quotes{semplice} libreria: il modo in cui il programmatore deve interfacciarsi dunque sfrutta non più un classico paradigma, come quello ad oggetti, ma piuttosto reimmagina il sistema in una visione effettivamene ad Agenti.
+L'utilizzo di un Agente BDI ha bisogno di una sua codifica: per poter programmare gli agenti occorre utilizzare linguaggi come AgentSpeak, o meglio ancora Jason e vi è necessità di calarli all'interno di un ambiente definito, in quanto non è possibile utilizzarli esattamente come se fossero una \quotes{semplice} libreria: il modo in cui il programmatore deve interfacciarsi dunque sfrutta non più un classico paradigma, come quello ad oggetti, ma piuttosto ripensa al sistema in una visione effettivamente ad Agenti.
 
 \subsection{JaCaMo}
 Come definito nella sezione precedente, gli Agenti hanno necessità di ritrovarsi all'interno di un ambiente per poter funzionare correttamente e poter parlare tra di loro. Esistono diverse librerie che permettono di istanziare environment pronti ad ospitarli, ma nel caso di studio si preferisce concentrare ad un particolare sistema basato sull'interazione Agenti-Artefatti-Ambiente chiamato JaCaMo.\\
@@ -1426,20 +1417,20 @@ Come definito nella sezione precedente, gli Agenti hanno necessità di ritrovars
 
 Tutto il pacchetto è strutturato in modo tale da far collaborare sempre un modulo con l'altro: si possono infatti mischiare i concetti ed estendere funzionalità degli agenti definendo alcune features a livello di Java e non solo tramite Jason. Bisogna però porre attenzione a non violare i principi di una buona programmazione ad agenti e trattare sempre le cose non-agent come delle blackbox da utilizzare soltanto in caso di estrema necessità, quando è impossibile scomporre ulteriormente il problema (ad esempio, una GUI non dovrebbe essere utilizzata direttamente all'interno di un Agente, ma necessita di essere un vero Agente/Artefatto con il quale gli altri agenti possono interfacciarsi).
 
-\section{Agenti nel contesto IoT}
+\section{Agenti nel contesto WoT}
 
 Il sistema ad Agenti nasce per diverse esigenze, che comprendono diversi ambiti. Il principale motivo per cui è più utile pensare ad un sistema eterogeneo organizzandolo più in modo Agent-Oriented è la completa indipendenza dell'esecuzione di ogni singolo componente (Agenti incapsulano anche il controllo, il ciclo di vita di uno è indipendente dagli altri) e la possibilità di astrarre a livello ancora più elevato rispetto alla OOP. Inoltre il modello ad Agenti offre la possibilità di rappresentare ancor da più vicino il mondo reale che ci circonda, in quanto questo è effettivamente formato da diverse entità (umani e/o macchine) che interagiscono continuamente tra di loro.\\
 
-Parlando quindi soltanto in termini di praticità e progettazione, è già molto più facile per un programmatore immaginarsi le Smart Things come delle entità (Agenti/Artefatti) immersi dentro una stanza (Environment) che interagiscono tra di loro ed, eventualmente, hanno una gerarchia tale da permettere un pieno controllo delle azioni che vengono svolte all'interno dell'ambiente. Immaginando dunque di dover realizzare un sistema IoT, si pone davanti ad un problema di organizzazione delle Smart Things e della comunicazione tra di loro. Davanti ad uno studio di una Smart Room, si presuppone di avere alcuni oggetti Smart con le loro caratteristiche, con le quali l'utente può interagire. Dovendo pensare ad un modello ad alto livello, si può a produrre lo schema, visibile nella figura \ref{fig:use-case-diagram-high}, come illustrazione di ciò che potrebbe avvenire dentro questo ambiente.\\
+Parlando quindi soltanto in termini di praticità e progettazione, è già molto più facile per un programmatore immaginarsi le Web Things come delle entità (Agenti/Artefatti) immersi dentro una stanza (Environment) che interagiscono tra di loro ed, eventualmente, hanno una gerarchia tale da permettere un pieno controllo delle azioni che vengono svolte all'interno dell'ambiente. Immaginando dunque di dover realizzare un sistema WoT, si pone davanti ad un problema di organizzazione delle Web Things e della comunicazione tra di loro. Davanti ad uno studio di una Smart Room, si presuppone di avere alcuni oggetti Smart con le loro caratteristiche, con le quali l'utente può interagire. Dovendo pensare ad un modello ad alto livello, si può a produrre lo schema, visibile nella figura \ref{fig:use-case-diagram-high}, come illustrazione di ciò che potrebbe avvenire dentro questo ambiente.\\
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{eps/use-case-high.pdf}
+	\includegraphics[scale=0.5]{eps/use-case-high-agent-simple.png}
 	\caption{Rappresentazione ad alto livello di una Smart Room e suoi oggetti.}
 	\label{fig:use-case-diagram-high}
 \end{figure}
 
-Pensandolo nel modo classico, ognuno dei sistemi rappresentati dovrebbe avere una classe che lo definisce, metodi con i quali posso interagire e caratteristiche specifiche per ogni singolo oggetto, eventualmente derivate. Una progettazione di classi rappresentative però non è l'unico step da eseguire, in quanto, successivamente, ognuna di esser dovrebbe esporre protocolli di comunicazione, dipendenti dall'oggetto in atto. Vi è poi necessità di un sistema che collezioni le istanze delle classi, e richiami opportunamente gli oggetti con il quale l'utente vuole interagire. Infine, è necessario poter vedere le preferenze dell'utente, in base alle quali gli oggetti immersi dentro il sistema dovrebbero poter (anche autonomamente) decidere come accontentare al meglio l'utente che le sta sfruttando. \\
+Pensandolo nel modo classico, ognuno dei sistemi rappresentati dovrebbe avere una classe che lo definisce, metodi con i quali posso interagire e caratteristiche specifiche per ogni singolo oggetto, eventualmente derivate. Una progettazione di classi rappresentative però non è l'unico step da eseguire, in quanto, successivamente, ognuna di esser dovrebbe esporre protocolli di comunicazione, dipendenti dall'oggetto in atto. Vi è poi necessità di un sistema che collezioni le istanze delle classi, e richiami opportunamente gli oggetti con il quale l'utente vuole interagire.\\
 
 Si può volgere di conseguenza lo sguardo alla descrizione presente sopra e calarla all'interno di un ambiente Agent-Oriented, dove i vari oggetti Smart sono Agenti/Artefatti. In questo modo si può astrarre ancor di più la progettazione, non calandosi direttamente alla rappresentazione tramite classi, ma proprio come entità del mondo vero calate quasi direttamente in quello ad Agenti. Come citato in \quotes{\textit{Agent-based modeling: Methods and techniques for simulating human systems}} \cite{abm}, la modellazione ad agenti possiede tre benefici:
 
@@ -1454,7 +1445,7 @@ Si può volgere di conseguenza lo sguardo alla descrizione presente sopra e cala
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.45]{eps/use-case-high-agent.pdf}
+	\includegraphics[scale=0.5]{eps/use-case-jacamo.png}
 	\caption{Rappresentazione di una Smart Room e suoi oggetti rivisitata secondo il modello Agent-Based di JaCaMo.}
 	\label{fig:use-case-diagram-high-agent}
 \end{figure}
@@ -1463,8 +1454,8 @@ Come si può notare dalla figura \ref{fig:use-case-diagram-high-agent}, la proge
 
 L'utilizzo del modello ad Agenti, inoltre, non riguarda soltanto semplici contesti come la Smart Room: vi sono infatti presenti studi che spaziano argomenti riguardanti sistemi di evacuazione \cite{evacuation} o addirittura l'osservazione delle api \cite{bee}.
 
-\section{BDI e Smart Things}
-Come da definizione, il modello BDI si basa sui concetti di \textit{\textbf{b}eliefs}, \textit{\textbf{d}esires} e \textit{\textbf{i}ntentions}. Vi è necessità di analisi per quanto riguarda le seguenti affermazioni e quali sono i vantaggi (e/o svantaggi) di utilizzare questa metodologia per lo sviluppo di un sistema IoT.\\
+\section{BDI e Web Things}
+Come da definizione, il modello BDI si basa sui concetti di \textit{\textbf{b}eliefs}, \textit{\textbf{d}esires} e \textit{\textbf{i}ntentions}. Vi è necessità di analisi per quanto riguarda le seguenti affermazioni e quali sono i vantaggi (e/o svantaggi) di utilizzare questa metodologia per lo sviluppo di un sistema WoT.\\
 
 Come citato da \textit{\quotes{MATCH: MultiAgent-based Tactful CooperationScheme for Heterogeneous IoT Devices}} \cite{masiot}, utilizzare agenti può determinare una semplificazione della gestione per quanto riguarda l'eterogeneità delle cose naturalmente presenti in un ambiente, dati diversi contesti nei quali un sistema ad Agenti può essere applicato. Bisogna però saper specificare con criteri rigorosi i comportamenti che le cose debbano avere, in modo da garantire sia la sicurezza delle persone che il risultato atteso, portando ad una collaborazione (e non competizione) tra le cose che si hanno a disposizione.
 
@@ -1473,7 +1464,7 @@ In primo luogo, la capacità degli Agenti ad essere predisposti a interagire tra
 
 Per questo motivo vi sono presenti strumenti per gestire la priorità delle azioni: è necessario però porre attenzione a non disporre i controlli all'interno dell'Agente stesso, ma nella parte relativa alla ricezione e gestione messaggi. L'agente, infatti, deve poter eseguire le proprie intenzioni anche in assenza di alcune conoscenze, se questo vi è permesso: la belief (iniziale e imparata) è esattamente il motivo per il quale ciò è possibile, se ovviamente l'entità è capace di valutare con accuratezza la situazione dell'ambiente in cui si trova.\\
 
-Non bisogna però intendere questo come una carta bianca per gli Agenti ad eseguire azioni che ritengono giuste: è compito del programmatore a rendere le singole entità sicure, in modo da poter interrompere operazioni, anche critiche, nel caso di uno o più fallimenti. Gli Agenti sono infatti liberi di crearne delle nuovi (o nel caso di JaCaMo, di creare nuovi Artefatti) e di eliminarli a dovere: quest'ultima viene vista come un'operazione importante, in quanto l'eliminazione di una entità provoca automaticamente la distruzione di tutte quelle sottostanti nella sua gerarchia.\\
+Non bisogna però intendere questo come una carta bianca per gli Agenti ad eseguire azioni che ritengono giuste: è compito del programmatore a rendere le singole entità sicure, in modo da poter interrompere operazioni, anche critiche, nel caso di uno o più fallimenti. Gli Agenti sono infatti liberi di creare nuovi Agenti (o nel caso di JaCaMo, anche Artefatti) e di eliminarli a dovere: quest'ultima viene vista come un'operazione importante, in quanto l'eliminazione di una entità provoca automaticamente la distruzione di tutte quelle sottostanti nella sua gerarchia.\\
 
 L'autoregolazione del sistema, quindi, è frutto di conoscenza degli Agenti ed esperienza del programmatore a renderli autonomi e capaci di imparare. Grazie all'utilizzo di tutti gli strumenti dati a disposizione, gli ambienti possono così diventare più propensi ad essere effettivamente \quotes{Smart}, non perchè un'azienda ha deciso di etichettarlo così, ma per definizione di quello che quel determinato sistema può fare e offrire nel suo insieme. Dall'altra parte, è da considerare una visione distopica, dove troppe cose eseguite da macchine rendono uomini meno capaci a svolgere anche banali compiti, diventando quindi completamente dipendenti dalla tecnologia.
 
@@ -1493,19 +1484,20 @@ Da una parte quindi si ha il problema della molteplicità di comunicazione, che 
 Dipendentemente quindi da cosa si vuole ottenere dal sistema, è opportuno scegliere una delle due strade. Essendo però la seconda, quella centralizzata, più facile da implementare e scalabile (in un sistema da 10.000 oggetti è impensabile infatti rendere ogni oggetto responsabile di osservare l'interno ambiente e capire l'azione da intraprendere, mentre con l'entità centrale è lei a doversi preoccupare di tutto), per quanto riguarda la scelta per le successive fasi di analisi, si preferisce pensare al sistema Agent-Based con un Agente centrale che \quotes{comanda} gli Artefatti.
 
 \subsection{Things e Agenti}
+\label{sec:agentthings}
 Non solo la \textit{belief}, ma anche \textit{desires} e \textit{intentions} riguardano da vicino l'analisi che dev'essere affrontata. Mentre è logico infatti pensare all'agente centrale che si pone come desiderio e/o intenzione quella di voler illuminare la stanza, è più difficile calarsi a più basso livello supponendo che una lampadina abbia il desiderio e/o intenzione di accendersi o cambiare la sua intensità.\\
 
 Vi è però necessità di differenziare quello che idealmente un sistema ad Agenti potrebbe essere e quello che si sta cercando di realizzare. Nel contesto attuale si sta pensando ad un modo per interfacciare le Smart Things esistenti sul mercato in modo da poterle inserire dentro una stanza e utilizzare per questo scopo Agenti BDI. La Thing, di per sè, è stata già progettata, realizzata; ha già feature interne che le permettono di cambiare il loro stato interno: queste però \textbf{non} sono state progettate in vista di un'applicazione in un sistema Agent-Based, ma piuttosto in un ambiente Smart classico tramite connessione ad un Hub WiFi (o altri, ad esempio ZigBee).
 Ponendo caso che si voglia realizzare una Smart Thing da 0, utilizzando sin da subito il paradigma Agent-Based, viene automatico pensare alla lampadina come se fosse effettivamente un agente: ha delle intenzioni, dei desideri e delle credenze su quello che è il sistema \quotes{Lampadina}. Per essere Smart ha sicuramente bisogno non solo delle parti elettriche che permettono di emanare luce, ma anche quelle di ricevere comunicazioni dall'esterno, di managing energetico interno e simili. Dunque, è logico in questo caso contraddire l'introduzione di questa sezione: infatti, se guardata internamente e realizzata dall'inizio con questa ideologia, la lampadina \textbf{può} essere sviluppata seguendo questo paradigma, avendo quindi tutte le cose che caratterizzano un Agente. Di conseguenza, anche l'intero sistema dovrebbe essere rivalutato in modo da inglobare non solo Artefatti che si interfacciano con le Things già esistenti, ma anche l'unità centrale che deve riconoscere ulteriori Agenti come Smart Things.\\
 
-Come però sottolineato, questo è solo un caso ipotetico. Attualmente non vi sono particolari sviluppi nell'ambito Smart Things che prevedono l'utilizzo della Programmazione ad Agenti intensiva, e la maggior parte delle Things esistenti non è stata pensata per farne uso. Per questo motivo se si volesse realizzare un sistema completamente ad Agenti, vi è necessità di progettare e realizzare anche Smart Things seguendo lo stesso modello; nel caso di studio, invece, si tratterà di un approccio più limitato, che si baserà sull'adozione di Smart Things correntemente esistenti e funzionanti, senza dover inventare nuovi metodo per la creazione delle entità Smart.\\
+Come però sottolineato, questo è solo un caso ipotetico. Attualmente non vi sono particolari sviluppi nell'ambito Smart Things che prevedono l'utilizzo della Programmazione ad Agenti intensiva, e la maggior parte delle Things esistenti non è stata pensata per farne uso. Per questo motivo se si volesse realizzare un sistema completamente ad Agenti, vi è necessità di progettare e realizzare anche Smart Things seguendo lo stesso modello; nel caso di studio, invece, si tratterà di un approccio più limitato, che si baserà sull'adozione di Web Things opportunamente configurate e virtualizzate, senza dover inventare nuovi metodo per la creazione delle entità Smart.\\
 
-Inoltre, come descritto in \textit{\quotes{Building Cyber-Physical Systems - A Smart Building Use Case}} \cite{smartbuilding}, anche una semplice casa possiede diverse sfide, sia per quanto riguardo l'eterogeneità delle cose che la complessità delle azioni da compiere. Vi sono infatti diversi strati di interoperabilità che possono esistere. Dall'altra parte, seppur non citando direttamente, l'articolo fa anche riferimento all'uso di ontologie (o comunque tecnologie standard) per quando riguarda il layer della descrizione degli oggetti e del loro stato, ricadendo perfettamente nell'ambito di studio qui presentato, trattato poi successivamente nel capitolo \ref{sec:td}.
+Inoltre, come descritto in \textit{\quotes{Building Cyber-Physical Systems - A Smart Building Use Case}} \cite{smartbuilding}, anche una semplice casa possiede diverse sfide, sia per quanto riguardo l'eterogeneità delle cose che la complessità delle azioni da compiere. Vi sono infatti diversi strati di interoperabilità che possono esistere. Dall'altra parte, seppur non citando direttamente, l'articolo fa anche riferimento all'uso di ontologie (o comunque tecnologie standard) per quando riguarda il layer della descrizione degli oggetti e del loro stato, ricadendo perfettamente nell'ambito della Thing Description.
 
 \subsection{Blackboxes}
 Nella precedente sezione è emerso un dettaglio molto importante riguardante la natura non-Agent-friendly delle entità che si vorrebbe in qualche modo sfruttare all'interno del sistema. Un Agente, infatti, è autorizzato a comunicare soltanto grazie allo scambio di messaggi, non tramite il richiamo di alcuni metodi, ne tramite l'uso di tecnologie com RPC o altre, come WebSocket.\\
 
-In JaCaMo questo problema è stato superato grazie all'adozione degli Artefatti: attraverso di essi, infatti, è possibile interagire con del codice legacy (o delle classi/librerie o addirittura programmi interi), rendendo le cose completamente trasparenti dal lato dell'Agente che osserva quell'Artefatto. Ovviamente, si tratta di un processo di "blackboxing" di quella che è la vera natura dell'oggetto interessato, ma senza di esso la Agent Oriented Programming non potrebbe dichiararsi priva di codice \quotes{sporco} di qualche richiamo della classica OOP.\\
+In JaCaMo questo problema è stato superato grazie all'adozione degli Artefatti: attraverso di essi, infatti, è possibile interagire con del codice legacy (o delle classi/librerie o addirittura programmi interi), rendendo le cose completamente trasparenti dal lato dell'Agente che osserva quell'Artefatto. Si tratta di un processo di "blackboxing" di quella che è la vera natura dell'oggetto interessato, ma senza di esso la Agent Oriented Programming non potrebbe dichiararsi priva di codice \quotes{sporco} di qualche richiamo della classica OOP.\\
 
 L'artefatto dunque può nascondere l'entità di una qualsiasi parte già implementata: una GUI in JavaFX, una Smart Things con un display e una stampante appaiano tutte come un Artefatto, il quale con le sue azioni interne permette all'Agente di mandargli i messaggi. L'agente risulta essere quindi compliant allo standard di programmazione, e l'artefatto gestisce la richiesta interamente per essere compliant con la tecnologia che viene sfruttata sotto.\\
 
@@ -1517,26 +1509,17 @@ Come citato in \quotes{\textit{Intelligent Multi-Agent Collaboration Model for S
 Per motivi di semplicità la soluzione proposta non verrà adottata nel risultato finale, tuttavia si sottolinea l'importanza e l'esistenza di tale studio.
 
 
-\section{Disponibilità della conoscenza}
-In una visione completa di un sistema, nel quale si può immaginare un numero potenzialmente infinito di oggetti Smart, è naturale aver a che fare con una molteplicità di informazioni e operazioni da fare che necessariamente ha bisogno di essere in qualche modo regolamentata e strutturata, in modo da evitare il caos che ne deriverebbe. Le problematiche, infatti, non riguardano soltanto la quasi impossibilità di manutenzione del sistema, dovuta alla scarsa interoperabilità dei sistemi, ma anche la semplice osservazione e raccolta dati dell'ambiente in cui questo fantomatico sistema potrebbe funzionare. In poche parole, l'applicazione caotica e senza regole di un sistema eterogeneo porta inevitabilmente alla lenta distruzione dello stesso, vanificando completamente le soluzioni ai problemi che si erano posti di risolvere.
+\section{Creazione di Agend-Based Things}
+In una visione completa di un sistema, nel quale si può immaginare un numero potenzialmente infinito di oggetti Smart, è naturale aver a che fare con una molteplicità di informazioni e operazioni da fare che necessariamente ha bisogno di essere in qualche modo regolamentata e strutturata, in modo da evitare il caos che ne deriverebbe. Le problematiche, infatti, non riguardano soltanto la quasi impossibilità di manutenzione del sistema, dovuta alla scarsa interoperabilità dei sistemi, ma anche la semplice osservazione e raccolta dati dell'ambiente in cui questo fantomatico sistema potrebbe funzionare. In poche parole, l'applicazione caotica e senza regole di un sistema eterogeneo porta inevitabilmente alla lenta distruzione dello stesso, vanificando completamente le soluzioni ai problemi che si erano posti di risolvere.\\
 
-
-\subsection{Thing Description}
-\label{sec:td}
-Da diverso tempo si sta discutendo su come rendere il mondo IoT più versatile, compatibile, universale e aperto. Le attuali tecnologia risultano essere perlopiù proprietarie e non standardizzate, per cui si è spesso costretti a rimanere legati con uno (o pochi) competitor presenti sul mercato per problemi di compatibilità dei sistemi. Infatti, ogni oggetto Smart attualmente presente sul mercato, ha bisogno di un suo centro di comando, che differisce da produttore a produttore: nel caso di oggeti Smart dotati di protocolli WiFi generalmente basta un'applicazione che riesca a sfruttare il protocollo REST; ma utilizzato protocolli come Bluetooth e/o ZigBee ogni manufacturer implementa un suo protocollo di comunicazione che non è noto a priori.\\
-
-Per far fronte alle diversità e per regolare il caos che si sta cominciando a creare, anche in vista dell'imminente espansione di oggetti Smart, grazie anche all'introduzione delle nuove infrastrutture, soprattutto quelle di comunicazione, l'ente W3C \cite{w3c} ha instaurato il Web Of Things \cite{wot} e la Thing Description \cite{td}, argomenti già trattati nel capitolo \ref{sec:w3c}.\\
-
-L'uso della Thing Description facilita la discovery e l'interoperabilità tra gli oggetti presenti nell'ambiente. Avendo al suo interno attributi, azioni, proprietà osservabili dell'oggetto e l'insieme delle cose human e non-human readable, permette di avere un quadro completo di quello che l'oggetto può essere e di quello che può svolgere.\\
-
-Calandosi nel mondo degli Agenti, è facile pensare ad una creazione dinamica delle Things per inserirle all'interno del sistema. È necessario quindi definire alcuni passi fondamentali per eseguire completamente il processo di creazione e inserimento di una nuova Thing all'interno di un ambiente:
+Della \textbf{Thing Description} e dei suoi vantaggi si era già parlato in precedenza. Si vuole sottolineare però che come definito nella sezione \ref{sec:agentthings}, è difficile trovare soluzioni esistenti basate sull'implementazione di Agent-Based Things: infatti, nella maggior parte dei casi, l'agente diventa il \quotes{\textit{wrapper}} di una tecnologia già esistente, o nel caso studiato, di una Thing collocata in un ambiente. È facile di conseguenza potersi immaginare un ipotetico iter per poter includere una Thing all'interno di un sistema ad Agenti:
 
 \begin{enumerate}
 	\item \textbf{Utente aziona il comando \textit{Add New Thing}}: tramite un'interfaccia grafica presente in un'App o in una Smart Thing l'utente dichiara la volontà al sistema di voler aggiungere una nuova Smart Thing.
 	
-	\item \textbf{Agente cattura il comando}: l'entità centrale che si occupa della gestione capisce che un nuovo oggetto sta per essere inserito. Chiede all'utente gli unici due dettagli che vuole sapere: il nome della cosa e la sua Thing Description.
+	\item \textbf{Agente cattura il comando}: l'entità centrale che si occupa della gestione capisce che un nuovo oggetto sta per essere inserito. Chiede all'utente l'unica cosa che vuole sapere: la sua Thing Description.
 	
-	\item \textbf{Agente crea l'artefatto con la TD}: una volta ottenuto i dati, l'agente chiede la creazione di un nuovo artefatto con il nome indicato dall'utente, che rispecchia l'oggetto reale grazie alla Thing Description.
+	\item \textbf{Agente crea l'artefatto con la TD}: una volta ottenuto i dati, l'agente chiede la creazione di un nuovo artefatto che rispecchia l'oggetto reale grazie alla Thing Description.
 	
 	\item \textbf{L'Artefatto si dichiara pronto}: esso comunica all'Agente di poter essere testato da parte dell'utente prima di dichiararsi completamente funzionante.
 	
@@ -1560,7 +1543,7 @@ Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire 
 	
 	\item \textbf{Necessità dell'intervento umano}: l'approvazione da parte dell'utente potrebbe essere macchinosa, soprattutto se si dovessero aggiungere centinaia di Things. Si potrebbe pensare ad un meccanismo di automazione del test della Thing, che capisce in qualche modo di essere configurata bene (ad esempio, configurando una lampadina si potrebbe pensare di creare, a partire dalle proprietà e azioni comprese, un test automatico che verifica tutte le funzionalità apprese, come accendi/spegni/regola intensità e simili). Questo processo può essere ritenuto non critico in un ambiente casalingo, mentre nell'ambito industriale è di estrema importanza garantire la sicurezza dei dipendenti e delle macchine.
 	
-	\item \textbf{Necessità della configurazione manuale}: l'intero processo potrebbe essere semplificato, se le Smart Things avessero modo di comunicare automaticamente i loro nomi e il percorso per la Thing Description. In alternativa, ogni Smart Thing dovrebbe avere un percorso standard dove trovare il proprio nome e la TD, in modo che, una volta accese, possano essere automaticamente rilevate dall'Agente centrale e configurate senza che l'utente debba per forza dichiarare di voler aggiungere una nuova Thing.
+	\item \textbf{Necessità della configurazione manuale}: l'intero processo potrebbe essere semplificato, se le Smart Things avessero modo di comunicare automaticamente i loro nomi e il percorso per la Thing Description. In alternativa, ogni Smart Thing dovrebbe avere un percorso standard dove trovare il proprio nome e la TD, in modo che, una volta accese, possano essere automaticamente rilevate dall'Agente centrale e configurate senza che l'utente debba per forza dichiarare di voler aggiungere una nuova Thing. Questo problema potrebbe sembrare risolvibile accumulando le Thing Description in un unico raccoglitore che l'entità centrale continua ad osservare: tutte le Thing però dovranno essere comunque configurate in modo da pubblicare la loro TD all'interno di questo raccoglitore, tornando di nuovo al punto di partenza.
 	
 	\item \textbf{Mancanza di standard evoluti/in uso/noti}: anche se si disponesse di tutte le tecnologie che permettono la realizzazione di tutti i punti precedenti, un'ultima nota dolente, per quanto riguarda la situazione attuale, è la completa mancanza delle Thing Description per le Smart Things correntemente esistenti. Essendo uno standard nuovo e non particolarmente usato (anche perchè ogni brand vuole tenersi l'utente stretto alle proprie soluzioni), vi è necessità di creazione manuale delle TD per gli oggetti che si vogliono creare. Il vantaggi ottenuti sono principalmente due: non solo si comincia ad utilizzare uno standard approvato, ma ulteriormente, si può pensare alla realizzazione di un database accessibile a tutti, nel quale vengono raccolte e pubblicate le TD realizzate da parte di tutti gli utenti da tutto il mondo, facilitando, con il passare del tempo, la configurazione all'interno dei sistemi che sfruttano la Thing Description (non per forza soltanto quelli ad Agenti).
 \end{itemize}
@@ -1571,7 +1554,7 @@ Nel frattempo, JaCaMo si sta evolvendo e metodologie che permettono tali operazi
 \subsection{Thing Status}
 Mentre è possibile definire interamente le proprietà e azioni di una Thing attraverso la TD, sarebbe utile se si potesse, allo stesso modo, descriverne lo stato attuale. La Thing Description, infatti, copre soltanto il lato \quotes{statico} della Thing, specificando unicamente quelli che possono essere aspetti osservabili ed eseguibili, ma non quelli attualmente attivi.\\
 
-Non esistono attualmente standard che permettono di definire lo stato attuale di una Thing. Si può immaginare però, ad esempio, che tutte le proprietà osservabili di un Artefatto, che una Thing di conseguenza possiede, possano essere in qualche modo tradotte in un formato standard, ad esempio in RDF. Utilizzando il modello così definito, ogni entità presente all'interno di un ambiente potrebbe fornire non solo la sua descrizione, intesa come il \quotes{\textit{cosa so fare}} ma anche il \quotes{\textit{come sto ora}}.\\
+Non esistono attualmente standard che permettono di definire lo stato attuale di una Thing. Si può immaginare però, ad esempio, che tutte le proprietà osservabili di un Artefatto, che una Thing di conseguenza possiede, possano essere in qualche modo tradotte in un formato standard, ad esempio sfruttando sempre le potenzialità di JSON-LD. Utilizzando il modello così definito, ogni entità presente all'interno di un ambiente potrebbe fornire non solo la sua descrizione, intesa come il \quotes{\textit{cosa so fare}} ma anche il \quotes{\textit{come sto ora}}.\\
 
 La questione, inizialmente, risulta essere banale se osservata da solo un punto di vista: le Things hanno già modo di dire al sistema in che situazione attualmente si trovano e di comunicare i cambiamenti in Real Time grazie ad uno scambio di messaggi. Servire un ulteriore modo per descrivere ciò di cui si ha già disposizione sembra un controsenso, eppure vista dall'alto può essere uno strumento utile per diversi motivi:
 
@@ -1601,14 +1584,14 @@ Purtroppo attualmente in campo non esistono standard che definiscono questo tipo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-Nel seguente capitolo verrà descritto il procedimento che si è svolto per la realizzazione di un progetto funzionante, basandosi su quanto descritto nei capitoli precedenti.
+Nel seguente capitolo verrà descritto il procedimento che si è svolto per la realizzazione di un progetto funzionante, basandosi perlopiù su quanto descritto nei capitoli precedenti.
 
 \section{Requisiti}
 
 \subsection{Descrizione ad alto livello}
 \textsl{Si vuole realizzare un sistema capace di governare su una Stanza Smart, tenendo in considerazione una possibile visione più ampia per estendere le funzionalità al di fuori del contesto della stanza e poterlo gestire all'interno di un'appartamento, oppure, astraendo dall'environment, funzionante generalmente all'interno di un ambiente nel quale si vogliono controllare automaticamente alcuni parametri. La Smart Room dev'essere capace di governare dei device connessi alla rete, i quali dovranno gestire autonomamente, e in base alle preferenze dell'utente, alcune situazioni.\\}
 
-\textsl{In particolare, per semplicità, si vuole predisporre la stanza di tre oggetti smart: lampadina, televisore e ventilatore. L'utente è libero di scegliere, in base alle proprie esigenze, quale comportamento far eseguire ad ognuno di loro in base alla situazione attualmente presente nella stanza; ad esempio, si vuole limitare la luce se la TV è accesa, mantenendo il ventilatore attivo soltanto se la temperatura supera 24°C. Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo (installata ad esempio su uno Smartphone). In caso di più utenti con preferenze diverse, vi è necessità di stabilire priorità su quale comportamento il sistema debba prendere.}
+\textsl{In particolare, per semplicità, si vuole predisporre la stanza di quattro oggetti smart: lampadina, televisore, ventilatore e tapparella. L'utente è libero di scegliere, in base alle proprie esigenze, quale comportamento far eseguire ad ognuno di loro in base alla situazione attualmente presente nella stanza; ad esempio, si vuole limitare la luce se la TV è accesa, mantenendo il ventilatore attivo. Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo (installata ad esempio su uno Smartphone).}
 
 \subsection{Business Requirements}
 \begin{enumerate}
@@ -1633,9 +1616,8 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	\item L'utente interagisce con gli oggetti tramite un unico terminale.
 	\begin{enumerate}[label*=\arabic*.]
 		\item Il terminale potrà essere virtuale (interfaccia grafica su un device come PC o Smartphone) o reale (una Thing).
-		\item Nuove azioni e proprietà, nonchè nuovi oggetti, devono essere immediatamente visibili e configurabili nel terminale di gestione.
-		\item L'utente può a piacere decidere cosa e come funzioni, stabilendo per ogni oggetto le sue proprietà e preferenze.
-		\item Il terminale dev'essere l'unica interfaccia abilitata a gestire gli item nell'ambiente, senza ausilio di nessun'altro programma (proprietario o open).
+		\item Nuovi oggetti devono essere immediatamente visibili nel terminale di gestione.
+		\item Il terminale dev'essere l'unica interfaccia abilitata a gestire le Things nell'ambiente, senza ausilio di nessun'altro programma (proprietario o open).
 	\end{enumerate}
 \end{enumerate}
 
@@ -1644,18 +1626,11 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	\item Ogni device deve poter essere rilevato dal sistema e funzionare senza interferire nel suo funzionamento.
 	\begin{enumerate}[label*=\arabic*.]
 		\item Il device deve fornire una Thing Description.
-		\begin{enumerate}[label*=\arabic*.]
-			\item L'accesso a quest'ultima dev'essere facile e libero, integrato all'interno della Thing.
-			\item Il nome, le proprietà e le azioni che la Thing può svolgere devono essere tutte descritte all'interno di questa.
-			\item L'analisi della TD deve fornire un quadro completo sull'oggetto, in modo da far capire al sistema automaticamente tutti i parametri necessari al suo utilizzo.
-			\item Se non disponibili, le Thing Description dovranno essere create.
-		\end{enumerate}
-		
 		\item Il device deve seguire le linee guida definite dagli standard W3C.
-		
-		\item Il device deve fornire una Thing Status Description.
+		%\item Il device potrà fornire una Thing Status Description.
 	\end{enumerate}
 	
+	\begin{comment}
 	\item L'interazione tra le cose deve avvenire in modo seamless.
 	\begin{enumerate}[label*=\arabic*.]
 		\item L'utente non deve decidere ogni volta il comportamento delle Smart Things.
@@ -1663,6 +1638,7 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 		\item L'utente dev'essere comunque abilitato a poter disattivare alcuni comportamenti automatici e ad avere, in caso di necessità, il pieno controllo della situazione.
 		\item Se è possibile, le Things devono essere capaci di definire nuovi comportamenti in base alla combinazione di diversi oggetti smart e/o riuscire ad ottenere approssimazioni delle volontà dell'utente sfruttando le funzionalità presenti nel sistema, imparando nuovi comportamenti.
 	\end{enumerate}
+	\end{comment}
 \end{enumerate}
 
 \subsection{Non Functional Requirements}
@@ -1678,11 +1654,11 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 \begin{enumerate}[label*=\arabic*.]
 	\item \textbf{Utilizzo di librerie standard}. La totalità del sistema deve essere sviluppata sfruttando le possibilità che al giorno di oggi vengono offerte da diverse aziende. La parte del codice custom deve riguardare solo l'interazione tra di essere e parti che non sono in alcun modo trattate da soluzioni esistenti.
 	
-	\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, ma un innovativo modo per poter gestire un circoscritto ambiente di IoT, avendo sempre un'ampia visione sulle sue possibili estensioni fuori dall'ambito di attuale studio.
+	%\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, ma un innovativo modo per poter gestire un circoscritto ambiente di IoT, avendo sempre un'ampia visione sulle sue possibili estensioni fuori dall'ambito di attuale studio.
 	
 	\item \textbf{Utilizzo di un sistema di versioning}. Per facilitare lo sviluppo sarà necessario utilizzare un sistema che permette un'agevole sviluppo, considerando come possibilità Git e l'uso della piattaforma GitHub.
 	
-	\item \textbf{Budget}. La realizzazione del sistema deve avvenire senza comportare dispendi economici.
+	\item \textbf{Budget}. La realizzazione del sistema deve avvenire senza comportare dispendi temporali ed economici.
 \end{enumerate}
 
 
@@ -1692,7 +1668,7 @@ Il lavoro svolto durante il processo di sviluppo verrà organizzato adottando la
 
 
 
-\section{Architettura}						%crea la sezione
+\section{Architettura}
 \label{sec:Architettura}
 Generalmente, quando si tratta di progettare il pattern da utilizzare per la programmazione, si cerca di scegliere uno dei più noti (ad esempio, tra MVC o MVVM). Nel caso degli agenti questo non è possibile, in quanto essi utilizzano delle modalità di realizzazione e/o comunicazione diversamente strutturate. Vi è necessità dunque di andare più a fondo, descrivendo precisamente di come avviene l'organizzazione in questo particolare modo di programmazione. Non avendo quindi modo di definire, ad esempio, la suddivisione Model-View-Controller, è necessario definire in altri modi la strutturazione che si vorrà intraprendere durante lo sviluppo. Grazie all'adozione del modello ad Agenti, è possibile individuare elementi chiave di un MAS (Multi Agent System), guardandolo immediatamente dal punto di vista di JaCaMo:
 
@@ -1708,7 +1684,7 @@ Generalmente, quando si tratta di progettare il pattern da utilizzare per la pro
 	\item \textbf{Organizzazione}: stabilisce una gerarchia e l'ordine all'interno di un sistema ad Agenti.
 \end{itemize}
 
-L'ambiente è quello della Smart Room, che inizialmente sarà virtuale e simulato; per quanto riguarda l'organizzazione, invece, Moise permette un'organizzazione molto dettagliata degli Agenti che vivono all'interno di un sistema. Essendo il caso di studio limitato solo alle eventuali potenzialità degli Agenti nell'ambito di una Smart Room, piuttosto che alla loro organizzazione, si preferisce non lasciare troppo peso ad una ben definita organizzazione, concentrandosi sugli aspetti di interoperabilità tramite le Thing Description e Thing Status, tenendo conto anche dei requisiti posti.\\
+L'ambiente è quello della Smart Room, che inizialmente sarà virtuale e simulato; per quanto riguarda l'organizzazione, invece, Moise permette un'organizzazione molto dettagliata degli Agenti che vivono all'interno di un sistema. Essendo il caso di studio limitato solo alle eventuali potenzialità degli Agenti nell'ambito di una Smart Room, piuttosto che alla loro organizzazione, si preferisce non lasciare troppo peso ad una ben definita organizzazione, concentrandosi sugli aspetti di interoperabilità tramite le Thing Description, tenendo conto anche dei requisiti posti.\\
 
 \subsection{Agenti}
 Essendo il modello ad Agenti un modello emergente, vi sono diverse possibilità di organizzare il progetto. La più completa risulta essere quella di \textbf{JaCaMo}, il quale oltre alle entità descritte nella sezione precedente, offre la possibilità di definire \textbf{Artefatti}. Le caratteristiche però non riguardano solo l'aggiunta di questa ulteriore entità, ma anche nella struttura della soluzione. Essendo quindi un modello molto completo per quanto riguarda l'intera organizzazione, si preferisce puntare su di esso per le successive fasi.\\
@@ -1731,7 +1707,7 @@ Java possiede molteplici vantaggi, dove tra quelli principali si possono trovare
 
 Per poter soddisfare il requisito per l'uso di tecnologie innovative, Java non pare una soluzione adeguata; dall'altra parte, utilizzando JaCaMo non vi è modo di utilizzare un linguaggio diverso. Per questo motivo si decide di puntare su uno dei linguaggi Java-based tra Scala e Kotlin.\\
 
-Scala risulta essere un linguaggio che punta più sulla programmazione funzionale. Ridefinisce in modo sostanziale quelle che sono le classi e interfacce di Java, ponendole più secondo il suo stile. Per i programmatori non esperti, il linguaggio può sin dall'inizio sembrare più difficile, ma a lungo andare offre funzionalità molto potenti che permettono di abbreviare e semplificare il codice Java. Kotlin risulta essere più una via di mezzo, che non punta ad essere puramente funzionale; esso conserva di più lo stile java-like di classi e interfacce, introducendo soltanto qualche novità. Offre però una gestione di quest'ultime decisamente migliore, nonchè aggiungendo anche la null-safe e l'uso innato di tipi opzionali.\\
+Scala risulta essere un linguaggio che punta più sulla programmazione funzionale. Ridefinisce in modo sostanziale quelle che sono le classi e interfacce di Java, ponendole più secondo il suo stile. Per i programmatori non esperti, il linguaggio può sin dall'inizio sembrare più difficile, ma a lungo andare offre funzionalità molto potenti che permettono di abbreviare e semplificare il codice Java. Kotlin risulta essere più una via di mezzo, che non punta ad essere puramente funzionale; esso conserva di più lo stile java-like di classi e interfacce, introducendo soltanto qualche novità. Offre però una gestione di quest'ultime decisamente migliore, nonchè aggiungendo anche la null-safe e l'uso diretto di tipi opzionali.\\
 
 Entrambi i linguaggi rimangono compatibili con Java ed entrambi offrono funzionalità non presenti nativamente: essendo però Kotlin più vicino allo stile di Java, si preferisce di non puntare il tutto sul funzionale e rimanere più al livello base, per non incorrere a problemi implementativi, anche a causa della scarsa esperienza con i linguaggi funzionali. Rimanendo quindi JaCaMo perfettamente funzionante, il riferimento per la programmazione \quotes{classica} sarà Kotlin.
 
@@ -1743,27 +1719,10 @@ JaCaMo, oltre a Java, utilizza internamente due linguaggi che permettono:
 	\item eventualmente, la definizione dell'organizzazione tramite Moise - \textbf{XML}.
 \end{itemize}
  
-Oltre all'ambiente di JaCaMo, vi è necessità di utilizzare un linguaggio per la definizione della Thing Description: come definito dallo standard W3C \cite{td}, viene utilizzato JSON nella versione \textit{JSON-LD 1.1} \cite{json-ld}, mentre per la definizione delle Thing Status si utilizzerà il formato definito dallo standard RDF.\\
+Oltre all'ambiente di JaCaMo, vi è necessità di utilizzare un linguaggio per la definizione della Thing Description: come definito dallo standard W3C \cite{td}, viene utilizzato JSON nella versione \textit{JSON-LD 1.1} \cite{json-ld}.
 
 Ulteriori linguaggi verranno presi in considerazione soltanto definendo quali librerie si vorranno utilizzare.
 
-
-\subsection{Sistema Operativo \& PC}
-Il progetto verrà svolto interamente su una macchina con Windows 10, configurata con le seguenti caratteristiche:
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{|l|l|}
-		\hline
-		\textbf{Component}   & \multicolumn{1}{c|}{\textbf{Name}} \\ \hline
-		\textbf{Motherboard} & MSI Z270 M7                        \\ \hline
-		\textbf{CPU}         & Intel i7-7700k                     \\ \hline
-		\textbf{GPU}         & Gigabyte GTX 1080Ti                \\ \hline
-		\textbf{RAM}         & Ballistix DDR4 @ 2400MHz           \\ \hline
-		\textbf{Disk}        & SSD Samsung Evo Pro 750 1TB                \\ \hline
-	\end{tabular}
-	\caption{\label{tab:pc-spec} Configurazione del PC sul quale verrà realizzato il progetto.}
-\end{table}
 
 \subsection{Librerie \& Tool}
 Oltre alla definizione di linguaggi e architettura generale, si vogliono definire in principio alcune delle librerie e tool che verranno utilizzate nel progetto.
@@ -1787,11 +1746,11 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 \end{itemize}
 
 \subsection{Casi d'uso}
-L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso deve automaticamente regolarsi in base alle impostazioni dell'utente, che è comunque abilitato a interagire con le singole cose manualmente, sovrascrivendo le eventuali modifiche effettuate dal manager. Seguendo i requisiti, le tre Smart Things e i relativi casi d'uso che si vogliono coprire sono rappresentati nella seguente figura.
+L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso abilita l'utente a interagire con le Things. I casi d'uso possono essere ricavati direttamente dalla figura \ref{fig:use-case-diagram-high-agent} e sono disponibili nella figura \ref{fig:use-case}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\makebox[\textwidth][c]{\includegraphics[scale=0.8]{eps/use-case.pdf}}
+	\makebox[\textwidth][c]{\includegraphics[scale=0.7]{eps/use-case-simple.png}}
 	\caption{Casi d'uso del sistema in progettazione.}
 	\label{fig:use-case}
 \end{figure}
@@ -1813,106 +1772,10 @@ L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart T
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-\end{comment}
 
 
 
 \begin{comment}
-	
-
-\subsection{MVC}
-\subsubsection{Model}
-Il Model deve rappresentare tutti i concetti necessari a garantire una completa gestione della partita e, più in generale, a soddisfare tutti i requisiti delineati al Capitolo \ref{chapter:Requisiti}. Tale compito è suddiviso nelle seguenti componenti principali.
-\begin{itemize}
-	\item \textbf{Core.} Si occupa di modellare le entità caratterizzanti il dominio applicativo.
-	\item \textbf{Logic.} Gestisce le logiche di relazioni derivanti dalla movimentazione dei pezzi immersi in un ambiente di gioco.
-	\item \textbf{History.} Descrive e memorizza le varie situazioni di gioco incontrate nel corso di una partita, occupandosi di classificarle e consentendone la consultazione.
-	\item \textbf{Notations.} Parte dell'applicazione incaricata di serializzare opportunamente le azioni di gioco sottopostole in Notazione Algebrica Standardizzata, gestendo anche conversioni in formato FEN.
-\end{itemize}
-
-\subsubsection{View}
-La componente View ha come obiettivo l'interfacciamento delle funzionalità offerte dall'applicazione all'utente finale, in modo tale da essere completa (dal punto di vista delle feature offerte), semplice (anche gli utenti meno esperti dovranno essere capaci ad usarla) e piacevole (per offrire una bona user experience). La view dovrà rispondere a diversi scenari: la figura \ref{fig:case_uses} riassume le azioni che l'utente potrà compiere dopo aver lanciato l'applicazione.
-
-\subsubsection{Controller}
-Il Controller osserva la View e coordina le varie parti del sistema. Nello specifico, possono essergli imputate le seguenti responsabilità:
-\begin{itemize}
-	\item \textbf{Coordination.} Orchestra l'intera evoluzione della partita, fungendo da intermediario tra le volontà dell'utente e le meccaniche di gioco.
-	\item \textbf{Database.} Si occupa di gestire gli aspetti legati alla connessione al db remoto e alla realizzazione del pattern architetturale \textit{DAO}\footnote{Data Access Object.} per la gestione dei dati memorizzati.
-	\item \textbf{Scheduling.} Regola gli aspetti di timing richiesti sia dall'orologio doppio che dalla riproduzione automatica dello storico.
-	\item \textbf{Settings.} Personalizza l'esperienza di gioco in funzione delle preferenze espresse dall'utente e le opportune configurazioni per le tecnologie utilizzate.
-\end{itemize}
-
-\newpage
-\begin{landscape}
-	\begin{figure}
-		\includegraphics[scale=0.35]{eps/3_schema_view.pdf}
-		\caption{Diagramma dei casi d'uso della view.}
-		\label{fig:case_uses}
-	\end{figure}
-\end{landscape}
-\newpage
-
-\section{Multiplayer}
-Per realizzare la componente Multiplayer si è deciso di gestire l'interazione tra le due istanze di gioco tramite scambio di messaggi grazie al paradigma ad attori.
-
-Inizialmente, per avviare la fase di \textit{discovery}, l'approccio è classificabile come \textit{Client-Server}.
-\begin{itemize}
-	\item \textbf{Creator:} Una volta avviato mette a disposizione le coordinate per poter essere raggiunto da uno sfidante.
-	\item \textbf{Challenger:} Invia un messaggio verso il Creator scelto, per notificarlo della volontà di avviare una partita.
-\end{itemize}
-
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=1]{eps/3_actors_arch.pdf}
-	\caption{Diagramma di sequenza per la fase di \textit{Discovery} dei due attori.}
-\end{figure}
-
-Il lancio della sfida avvia un \textit{Three Way Handshake} che permette ad entrambi gli attori di assicurarsi della presenza l'uno dell'altro, oltre al trasporto di informazioni come la modalità di gioco e la durata della partita in piggyback.
-
-Passata la fase di \textit{Discovery}, gli attori sono entrambi sincronizzati ed è possibile avviare la partita seguendo un vero e proprio approccio \textit{Peer to Peer}, essendo entrambi gli attori considerabli allo stesso livello: entrambi autonomamente inviano e ricevono messaggi.
-
-Unicamente le mosse legali, validate dal client in cui vengono performate, sono poi inviate tramite messaggio all'avversario, che a sua volta cercherà di eseguire la medesima mossa. Nel caso la mossa risulti corretta, sarà possibile procedere con la mossa successiva, altrimenti il ricevente riconoscerà una situazione di \textit{mismatch} e la comunicherà all'avversario, terminando la partita.
-
-Non è previsto alcun meccanismo di recovery, essendo comunque alquanto improbabile il caso in cui avvenga un mismatch essendo entrambi i client in grado di effettuare i medesimi controlli, ma si è comunque deciso per ragioni di sicurezza di introdurre un controllo per evitare che i due client rappresentino due situazioni di partita inconsistenti tra loro.
-
-Qualsiasi arresto anomalo di un client viene intercettato dall'altro, che dichiarerà conclusa la partita.
-
-Successivamente ad una conclusione naturale della partitta (patta o sconfitta di uno dei due giocatori per ragioni di gioco), entrambi i client passano autonomamente in una fase finale per gestire l'eventuale upload della partita su database per poterne poi fruite attraverso la \textit{Modalità TV}. L'attore \textit{Creator} avrà il compito di raccogliere sia la preferenza in arrivo dal proprio client, sia quella in arrivo dall'altro client tramite il rispettivo attore, per poi valutare le condizioni e le modalità dell'upload.
-
-\section{Tecnologie}
-\label{sec:Tecnologie}
-Nella realizzazione del progetto si è scelto di ricorrere principalmente alle funzionalità offerte dal linguaggio \textit{Scala}, tentando di sfruttare a pieno le sue caratteristiche per il raggiungimento di un massimo beneficio didattico. L'integrazione dei paradigmi \textit{OOP} e \textit{FP} concretizzata dal suddetto linguaggio di programmazione - atta a fonderne i vantaggi - ha infatti concesso un rapido superamento di problemi complessi. Un simile risultato sarebbe stato difficile da replicare con un linguaggio puramente ad oggetti (come \textit{Java}), dove la rigidità del paradigma avrebbe probabilmente comportato sforzi e tempi di sviluppo significativamente più elevati. In questa sezione sono riportate le principali scelte tecnologiche che hanno influenzato lo sviluppo, a fronte di esigenze non coperte nativamente dal linguaggio scelto.
-
-\subsection{JavaFX}
-La scelta di un framework ben strutturato e consolidato nel tempo permette di non incorrere in eventuali difficoltà per quanto concerne il raggiungimento di un risultato in termini visivi. È questo il motivo per cui nello sviluppo dell'interfaccia grafica si è voluto usare una tecnologia capace di offrire una ricca documentazione e una soddisfacente quantità di esempi reperibili gratuitamente online, permettendo di evitare problematiche relative alle librerie e/o wrapper privi di una community di supporto attiva.
-
-\subsection{Akka}
-Per lo sviluppo della componente \textit{multiplayer} si è utilizzato il modello ad \textit{Attori}, facendo affidamento al toolkit \textit{\textbf{Akka}} per le sue ottime caratteristiche in termini di scalabilità, prestazioni e tolleranza ai guasti. Inoltre, essendo nativamente scritta in \textit{Scala}, tale tecnologia si configura come una scelta naturale per via della sua perfetta integrazione anche con le altre parti del sistema.
-
-\subsection{Scala's Parser Combinators}
-All'interno del progetto si è fatto uso della libreria \textit{Scala Standard Parser Combinator}\cite{ScalaParserCombinator} per la ricostruzione di un intero gioco a partire dalla sua rappresentazione in formato PGN.
-I \textit{\textbf{Parser Combinator}} costituiscono uno strumento potente per la scrittura di analizzatori lessicali (\textit{lexer}) e \textit{parser} - modulari e componibili - in una idiomatica \textit{Scala}, con un quantitativo di codice ridotto.
-
-\subsection{MongoDB + MongoDB Atlas}
-Nello stabilire quale database adottare per la memorizzazione dei dati e la loro interrogazione, si sono considerati anche i diversi possibili sviluppi social che una probabile evoluzione del progetto potrebbe avere in relazione alla modalità TV, le funzionalità multiplayer e l'editing delle PGN. In funzione di questi aspetti e di quelli già emersi durante l'analisi dei requisiti elencati nel precedente Capitolo \ref{chapter:Requisiti}, è apparsa evidente la necessità di adottare una tecnologia capace di gestire frequenti interazioni col database, grandi quantità di dati correlati tra loro, con una struttura potenzialmente complessa e non definibile a priori.
-
-
-Nonostante il modello relazionale sia comunque in grado di soddisfare l'attuale obiettivo posto col progetto in esame (a causa dell'assenza di stringenti requisiti non-funzionali), si è ritenuto pertanto più saggio - nell'ottica anche di anticipazione del cambiamento - adottare un database di tipo \textit{NoSQL}.
-
-
-Si è così scelto di ricorrere a \textit{\textbf{MongoDB}}, DBMS non relazionale orientato ai documenti e basato sul formato JSON per la memorizzazione e la rappresentazione dei dati. Tale decisione è ulteriormente giustificata dalla presenza di \textit{\textbf{MongoDB Atlas}}\cite{MongoDBAtlas}: un servizio cloud completamente automatizzato e fruibile attraverso piani gratuiti (soddisfacendo il requisito implementativo legato alle esigenze in termini di costo) - sotto vincoli compatibili con le necessità del sistema - senza l'obbligo di inserimento di dati inerenti una carta di credito, a differenza della maggioranza degli altri provider disponibili e del medesimo livello. \textit{MongoDB Atlas}, nello specifico, è un Database-As-A-Service per \textit{MongoDB}, progettato e gestito dallo stesso team del database. La presenza di un'interfaccia utente e di un'API di facile utilizzo ha inoltre consentito di dedicare più tempo alla creazione del progetto e meno alla gestione del database in quanto tale.
-% PARLARE DELLO SCALA DRIVER, DELLA CONFIGURAZIONE E DEGLI ASPETTI DI PRIVACY
-\begin{comment}
-Subsection with label.\\
-Figure citing \ref{fig:dinamica_gameoflife}.\\
-Equation:
-\begin{equation}
-N (compute) + N * (8 (ask neighbors) + 8 (neighbors reply) + 1 (notify grid))
-= 18N
-\label{eq:NumeroMessaggiSoluzioneSemplice}
-\end{equation}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
