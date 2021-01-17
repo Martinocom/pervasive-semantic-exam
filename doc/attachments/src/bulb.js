@@ -1,4 +1,5 @@
 const common = require('./common');
+const Ajv = require('ajv');
 
 // Reference to local variable
 let localRef = {
@@ -14,6 +15,8 @@ let localRef = {
     },
     thing: null
 }
+
+let ajv = new Ajv();
 
 common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", function(thing) {
     // Save reference to the thing
@@ -67,9 +70,14 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", func
         })
     });
     
-    // Fade increment/decrement every 250ms brightness, to give the desired value
+    // Fade increment/decrement every 150ms brightness, to give the desired value
     localRef.thing.setActionHandler("fade", async(params) => {
-        fade(params.level)
+        if (!ajv.validate(localRef.thing.getThingDescription().actions.fade.input, params)) {
+            return new Error ("Invalid input");
+        }
+        else {
+            fade(params.level);
+        }
     })
 })
 
@@ -99,7 +107,7 @@ async function fade(desiredLevel) {
             promise = localRef.thing.writeProperty(localRef.brightness.name, data - 1)
         }
 
-        // After writing sleep 250ms and do it again
+        // After writing sleep 150ms and do it again
         promise.then(async() => {
             await common.sleep(150)
             fade(desiredLevel)

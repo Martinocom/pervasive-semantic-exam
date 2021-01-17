@@ -71,7 +71,10 @@
 						"minimum": 0,
 						"maximum": 100
 					}
-				}
+				},
+				"required": [
+					"level"
+				]
 			},
 			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/fade"}]
 		},

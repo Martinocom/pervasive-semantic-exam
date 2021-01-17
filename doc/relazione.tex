@@ -180,9 +180,9 @@
 \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
 
 \lstdefinelanguage{JavaScript}{
-	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, async, await, let},
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, async, await, let, const},
 	keywordstyle=\color{blue}\bfseries,
-	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywords={class, export, boolean, throw, implements, import, this, require},
 	ndkeywordstyle=\color{darkgray}\bfseries,
 	identifierstyle=\color{black},
 	sensitive=false,
@@ -1163,7 +1163,34 @@ Al lato pratico, per controllare la risposta della Thing in merito alle chiamate
 
 Postman permette l'esportazione della configurazione dell'API: per questo motivo questa è interamente disponibile nella cartella:\\ \texttt{/attachments/utils/webthings\_postman\_collection.json}.\\
 
-Come definito precedentemente, anche qui si riconoscono i limiti del framework, stavolta dovuti alla scarsa documentazione relativa al protocollo REST che le Things create supportano e all'assenza di un pieno supporto al controllo dei dati in arrivo: infatti, la documentazione non parla in alcun modo di protocollo REST, se non facendo riferimento allo standard W3C che generalizza il discorso. L'assenza di controllo dei dati di arrivo, invece, è un problema conosciuto e in fase di implementazione, in quanto non attualmente prioritario. Anche in questo caso è stato già aperto un ticket di supporto\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} che cerca di mettere più in chiaro la necessità di avere ben note le API, soprattutto se la Thing creata espone effettivamente un'interfaccia RESTful.\\
+Si sottolinea ancora una volta come i limiti del framework possano rallentare l'intero sviluppo: manca infatti tutta la documentazione relativa al protocollo REST che si può usare per interagire con la Thing. Anche la validazione dei dati in ingresso non è documentata, benchè fattibile: soltanto un'apertura di un \texttt{issue}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} all'interno del repository ha fatto emergere entrambe le cose. Data la possibilità di controllare l'input in arrivo è stata scoperta in uno stadio avanzato del progetto, dove si era fatta ormai l'assunzione dell'assenza di tale feature, si predispone semplicemente un esempio, prendendo la lampadina come oggetto di riferimento e \texttt{fade} come azione per la quale controllare l'input:
+
+\begin{lstlisting}[language=JavaScript]
+"input": {
+	"type": "object",
+	"properties": {
+		"level": {"type": "integer", "minimum": 0, "maximum": 100 }
+	},
+	"required": ["level"]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=JavaScript]
+const Ajv = require('ajv');
+let ajv = new Ajv();
+...
+
+// Fade increment/decrement every 250ms brightness, to give the desired value
+localRef.thing.setActionHandler("fade", async(params) => {
+	if (!ajv.validate(localRef.thing.getThingDescription().actions.fade.input, params)) {
+		return new Error ("Invalid input");
+	}
+	else {
+		fade(params.level);
+	}
+})
+\end{lstlisting}
+
 
 Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo \ref{sec:other-things}.
 
@@ -1271,7 +1298,7 @@ Nonostante il fatto di aver scelto un framework supportante la Thing Description
 			
 			\item esiste inoltre una piccola confusione per quanto riguarda variabili locali e della Thing Stessa: è più indicato infatti usare le seconde, asincrone, direttamente collegate alla Thing Stessa, piuttosto che quelle locali, come da alcuni esempi\footnote{\url{https://github.com/eclipse/thingweb.node-wot/blob/master/examples/testthing/testthing.js}} che sono reperibili nel \textit{repository} ufficiale.
 			
-			\item non vi sono dettagli riguardanti la validazione dei dati che arrivano alla Thing: anche se impostato, di default il \texttt{form} viene completamente ignorato e non vi è alcun controllo sul \texttt{DataSchema} in arrivo. Vi è necessità di eseguire una selezione manuale di attributi validi e non.
+			\item non vi è una documentazione ufficiale per quanto riguarda la validazione del \texttt{form} soltanto un'apertura di un issue ha fatto emergere una libreria esterna (\texttt{ajv}) attraverso la quale è possibile validare i dati in ingresso.
 			
 			\item non vi è alcun standard per quanto riguarda la formattazione dei dati: per impostare lo stato di una lampadina a \texttt{true} occorre semplicemente mandare un messaggio \texttt{PUT} sulla proprietà dello stato con il \texttt{body} avente soltanto la parola "\texttt{true}" al suo interno. La formattazione così ottenuta potrebbe risultare illeggibile e portare a problemi relativi ad oggetti più complessi.
 			
