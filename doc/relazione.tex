@@ -1180,7 +1180,7 @@ const Ajv = require('ajv');
 let ajv = new Ajv();
 ...
 
-// Fade increment/decrement every 250ms brightness, to give the desired value
+// Fade increment/decrement every 100ms brightness, to give the desired value
 localRef.thing.setActionHandler("fade", async(params) => {
 	if (!ajv.validate(localRef.thing.getThingDescription().actions.fade.input, params)) {
 		return new Error ("Invalid input");
