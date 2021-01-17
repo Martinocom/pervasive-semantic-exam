@@ -1755,8 +1755,36 @@ L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart T
 	\label{fig:use-case}
 \end{figure}
 
+
+\clearpage
 \section{Design di Dettaglio}
 
+\subsection{Agenti}
+Si prevede l'uso di un agente principale, il quale sarà responsabile dell'interazione tra l'utente e le Things aggiunte. Esso sarà in poche parole il terminale che attraverso un'interfaccia grafica permetterà la visualizzazione e la gestione delle entità rilevate e connesse. Si prevede quindi:
+\begin{itemize}
+	\item un'interfaccia grafica semplice per gestire e visualizzare Things (ed eventuali impostazioni),
+	\item metodi per aggiungere una nuova Thing al sistema,
+	\item metodi per gestire le Things già aggiunte (modifica, rimozione e simili),
+	\item metodi per gestire le eventuali impostazioni.
+\end{itemize}
+
+Non vi sono particolari requisiti per quanto riguarda l'uso più ampio di agenti, essendo questo un esempio di sviluppo. Si potrebbe però pensare che i singoli compiti del Main Agent possano essere suddivisi: diversi agenti, infatti, potrebbero occuparsi delle varie questioni legate alla gestione, quale parsing della Thing Description, management delle impostazioni o il reasoning sullo stato attuale e l'attuazione autonoma direttamente sulle Things.
+
+\subsection{Artefatti}
+Tutte le Web Things implementate avranno associate ad esse un Artefatto di JaCaMo. Esso sarà quindi la rappresentazione della \quotes{blackbox} nella quale la Web Thing viene incapsulata e con la quale il sistema ad Agenti interagisce. Il poter vedere e comunicare diventa quindi una cosa intrinseca del sistema ad agenti, che utilizza lo scambio di messaggi per informare e/o prendere informazioni dalle entità immerse nell'ambiente. Un Artefatto dunque avrà a sua disposizione:
+
+\begin{itemize}
+	\item la Thing Description dell'oggetto,
+	\item gli attributi osservabili (e non) dell'oggetto,
+	\item le funzioni che possono essere chiamate sull'oggetto,
+	\item gli eventi che l'oggetto produce,
+\end{itemize}
+
+risultando a tutti gli effetti la copia-artefatto della Web Thing virtuale in esecuzione. Le azioni chiamate devono ovviamente produrre effetti sulla Thing stessa e non soltanto alla \textit{blackbox} così creata.\\
+
+Dovrebbe essere inoltre possibile l'auto-configurazione dell'artefatto, ma per mancanza di questa funzionalità, il codice dell'artefatto verrà codificato all'atto di programmazione, predisponendo quest'ultimo ad una eventuale rivisitazione quando il framework di sviluppo offrirà maggiori funzionalità in questo campo. Al momento, anche per motivi di semplicità, si preferisce far vedere le potenzialità, piuttosto che cimentarsi sull'estensione della libreria.\\
+
+Gli artefatti così progettati dovranno essere quattro, uno per ogni thing: \textit{TvArtifact, BulbArtifact, FanArtifact e ShutterArtifact}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
