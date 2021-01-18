@@ -1776,9 +1776,9 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 \begin{itemize}
 	\item \textbf{Gradle} \cite{gradle} - facilita la composizione, creazione e la gestione delle dipendenze. È praticamente obbligatorio in qualsiasi progetto con un minimo di complessità non solo per praticità, ma per necessità. Permette la creazione di script per il corretto build delle applicazioni.
 	
-	\item \textbf{Eclipse} \cite{eclipse} - IDE per la programmazione, che supporta il plugin per lo sviluppo in JaCaMo  \cite{eclipse-j}.
+	\item \textbf{Eclipse} \cite{eclipse} - IDE per la programmazione, che supporta il plugin per lo sviluppo in JaCaMo.
 	
-	\item \textbf{IntelliJ} \cite{intellij} - IDE per la programmazione, funzionante meglio con il linguaggio Kotlin  \cite{intellij-k}.
+	\item \textbf{IntelliJ} \cite{intellij} - IDE per la programmazione, funzionante meglio con il linguaggio Kotlin.
 	
 	\item \textbf{Visual Studio Code} \cite{visualstudiocode} - IDE più leggero e pratico, nel caso di piccole modifiche al volo di parti del codice e/o apertura dei file.
 	
@@ -1833,6 +1833,112 @@ Gli artefatti così progettati dovranno essere quattro, uno per ogni thing: \tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
+
+\section{Configurazione}
+Dati i requisiti e la volontà di utilizzare Kotlin come linguaggio di sviluppo, la configurazione del progetto richiede alcuni passaggi particolari che permettono un corretto funzionamento dell'applicazione in tutti gli IDE. Anche se alcuni potrebbero apparire privi di significato o inutili, servono in qualche modo a configurare meglio il progetto: vi è quindi necessità di esplorare perchè è necessario svolgere alcune operazioni affinché il tutto funzioni correttamente.
+
+\subsection{Operazioni preliminari}
+È necessario verificare che tutti i sottostanti requisiti siano soddisfatti:
+
+\begin{itemize}
+	\item si deve essere sicuri del fatto che Kotlin e JavaFX siano la strada che si vuole percorrere nella realizzazione di questo progetto;
+	
+	\item aver installato e lanciato almeno una volta \textbf{IntelliJ} e \textbf{Eclipse}: le versioni sulle quali è stata configurata l'app sono rispettivamente 2020.2.3 e 4.16.0;
+	\begin{itemize}
+		\item su Eclipse bisogna installare il plugin per Kotlin e JaCaMo \cite{eclipse};
+		
+		\item su IntelliJ bisogna assicurarsi di abilitare il supporto per la programmazione in Kotlin;
+	\end{itemize}
+
+	\item avere le dipendenze impostate per lanciare applicazioni sotto Java versione 12.0.2 (testato con la versione 14 presentava problemi);
+	\begin{itemize}
+		\item sotto Windows, la variabile \texttt{JAVA\_HOME} dev'essere correttamente impostata per puntare alla versione 12.0.2;
+	\end{itemize}
+
+	\item effettuare un test di lancio dell'applicazione in modalità previste dalla guida ufficiale su JaCaMo \cite{jacamo};
+	\begin{itemize}
+		\item se l'applicazione non si avvia nemmeno in questa modalità, è abbastanza inutile procede;
+	\end{itemize}
+	
+	\item è importante iniziare questa guida \textbf{prima} di modificare il codice.
+\end{itemize}
+
+\subsection{Configurazione progetto Eclipse + IntelliJ}
+Anche se la guida ufficiale su come installare JaCaMo indica due modalità di creazione del progetto (sia da \texttt{gradle} che da \textit{Eclipse}), soltanto quella creata con \texttt{gradle} può essere letta correttamente da \textit{IntelliJ}, presentato però problemi di lettura da \textit{Eclipse}. Per affrontare questo problema bisogna impostare due progetti contemporaneamente (uno da \texttt{gradle} e l'altro da \textit{Eclipse}) e unirli subito dopo averli creati. Di seguito i passaggi elencanti in modo esaustivo:
+
+\begin{enumerate}
+	\item effettuare il download del file di configurazione del progetto\footnote{al momento il file risulta essere disponibile su \url{http://jacamo.sourceforge.net/nps/np09.zip}} direttamente dalla guida ufficiale \cite{jacamo};
+	
+	\item estrarre i file dall'archivio scaricato in una cartella della quale il percorso \textbf{non} contiene alcun spazio bianco (ad esemio un path valido potrebbe essere \texttt{C:/utenti/user/Desktop/np09});
+	
+	\item avviare \texttt{gradlew.bat} e aspettare il completamento del download di alcune dipendenze;
+	
+	\item quando richiesto, immettere il nome del progetto JaCaMo che si intende realizzare, utilizzando soltanto caratteri minuscoli e il simbolo \quotes{\_} (ad esempio \textit{smart\_room}); è necessario ricordarsi questo nome per i successivi passaggi;
+	
+	\item lasciar completare la configurazione finchè non si chiuderà o non chiederà di essere chiusa;
+	
+	\item \label{item:eclipse}lanciare \textit{Eclipse} \textbf{senza} aprire il progetto creato: avviare soltanto il programma;
+	
+	\item andare nella prospettiva di JaCaMo e creare un nuovo progetto JaCaMo da \textit{File/New/JaCaMo Project};
+	
+	\item nel campo \textit{Project Name} inserire \textbf{lo stesso identico nome} del progetto creato con \texttt{gradle} (in questo caso \textit{smart\_room}); assicurarsi inoltre che \textit{Agent} e \textit{Environment} siano impostati al valore \textit{centralized};
+	
+	\item dare conferma ed attendere la sua creazione;
+	\begin{itemize}
+		\item se Eclipse dovesse rispondere che esiste già un progetto così configurato, la soluzione più semplice è creare un workspace nuovo nel quale successivamente configurare questo progetto, seguendo le istruzioni dal punto \ref{item:eclipse};
+	\end{itemize}
+	
+	\item recarsi nella cartella dove il progetto \textit{Eclipse} è stato creato (in linea generale esso dovrebbe trovarsi nel workspace precedentemente utilizzato) e copiare tutti gli elementi presenti dentro la cartella del progetto;
+	
+	\item recarsi nella cartella dove il progetto \texttt{gradle} è stato creato (in questo esempio, su \texttt{C:/utenti/user/Desktop/np09}) e incollare dentro la cartella col nome del progetto (in questo esempio \textit{smart\_room}) i file copiati nel punto precedente;
+	
+	\item quando richiesto, \textbf{sovrascrivere i file};
+	
+	\item tornare su Eclipse (o riaprilo) ed \textbf{eliminare} il progetto creato con Eclipse, sia dall'anteprima del programma che dal disco: rimuovere ogni traccia dell'esistenza di questo progetto è essenziale;
+	
+	\item sempre su Eclipse, selezionare \textit{File/Open Projects from File System...} e recarsi all'interno della cartella del progetto \texttt{gradle}, dentro la cartella con il nome del progetto (in questo esempio si fa riferimento a \texttt{C:/utenti/user/Desktop/np09/smart\_room}): di conseguenza aprire il progetto e lasciare che l'importazione di esso abbia esito positivo;
+	\begin{itemize}
+		\item è essenziale eseguire questa operazione da \quotes{\textit{Open Projects from File System...}} in quanto \textit{Import} non funziona;
+	\end{itemize}
+	
+	\item una volta caricato dovrebbe essere ben visibile nel visualizer di JaCaMo per Eclipse;
+	\begin{itemize}
+		\item questo non accade se importato direttamente dal progetto \texttt{gradle};
+	\end{itemize}
+	
+	\item impostare il comando di lancio: sotto \textit{Run As} selezionare \textit{Run Configurations} e successivamente andare su \textit{Gradle Task}. All'interno di questa voce, immettere come \textit{Gradle Task} semplicemente \texttt{run} e come \\textit{Working Directory} indicare il valore\\
+		\texttt{\${workspace\_loc:/<project\_name>}}, (in questo caso pari a \\
+		\texttt{\$workspace\_loc:/smart\_room})
+		
+	\item avviare da \texttt{gradle}: se l'agente risponde \textit{Hello World!} è tutto configurato correttamente
+\end{enumerate}
+
+\subsection{Configurazione Kotlin IntelliJ + Eclipse}
+La libreria sfrutta nativamente il linguaggio Java per cui sono necessari alcuni passaggi extra per poter utilizzare Kotlin come linguaggio di sviluppo. La seguente configurazione permette la compilazione Kotlin sia a livello di IntelliJ che Eclipse e non richiede la chiusura forzata dei programmi eventualmente aperti: essi verranno sincronizzati automaticamente.
+
+\begin{enumerate}
+	\item avviare IntelliJ e selezionare \textit{File/Open}: aprire di conseguenza la cartella col nome del progetto, situata all'interno della directory con il progetto \texttt{gradle} configurato in precedenza (in questo caso il path da aprire è  \texttt{C:/utenti/user/Desktop/np09/smart\_room});
+	
+	\begin{itemize}
+		\item se richiesto, aprire la soluzione come progetto \textbf{gradle} e non Eclipse;
+		
+		\item sotto Windows IntelliJ potrebbe chiedere se migliorare le performance escludendo la cartella del progetto dall'antivirus: acconsentire o rifiutare in base alle proprie preferenze
+	\end{itemize}
+
+	\item dentro IntelliJ aprire il file \texttt{build.gradle}: se richiesto effettuare il \textit{fix}, dopodiché eseguirlo;
+	\begin{itemize}
+		\item se l'agente risponde \textit{Hello World!} si può procedere;
+	\end{itemize}
+
+	\item sempre dentro IntelliJ, seguendo la struttura del progetto, recarsi dentro \textit{src/env/tools} e creare una nuova classe Kotlin, chiamata ad esempio \textit{SampleClass};
+	
+	\item il programma chiederà in basso a destra se si vuole configurare il progetto per essere supportato da Kotlin: acconsentire selezionando la voce \quotes{\textit{as Kotlin (Java with Gradle module)}}, assicurandosi che nella successiva finestra sia abilitata l'opzione \textit{All modules containing Kotlin files} e che il compilatore Kotlin selezionato non sia sperimentale.
+	\begin{itemize}
+		\item in questo modo il file di \texttt{gradle} verrà automaticamente impostato per supportare Kotlin
+	\end{itemize}
+
+ 
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
