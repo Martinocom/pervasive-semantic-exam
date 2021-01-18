@@ -1,0 +1,4 @@
+package tools
+
+class SampleClass {
+}
