@@ -1782,7 +1782,9 @@ Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i qua
 	\item comunicazione con la Thing selezionata.
 \end{itemize}
 
-Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per mancanza di tempo per studiare metodi per il setup automatico si prevede che le Things siano già facenti parte della stanza. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto.
+Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per mancanza di tempo per studiare metodi per il setup automatico si prevede che le Things siano già facenti parte della stanza. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando sempre il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} oppure \textit{manager/things/add}, esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo posto.\\
+
+Quindi, per ragioni di semplicità e per dimostrare perlopiù le potenzialità del framework, piuttosto che concentrarsi sugli aspetti di configurazione, si intendono le Things già presenti all'interno della stanza.
 
 
 
