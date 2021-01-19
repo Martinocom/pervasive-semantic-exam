@@ -14,9 +14,8 @@
 
 mas smart_room {
 
-    agent sample_agent
+    agent main_agent: main_agent.asl {
 
-    
-
+    }
 }
 
