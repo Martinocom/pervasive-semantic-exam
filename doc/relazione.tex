@@ -1956,12 +1956,15 @@ Successivamente, per configurare TornadoFX, una libreria che sfrutta a pieno le 
 	implementation 'no.tornado:tornadofx:1.7.20'
 	\end{lstlisting}
 
-	\item cambiare la linea \textit{javafx \{ ... \}} in:
+	\item cambiare la linea \textit{javafx \{ ... modules \}} in:
 	\begin{lstlisting}
 	modules = [ 'javafx.controls', 'javafx.graphics' ]
 	\end{lstlisting}
+
+	\item provare ad estendere la classe esempio creata in precedenza con l'entry point di TornadoFX (\texttt{:App()}); se il progetto parte è tutto configurato correttamente.
 \end{enumerate}
 
+Se qualcosa non dovesse funzionare, controllare se ogni punto della procedura è stato fatto. Si può inoltre tentare di spostare interamente il \textit{buildscript} all'inizio del file, prima della voce \textit{defaultTasks}. 
 
 \subsection{Creazione Agente}
 

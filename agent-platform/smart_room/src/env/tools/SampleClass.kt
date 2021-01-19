@@ -1,4 +1,6 @@
 package tools
 
-class SampleClass {
+import tornadofx.App
+
+class SampleClass : App() {
 }
