@@ -1966,9 +1966,88 @@ Successivamente, per configurare TornadoFX, una libreria che sfrutta a pieno le 
 
 Se qualcosa non dovesse funzionare, controllare se ogni punto della procedura è stato fatto. Si può inoltre tentare di spostare interamente il \textit{buildscript} all'inizio del file, prima della voce \textit{defaultTasks}. 
 
-\subsection{Creazione Agente}
 
-\subsection{Creazione Artefatti}
+\section{Creazione Agenti}
+L'agente principale si occuperà del lancio dell'assistente per l'utente. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso un Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultima, si rimanda al capitolo \ref{sec:gui}.
+
+
+\section{Creazione Artefatti}
+
+\subsection{GUI Artifact}
+\label{sec:gui}
+L'Artefatto con il quale si visualizza l'interfaccia utente. Si compone di proprietà osservabili e contiene riferimenti alla view creata sotto: questo perchè gli eventi potrebbero arrivare sia dall'esterno (ad esempio Agente), sia dall'interno (ad esempio, l'utente che preme il bottone). Per facilitare la creazione delle GUI, è stato predisposto un \texttt{GuiCreator}, il quale al momento può impostare il titolo, la dimensione e il \textit{controller} dell'interfaccia grafica. Essendo scritto in Kotlin, la creazione di essa risulta essere molto coincisa: quando è pronta, verrà impostata la proprietà interna dell'Artefatto che è già osservata dall'Agente; di conseguenza, appena la GUI si dichiara pronta, l'Agente è pronto per poter ricevere e mandare messaggi.
+
+\begin{lstlisting}[language=Java]
+// Create gui
+with(GuiCreator.Builder()) {
+	setTitle(GUI_TITLE)
+	setDimensions(GUI_DIMENSION.first, GUI_DIMENSION.second)
+}.build(MainView::class, guiController) { app, stage, view ->
+	// After view creation, save references and show view
+	this.app = app
+	this.stage = stage
+	this.view = view
+	stage.show()
+	execInternalOp(GUI_STATUS_OPERATION, true)
+}
+\end{lstlisting}
+
+La GUI viene aggiornata attraverso l'esecuzione di un'operazione di aggiornamento su un campo \textit{booleano}, il quale viene definito prima di impostare l'interfaccia grafica. Questo parametro è osservato dall'Agente che sta tenendo il focus sull'Artefatto corrispondente all'interfaccia grafica osservata. Si vuole notare che non è possibile richiamare direttamente la funzione annotata con \textit{@INTERNAL\_OPERATION}, in quanto fa parte dell'Artefatto e non di una generica esecuzione Kotlin con le funzioni: vi è necessità di usare il metodo \texttt{execInternalOp} per eseguirla correttamente.
+
+\begin{lstlisting}[language=Java]
+// Init method for Artifact when property has its setup
+@OPERATION
+fun init {
+	this.defineObsProperty(GUI_STATUS_PROPERTY, false)
+	[... create gui]
+}
+
+// Execution of an internal operation
+execInternalOp(GUI_STATUS_OPERATION, true)
+
+// Implementation of the internal operation
+@INTERNAL_OPERATION
+fun onGuiStatusChange(status: Boolean) {
+	getObsProperty(GUI_STATUS_PROPERTY).updateValue(status)
+}
+\end{lstlisting}
+
+Attraverso un controller è possibile avere la comunicazione view - Artefatto. Esso dev'essere un'istanza della classe \texttt{Controller} - nell'esempio sottostante del \texttt{MainViewController}. Durante la creazione della view, il builder farà un controllo sull'appartnenza della view alla classe \texttt{ControllableView}, la quale definisce un unico metodo comune, \texttt{.setupController()}.
+
+\begin{lstlisting}[language=Java]
+// Setting-up controller in the Artifact
+private val guiController = object : MainViewController() {
+	override fun onLightUpRoom() {
+		execInternalOp(ACHIEVE_INTENTION_OPERATION, LIGHT_UP_INTENTION)
+	}
+	...
+}
+
+// Generic ControllerView abstract class
+abstract class ControlledView<T> : View() where T : Controller {
+	protected lateinit var controller: T
+	fun setupController(controller: Controller) {
+		try { this.controller = controller as T }
+		 catch (exception: Exception) { throw IllegalArgumentException("Controller is not of requested type!") }
+	}
+}
+
+// MainViewController abstract class
+abstract class MainViewController : Controller() {
+	abstract fun onLightUpRoom()
+	...
+}
+
+// Builder cheking for ControllerView implementation
+...
+if (view is ControlledView<*>) {
+	view.setupController(controller)
+}
+...
+
+// View having its controller bounded to abstract class
+class MainView : ControlledView<MainViewController>() { ... }
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
