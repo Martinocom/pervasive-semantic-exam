@@ -1782,7 +1782,7 @@ Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i qua
 	\item comunicazione con la Thing selezionata.
 \end{itemize}
 
-Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per mancanza di tempo per studiare metodi per il setup automatico si prevede che le Things siano già facenti parte della stanza. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando sempre il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} oppure \textit{manager/things/add}, esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo posto.\\
+Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per semplicità si presuppone l'atto di aggiunta come l'avvio del sistema stesso. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto più in dettaglio: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo della configurazione pienamente automatica.\\
 
 Quindi, per ragioni di semplicità e per dimostrare perlopiù le potenzialità del framework, piuttosto che concentrarsi sugli aspetti di configurazione, si intendono le Things già presenti all'interno della stanza.
 
@@ -1895,11 +1895,77 @@ La libreria sfrutta nativamente il linguaggio Java per cui sono necessari alcuni
 	
 	\item il programma chiederà in basso a destra se si vuole configurare il progetto per essere supportato da Kotlin: acconsentire selezionando la voce \quotes{\textit{as Kotlin (Java with Gradle module)}}, assicurandosi che nella successiva finestra sia abilitata l'opzione \textit{All modules containing Kotlin files} e che il compilatore Kotlin selezionato non sia sperimentale.
 	\begin{itemize}
-		\item in questo modo il file di \texttt{gradle} verrà automaticamente impostato per supportare Kotlin
+		\item in questo modo il file di \texttt{gradle} verrà automaticamente impostato per supportare Kotlin;
 	\end{itemize}
 
- 
+	\item lanciare l'applicazione per controllare se tutto funziona correttamente;
+	\begin{itemize}
+		\item il primo lancio potrebbe essere più lungo, in quanto è possibile che delle dipendenze debbano essere scaricate;
+		\item se non dovesse funzionare, si può provare ad aggiornare il valore di \textit{ext.kotlin\_version} a quello suggerito dall'IDE.
+	\end{itemize}
+
+Una nota importante riguardante l'intera procedura è che, mentre IntelliJ ha un supporto migliore per quanto riguarda Kotllin, Eclipse è più adatto per la gestione degli Agenti. Inoltre, per eseguire l'applicazione si dovrà utilizzare sempre \texttt{gradle}, in quanto provando a lanciare da Eclipse in modo tradizionale, le classi scritte in Kotlin mostreranno diversi errori di compilazione.
 \end{enumerate}
+
+
+
+\subsection{Configurazione JavaFx + TornatoFX}
+Sfruttando Kotlin è possibile utilizzare le feature offerte da questo linguaggio, quali un supporto più agevole per la programmazione di interfacce grafiche. Per la configurazione di JavaFX occorrono i seguenti passi:
+
+\begin{enumerate}
+	\item aggiungere le seguenti dipendenze al file gradle:
+	\begin{lstlisting}
+	implementation "org.openjfx:javafx-base:14"
+	implementation "org.openjfx:javafx-graphics:14"
+	implementation "org.openjfx:javafx-controls:14"
+	implementation "org.openjfx:javafx-fxml:14"
+	\end{lstlisting}
+
+	\item aggiungere alla voce \textit{buildscript.repositories}:
+	\begin{lstlisting}
+	mavenCentral()
+	mavenLocal()
+	maven {
+		setUrl("https://plugins.gradle.org/m2/")
+	}
+	\end{lstlisting}
+
+	\item aggiungere alla voce \textit{buildscript dependencies}:
+	\begin{lstlisting}
+	classpath "org.openjfx:javafx-plugin:0.0.9"
+	\end{lstlisting}
+
+	\item aggiungere sotto tutti i plugin esistenti la voce:
+	\begin{lstlisting}
+	apply plugin: "org.openjfx.javafxplugin"
+	\end{lstlisting}
+
+	\item nelle ultime righe del file \textit{gradle} aggiungere:
+	\begin{lstlisting}
+	javafx {
+		version = "14"
+		modules = [ 'javafx.controls' ]
+	}
+	\end{lstlisting}
+\end{enumerate}
+
+Successivamente, per configurare TornadoFX, una libreria che sfrutta a pieno le potenzialità di Kotlin applicate a JavaFx, si svolgono i seguenti passi:
+\begin{enumerate}
+	\item aggiungere alle dipendenze del progetto:
+	\begin{lstlisting}
+	implementation 'no.tornado:tornadofx:1.7.20'
+	\end{lstlisting}
+
+	\item cambiare la linea \textit{javafx \{ ... \}} in:
+	\begin{lstlisting}
+	modules = [ 'javafx.controls', 'javafx.graphics' ]
+	\end{lstlisting}
+\end{enumerate}
+
+
+\subsection{Creazione Agente}
+
+\subsection{Creazione Artefatti}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
