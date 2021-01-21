@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:td="https://www.w3.org/2019/wot/td#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:saref1="https://w3id.org/saref#"
+>
+  <saref1:LightingDevice rdf:about="http://localhost:8080/bulb">
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N4b0ee903e19f4f9e9afa4deb6c616091">
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</td:readOnly>
+        <dct:description>The level of light from 0-100</dct:description>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nbd9eca74ea4648f4811d0661b2dccc1f">
+            <td:href>http://localhost:8080/bulb/brightness</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <td:writeOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</td:writeOnly>
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <td:type>number</td:type>
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+        <td:isObservable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:isObservable>
+        <dct:title>Brightness</dct:title>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
+    <td:hasActionAffordance>
+      <rdf:Description rdf:nodeID="Nd827be77731e4b2fac6adfefeefb102d">
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nbd5637f90eeb4a7a95aa487aff5cae37">
+            <td:href>http://localhost:8080/bulb/actions/fade</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:title>fade</dct:title>
+        <td:hasInputSchema>
+          <rdf:Description rdf:nodeID="Na70a47750b394bc1b56345d82ff7174b">
+            <td:required>level</td:required>
+            <td:hasPropertyAffordance>
+              <rdf:Description rdf:nodeID="N165cc7225009437aa013e222a396ceaa">
+                <td:type>integer</td:type>
+                <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+                <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+              </rdf:Description>
+            </td:hasPropertyAffordance>
+            <td:type>object</td:type>
+          </rdf:Description>
+        </td:hasInputSchema>
+        <dct:description>Fade the lamp to a given level</dct:description>
+      </rdf:Description>
+    </td:hasActionAffordance>
+    <saref1:hasFunction>
+      <saref1:OnOffFunction rdf:about="http://localhost:8080/bulb/toggle">
+        <saref1:hasDescription>Switch the state of the bulb: turn it off if on or turn it on when off.</saref1:hasDescription>
+      </saref1:OnOffFunction>
+    </saref1:hasFunction>
+    <td:hasActionAffordance>
+      <rdf:Description rdf:nodeID="Nadeab34857f74b00b7310f1af105b6d6">
+        <dct:description>Switch the state of the bulb: turn it off if on or turn it on when off.</dct:description>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nf387299b2c064f8fa3201fba257fd43a">
+            <td:href>http://localhost:8080/bulb/actions/toggle</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:title>toggle</dct:title>
+      </rdf:Description>
+    </td:hasActionAffordance>
+    <saref1:hasState>
+      <saref1:OnOffState rdf:about="http://localhost:8080/bulb/status"/>
+    </saref1:hasState>
+    <td:hasSecurityConfiguration rdf:resource="https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/nosec_sc"/>
+    <td:securityDefinitions>
+      <rdf:Description rdf:nodeID="Nea7fa783f7504c4ea23ae8115a01170b">
+        <td:scheme>nosec</td:scheme>
+      </rdf:Description>
+    </td:securityDefinitions>
+    <saref1:hasFunction>
+      <saref1:LevelControlFunction rdf:about="http://localhost:8080/bulb/fade">
+        <saref1:hasDescription>Fade the lamp to a given level.</saref1:hasDescription>
+      </saref1:LevelControlFunction>
+    </saref1:hasFunction>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N82971d6b43ee4a20bc25eea6977d1f88">
+        <dct:title>On/Off</dct:title>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="N796e42fcffcf4cbab3f13a4ca30ab097">
+            <td:contentType>application/json</td:contentType>
+            <td:href>http://localhost:8080/bulb/status</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:description>It's true when the bulb is on; it's false when turned off</dct:description>
+        <td:writeOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</td:writeOnly>
+        <td:type>boolean</td:type>
+        <td:isObservable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:isObservable>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</td:readOnly>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
+    <dct:title>Bulb</dct:title>
+    <saref1:isUsedFor>saref:Lighting</saref1:isUsedFor>
+    <dct:description>A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.</dct:description>
+    <saref1:accomplishes>saref:Lighting</saref1:accomplishes>
+  </saref1:LightingDevice>
+</rdf:RDF>
