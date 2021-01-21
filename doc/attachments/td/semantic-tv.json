@@ -7,7 +7,7 @@
 		}
 	],
 	"@type": "saref:Multimedia",
-	"id": "https://mywebthingserver.com/things/tv",
+	"id": "http://localhost:8080/tv",
 	"title":"TV",
 	"description": "A simple (not-so) Smart TV that can be controlled remotely.",
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
@@ -20,7 +20,7 @@
 	],
 
 	"saref:hasState": {
-		"@id": "https://mywebthingserver.com/things/tv/status",
+		"@id": "http://localhost:8080/tv/status",
 		"@type": "saref:OnOffState"
 	},
   

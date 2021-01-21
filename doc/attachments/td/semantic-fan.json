@@ -7,7 +7,7 @@
 		}
 	],
 	"@type": "saref:HVAC",
-	"id": "https://mywebthingserver.com/things/fan",
+	"id": "http://localhost:8080/fan",
 	"title":"Fan",
 	"description": "A simple fan that can be remotely controlled.",
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
@@ -19,12 +19,12 @@
 	],
 
 	"saref:hasState": {
-		"@id": "https://mywebthingserver.com/things/fan/status",
+		"@id": "http://localhost:8080/fan/status",
 		"@type": "saref:MultiLevelState"
 	},
 
 	"saref:hasFunction": [{	
-		"@id": "https://mywebthingserver.com/things/fan/cool-down",
+		"@id": "http://localhost:8080/fan/cool-down",
 		"@type": "saref:ActuatingFunction",
 		"saref:hasDescription": "Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused."
 	}],
@@ -36,7 +36,7 @@
 			"description": "The level of intensity from 0 to 3. At 0 fan is off, at 3 at full speed.",
 			"minimum" : 0,
 			"maximum" : 3,
-			"forms": [{"href": "https://mywebthingserver.com/things/fan/status"}]
+			"forms": [{"href": "http://localhost:8080/fan/status"}]
 		}
 	},
 
@@ -44,7 +44,7 @@
 		"speed-up": {
 			"title": "Speed Up",
 			"description": "Make the fan spin faster than normally possible for short time. Has controls to prevent abusing this command.",
-			"forms": [{"href": "https://mywebthingserver.com/things/fan/actions/cool-down"}]
+			"forms": [{"href": "http://localhost:8080/fan/actions/cool-down"}]
 		}
 	}
 }

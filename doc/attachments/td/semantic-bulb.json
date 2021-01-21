@@ -7,7 +7,7 @@
 		}
 	],
 	"@type": "saref:LightingDevice",
-	"id": "https://mywebthingserver.com/things/bulb",
+	"id": "http://localhost:8080/bulb",
 	"title":"Bulb",
 	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
     "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
@@ -16,17 +16,17 @@
 	"saref:isUsedFor": "saref:Lighting",
 	"saref:accomplishes": "saref:Lighting",
 	"saref:hasFunction": [{	
-			"@id": "https://mywebthingserver.com/things/bulb/toggle",
+			"@id": "http://localhost:8080/bulb/toggle",
 			"@type": "saref:OnOffFunction",
 			"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
 		}, {
-			"@id": "https://mywebthingserver.com/things/bulb/fade",
+			"@id": "http://localhost:8080/bulb/fade",
 			"@type": "saref:LevelControlFunction",
 			"saref:hasDescription": "Fade the lamp to a given level."
 		}
 	],
 	"saref:hasState": {
-		"@id": "https://mywebthingserver.com/things/bulb/status",
+		"@id": "http://localhost:8080/bulb/status",
 		"@type": "saref:OnOffState"
 	},
 
@@ -40,7 +40,7 @@
 			"description": "It's true when the bulb is on; it's false when turned off",
 			"forms": [
 				{
-					"href": "https://mywebthingserver.com/things/bulb/status",
+					"href": "http://localhost:8080/bulb/status",
 					"contentType": "application/json"
 				}
 			]
@@ -55,7 +55,7 @@
 			"description": "The level of light from 0-100",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/brightness"}]
+			"forms": [{"href": "http://localhost:8080/bulb/brightness"}]
 		}
 	},
 
@@ -76,13 +76,13 @@
 					"level"
 				]
 			},
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/fade"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/fade"}]
 		},
 
 		"toggle": {
 			"title": "toggle",
 			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/toggle"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/toggle"}]
 		}
 	}
 }

@@ -7,7 +7,7 @@
 		}
 	],
 	"@type": "saref:Actuator",
-	"id": "https://mywebthingserver.com/things/shutter",
+	"id": "http://localhost:8080/shutter",
 	"title":"Shutter",
 	"description": "A simple shutter that can be regulated to dimm or block external light.",
 	"securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
@@ -20,7 +20,7 @@
 	],
 
 	"saref:hasFunction": [{	
-			"@id": "https://mywebthingserver.com/things/shutter/move",
+			"@id": "http://localhost:8080/shutter/move",
 			"@type": "saref:LevelControlFunction",
 			"saref:hasDescription": "Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0))."
 		}
@@ -33,7 +33,7 @@
 			"title": "Is open",
 			"readOnly": true,
 			"description": "Value is true if 'level' major than the openess treshold. Read-only: cannot write. Writing will cause refreshing this variable.",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/is-open"}]
+			"forms": [{"href": "http://localhost:8080/bulb/is-open"}]
 		},
 		
 		"openess-treshold" : {
@@ -42,7 +42,7 @@
 			"description": "Value (in percentage) when to consider the shutter closed. 0 means always opened, 100 means always closed. A value of 20 means that shutter needs to roll 20% of his length to be considered open.",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/openess-treshold"}]
+			"forms": [{"href": "http://localhost:8080/bulb/openess-treshold"}]
         },
 
         "level" : {
@@ -51,7 +51,7 @@
 			"description": "Value (in percentage) of the current aperture of the shutter. 0 means it's all down (no light), 100 means it's all up (full light)",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/level"}]
+			"forms": [{"href": "http://localhost:8080/bulb/level"}]
         }
 	},
 
@@ -64,17 +64,17 @@
                 "minimum": -100,
 				"maximum": 100		
 		    },
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/move"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/move"}]
 		},
 		"open": {
 			"title": "Open",
 			"description": "Set the level of the shutter to 100.",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/open"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/open"}]
 		},
 		"close": {
 			"title": "Close",
 			"description": "Set the level of the shutter to <openess-treshold>.",
-			"forms": [{"href": "https://mywebthingserver.com/things/bulb/actions/close"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/close"}]
 	    }
 	}
 }
