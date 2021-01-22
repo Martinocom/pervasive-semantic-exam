@@ -14,10 +14,17 @@ buildscript {
         maven {
             setUrl("https://plugins.gradle.org/m2/")
         }
+
+        flatDir {
+            dirs 'libs'
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.openjfx:javafx-plugin:0.0.9"
+
+        // For JSON
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
@@ -25,8 +32,9 @@ defaultTasks 'run'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'kotlinx-serialization'           // For JSON
 apply plugin: 'eclipse'
-apply plugin: "org.openjfx.javafxplugin"
+apply plugin: "org.openjfx.javafxplugin"        // For JavaFX (enabling TornadoFX)
 
 version '1.0'
 group   'org.jacamo'
@@ -40,10 +48,7 @@ repositories {
     maven { url "https://repo.gradle.org/gradle/libs-releases-local" }
 
     //maven { url "https://jade.tilab.com/maven/" }
-
-    flatDir {
-       dirs 'lib'
-    }
+    jcenter()
 
     mavenCentral()
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
@@ -61,6 +66,18 @@ dependencies {
 
     // TornadoFx
     implementation 'no.tornado:tornadofx:1.7.20'
+
+    // For REST consuming
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0")
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.21'
+
+    // For JSON
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+
+    // For semantic
+    implementation "org.apache.jena:apache-jena-libs:3.17.0"
 }
 
 sourceSets {
