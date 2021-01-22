@@ -1,9 +1,15 @@
 package display.classes
 
 import display.classes.ViewExtensions.Companion.BIG_TEXT_STYLE
+import javafx.application.Platform
 import javafx.geometry.Insets
+import javafx.scene.control.Alert
 import javafx.scene.layout.BorderPane
+import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import tornadofx.*
 
 
@@ -19,6 +25,12 @@ class MainView : ControlledView<MainViewController>() {
         private const val MAKE_COMFORT_INTENTION_TITLE = "Make some comfort"
 
         private val BORDERPANE_MARGIN = Insets(5.0, 10.0, 5.0, 10.0)
+    }
+
+    private val tdContainer = hbox {
+        hgrow = Priority.ALWAYS
+        vgrow = Priority.ALWAYS
+        spacing = 10.0
     }
 
     override val root = borderpane {
@@ -70,19 +82,24 @@ class MainView : ControlledView<MainViewController>() {
                     padding = Insets(10.0)
                     hgrow = Priority.ALWAYS
                     vgrow = Priority.ALWAYS
-
-                    hbox {
-                        hgrow = Priority.ALWAYS
-                        vgrow = Priority.ALWAYS
-                        spacing = 10.0
-                        // Simulate adding children
-                        children.addAll(
-                            ThingView().root,
-                            ThingView().root
-                        )
-                    }
+                    this.content = tdContainer
                 }
 
+            }
+        }
+    }
+
+    fun setThingDescriptions(objTds: Array<*>) {
+        val stringTds = objTds.map { it.toString() }
+        val tds = mutableListOf<JsonObject>()
+        stringTds.forEach {
+            tds.add(Json.decodeFromString(it))
+        }
+
+        Platform.runLater {
+            tdContainer.clear()
+            tds.forEach {
+                tdContainer.children.add(ThingView(it).root)
             }
         }
     }

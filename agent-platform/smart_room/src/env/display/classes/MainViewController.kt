@@ -6,4 +6,5 @@ abstract class MainViewController : Controller() {
     abstract fun onLightUpRoom()
     abstract fun onListenNews()
     abstract fun onMakeComfort()
+    abstract fun onSignal(message: String)
 }

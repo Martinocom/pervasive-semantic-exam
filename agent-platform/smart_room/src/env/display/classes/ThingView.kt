@@ -1,27 +1,31 @@
 package display.classes
 
 import display.classes.ViewExtensions.Companion.MEDIUM_TEXT_STYLE
-import display.classes.ViewExtensions.Companion.forceMaxHeight
-import display.classes.ViewModel.Action
-import display.classes.ViewModel.Property
 import javafx.beans.binding.Bindings
 import javafx.collections.FXCollections
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonObject
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.empty
-import tornadofx.Stylesheet.Companion.listCell
 
-class ThingView : View() {
+class ThingView(td: JsonObject) : View() {
 
     private var thingTitle = "Sample Thing"
-    private val propertyList = FXCollections.observableArrayList<Property>()
-    private val actionList = FXCollections.observableArrayList<Action>()
+    private val propertyList = FXCollections.observableArrayList<String>()
+    private val actionList = FXCollections.observableArrayList<String>()
 
 
     companion object {
         private const val PROPERTIES_TITLE = "Properties:"
         private const val ACTION_TITLE = "Actions:"
 
-        private const val LIST_CELL_HEIGHT = 24
+        private const val LIST_CELL_HEIGHT = 25
+    }
+
+    init {
+        thingTitle = td["title"].toString()
+        td["actions"]?.jsonObject?.map { it.key }?.let { actionList.addAll(it.toList()) }
+        td["properties"]?.jsonObject?.map { it.key }?.let { propertyList.addAll(it.toList()) }
+
     }
 
     override val root = vbox {

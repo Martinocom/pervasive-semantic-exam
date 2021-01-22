@@ -8,13 +8,13 @@ import display.classes.MainView
 import display.classes.MainViewController
 import javafx.stage.Stage
 import tornadofx.App
-import tornadofx.View
+
 
 class MainViewArtifact : Artifact() {
 
     private var app: App? = null
     private var stage: Stage? = null
-    private var view: View? = null
+    private var view: MainView? = null
 
     companion object {
         // View things
@@ -27,6 +27,7 @@ class MainViewArtifact : Artifact() {
         // Operations
         private const val GUI_STATUS_OPERATION = "onGuiStatusChange"
         private const val ACHIEVE_INTENTION_OPERATION = "onAchieveIntention"
+        private const val SIGNAL_OPERATION = "onSignal"
 
         private const val LIGHT_UP_INTENTION = "LightUp"
         private const val NEWS_INTENTION = "News"
@@ -34,6 +35,7 @@ class MainViewArtifact : Artifact() {
 
         // Events
         private const val INTENTION_SIGNAL = "achieveIntention"
+        private const val PROGRESS_SIGNAL = "progressSignal"
     }
 
     @OPERATION
@@ -49,10 +51,21 @@ class MainViewArtifact : Artifact() {
             // After view creation, save references and show view
             this.app = app
             this.stage = stage
-            this.view = view
+            this.view = view as MainView
             stage.show()
             execInternalOp(GUI_STATUS_OPERATION, true)
         }
+    }
+
+    @INTERNAL_OPERATION
+    fun onSignal(signalType: String, signalData: String) {
+        signal(signalType, signalData)
+    }
+
+    @OPERATION
+    fun viewThingDescriptions(tds: Array<*>) {
+        //this.view?.alert(tds)
+        this.view?.setThingDescriptions(tds)
     }
 
     @INTERNAL_OPERATION
@@ -76,6 +89,10 @@ class MainViewArtifact : Artifact() {
 
         override fun onMakeComfort() {
             execInternalOp(ACHIEVE_INTENTION_OPERATION, COMFORT_INTENTION)
+        }
+
+        override fun onSignal(message: String) {
+            execInternalOp(SIGNAL_OPERATION, PROGRESS_SIGNAL, message)
         }
     }
 }
