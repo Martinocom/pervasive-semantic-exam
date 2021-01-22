@@ -10,17 +10,12 @@ import kotlinx.serialization.json.Json
 import okhttp3.Response
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
-import org.apache.jena.query.QuerySolution
 import org.apache.jena.rdf.model.ModelFactory
 import ru.gildor.coroutines.okhttp.await
 
 class ThingArtifact : Artifact() {
 
     private lateinit var connection: Connection
-
-    companion object {
-
-    }
 
     @OPERATION
     fun init() {
@@ -62,9 +57,10 @@ class ThingArtifact : Artifact() {
     }
 
     @OPERATION
-    fun findThingAccomplishing(sarefType: String, outThings: OpFeedbackParam<Array<String>>) {
+    fun findThingAccomplishing(sarefType: String, things: OpFeedbackParam<Array<String>>) {
         // Create model from RDF
         signalToAgent( "Finding things that accomplishes $sarefType...")
+
         val model = ModelFactory
             .createDefaultModel()
             .read("https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/RDF/unified.xml")
@@ -80,17 +76,18 @@ class ThingArtifact : Artifact() {
         val result = exec.execSelect()
         signalToAgent( "...Query done!")
 
-        val things = mutableListOf<String>()
+        val foundThings = mutableListOf<String>()
         while (result.hasNext()) {
-            val soln: QuerySolution = result.nextSolution()
-            things.add(soln["s"].toString())
+            val solution = result.nextSolution()
+            foundThings.add(solution["s"].toString())
         }
 
         exec.close()
         model.close()
-        outThings.set(things.toTypedArray())
 
-        signalToAgent( "Things found: $things")
+        signalToAgent( "Things found: $foundThings")
+
+        things.set(foundThings.toTypedArray())
     }
 
     @OPERATION
