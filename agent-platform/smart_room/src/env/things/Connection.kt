@@ -19,7 +19,7 @@ class Connection {
         return executeOnUrl("GET", url)
     }
 
-    suspend fun postOnUrl(url: String, params: String = "") : Call {
+    fun postOnUrl(url: String, params: String = "") : Call {
         return executeOnUrl("POST", url, params)
     }
 
