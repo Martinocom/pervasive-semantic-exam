@@ -30,22 +30,22 @@ hvacAbility('saref:Comfort').
 
 /* Second goal: attend GUI; when ready print that is ready */
 +guiStatus(Condition) : Condition == true & endpoint(URL)
-    <-  .print("GUI is now ready: ", Condition);
+    <-  .print("[AG] GUI is now ready: ", Condition);
         getAllThingDescriptions(URL, TDs);
         viewThingDescriptions(TDs).
 
 
 /* Rsponding to GUI events */
 +achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingAbility(La)
-    <- .print("User wants to achieve something: ", Intention);
+    <- .print("[AG] User wants to achieve something: ", Intention);
        !achieveWithAbility(La).
 
 +achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Comfort" & hvacAbility(Ha)
-    <- .print("User wants to achieve something: ", Intention);
+    <- .print("[AG] User wants to achieve something: ", Intention);
        !achieveWithAbility(Ha).
 
 +achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "News" & newsAbility(Na)
-    <- .print("User wants to achieve something: ", Intention);
+    <- .print("[AG] User wants to achieve something: ", Intention);
        !achieveWithAbility(Na).
 
 
@@ -54,15 +54,31 @@ hvacAbility('saref:Comfort').
 
 
 +!achieveWithAbility(A) : endpoint(URL) & onOffAction(Action)
-    <-  .print("Achieving: ", A);
+    <-  .print("[AG] Achieving: ", A);
         findThingAccomplishing(A, Things);
-        .print(Things);
+        .print("[AG] Waiting for accomplish done...");
+        .wait(5000);
+
+        .print("[AG] Selecting best things for: ", A, Things);
         selectBestThingFor(A, Things, Thing);
+        .print("[AG] Waiting for selecting done...");
+        .wait(5000);
+
+        .print("[AG] Doing operation for: ", A);
         doOperation(Thing, URL, Action, "").
+
+
++!waitForIt(T) : value(T)
+    <-  .print("T is not empty: ", T).
+
++!waitForIt(T) : not value(T)
+    <-  .print("T empty!!!", T);
+        .wait(1000);
+        !waitForIt(T).
 
 /* PLANS for achieve intentions */
 /*+!lightUp : lightingAbility(La) & endpoint(URL) & onOffAction(Action)
-    <-  .print("Lighting up the room");
+    <-  .print("[AG] Lighting up the room");
         findThingAccomplishing(La, Things);
         .print(Things);
         selectBestThingFor(La, Things, Thing);
@@ -70,40 +86,40 @@ hvacAbility('saref:Comfort').
 
 /*
 +!makeComfort : true
-    <- .print("Making comfort").
+    <- .print("[AG] Making comfort").
 
 +!enableNews : true
-    <- .print("Enabling news source").
+    <- .print("[AG] Enabling news source").
 */
 
 /* Third goal: wait for ReasoningAgent
 +reasoningReady(Rr) : Rr == true
-    <- .print("ReasoningAgent is ready!").
+    <- .print("[AG] ReasoningAgent is ready!").
     
 +reasoningReady(Rr) : Rr == false
-    <- .print("ReasoningAgent is not ready yet").
+    <- .print("[AG] ReasoningAgent is not ready yet").
 
 
 +suitableThingDescription(X) : not (X == "nothing")
-    <- .print("Received ", X).*/
+    <- .print("[AG] Received ", X).*/
 
 /* Subsequent goals: react to GUI changes
 
 +achieveIntention(Intention) : reasoningReady(true) & Intention == "LightUp"
-    <- .print("User wants to achieve Lights, sending to reasoner... ");
+    <- .print("[AG] User wants to achieve Lights, sending to reasoner... ");
        .send(reasoning_agent, tell, currentIntention(lightup)).
 
 +achieveIntention(Intention) : reasoningReady(true) & Intention == "Comfort"
-    <- .print("User wants to achieve Comfort, sending to reasoner... ");
+    <- .print("[AG] User wants to achieve Comfort, sending to reasoner... ");
        .send(reasoning_agent, tell, currentIntention(comfort)).*/
 
 /*
 +achieveIntention(Intention) : reasoningReady(true)
-    <- .print("User wants to achieve something, sending to reasoner: ", Intention);
+    <- .print("[AG] User wants to achieve something, sending to reasoner: ", Intention);
        .send(reasoning_agent, tell, currentIntention(Intention)).
 
 +achieveIntention(Intention) : reasoningReady(false)
-    <- .print("ReasoningAgent is not available yet").*/
+    <- .print("[AG] ReasoningAgent is not available yet").*/
 
 
 
