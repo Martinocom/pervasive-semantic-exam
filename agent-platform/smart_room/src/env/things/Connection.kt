@@ -12,7 +12,7 @@ class Connection {
     }
 
     suspend fun postOnUrlAsync(url: String, params: String) : Response {
-        return executeOnUrl(url, params).await()
+        return postOnUrl(url, params).await()
     }
 
     fun getFromUrl(url: String) : Call {
@@ -29,13 +29,30 @@ class Connection {
     }
 
     private fun executeOnUrl(method: String, url: String, params: String = "") : Call {
-        val request = Request.Builder().url(url)
+        return if (method == "GET") {
+            client.newCall(
+                Request.Builder()
+                .url(url)
+                .build()
+            )
+        } else {
+            client.newCall(
+                Request.Builder()
+                .url(url)
+                .addHeader("Content-Type", "application/json")
+                .method("POST", "".toRequestBody())
+                .build()
+            )
+        }
+
+
+        /*val request = Request.Builder().url(url)
 
         if (method != "GET") {
             request.addHeader("Content-Type", "application/json")
             request.method(method, params.toRequestBody())
-        }
+        }*/
 
-        return client.newCall(request.build())
+        //return client.newCall(request.build())
     }
 }

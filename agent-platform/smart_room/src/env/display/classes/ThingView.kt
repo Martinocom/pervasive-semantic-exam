@@ -12,11 +12,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import ru.gildor.coroutines.okhttp.await
 import things.Connection
 import tornadofx.*
 
@@ -78,8 +73,6 @@ class ThingView(td: JsonObject) : View() {
             if (result.body != null) {
                 val obj = Json.decodeFromString<JsonObject>(result.body!!.string())
 
-
-
                 Platform.runLater {
                     val newList = FXCollections.observableArrayList<Property>()
 
@@ -98,19 +91,8 @@ class ThingView(td: JsonObject) : View() {
     private fun executeAction(actionName: String?, params: String = "") {
         actionName?.let { name ->
             GlobalScope.launch {
-                /*val connection = Connection()
-                val result = connection.postOnUrlAsync("${thingId}/actions/toggle", params)
-                fetchPropertyData()*/
-
-
-                val client = OkHttpClient()
-                val request = Request.Builder()
-                    .url("${thingId}/actions/$name")
-                    .addHeader("Content-Type", "application/json")
-                    .method("POST", "".toRequestBody())
-                    .build()
-
-                client.newCall(request).await()
+                val connection = Connection()
+                connection.postOnUrlAsync("${thingId}/actions/${name}", params)
                 fetchPropertyData()
             }
         }
