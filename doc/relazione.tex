@@ -533,11 +533,11 @@ Generalmente una Thing Description viene creata utilizzando il linguaggio JSON. 
 }
 \end{lstlisting}
 
-Anche se non può essere propriamente ritenuta una rappresentazione della conoscenza, come ad esempio lo può essere una qualsiasi ontologia scritta in RDFS/OWL, la Thing Description costituisce un giusto compromesso tra la facilità di implementazione e l'espressività offerta. Utilizzando JSON (un formato ampiamente sfruttato e supportato) il modello può essere letto anche da semplici interpreti per conoscere la thing stessa, senza dover ricorrere all'uso di strumenti sofisticati per il ricavo della conoscenza. Dall'altra parte però, l'importanza di poter includere all'interno di essa ontologie già definite, e di sfruttare le definizioni in esse contenute, amplifica notevolmente il significato intrinseco della conoscenza che questa descrizione porta con se: infatti, trattandosi di uno standard già definito, è del tutto verosimile aspettarsi una lenta e graduale adozione di questa struttura per un internet sempre più connesso e \quotes{cosciente} di ciò che sta rappresentato.\\
+Essendo strutturato secondo il modello JSON (un formato ampiamente sfruttato e supportato) può essere fatto il parsing diretto del contenuto del testo per conoscere la Thing, senza dover ricorrere all'uso di strumenti sofisticati per il ricavo della conoscenza. Dall'altra parte però, l'importanza di poter includere all'interno di essa ontologie già definite, e di sfruttare le definizioni in esse contenute, amplifica notevolmente il significato intrinseco della conoscenza che questa descrizione porta con se: infatti, trattandosi di uno standard già definito, è del tutto verosimile aspettarsi una lenta e graduale adozione di questa struttura per un internet sempre più connesso e \quotes{cosciente} di ciò che sta rappresentato.\\
 
 Di conseguenza, anche se di primo impatto essa non sembra legata al mondo del Web Semantico, in un certo senso ne rappresenta l'estensione: si può considerarla come un \quotes{utilizzatore} di una conoscenza già posseduta che può essere tranquillamente riutilizzata per Smart Things simili fra loro. La somiglianza può, di conseguenza, essere un buon punto di partenza per ricavare nuova conoscenza, anche in casi di assenza della Thing Description: infatti, si potrebbe ad esempio assumere che, qualsiasi oggetto avente la funzionalità di impostare una luminosità, possa effettivamente essere una fonte di luce che, opportunamente regolata, può portare all'effetto voluto dall'utilizzatore: questo indipendentemente dalla natura dell'oggetto stesso, che potrebbe benissimo essere una semplice radiosveglia con dei LED.\\
 
-Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD11 \cite{json-ld}. Inoltre, esiste effettivamente uno modello che definisce le linee guida per la Thing Description, considerata come ontologia (\textbf{Thing Description Ontology} \cite{td}), ma al momento risulta essere soltanto una bozza. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
+Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD11 \cite{json-ld}. Inoltre, esiste effettivamente uno modello che definisce le linee guida per la Thing Description, considerata come ontologia (\textbf{Thing Description Ontology} \cite{td}), che però risulta al momento essere soltanto una bozza. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
 
 Come ulteriore approfondimento alla Thing Description, è utile citare \quotes{\textit{On Modeling the Physical World as a Collection of Things: The W3C Thing Description Ontology}} \cite{td-paper}, nel quale si possono trovare riferimenti all'importanza di avere dati standardizzati e strutturati. Nello stesso documento vengono inoltre citati altri enti, proponenti uno stack di sviluppo diverso \cite{open-connectivity}, dal quale è possibile derivare la Thing Description.\\
 
@@ -559,7 +559,6 @@ Aggiungendo semantica è possibile progettare sistemi che non dipendono, di prin
 Questo abilita anche un potenziale campo di ricerca su quello che risulta essere la scoperta dinamica delle funzionalità, e non solo degli oggetti: mettendo in fila alcune lampadine è possibile dedurre che accendendo e spegnendole in un certo ordine, è possibile ottenere un effetto luminoso che una singola lampadina non poteva raggiungere.\\
 
 Nell'esplorazione che si vuole intraprendere, però, viene preso di mira soltanto l'aspetto della scoperta e l'uso delle funzioni.
-
 
 
 \section{Ontologie note}
@@ -585,23 +584,15 @@ Rimanendo nel tema delle caratteristiche di una Thing, si potrebbero ontologie s
 	\item \textbf{OM} - Ontology of unit of Measure, che spazia all'interno del terreno appartenente alle unità di misura, quantità e dimensioni.
 \end{itemize}
 
-Uscendo dal mondo strettamente WoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description:
-\begin{itemize}
-	\item \textbf{DBpedia} \cite{dbpedia}: ontologia contenente un numero elevatissimo di informazioni riguardanti diversi ambiti di quella che si può definire \quotes{human knowledge}. È utile ad individuare e descrivere caratteristiche generali di classi di oggetti (ad esempio, avendo una lampadina si possono ricavare informazioni su cos'è, come funziona e quali tipi di lampadine ci sono).
-\end{itemize}
+Uscendo dal mondo strettamente WoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description, come \textbf{DBpedia} \cite{dbpedia}, che per motivi di semplicità non verrà inclusa nelle definizioni delle Things.
 
 
 \subsection{Ontologie utilizzate}
-%TODO completare la descrizione delle ontologie utilizate
 Per scopi di questo progetto, è impensabile poter includere tutte le ontologie, per cui è necessario effettuare una selezione di alcune di esse a priori, per poter concentrarsi meglio sia sulla dimostrazione della fattibilità che sulle conclusioni che si possono trarre dalle analisi effettuate.\\
 
-L'ontologia meglio definita e mantenuta dal punto di vista di WoT risulta essere \textbf{SAREF}, in quanto le altre due proposte non sono mantenute adeguatamente. Ciò ovviamente non toglie nessun credito sulle ontologie create, ma pone alcune riflessioni sull'effettiva adozione di queste all'interno del Web Semantico: è alquanto inutile aggiungere della conoscenza di cui nessuno potrà usufruire. Onde evitare di dedicare tempo per usare ontologie non più mantenute, risulta essere più fruttuoso esplorarne una definita in modo migliore e mantenuta adeguatamente. Inoltre, SAREF copre una vastità di concetti che sono semplicemente rappresentati diversamente sulle altre due proposte: ad esempio, il concetto di \textit{Function}\footnote{\url{https://w3id.org/saref\#Function}} di SAREF e quello di \textit{Operation}\footnote{\url{https://www.irit.fr/recherches/MELODI/ontologies/IoT-O.html\#Operation}} di IoT-O sono molto simili; la differenza sta soltanto nella possibilità di scendere nei dettagli relativi alla funzione stessa, che nel caso di SAREF può essere ulteriormente precisata.\\
+L'ontologia meglio definita e mantenuta dal punto di vista di WoT risulta essere \textbf{SAREF}, in quanto le altre due proposte non sono mantenute adeguatamente. Ciò ovviamente non toglie nessun credito sulle ontologie create, ma pone alcune riflessioni sull'effettiva adozione di queste all'interno del Web Semantico: è alquanto inutile aggiungere della conoscenza di cui nessuno potrà usufruire. Onde evitare di dedicare tempo per usare ontologie non ampiamente diffuse, risulta essere più fruttuoso esplorarne una definita in modo migliore e mantenuta adeguatamente. Inoltre, SAREF copre una vastità di concetti che sono semplicemente rappresentati diversamente sulle altre due proposte: ad esempio, il concetto di \textit{Function}\footnote{\url{https://w3id.org/saref\#Function}} di SAREF e quello di \textit{Operation}\footnote{\url{https://www.irit.fr/recherches/MELODI/ontologies/IoT-O.html\#Operation}} di IoT-O sono molto simili; la differenza sta soltanto nella possibilità di scendere nei dettagli relativi alla funzione stessa, che nel caso di SAREF può essere ulteriormente precisata.\\
 
-Le ontologie come \textbf{OM} 
-
-Anche \textbf{DBpedia} verrà utilizzata, per quanto possibile, nelle Things successivamente descritte: risulta essere una delle più famose ontologie e stabilisce un fermo punto di riferimento per l'ottenimento della conoscenza.
-
-
+Per dimostrare quindi le capacità di un sistema descritto, si includerà l'ontologia di SAREF all'interno delle Thing Description, utilizzando in modo estensivo, ma comunque a livello dimostrativo, le potenzialità che essa può avere.\\
 
 
 
@@ -611,16 +602,16 @@ Anche \textbf{DBpedia} verrà utilizzata, per quanto possibile, nelle Things suc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-È di estrema importanza sapere il concetto base sul quale si sta lavorando: in questo capitolo verrà definita l'entità di prima classe (la Thing) e verrano progettate ad alto livello le funzionalità delle thing scelte per la successiva implementazione.
+In questo capitolo verrà definita l'entità di prima classe (la Thing) e verrano progettate ad alto livello le funzionalità delle Thing scelte per la successiva implementazione.
 
 
 \section{Web Thing}
 \label{sec:webthing}
-È estremamente facile, al giorno di oggi, confondere un oggetto \quotes{\textit{connesso}} e un oggetto intelligente: in poche parole, mentre il primo è semplicemente accessibile tramite uno (o più) protocolli di comunicazione, offrendo a disposizione dell'utente i dati e funzioni che esso possiede, il secondo interagisce autonomamente con l'ambiente e altri oggetti eventualmente connessi, anche in modo autonomo. È utile, di conseguenza, definire in modo preciso cosa viene inteso per "Smart Thing" in questo contesto.\\
+È utile definire in modo preciso cosa viene inteso per "Thing" (o "Smart Thing") in questo contesto.\\
 
 Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Web Thing} non è un semplice oggetto connesso: facendo parte del Web Of Things (riferimenti nel capitolo \ref{sec:wot}) è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite il protocollo standard HTTP. L'oggetto così definito \mbox{dev'essere} descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile.\\
 
-Come ulteriore aggiunta a quello che è la descrizione generale, si richiede alle Things di poter offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono così utilizzare sia le informazioni basilari, offerte intrinsecamente dalla descrizione in un formato standard, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (ed eventualmente, su altri oggetti presenti nell'ambiente).\\
+Come ulteriore aggiunta a quello che è la descrizione generale, si richiede alle Things di poter offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono così utilizzare sia le informazioni basilari, offerte intrinsecamente dalla descrizione in un formato standard, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (abilitando inoltre possibilità di ricavare conoscenza dal sistema).\\
 
 Da questo momento in poi quindi, non ha più senso di parlare di Smart Things: ogni qual volta si incontrerà il termine \quotes{\textit{Thing}} si farà riferimento alla \textbf{Web Thing}, se non indicato diversamente.
 
@@ -654,6 +645,7 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 		\setlength\itemsep{-0.0em}
 		\item spegnersi ed accendersi,
 		\item impostare l'intensità,
+		\item avere una funzionalità "extra" (ad esempio, turbo),
 		\item offrire possibilità di leggere i parametri (ad esempio, lo stato in cui si trova attualmente).
 	\end{itemize}
 	
@@ -683,13 +675,13 @@ Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di q
 La \textbf{lampadina} verrà presa come riferimento per la definizione dei successivi oggetti: non vi sarà, infatti, una ripetizione nella descrizione del procedimento per gli oggetti indicati nelle successive sezioni; verranno analizzati soltanto i punti cruciali ed eventuali differenze e/o difficoltà incontrate nella definizione di esse.
 
 \subsection{Definizione base}
-Si parte da una descrizione basilare senza considerare eventuali ontologie da aggiungere; comunque ne viene indicata di base, ovvero quella che definisce a priori le caratteristiche di una Thing Description. Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}).\\
+Si parte da una descrizione basilare senza considerare eventuali ontologie da aggiungere, indicando soltanto quella che definisce a priori le caratteristiche di una Thing Description (ovvero, il contesto). Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}).\\
 
 \begin{lstlisting}[language=json,caption={Inizio di una TD della lampadina},label=lst:start-td-lamp]
 	"@context": "https://www.w3.org/2019/wot/td/v1",
-	"id": "https://mywebthingserver.com/things/bulb",
+	"id": "http://localhost:8080/bulb",
 	"title":"Bulb",
-	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its brightness.",
+	"description": "A simple bulb that can be remotely turned off and on, with possibility to regulate its intensity.",
 	[...]
 \end{lstlisting}
 
@@ -699,25 +691,35 @@ Successivamente, si definisco le proprietà che una generica lampadina possiede:
 \begin{lstlisting}[language=json,caption={Proprietà di una lampadina},label=lst:start3-td-lamp]
 	"properties": {
 		
-		"on": {
+		"status": {
 			"type": "boolean",
 			"title": "On/Off",
 			"description": "It's true when the bulb is on; it's false when turned off",
-			"forms": [{"href": "/things/bulb/properties/on"}]
+			"forms": [
+				{
+					"href": "http://localhost:8080/bulb/status",
+					"contentType": "application/json"
+				}
+			]
 		},
 		
 		"brightness" : {
 			"type": "number",
 			"title": "Brightness",
+			"observable": true,
+			"readOnly" : false,
+			"writeOnly" : false,
 			"description": "The level of light from 0-100",
 			"minimum" : 0,
 			"maximum" : 100,
-			"forms": [{"href": "/things/lamp/properties/brightness"}]
+			"forms": [{"href": "http://localhost:8080/bulb/brightness"}]
 		}
 	}
 \end{lstlisting}
 
-Si vuole notare che con questo set di proprietà la lampadina è già perfettamente compatibile con i requisiti definiti nel capitolo \ref{sec:modellazione-things}: infatti, le proprietà indicata non sono di sola lettura ed essendo quindi modificabili, lo stato della lampadina può essere definito impostando opportunamente il loro valore. Per motivi di completezza, si preferisce aggiungere inoltre un ulteriore campo, relativo alle azioni che possono essere svolte sull'oggetto stesso, in modo tale da poter, ad esempio, animare l'aumento o la diminuzione dell'intensità luminosa della lampadina stessa. 
+Si vuole notare che con questo set di proprietà la lampadina è già perfettamente compatibile con i requisiti definiti nel capitolo \ref{sec:modellazione-things}: infatti, le proprietà indicata non sono di sola lettura ed essendo quindi modificabili, lo stato della lampadina può essere definito impostando opportunamente il loro valore. È inoltre utile sottolineare come i campi \textit{observable}, \textit{writeOnly} e \textit{readOnly} siano opzionali, come del resto anche il \textit{contentType} del \textit{form} indicato.\\
+
+Per motivi di completezza, si preferisce aggiungere inoltre un ulteriore campo, relativo alle azioni che possono essere svolte sull'oggetto stesso, in modo tale da poter, ad esempio, animare l'aumento o la diminuzione dell'intensità luminosa della lampadina stessa o di cambiarne lo stato.
 
 L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-description/\#actionaffordance}{ActionAffordance}}, una sottoclasse di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#interactionaffordance}{InteractionAffordance}}. Può definire, in modo opzionale, l'input e l'output fornito, compliant con il \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}}. A sua volta, il \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}} può avere diverse implementazioni: in questo caso si utilizza un \textit{\href{https://www.w3.org/TR/wot-thing-description/\#objectschema}{ObjectSchema}}.
 
@@ -725,7 +727,7 @@ L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-descriptio
 \begin{lstlisting}[language=json,caption={Azioni di una lampadina},label=lst:start4-td-lamp]
 	"actions": {
 		"fade": {
-			"title": "Fade",
+			"title": "fade",
 			"description": "Fade the lamp to a given level",
 			"input": {
 				"type": "object",
@@ -734,17 +736,21 @@ L'azione è definita da \textit{\href{https://www.w3.org/TR/wot-thing-descriptio
 						"type": "integer",
 						"minimum": 0,
 						"maximum": 100
-					},
-					"duration": {
-						"type": "integer",
-						"minimum": 0,
-						"unit": "milliseconds"
 					}
-				}
+				},
+				"required": [
+				"level"
+				]
 			},
-			"links": [{"href": "/things/lamp/actions/fade"}]
+			"forms": [{"href": "http://localhost:8080/bulb/actions/fade"}]
+		},
+		
+		"toggle": {
+			"title": "toggle",
+			"description": "Switch the state of the bulb: turn it off if on or turn it on when off.",
+			"forms": [{"href": "http://localhost:8080/bulb/actions/toggle"}]
 		}
-	},
+	}
 \end{lstlisting}
 
 La Thing Description così creata è completa e rispetta tutti i requisiti. L'unica cosa mancante sono i riferimenti ad ontologie esterne, che verranno prese in considerazione nella successiva sezione. Il documento nella sua interezza può essere trovato direttamente in allegati (\texttt{attachments/td/bulb.json})
@@ -762,7 +768,7 @@ Per motivi di compatibilità, e per poter mettere a confronto le descrizioni, si
 	\item \textbf{Tapparella}: \texttt{attachments/td/semantic-shutter.json}
 \end{itemize}
 
-Per includere ontologie nella Thing Description, occorre specificarle nell'attributo \texttt{@Context}, indicando un array di ontologie di riferimento come valore; è inoltre importante non dimenticarsi di lasciare l'ontologia di riferimento per la Thing Description stessa.
+Per includere ontologie nella Thing Description, occorre specificarle nell'attributo \texttt{@context}, indicando un array di ontologie di riferimento come valore; è inoltre importante non dimenticarsi di lasciare l'ontologia di riferimento per la Thing Description stessa.
 
 \begin{lstlisting}[language=json,caption={Aggiunta del contesto per includere ontologie},label=lst:semantic-td1]
 "@context": [
@@ -780,19 +786,19 @@ Nell'ontologia di SAREF esiste una definizione di \textit{LightingSwitch}: quest
 "saref:isUsedFor": "saref:Lighting",
 "saref:accomplishes": "saref:Lighting",
 "saref:hasFunction": [{	
-	"@id": "https://mywebthingserver.com/things/bulb/toggle",
-	"@type": "saref:OnOffFunction",
-	"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
+		"@id": "http://localhost:8080/bulb/toggle",
+		"@type": "saref:OnOffFunction",
+		"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
 	}, {
-		"@id": "https://mywebthingserver.com/things/bulb/fade",
+		"@id": "http://localhost:8080/bulb/fade",
 		"@type": "saref:LevelControlFunction",
 		"saref:hasDescription": "Fade the lamp to a given level."
 	}
 ],
 "saref:hasState": {
-	"@id": "https://mywebthingserver.com/things/bulb/status",
+	"@id": "http://localhost:8080/bulb/status",
 	"@type": "saref:OnOffState"
-}
+},
 \end{lstlisting}
 
 Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate le seguenti affermazioni: riguardanti tutte le Thing Description Semantiche create:
@@ -805,7 +811,15 @@ Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate
 	\item sia la \textbf{TV} che il \textbf{ventilatore} sono ritenuti oggetti capaci di offrire il \textit{WellBeing} e \textit{Comfort}\footnote{\texttt{"saref:accomplishes": ["saref:WellBeing", "saref:Comfort"]}}: questo perchè SAREF non specifica cosa definiscono queste istanze di classi. Prendendo come definizione di \quotes{WellBeing} un qualcosa che "fa star bene" e la definizione di \quotes{Comfort} un qualcosa che offre una certa comodità, entrambi indubbiamente cadono a poter essere definite tali.
 	
 	\item le tre osservazioni sopra fanno emergere la necessità di estensione dell'ontologia, per definire meglio i collegamenti semantici che vi possono essere tra di esse. Più avanti nel ciclo di sviluppo si considererà tale ampliamento come parte integrante del progetto, nel caso vi fosse tempo rimasto.
+	
+	\item si suppone che tutte le Thing definite vengano create e gestite in una rete locale. L'identificativo, infatti, prende come riferimento il \textit{localhost:8080} come indirizzo di partenza. Ciò ovviamente può cambiare in base all'esigenza.
 \end{itemize}
+
+
+\subsection{Dettagli su ulteriori Thing Descriptions}
+Alcune delle Thing Description trattate possono essere più o meno semplici rispetto alla lampadina presa come descrizione di riferimento. Il formato, comunque, rimane sempre lo stesso e si definiscono proprietà e azioni, specificandoli anche usando l'ontologia SAREF.\\
+
+Non vi sono ulteriori particolarità riguardanti le Thing Description.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
@@ -822,7 +836,7 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 
 \begin{itemize}
 	\setlength\itemsep{0em}
-	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti;
+	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti. Un esempio di \quotes{apertura} potrebbe esser semplicemente quello di implementare delle REST API sfruttabili da chiunque;
 
 	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
 	
@@ -875,7 +889,7 @@ Basandosi sui criteri definiti nella sezione precedente, è quindi possibile sca
 
 \textbf{Node Red Nodegen} \cite{nodered} purtroppo non si presta allo scopo attuale del progetto: la creazione dei cosiddetti nodi Node-RED è legata ad un ulteriore piattaforma di sviluppo (appunto, la Node-RED) e la sua documentazione è soltanto parzialmente disponibile in inglese.\\
 
-A disposizione rimangono ulteriori candidati; di conseguenza è necessario approfondire le caratteristiche dei singoli framework, in base anche alle specifiche richieste, in modo da scegliere il migliore.\\
+A disposizione rimangono ulteriori candidati, non scartabili semplicemente da un'analisi superficiale; onde evitare di scegliere casualmente, viene effettuato uno studio più approfondito di quello che le singole piattaforme offrono per poi selezionare la migliore alternativa.\\
 
 
 \subsection{WebThings.io}
