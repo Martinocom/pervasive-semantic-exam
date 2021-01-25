@@ -24,7 +24,7 @@
 	},
 
 	"saref:hasFunction": [{	
-		"@id": "http://localhost:8080/fan/cool-down",
+		"@id": "http://localhost:8080/fan/speed-up",
 		"@type": "saref:ActuatingFunction",
 		"saref:hasDescription": "Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused."
 	}],
@@ -44,7 +44,7 @@
 		"speed-up": {
 			"title": "Speed Up",
 			"description": "Make the fan spin faster than normally possible for short time. Has controls to prevent abusing this command.",
-			"forms": [{"href": "http://localhost:8080/fan/actions/cool-down"}]
+			"forms": [{"href": "http://localhost:8080/fan/actions/speed-up"}]
 		}
 	}
 }

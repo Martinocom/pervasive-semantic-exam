@@ -23,6 +23,13 @@
 		"@id": "http://localhost:8080/tv/status",
 		"@type": "saref:OnOffState"
 	},
+
+	"saref:hasFunction": [{	
+		"@id": "http://localhost:8080/tv/toggle",
+		"@type": "saref:OnOffFunction",
+		"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off."
+		}
+	],
   
     "properties": {
 		
