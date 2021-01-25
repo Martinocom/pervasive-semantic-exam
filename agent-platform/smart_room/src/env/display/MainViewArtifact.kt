@@ -30,8 +30,8 @@ class MainViewArtifact : Artifact() {
         private const val SIGNAL_OPERATION = "onSignal"
 
         private const val LIGHT_UP_INTENTION = "LightUp"
-        private const val NEWS_INTENTION = "News"
-        private const val COMFORT_INTENTION = "Comfort"
+        private const val NEWS_INTENTION = "Safety"
+        private const val COMFORT_INTENTION = "GoodVibes"
 
         // Events
         private const val INTENTION_SIGNAL = "achieveIntention"
@@ -83,11 +83,11 @@ class MainViewArtifact : Artifact() {
             execInternalOp(ACHIEVE_INTENTION_OPERATION, LIGHT_UP_INTENTION)
         }
 
-        override fun onListenNews() {
+        override fun onNotFeelingSafe() {
             execInternalOp(ACHIEVE_INTENTION_OPERATION, NEWS_INTENTION)
         }
 
-        override fun onMakeComfort() {
+        override fun onGoodVibes() {
             execInternalOp(ACHIEVE_INTENTION_OPERATION, COMFORT_INTENTION)
         }
 
