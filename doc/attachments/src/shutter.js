@@ -34,7 +34,6 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-shutter.json", f
     localRef.thing.setPropertyWriteHandler(localRef.isOpen.name, async(data) => {
         let level = await localRef.thing.readProperty(localRef.level.name)
         let treshold = await localRef.thing.readProperty(localRef.openessTreshold.name)
-        console.log(level + " > " + treshold)
         return level > treshold
     })
 
