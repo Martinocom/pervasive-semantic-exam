@@ -207,6 +207,21 @@ sorting=ynt
 	morestring=[b]"
 }
 
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstdefinelanguage{XML}
+{
+	morestring=[b]",
+	morestring=[s]{>}{<},
+	morecomment=[s]{<?}{?>},
+	stringstyle=\color{black},
+	identifierstyle=\color{darkblue},
+	keywordstyle=\color{cyan},
+	morekeywords={xmlns,version,type}% list your attributes here
+}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%3d graph
 \usepackage{pgfplots}
@@ -1448,11 +1463,100 @@ Le Thing così create vengono automaticamente istanziate e inserite all'interno 
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
 \section{Configurazione}
+La conoscenza delle Things è intrinseca alla Thing Descritpion legata agli oggetti creati. In una visione completamente Pervasive, ogni Thing nuova aggiunta al sistema fa in modo da pubblicare, in qualche modo, la sua descrizione, in modo tale da contribuire alla creazione di un'unica descrizione più grande, riguardante l'environment nel quale è attualmente situata. Esiste quindi una raccolta completa di tutte le Thing Descriptions che può essere trattata come se fosse una descrizione (anche semantica) della stanza della quale si vogliono conoscere le Things e le loro relative proprietà e/o azioni.\\
+
+\subsection{Conoscenza unificata}
+Per motivi di semplicità si suppone che questa conoscenza sia già a disposizione, considerando le Thing Description create. Per usufruirne a pieno, però, occorrono alcuni semplici passaggi.\\
+
+\begin{enumerate}
+	\item La conoscenza non è pronta ad essere sfruttata da interpreti, infatti dev'essere opportunamente convertita in schemi come OWL o RDF: per questo scopo si utilizza un Tool Online chiamato \textbf{RDF Translator} \cite{rdf-translator}, il quale applica automaticamente la conversione JSON-LD in uno dei formati supportati. Nel caso specifico, si inserisce come formato input \texttt{JSON-LD} e come formato output \texttt{Pretty RDF/XML}. I singoli 4 file ottenuti vengono presi in formato \texttt{RAW} e salvati localmente. I file in questione sono disponibile come allegato nella cartella:
+	\texttt{/attachments/td/RDF}
+	
+	\item Esplorando i singoli file, è possibile notare che ognuno di essi definisce ogni Thing, racchiusa all'interno di tag \texttt{XML}: si crea quindi un unico file contenente le 4 descrizioni, accomunate semplicemente dalle prime righe di ogni file, definente le ontologie caratterizzanti la descrizione. Il file in questione è disponibile anche come allegato:	
+	\texttt{/attachments/td/RDF/unified.xml}
+	
+	\item Avendo a disposizione il repository su GitHub\footnote{https://github.com/Martinocom/pervasive-semantic-exam}, si utilizza quest'ultimo come lo storage della conoscenza online, per simulare un endpoint al quale dover fare richieste in remoto.
+\end{enumerate}
+
+\subsection{Protégé}
+Senza un progetto sottostante, realizzato successivamente, si vuole prima di tutto mostrare le potenzialità della semantica. Per poter interrogare la conoscenza il linguaggio utilizzato sarà \textit{SPARQL} \cite{sparql}: il suo costrutto simile a un classico \textit{SQL} facilita il suo utilizzo. Rimandando per le definizioni più precise al sito ufficiale, si vuole sottolineare subito che il programma utilizzato per simulare le richieste risulta essere Protégé \cite{protege}.\\
+
+L'import della conoscenza avviene tramite il menu contestuale, attraverso l'azionamento di \textit{File > Open from URL...}, specificando poi il link verso il file precedentemente creato (\textit{unified.xml}). All'interno di essa vi sono già presenti tutti i prefissi necessari per le interrogazioni.
 
 
 \section{Utilizzo}
 
+\subsection{SPARQL}
+Si precisa che per ogni interrogazione eseguita, vengono prima di tutto specificati alcuni prefissi, elencati di seguito:
 
+\begin{lstlisting}[language=XML]
+	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns\#>
+	PREFIX owl: <http://www.w3.org/2002/07/owl\#>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema\#>
+	PREFIX xsd: <http://www.w3.org/2001/XMLSchema\#>
+	PREFIX saref: <https://w3id.org/saref\#>
+	PREFIX td: <https://www.w3.org/2019/wot/td/v1>
+\end{lstlisting}
+
+Per interrogare la conoscenza, vengono proposti esempi più significativi, rappresentati soltanto la cima delle potenzialità di questo linguaggio. 
+
+\begin{itemize}
+	\item Ottenimento di tutte le proprietà all'interno del modello:
+	\begin{lstlisting}[language=XML]
+	SELECT DISTINCT ?property WHERE {
+		?s ?property ?o .
+	}
+	\end{lstlisting}
+
+	\item Ottenimento di tutte le classi all'interno del modello:
+	\begin{lstlisting}[language=XML]
+	SELECT ?s ?p ?o WHERE {
+		?s rdf:type owl:Class .
+	}
+	\end{lstlisting}
+
+	\item Ottenimento di tutte le funzionalità di tutte le Things:
+	\begin{lstlisting}[language=XML]
+	SELECT ?s ?p ?o WHERE {
+		?s saref:hasFunction ?o .
+	}
+	\end{lstlisting}
+
+	\item Ottenimento di tutte le Thing che possono illuminare:
+	\begin{lstlisting}[language=XML]
+	SELECT ?s WHERE {
+		?s saref:accomplishes "saref:Lighting" .
+	}
+	\end{lstlisting}
+
+	\item Ottenimento di tutte le Thing che sono degli \textit{saref:Actuator}
+	\begin{lstlisting}[language=XML]
+	SELECT ?s WHERE { 
+		?s ?p saref:Actuator
+	}
+	\end{lstlisting}
+\end{itemize}
+
+
+\subsection{SWRL}
+La potenzialità di poter includere delle regole all'interno della conoscenza rende possibile ad un potenziale \textit{reasoner} di inferire ulteriore conoscenza, a partire da quella base. Potenzialmente quindi, è possibile definire delle regole attraverso le quali, anche se non esplicitamente indicato, è possibile dedurre la tipologia o le azioni di una Thing in base a quello che essa riesce a fare. L'uso di ontologie note permette di semplificare questo procedimento, in quanto vi possono esistere dei pattern che caratterizzano un gruppo di specifici device, i quali hanno, ad esempio, proprietà o azioni comuni. Tutto questo è possibile grazie a SWRL \cite{swrl}, che esprime i legami che esistono tra classi. Alcuni esempi teorici, che utilizzano come riferimento l'ontologia SAREF, possono essere trovati di seguito:
+
+\begin{itemize}
+	\item {\textit{Un qualsiasi oggetto che altera la luminosità e che ha uno stato e possiede due azioni di regolazione del suo stato è un \textit{saref:LightingDevice}}}
+	\begin{lstlisting}
+	saref1:hasState(?d, saref1:OnOffState) ^ 
+	saref1:hasFunction(?d, saref:LevelControlFunction) ^ 
+	saref1:hasFunction(?d, saref:OnOffFunction) ^
+	saref1:accomplishes(?d, saref:Lighting) -> saref1:LightingDevice(?d)
+	\end{lstlisting}
+
+	\item {\textit{Un qualsiasi oggetto che possiede la funzionalità \textit{toggle}, possiede sicuramente una proprietà che ne definisce lo stato}}
+	\begin{lstlisting}
+	saref1:hasFunction(?d, saref:Toggle) -> saref1:hasState(?d, saref:State)
+	\end{lstlisting}
+\end{itemize}
+
+Si sottolinea come con semplici dichiarazioni sia possibile definire conoscenza che prima non vi era presente. Considerando però la molteplicità di risorse definibili in questo modo, e la necessità di concentrarsi più sulle potenzialità che sulla realizzazione della conoscenza nell'ambito, si ritiene opportuno proseguire sulla strada delimitata dal progetto e non approfondire ulteriormente l'argomento. Si vuole comunque lasciare questo spunto come fonte di ulteriore motivazione per cui l'uso della semantica risulta essere enormemente utile anche nell'ambito di WoT.
 
 
 
