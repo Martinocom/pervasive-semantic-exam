@@ -689,6 +689,7 @@ Successivamente, si definisco le proprietà che una generica lampadina possiede:
 
 \clearpage
 \begin{lstlisting}[language=json,caption={Proprietà di una lampadina},label=lst:start3-td-lamp]
+	
 	"properties": {
 		
 		"status": {
@@ -706,9 +707,9 @@ Successivamente, si definisco le proprietà che una generica lampadina possiede:
 		"brightness" : {
 			"type": "number",
 			"title": "Brightness",
-			"observable": true,
-			"readOnly" : false,
-			"writeOnly" : false,
+            "observable": "true",
+            "readOnly": "false",
+            "writeOnly": "false",
 			"description": "The level of light from 0-100",
 			"minimum" : 0,
 			"maximum" : 100,
@@ -1084,11 +1085,11 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 
 Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}, richiamando \texttt{.produce()} e poi \texttt{.expose()} sulla Thing \textit{\quotes{prodotta}}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.\\
 
-Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni a tutte le Things. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.\\
+Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni alla creazione delle Things. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.\\
 
 
 \section{Test della Web Thing}
-Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta sull'indirizzo \texttt{localhost:8080/<thing\_title\_lowercase>}; ad esempio, nel caso della lampadina che contiene il campo \texttt{title} valorizzato a \texttt{Bulb}, l'indirizzo sarà\\ \texttt{localhost:8080/bulb}. L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
+Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta all'indirizzo:\\ \texttt{localhost:8080/<thing\_title\_lowercase>}.\\ Ad esempio, nel caso della lampadina, l'indirizzo sarà:\\ \texttt{localhost:8080/bulb}.\\ L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
 Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce()} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.\\
 
@@ -1138,6 +1139,7 @@ common.createThingFromThingDescriptionFile(WoT, "./res/semantic-bulb.json", func
 \end{lstlisting}
 
 \subsection{Osservare e reagire al cambiamento di proprietà}
+\label{sec:observe_react}
 Vi è necessità poi di specificare comportamenti degli oggetti, che potrebbero avere influenze su uno o più parametri. Per questo motivo si predispongono funzioni che \textit{osservano} le proprietà e reagiscono al loro cambiamento. Una lampadina, ad esempio, può avere i seguenti comportamenti:
 
 \begin{itemize}
@@ -1148,7 +1150,7 @@ Vi è necessità poi di specificare comportamenti degli oggetti, che potrebbero 
 
 È quindi possibile definire il codice come segue:
 
-\begin{lstlisting}[language=JavaScript,caption={Reagire al cambiamento delle proprietà in \texttt{bulb.js}}]
+\begin{lstlisting}[language=JavaScript,caption={Reagire al cambiamento delle proprietà in \texttt{bulb.js}}, label=lst:Circular]
 // Observing status
 localRef.thing.observeProperty(localRef.status.name, async(data) => {
 	// If status changes, look at the brightness
@@ -1174,6 +1176,8 @@ Un'importante nota va proprio in merito a questa funzione: per quanto comoda, es
 
 	\textit{La diminuzione della luminosità a 0 scatta lo spegnimento della lampadina, ma lo spegnimento della lampadina scatta il cambiamento sulla luminosità che dev'essere impostata a 0, che a sua volta scatta lo spegnimento della lampadina che causa l'impostazione della luminosità...}\\
 	
+Nel caso del codice \ref{lst:Circular} la catena viene spezzata grazie al controllo sul dato in arrivo: se la lampadina è accesa, il suo valore viene modificato solo se la luminosità è minore o uguale a zero, altrimenti non viene effettuata alcuna operazione. Senza questo controllo, la proprietà verrebbe impostata inutilmente, richiamando oltretutto l'\textit{observer} stesso, causando un ciclo infinito.\\ 
+	
 È necessario notare che \texttt{.writeProperty()} è una funzione che permette la scrittura dei parametri sia interni che esterni della thing. È formata nel seguente modo:
 
 \begin{lstlisting}[language=JavaScript]]
@@ -1191,7 +1195,7 @@ function writeProperty(name, value) {
 \end{lstlisting}
 
 
-\subsection{Chiamare le azioni}
+\subsection{Handler delle azioni}
 Come ultima cosa, vi è necessità di specificare il comportamento delle azioni che si hanno quando si interagisce con la Thing. Per comodità, si assume che le operazioni non possano essere interrotte, anche se nella realtà è possibile interagire con la Thing in qualsiasi momento, a volte producendo risultati inattesi: ad esempio, attivando il comando \texttt{fade} sulla lampadina è possibile spegnerla e/o accenderla, ma l'esecuzione del comando continuerà finché non raggiungerà il valore impostato, cambiando di conseguenza lo stato in cui essa si trova. Un esempio di come può essere impostata un'azione è nel seguente codice:
 
 \begin{lstlisting}[language=JavaScript,caption={Reagire all'invocazione dell'azione in \texttt{bulb.js}}]
@@ -1209,6 +1213,7 @@ Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footno
 
 Di conseguenza, \texttt{WebThing.io} non possiede\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.\\
 
+\subsection{Test di REST API}
 Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{\url{https://www.postman.com/downloads/}} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
 
 \begin{itemize}
@@ -1229,7 +1234,7 @@ Al lato pratico, per controllare la risposta della Thing in merito alle chiamate
 	Effettua uno scambio di stato attuale: se la lampadina è accesa, si spegnerà; viceversa, se è spenta si accenderà. Non ha bisogno di specificare alcun contenuto, in quanto è un'azione che non richiede nessun parametro. L'output sarà semplicemente l'HTTP Status ottenuto dalla richiesta.
 \end{itemize}
 
-Postman permette l'esportazione della configurazione dell'API: per questo motivo questa è interamente disponibile nella cartella:\\ \texttt{/attachments/utils/webthings\_postman\_collection.json}.\\
+Postman permette l'esportazione della configurazione dell'API: per questo motivo questa è interamente disponibile come allegato nella cartella:\\ \texttt{/attachments/utils/webthings\_postman\_collection.json}.\\
 
 Si sottolinea ancora una volta come i limiti del framework possano rallentare l'intero sviluppo: manca infatti tutta la documentazione relativa al protocollo REST che si può usare per interagire con la Thing. Anche la validazione dei dati in ingresso non è documentata, benchè fattibile: soltanto un'apertura di un \texttt{issue}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} all'interno del repository ha fatto emergere entrambe le cose. Data la possibilità di controllare l'input in arrivo è stata scoperta in uno stadio avanzato del progetto, dove si era fatta ormai l'assunzione dell'assenza di tale feature, si predispone semplicemente un esempio, prendendo la lampadina come oggetto di riferimento e \texttt{fade} come azione per la quale controllare l'input:
 
@@ -1259,6 +1264,7 @@ localRef.thing.setActionHandler("fade", async(params) => {
 })
 \end{lstlisting}
 
+La validazione avviene tramite la libreria \texttt{ajv}, la quale verifica i parametri di input sulla base di quello che è definito all'interno della Thing Description. Si vuole comunque notare che questa funzionalità risulta essere pseudo-automatica, in quanto è il programmatore che si deve preoccupare di richiamare esplicitamente questa funzionalità, che teoricamente, dovrebbe essere prevista di default nel protocollo.\\
 
 Una volta apportato che è possibile creare, avviare e interagire con una singola Thing semplice, si procede anche all'implementazione delle rimanenti Thing Description e la creazione di oggetti più complessi. Le eventuali note aggiuntive, che introducono novità rispetto ai discorsi affrontati, verranno proposte nel capitolo \ref{sec:other-things}.
 
@@ -1274,9 +1280,9 @@ A differenza della \textit{lampadina}, la \textbf{TV} possiede la proprietà \te
 Nella \textbf{TV} è possibile portare le proprietà in uno stato inconsistente a causa di una mancanza di controllo sull'effettivo stato di accensione della TV; infatti, se la TV è spenta, non dovrebbe essere possibile impostare il suo volume, canale o luminosità: questo però è permesso. Si presenta quindi la necessità di verificare il valore della proprietà \texttt{status} prima (e/o dopo) aver impostato i parametri:
 
 \begin{itemize}
-	\item se si imposta solo un \texttt{observer} (\texttt{.observeProperty()}) sulla proprietà \texttt{status}, ogni cambiamento dello stato sulla TV controlla tutte le proprietà annesse \textbf{dopo} che lo stato sia cambiato. Quindi, spegnendo la TV lo stato passerà da \texttt{true} a \texttt{false}, impedendo ogni ulteriore modifica di proprietà.
+	\item se si imposta solo un \texttt{observer} (\texttt{.observeProperty()}) sulla proprietà \texttt{status}, ogni handler relativo al cambiamento dello stato sulla TV controllerà l'integrità delle proprietà della Thing soltanto \textbf{dopo} che lo stato sia cambiato. Quindi, spegnendo la TV e facendo passare lo stato da \texttt{true} a \texttt{false}, si impedirà una qualsiasi modifica ai parametri (in quanto la TV spenta non può controllare nessun parametro).
 	
-	\item se si imposta solo un \texttt{writeHandler} (\texttt{.setPropertyWriteHandler()}) sulla proprietà \texttt{status}, ogni cambiamento dello stato sulla TV controlla tutte le proprietà annesse \textbf{prima} che lo stato cambi. Quindi, accendendo la TV si cercherà di modificare i parametri quando ancora lo stato non risulterà essere impostato a \texttt{true}, portando la TV in uno stato inconsistente (accesa, con volume, canale e luminosità impostate a 0).
+	\item se si imposta solo un \texttt{writeHandler} (\texttt{.setPropertyWriteHandler()}) sulla proprietà \texttt{status}, ogni handler relativo al cambiamento dello stato sulla TV controllerà l'integrità delle proprietà della Thing soltanto \textbf{prima} che lo stato cambi. Quindi, accendendo la TV non si farà passare lo stato da \texttt{false} a \texttt{true}, ma si cercherà di modificare i parametri a TV spenta, portando la Thing in uno stato inconsistente (accesa, con volume, canale e luminosità impostate a 0).
 	
 	\item utilizzando invece l'\texttt{observer} e il \texttt{writeHandler} insieme, teoricamente è possibile coprire entrambi i casi descritti: purtroppo il Framework non facilita il lavoro con proprietà dipendenti tra di loro e il codice (disponibile anche come allegato\footnote{\texttt{attachments/src/tv-not-working.js}}) risulta essere complesso.
 \end{itemize}
@@ -1312,7 +1318,8 @@ localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
 
 Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa.\\
 
-Il problema descritto dunque viene affrontato in maniera diversa: anziché utilizzare le proprietà per impostare lo stato della TV, si ridefinisce la Thing Description in modo da prevedere azioni che modificano lo stato. Le proprietà diventano tutte di sola lettura e l'unica ad essere osservata rimane quella relativa allo stato, il quale definisce se la TV si trova in uno stato \quotes{accesa} o \quotes{spenta}. L'allegato \texttt{tv.js} contiene la soluzione corretta al problema, definendo le specifiche azioni (e relativi controlli) per garantire l'integrità della Thing: anche se minimale, il cambiamento risolve completamente il problema.
+Il problema descritto dunque viene affrontato in maniera diversa: anziché utilizzare le proprietà per impostare lo stato della TV, si ridefinisce la Thing Description in modo da prevedere azioni che modificano lo stato. Le proprietà diventano tutte di sola lettura e l'unica ad essere osservata rimane quella relativa allo stato, il quale definisce se la TV si trova in uno stato \quotes{accesa} o \quotes{spenta}. L'allegato \texttt{tv.js} contiene la soluzione  al problema, definendo le specifiche azioni (e relativi controlli) per garantire l'integrità della Thing: anche se minimale, il cambiamento risolve completamente il problema.\\
+
 
 \begin{lstlisting}[language=JavaScript,caption={Solzuione definitiva per la dipendenza tra proprietà della Thing},label=lst:solution2]
 // Set write/read properties
@@ -1349,8 +1356,12 @@ localRef.thing.setActionHandler("set-channel", async(params) => {
 })
 \end{lstlisting}
 
+Nel mentre questa soluzione veniva implementata, il framework si era aggiornato e ha corretto il problema, confermando che si trattasse di un richiamo all'observer prima che il valore fosse effettivamente impostato. L'iter della correzione è consultabile nella Issue numero 376 sul repository ufficiale\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376\#issuecomment-762111754}}.
+
 \subsection{Problemi della Tapparella}
-Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto che ogni azione effettuata produce un effetto immediato: l'abbassamento o l'innalzamento della Thing non ha il tempo di delay e applica il valore desiderato senza considerare l'eventuale tempo di movimento dovuto a reali parti meccaniche. Questa semplificazione è utile per presentare le potenzialità della Thing, senza andare troppo in dettaglio su come affrontare alcune problematiche intrinseche alla programmazione della Thing stessa.
+Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto che ogni azione effettuata produce un effetto immediato: l'abbassamento o l'innalzamento della Thing non ha il tempo di delay e applica il valore desiderato senza considerare l'eventuale tempo di movimento dovuto a reali parti meccaniche. Questa semplificazione è utile per presentare le potenzialità della Thing, senza andare troppo in dettaglio su come affrontare alcune problematiche intrinseche alla programmazione della Thing stessa.\\
+
+È utile sottolineare che questa cosa vale anche per tutte le altre Things prese in considerazione; la tapparella però risulta quella più evidente, in quanto parti meccaniche in movimento non attuano mai all'istante.
 
 
 
@@ -1358,17 +1369,19 @@ Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto 
 Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
 
 \begin{itemize}
-	\item \textbf{Creazione di una Thing a partire da Thing Description testuale impossibile}: vi è necessità infatti di passare un oggetto creato appositamente: è quello che poi pensa alla creazione della Thing vera e propria. Esiste quindi questo \quotes{doppio passaggio}, nel quale una Thing Description viene letta, poi ne viene fatta la conversione in un oggetto, che a sua volta viene convertito in una Thing Description dal framework.
+	\item \textbf{Creazione di una Thing a partire da Thing Description testuale impossibile}: vi è necessità infatti di passare un oggetto creato appositamente: è quello che poi pensa alla creazione della Thing vera e propria. Esiste quindi questo \quotes{doppio passaggio}, nel quale viene fatto il parsing della Thing Description da un file, poi ne viene creato l'oggetto in Node.js dal quale poi il framework si ricava a sua volta la Thing Description.
 	
 	\item \textbf{Assenza di dettagliata documentazione}: il framework spesso fa riferimenti alla documentazione generica fornita come linee guida del W3C; generalmente questo non causa problemi con progetti piccoli, ma comincia a diventare complesso da gestire quando le variabili in campo sono molteplici:
 		\begin{itemize}
-			\item in particolare, non vi è una chiara documentazione RESTful, in quanto viene indicato come riferimento soltanto il \href{https://w3c.github.io/wot-thing-description/#http-binding-assertions}{\textit{Protocol Binding Based on HTTP}}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}}. Esso specifica comandi differenziando per il tipo di \texttt{op} del \texttt{Form} della Thing Description, ma non menziona ad esempio in nessun modo come viene composto l'URL che permette la lettura e/o scrittura di proprietà.
+			\item Non vi è una chiara documentazione RESTful, in quanto viene indicato come riferimento soltanto il \href{https://w3c.github.io/wot-thing-description/#http-binding-assertions}{\textit{Protocol Binding Based on HTTP}}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}}. Esso specifica comandi differenziando per il tipo di \texttt{op} del \texttt{Form} della Thing Description, ma non menziona ad esempio in nessun modo come viene composto l'URL che permette la lettura e/o scrittura di proprietà. Uno standard ben definito avrebbe sicuramente risparmiato del tempo in fase di esplorazione e creazione delle Things.
 			
-			\item esiste inoltre una piccola confusione per quanto riguarda variabili locali e della Thing Stessa: è più indicato infatti usare le seconde, asincrone, direttamente collegate alla Thing Stessa, piuttosto che quelle locali, come da alcuni esempi\footnote{\url{https://github.com/eclipse/thingweb.node-wot/blob/master/examples/testthing/testthing.js}} che sono reperibili nel \textit{repository} ufficiale.
+			\item Esiste una piccola confusione per quanto riguarda variabili locali e della Thing Stessa: è più indicato infatti usare le seconde, asincrone, direttamente collegate alla Thing Stessa, piuttosto che quelle locali, come da alcuni esempi\footnote{\url{https://github.com/eclipse/thingweb.node-wot/blob/master/examples/testthing/testthing.js}} che sono reperibili nel \textit{repository} ufficiale. Dall'altro canto, in una delle discussioni aperte nelle Issue, è emerso che nel prossimo futuro verrà consigliato l'approcio considerante le variabili \textit{locali}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376\#issuecomment-762111754}}.
 			
-			\item non vi è una documentazione ufficiale per quanto riguarda la validazione del \texttt{form} soltanto un'apertura di un issue ha fatto emergere una libreria esterna (\texttt{ajv}) attraverso la quale è possibile validare i dati in ingresso.
+				\textit{Note: in the upcoming API does not any longer have built-in handlers for writeProperty and this problem goes away. Anyhow, fixing the current state makes sense to me.}
 			
-			\item non vi è alcun standard per quanto riguarda la formattazione dei dati: per impostare lo stato di una lampadina a \texttt{true} occorre semplicemente mandare un messaggio \texttt{PUT} sulla proprietà dello stato con il \texttt{body} avente soltanto la parola "\texttt{true}" al suo interno. La formattazione così ottenuta potrebbe risultare illeggibile e portare a problemi relativi ad oggetti più complessi.
+			\item non vi è una documentazione ufficiale per quanto riguarda la validazione del \texttt{form} soltanto un'apertura di un issue\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/375\#issuecomment-759588714}} ha fatto emergere una libreria esterna (\texttt{ajv}) attraverso la quale è possibile validare i dati in ingresso.
+			
+			\item non vi è alcun standard per quanto riguarda la formattazione dei dati: per impostare lo stato di una lampadina a \texttt{true} occorre semplicemente mandare un messaggio \texttt{PUT} sulla proprietà dello stato con il \texttt{body} avente soltanto la parola "\texttt{true}" al suo interno. La formattazione così ottenuta potrebbe risultare illeggibile e portare a problemi relativi ad oggetti più complessi. Una parziale soluzione è data dalla validazione dei dati attraverso la libreria \texttt{ajv}.
 			
 			\item come sottolineato dalla \textbf{TV}, è possibile strutturare la Thing pensandola in maniera diversa, in quanto è possibile impostare lo stato direttamente come proprietà e/o come azione, dipendentemente da cosa dichiara la Thing Description. Essendovi però diverse problematiche relative a dipendenze tra proprietà sarebbe più lecito indicare nella documentazione delle linee guida per la definizione di oggetti con tali caratteristiche, senza basarsi solo su esempi relativamente semplici.
 		\end{itemize}
@@ -1376,7 +1389,7 @@ Nonostante il fatto di aver scelto un framework supportante la Thing Description
 	\item \textbf{Esempi di codice non sufficienti}: quelli forniti sono per la maggior parte piccoli o contrastanti; mentre in uno la Thing utilizza solo variabili interne al codice, in un altro fa uso soltanto di metodi come \texttt{thing.readProperty()} asincroni che cambiano completamente la struttura del programma. Inoltre, non è specificato in nessun modo che non vi è un \texttt{binding} tra parametri \quotes{locali} e quelli della thing, portando ad una errata conclusione sul fatto di poter utilizzare solo i primi per definirla completamente.
 \end{itemize}
 
-Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono essere prese necessariamente come una nota negativa: si vuole notare infatti la volontà sia dell'utilizzo di queste piattaforme, sia al contribuire alla loro crescita segnalando potenziali problemi, rischi e mancanze. È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, anche se non ampiamente attiva, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte  hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
+Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono essere prese necessariamente come una nota negativa: si vuole notare infatti la volontà sia dell'utilizzo di queste piattaforme, sia al contribuire alla loro crescita segnalando potenziali problemi, rischi e mancanze. È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte  hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
 
 È comunque un'importante fattore che ha segnato notevolmente il progetto, per cui si preferiscono esplicitamente elencare le \textit{issues} aperte:
 
@@ -1405,15 +1418,16 @@ Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono
 La maggior parte delle cose qui elencate risulta essere frutto di compromesso tra funzionalità e API del framework usato parzialmente disponibili e/o scarsamente documentate. Si tratta perlopiù di piccoli accorgimenti che avrebbero portato via del tempo e non avrebbero incluso nel progetto una significativa quantità e qualità di informazioni.
 
 \begin{itemize}
-	\item Nelle Things è possibile trovare una semplificazione per quanto riguarda gli eventi che durano nel tempo: ad esempio, nella lampadina, chiamando la funzione \texttt{fade} ed eseguendo successivamente uno spegnimento della stessa, l'azione di \texttt{fade} non si fermerà e vorrà comunque raggiungere il proprio valore (di default 60). L'intensità luminosa quindi verrà impostata a 0 a causa dello spegnimento, ma poi continuerà a crescere fino al valore stabilito dalla funzione di \texttt{fade}. La correzione richiede un controllo su chi esegue la scrittura sulla proprietà \texttt{brightness}: se è l'utente ad aggiornarla, l'azione deve fermarsi; se è la lampadina stessa, l'azione deve continuare.
+	\item Nelle Things è possibile trovare una semplificazione per quanto riguarda gli eventi che durano nel tempo: ad esempio, nella lampadina, chiamando la funzione \texttt{fade} ed eseguendo successivamente uno spegnimento della stessa, l'azione di \texttt{fade} non si fermerà e vorrà comunque raggiungere il proprio valore (di default 60). L'intensità luminosa quindi verrà impostata a 0 a causa dello spegnimento, ma poi continuerà a crescere fino al valore stabilito dalla funzione di \texttt{fade}. La correzione richiede un controllo su chi esegue la scrittura sulla proprietà \texttt{brightness}: se è l'utente ad aggiornarla, l'azione deve fermarsi; se è la lampadina stessa, l'azione deve continuare;  
+	come specificato però nel capitolo \ref{sec:observe_react}, differenziare tra azione \textit{interna} ed \textit{esterna} è al momento impossibile.
 	
-	\item Al momento, non vi è un controllo esplicito sulla correttezza dei parametri passati. È quindi erroneamente possibile, ad esempio, impostare la luminosità di una lampadina come una stringa (\texttt{"esempio"}), senza che la Thing se ne accorga.
+	\item Non vi è un controllo esplicito e intrinseco sulla correttezza dei parametri passati. È quindi erroneamente possibile, ad esempio, impostare la luminosità di una lampadina come una stringa (\texttt{"esempio"}), senza che la Thing se ne accorga. Come già sottolineato più volte però, questo è risolvibile applicando manualmente il controllo con la libreria \texttt{ajv}.
 	
 	\item Non vi sono criteri di sicurezza implementati, anche se è possibile definirli all'interno della Thing Description stessa. Questo è solo per semplificare il lavoro e dimostrare le potenzialità del framework e della Thing Description: per coprire ogni aspetto non vi sono tempo e risorse necessarie all'esplorazione e documentazione.
 	
 	\item Per ognuna delle Thing viene supposto un valore di \textit{default} che si imposta automaticamente ad ogni accensione e spegnimento del dispositivo. Generalmente, si tratta di valori nulli, booleani \texttt{false} e interi pari a 0 quando le Things risultano essere spente, mentre valori di default predefiniti quando vengono accese. Una miglioria delle stesse potrebbe essere quella di includere un file di configurazione che salva automaticamente l'ultima impostazione dell'utente; di conseguenza alla riaccensione del dispositivo i valori verrebbero presi da questo file (e non impostati \textit{di default}).
 	
-	\item Come scritto nel capitolo \ref{sec:adding-semantic}, la costruzione delle Thing ha fatto emergere la necessità di sviluppare e/o estendere ontologie, in quanto vi sono alcuni aspetti intrinseci delle cose che potrebbero essere rappresentate con maggior dettaglio, ma sempre per motivi di mancanza di tempo e risorse non è possibile coprire ogni aspetto riguardante la Thing Description
+	\item Come scritto nel capitolo \ref{sec:adding-semantic}, la costruzione delle Thing ha fatto emergere la necessità di sviluppare e/o estendere ontologie, in quanto vi sono alcuni aspetti intrinseci delle cose che potrebbero essere rappresentate con maggior dettaglio, ma sempre per motivi di mancanza di tempo e risorse non è possibile coprire ogni aspetto riguardante la Thing Description: il campo della semantica è troppo vasto per poterlo coprire all'interno di un progetto che già mira ad esplorare diversi aspetti.
 \end{itemize} 
 
 
@@ -1424,7 +1438,7 @@ Partendo dalla cartella \texttt{./thingweb.node-wot/} il lancio delle Things avv
 	npm start ./res/bulb.js ./res/tv.js ./res/shutter.js ./res/fan.js
 \end{lstlisting}
 
-Le Thing così create vengono automaticamente istanziate e inserite all'interno di un endpoint, disponibile sull'indirizzo locale e porta 8080. Anche con un semplice browser è possibile verificarne il funzionamento, in quanto interrogato dovrebbe restituire i collegamenti a tutte le Thing attualmente presenti all'interno del sistema. Dato che presenta la caratteristica di esporre direttamente i dati delle Thing, esso verrà utilizzato come endpoint dell'applicazione in sviluppo.
+Le Thing così create vengono automaticamente istanziate e inserite all'interno di un endpoint, disponibile sull'indirizzo locale e porta 8080. Anche con un semplice browser è possibile verificarne il funzionamento, in quanto interrogato dovrebbe restituire i collegamenti a tutte le Thing attualmente presenti all'interno del sistema. Dato che presenta la caratteristica di esporre direttamente i dati delle Thing, esso verrà utilizzato come endpoint dell'applicazione in sviluppo.\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
@@ -1433,8 +1447,8 @@ Le Thing così create vengono automaticamente istanziate e inserite all'interno 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-%TODO aggiungere modo di usare conoscenza nella Thing Description
 \section{Configurazione}
+
 
 \section{Utilizzo}
 
