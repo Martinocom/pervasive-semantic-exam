@@ -1607,11 +1607,20 @@ Come affrontato nel capitolo \ref{sec:semantic}, è importante poter specificare
 
 
 \section{BDI e Web Things}
-Come da definizione, il modello BDI si basa sui concetti di \textit{\textbf{b}eliefs}, \textit{\textbf{d}esires} e \textit{\textbf{i}ntentions}. Vi è necessità di analisi per quanto riguarda le seguenti affermazioni e quali sono i vantaggi (e/o svantaggi) di utilizzare questa metodologia per lo sviluppo di un sistema WoT.\\
+Il modello BDI si basa sui concetti di \textit{\textbf{b}eliefs}, \textit{\textbf{d}esires} e \textit{\textbf{i}ntentions}. Vi è necessità di analisi per quanto riguarda le seguenti affermazioni e quali sono i vantaggi (e/o svantaggi) di utilizzare questa metodologia per lo sviluppo di un sistema WoT.\\
 
 Come citato da \textit{\quotes{MATCH: MultiAgent-based Tactful CooperationScheme for Heterogeneous IoT Devices}} \cite{masiot}, utilizzare agenti può determinare una semplificazione della gestione per quanto riguarda l'eterogeneità delle cose naturalmente presenti in un ambiente, dati diversi contesti nei quali un sistema ad Agenti può essere applicato. Bisogna però saper specificare con criteri rigorosi i comportamenti che le cose debbano avere, in modo da garantire sia la sicurezza delle persone che il risultato atteso, portando ad una collaborazione (e non competizione) tra le cose che si hanno a disposizione.\\
 
-Inoltre, come descritto in \textit{\quotes{Building Cyber-Physical Systems - A Smart Building Use Case}} \cite{smartbuilding}, anche una semplice casa possiede diverse sfide, sia per quanto riguardo l'eterogeneità delle cose che la complessità delle azioni da compiere. Vi sono infatti diversi strati di interoperabilità che possono esistere. Dall'altra parte, seppur non citando direttamente, l'articolo fa anche riferimento all'uso di ontologie (o comunque tecnologie standard) per quando riguarda il layer della descrizione degli oggetti e del loro stato, ricadendo perfettamente nell'ambito della Thing Description.
+Come descritto in \textit{\quotes{Building Cyber-Physical Systems - A Smart Building Use Case}} \cite{smartbuilding}, anche una semplice casa possiede diverse sfide, sia per quanto riguardo l'eterogeneità delle cose che la complessità delle azioni da compiere. Vi sono infatti diversi strati di interoperabilità che possono esistere. Dall'altra parte, seppur non citando direttamente, l'articolo fa anche riferimento all'uso di ontologie (o comunque tecnologie standard) per quando riguarda il layer della descrizione degli oggetti e del loro stato, ricadendo perfettamente nell'ambito della Thing Description.\\
+
+La possibilità di strutturare funzionalità definendo dei piani d'azione risulta essere comoda non solo per catturare meglio la natura asincrona degli eventi (ad esempio, l'utente che interagisce con un terminale che cambia lo stato delle cose), ma anche l'ideazione stessa del processo di sviluppo. Infatti, è \quotes{naturalmente umano} immaginarsi una serie di azioni da compiere, quando si vuole raggiungere un obiettivo: cosa rispecchiata quasi perfettamente nella modellazione ad Agenti.\\
+
+Inoltre, l'utilizzo del sistema ad Agenti offre nuove potenziali applicazioni per quanto riguarda il \textit{reasoning} sull'ambiente osservato: essendo un'entità proattiva-reattiva, l'Agente, se configurato, può in autonomia eseguire azioni per garantire il massimo comfort e la sicurezza agli utilizzatori che ne usufruiscono, interagendo con tutte le Thing che esso può avere a disposizione, capendone eventualmente man mano le potenzialità. È di indubbia importanza sottolineare che sia giusto definire come \quotes{dispositivo illuminante} una qualsiasi Thing che abbia la capacità di cambiare la luminosità di un ambiente, ma che tale definizione potrebbe portare ad un eventuale fraintendimento del vero scopo di quel Device: è infatti assurdo pensare che per illuminare la stanza si debba accendere una TV oppure una lavatrice, soltanto perchè al loro interno esistono dispositivi in grado di produrre luce.\\
+
+Uno spunto per quanto riguarda l'approfondimento sull'applicazione più estensivo del modello BDI è invece quello legato all'integrazione della conoscenza della Thing Description (o la sua corrispettiva versione RDF/XML) \textbf{direttamente} all'interno dei \textit{belief} dell'Agente, sfruttandola in maniera completamente indipendente da un endpoint ed eventuali\textit{reasoner} esterni. Non solo; è infatti possibile pensare, come definito nel capitolo \ref{sec:thing_status}, di avere non solo la parte statica, ma anche quella dinamica delle cose, osservando direttamente i parametri delle Things e interagendo con loro.\\
+
+Tutto questo giustifica l'uso degli Agenti: anche per il semplice motivo di essere abilitante per una serie di funzionalità che con una classica programmazione risulterebbero complesse da progettare e da gestire.\\
+
 
 \subsection{Ordine ed esecuzione delle azioni}
 La capacità degli Agenti ad essere predisposti a interagire tra di loro, anche autonomamente, risulta essere un netto (teorico) vantaggio per quanto riguarda l'implementazione di un sistema Smart: il modello a scambio di messaggi abbraccia completamente la natura asincrona negli eventi che possono capitare all'interno di un ambiente, ma bisogna essere precisi nello specifico sulle priorità dei messaggi in arrivo. Di default, infatti, non vi è implementato un modo per ordinare i messaggi che un Agente si vede arrivare.\\
@@ -1619,6 +1628,8 @@ La capacità degli Agenti ad essere predisposti a interagire tra di loro, anche 
 Per questo motivo vi sono presenti strumenti per gestire la priorità delle azioni: è necessario però porre attenzione a non disporre i controlli all'interno dell'Agente stesso, ma nella parte relativa alla ricezione e gestione messaggi. L'agente, infatti, deve poter eseguire le proprie intenzioni anche in assenza di alcune conoscenze, se questo vi è permesso: la belief (iniziale e imparata) è esattamente il motivo per il quale ciò è possibile, se ovviamente l'entità è capace di valutare con accuratezza la situazione dell'ambiente in cui si trova.\\
 
 Non bisogna però intendere questo come una carta bianca per gli Agenti ad eseguire azioni che ritengono giuste: è compito del programmatore a rendere le singole entità sicure, in modo da poter interrompere operazioni, anche critiche, nel caso di uno o più fallimenti. Gli Agenti sono infatti liberi di creare nuovi Agenti (o nel caso di JaCaMo, anche Artefatti) e di eliminarli a dovere: quest'ultima viene vista come un'operazione importante, in quanto l'eliminazione di una entità provoca automaticamente la distruzione di tutte quelle sottostanti nella sua gerarchia.\\
+
+Sempre in caso di JaCaMo, è importante sottolineare che sia l'esecuzione di operazioni all'interno dello scope dell'Agente stesso (quindi le cosiddette \textit{Internal Functions}) che quelle legate ad un Artefatto, risultano essere bloccanti fino a quando non finiscono il loro ciclo di esecuzione. Eseguendo quindi una potenziale lunga operazione, come lettura di un file o l'ottenimento dei dati da una sorgente remota, il piano relativo all'esecuzione di tale procedura viene sospeso fino alla suo completamento. Le eventuali incongruenze di questa generale procedura nascono principalmente da due problematiche, correlate tra di loro: la prima, è la natura asincrona degli Agenti che vedendosi arrivare più messaggi non per forza li interpretano nell'ordine ricevuto; la seconda, in caso di malfunzionamento di una delle funzioni interne, ad esempio a causa di un'eccezione nel codice Java, porta al proseguimento dell'esecuzione del piano, ricevendo in alcuni cas l'errore soltanto in un secondo momento. Attraverso la console di log è quindi possibile notare che l'Agente abbia continuato la sua esecuzione, mentre il messaggio dell'Artefatto specificante il problema arrivi in un successivo istante dell'esecuzione, dando l'impressione di aver proseguito il piano senza attendere il completamento della procedura richiamata.\\
 
 \subsection{Things come Agenti}
 \label{sec:agentthings}
@@ -1683,7 +1694,7 @@ Essendo questo caso di studio più concentrato sulle possibilità della semantic
 	\end{itemize}
 \end{enumerate}
 
-Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire all'istanziamento di una nuova Thing nell'ambito di una Smart Room Agent-Based. Per semplicità di implementazione si vogliono comunque assumere alcune cose:
+Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire all'istanziamento di una nuova Thing nell'ambito di una Smart Room Agent-Based. Per semplicità di implementazione si vogliono comunque sottolineare alcune cose:
 
 \begin{itemize}
 	\item \textbf{Limiti di JaCaMo a Runtime}: anche se esistono (o comunque possono essere implementati) metodi per il parsing della Thing Description, attualmente l'ambiente di JaCaMo non offre nessuna possibilità di aggiungere proprietà e azioni eseguibili a runtime; non è possibile quindi al momento creare ad esempio un Artefatto che abbia a tempo di esecuzione stabilite le funzionalità che debba avere.
@@ -1699,6 +1710,7 @@ Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire 
 Nel frattempo, JaCaMo si sta evolvendo e metodologie che permettono tali operazioni sono in via di arrivo. Per motivi didattici e di tempo, nell'eventualità di realizzazione un proof of concept, si preferirà predisporre di tutte le cose attualmente implementabili, lasciando spazio alle successive aggiunte e/o modifiche post-aggiornamento, simulando, per il momento, alcuni dei comportamenti non ancora implementati e/o che richiederebbero la realizzazione di un progetto complesso a parte, non rientrante nei temi che si vorrebbero affrontare con questo studio.
 
 \subsection{Approfondimento: Thing Status}
+\label{sec:thing_status}
 Mentre è possibile definire interamente le proprietà e azioni di una Thing attraverso la TD, sarebbe utile se si potesse, allo stesso modo, descriverne lo stato attuale. La Thing Description, infatti, copre soltanto il lato \quotes{statico} della Thing, specificando unicamente quelli che possono essere aspetti osservabili ed eseguibili, ma non quelli attualmente attivi. È quindi di interessante spunto prendere in considerazione un qualcosa che può essere definito non più come una Thing Description, ma più come una \textit{Thing Status}.\\
 
 Non esistono attualmente standard che permettono di definire lo stato attuale di una Thing. Si può immaginare però, ad esempio, che tutte le proprietà osservabili di un Artefatto, che una Thing di conseguenza possiede, possano essere in qualche modo tradotte in un formato standard, ad esempio sfruttando sempre le potenzialità di JSON-LD. Utilizzando il modello così definito, ogni entità presente all'interno di un ambiente potrebbe fornire non solo la sua descrizione, intesa come il \quotes{\textit{cosa so fare}} ma anche il \quotes{\textit{come sto ora}}.\\
@@ -1736,31 +1748,32 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 \section{Requisiti}
 
 \subsection{Descrizione ad alto livello}
-\textsl{Si vuole realizzare un sistema capace di governare su una Stanza Smart, tenendo in considerazione una possibile visione più ampia per estendere le funzionalità al di fuori del contesto della stanza e poterlo gestire all'interno di un'appartamento, oppure, astraendo dall'environment, funzionante generalmente all'interno di un ambiente nel quale si vogliono controllare automaticamente alcuni parametri. La Smart Room dev'essere capace di governare dei device connessi alla rete, i quali dovranno gestire autonomamente, e in base alle preferenze dell'utente, alcune situazioni.\\}
+\textsl{Si vuole realizzare un sistema capace di governare su una Stanza Smart, tenendo in considerazione una possibile visione più ampia per estendere le funzionalità al di fuori del contesto della stanza e poterlo gestire all'interno di un'appartamento, oppure, astraendo dall'environment, funzionante generalmente all'interno di un ambiente nel quale si vogliono controllare automaticamente alcuni parametri. La Smart Room dev'essere capace di governare dei device connessi alla rete, i quali dovranno gestire autonomamente alcune situazioni.\\}
 
-\textsl{In particolare, per semplicità, si vuole predisporre la stanza di quattro oggetti smart: lampadina, televisore, ventilatore e tapparella. L'utente è libero di scegliere, in base alle proprie esigenze, se eseguire comandi specifici o intenzioni da far raggiungere (ad esempio, differenziando tra \ul{accendi una lampadina X} e \ul{illumina la stanza}). Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo (installata ad esempio su uno Smartphone).}
+\textsl{In particolare, per semplicità, si vuole predisporre la stanza di quattro oggetti smart: lampadina, televisore, ventilatore e tapparella. L'utente è libero di scegliere, in base alle proprie esigenze, se eseguire comandi specifici o intenzioni da far raggiungere (ad esempio, differenziando tra \ul{accendi una lampadina particolare} e \ul{illumina la stanza}). Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo (installata ad esempio su uno Smartphone).}
 
 \subsection{Business Requirements}
 \begin{enumerate}
-	\item Realizzare un progetto che unisca gli ambiti di Pervasive Computing, Web Semantico e WoT
+	\item Realizzare un progetto che unisca gli ambiti di Pervasive Computing, Web Semantico e WoT.
 	
 	\item Mettere alla prova le conoscenze acquisite durante i corsi di Pervasive Computing e Web Semantico relative alle possibilità di realizzare sistemi in ambiti realmente esistenti.
 	
 	\item Riuscire a mettere in atto un sistema utilizzando le più innovative tecnologie (anche emergenti).
+	
+	\item Contribuire alla realizzazione di prototipi che usufruiscono delle tecnologie innovative nel campo di Pervasive Computing, Web Semantico e Wot.
 \end{enumerate}
 
 \subsection{User Requirements}
 \begin{enumerate}
 	\item Possibilità di funzionamento Plug\&Play.
 	\begin{enumerate}[label*=\arabic*.]
-		\item Le Smart Things devono essere autoconfiguranti. In alternativa, richiedere una configurazione essenziale e non invasiva, basata sulal Thing Description
+		\item Le Smart Things devono essere autoconfiguranti. In alternativa, richiedere una configurazione essenziale e non invasiva, basata sulal Thing Description.
 		\item L'utente deve poter aggiungere un numero virtualmente infinito di oggetti.
 	\end{enumerate}
 	
 	\item L'utente interagisce con gli oggetti tramite un unico terminale.
 	\begin{enumerate}[label*=\arabic*.]
 		\item Il terminale potrà essere virtuale (interfaccia grafica su un device come PC o Smartphone) o reale (una Thing).
-		\item Nuovi oggetti devono essere immediatamente visibili nel terminale di gestione.
 		\item Il terminale dev'essere l'unica interfaccia abilitata a gestire le Things nell'ambiente, senza ausilio di nessun'altro programma (proprietario o open).
 	\end{enumerate}
 \end{enumerate}
@@ -1776,7 +1789,7 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	
 	\item L'interazione tra le cose deve avvenire sia come specifico comando che come intenzione.
 	\begin{enumerate}[label*=\arabic*.]
-		\item Per \textit{comando} si intende una qualsiasi interazione direttamente con una Thing (ad esempio, accendere una lampadina o una TV).
+		\item Per \textit{comando} si intende una qualsiasi interazione direttamente con una Thing (ad esempio, accendere una particolare lampadina o una TV).
 		\item Per \textit{intenzione} si intende una qualsiasi volontà di raggiungere un determinato obiettivo (esempio, illuminare la stanza o ascoltare notizie).
 	\end{enumerate}
 \end{enumerate}
@@ -1786,17 +1799,26 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	\item \textbf{Rispetto degli standard W3C.} Gli oggetti smart, come il sistema nella sua integrità, dev'essere conforme agli standard definiti dall'ente.
 	
 	\item \textbf{Non reinventarsi la ruota.} Se esistono metodi già definiti in letteratura per la risoluzione di un problema, è necessario utilizzare con tutti i pro e contro questi metodi, per non dover inventare un nuovo standard emergente che nessuno adotterà.
-	
-	\item \textbf{Praticità.} Il sistema dev'essere implementabile con facilità in una casa ed usabile da utenti anche con minori conoscenze tecnologiche.
 \end{enumerate}
 
 \subsection{Implementation Requirements}
-\begin{enumerate}[label*=\arabic*.]
-	\item \textbf{Utilizzo di librerie standard}. La totalità del sistema deve essere sviluppata sfruttando le possibilità che al giorno di oggi vengono offerte da diverse aziende. La parte del codice custom deve riguardare solo l'interazione tra di essere e parti che non sono in alcun modo trattate da soluzioni esistenti.
+\begin{enumerate}[label*=\arabic*.]	
+	\item \textbf{Utilizzo di standard}. La totalità del sistema deve essere sviluppata sfruttando le possibilità che al giorno di oggi vengono già offerte e rese disponibili. La parte del codice custom deve riguardare solo l'interazione tra di essere e parti che non sono in alcun modo trattate da soluzioni esistenti.
+	\begin{enumerate}[label*=\arabic*.]
+		\item è necessario utilizzare le Thing Description definite durante il processo di ricerca;
+		\item è necessario interfacciarsi con il Framework individuato in precedenza per la simulazione delle Web Things tramite il protocollo REST.
+	\end{enumerate}
 	
-	\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, calata sul sistema ad Agenti, ma un innovativo modo per poter sfruttare la semantica e abbracciare la dinamicità intrinseca del WoT.
+	\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, calata sul sistema ad Agenti, ma un innovativo modo per poter sfruttare alcune delle potenzialità offerte dalla Thing Description.
 	
 	\item \textbf{Utilizzo di un sistema di versioning}. Per facilitare lo sviluppo sarà necessario utilizzare un sistema che permette un'agevole sviluppo, considerando come possibilità Git e l'uso della piattaforma GitHub.
+	
+	\item \textbf{Prototipazione}. Essendo un progetto dimostrativo, è necessario disporre più risorse nella ricerca delle metodologie disponibili e al loro testing piuttosto che nella realizzazione dei minimi dettagli relativi ad un certo aspetto del programma.
+	\begin{enumerate}[label*=\arabic*.]
+		\item di conseguenza alcuni aspetti \textbf{non cruciali} dell'applicazione possono essere implementati per il solo scopo dimostrativo e non perfettamente ingegnerizzati secondo un vero reale e complesso sistema;
+		
+		\item questo permette di risparmiare tempo sulle questioni relative alla parte del Software Engineering, concentrandosi più sull'aspetto di ricerca.
+	\end{enumerate}
 	
 	\item \textbf{Budget}. La realizzazione del sistema deve avvenire senza comportare dispendi temporali ed economici.
 \end{enumerate}
@@ -1846,10 +1868,6 @@ JaCaMo, oltre a Java, utilizza internamente due linguaggi che permettono:
 	\item la configurazione dell'ambiente di JaCaMo nel file \textit{.jcm} - \textbf{markup simil-JSON proprietario};
 	\item eventualmente, la definizione dell'organizzazione tramite Moise - \textbf{XML}.
 \end{itemize}
- 
-Oltre all'ambiente di JaCaMo, vi è necessità di utilizzare un linguaggio per la definizione della Thing Description: come definito dallo standard W3C \cite{td}, viene utilizzato JSON nella versione \textit{JSON-LD 1.1} \cite{json-ld}.
-
-Ulteriori linguaggi verranno presi in considerazione soltanto definendo quali librerie si vorranno utilizzare.
 
 
 \subsection{Librerie \& Tool}
@@ -1858,6 +1876,14 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 \paragraph{Librerie}
 \begin{itemize}
 	\item \textbf{TornadoFX} \cite{tornadofx} - facilita la creazione delle interfacce utente, utilizzando una sintassi pesantemente basata sull'uso di Kotlin. Facilita la creazione dei layout e l'applicazione dello stile, che a differenza di JavaFX (su cui è basato) non è scritto in \textit{CSS} custom, ma sempre tramite codice Kotlin. Per il suo utilizzo è comunque necessario includere dipendenze di JavaFX \cite{javafx}.
+	
+	\item \textbf{OkHTTP} \cite{okhttp} - facilita la creazione e l'utilizzo delle richieste in remoto, sfruttando ad esempio modi per effettuare chiamate REST.
+	
+	\item \textbf{Kotlin Coroutines} e \textbf{Kotlin Coroutines for OkHTTP} \cite{coroutines} - facilitano la programmazione asincrona introducendo i concetti di \textit{coroutines}. Nonostante sia ampiamente discusso il fatto di utilizzare meccanismi di async/await, per i scopi del progetto risultano essere un buon modo per facilitare lo sviluppo organizzando il codice asincrono e rendendolo più leggibile. 
+	
+	\item \textbf{Kotlinx Serialization} \cite{coroutines} - per la lettura e parsing del formato JSON integrato direttamente nel linguaggio Kotlin.
+	
+	\item \textbf{Apache Jena} \cite{jena} - per usufruire della conoscenza semantica offerta dalle Thing Descriptions ed eseguire interrogazioni sul modello.
 \end{itemize}
 	
 \paragraph{Tool}
@@ -1871,10 +1897,20 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 	\item \textbf{Visual Studio Code} \cite{visualstudiocode} - IDE più leggero e pratico, nel caso di piccole modifiche al volo di parti del codice e/o apertura dei file.
 	
 	\item \textbf{Git}, \textbf{GitHub}, \textbf{GitHub Desktop} \cite{git} - sistema di versioning, il sito per la gestione del repository e il programma in versione desktop.
+	
+	\item \textbf{Protégé} - per testare le query SPARQL prima di implementarle all'interno del codice.
 \end{itemize}
 
 \subsection{Casi d'uso}
 L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso abilita l'utente a interagire con le Things. I casi d'uso possono essere ricavati direttamente dalla figura \ref{fig:use-case-diagram-high-agent} e sono disponibili nella figura \ref{fig:use-case}
+
+Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di astrazione. Si definiscono quindi anche alcuni esempi di azioni che possono essere eseguite all'interno di un sistema, indipendenti dalle Things attualmente posizionate nella stanza. Ovviamente, l'esito di un'operazione dipenderà se effettivamente vi sono Things capaci di raggiungere quell'obiettivo.
+
+\begin{itemize}
+	\item \textbf{illumina la stanza} - comando che, se portato a termine, deve aumentare la luminosità della stanza;
+	\item \textbf{non mi sento sicuro} - comando che, se portato a termine, deve poter garantire una maggiore sicurezza all'interno della stanza;
+	\item \textbf{modalità relax} - comando che, se portato a termine, aziona tutti i dispositivi che aiutano, in quell'istante, a rendere l'atmosfera più piacevole.
+\end{itemize}
 
 \begin{figure}[h]
 	\centering
@@ -1882,14 +1918,6 @@ L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart T
 	\caption{Casi d'uso del sistema in progettazione.}
 	\label{fig:use-case}
 \end{figure}
-
-Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di astrazione. Si definiscono quindi anche alcuni esempi di azioni che possono essere eseguite all'interno di un sistema, indipendenti dalle Things attualmente posizionate nella stanza. Ovviamente, l'esito di un'operazione dipenderà se effettivamente vi sono Things capaci di raggiungere quell'obiettivo.
-
-\begin{itemize}
-	\item \textbf{illumina la stanza} - comando che, se portato a termine, deve aumentare la luminosità della stanza;
-	\item \textbf{abbassa la temperatura} - comando che, se portato a termine, deve poter regolare la temperatura all'interno della stanza;
-	\item \textbf{attiva modalità relax} - comando che, se portato a termine, aziona tutti i dispositivi che aiutano, in quell'istante, a rendere l'atmosfera più piacevole
-\end{itemize}
 
 \clearpage
 \section{Design di Dettaglio}
@@ -1910,8 +1938,8 @@ Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i qua
 
 \begin{itemize}
 	\setlength\itemsep{-0.3em}
-	\item ottenimento della conoscenza e Things del sistema,
-	\item comunicazione con la Thing selezionata.
+	\item ottenimento e l'interazione con le Things del sistema,
+	\item visualizzazione dell'output (GUI).
 \end{itemize}
 
 Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per semplicità si presuppone l'atto di aggiunta come l'avvio del sistema stesso. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto più in dettaglio: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo della configurazione pienamente automatica.\\
@@ -2099,9 +2127,77 @@ Successivamente, per configurare TornadoFX, una libreria che sfrutta a pieno le 
 Se qualcosa non dovesse funzionare, controllare se ogni punto della procedura è stato fatto. Si può inoltre tentare di spostare interamente il \textit{buildscript} all'inizio del file, prima della voce \textit{defaultTasks}. 
 
 
-\section{Creazione Agenti}
-L'agente principale si occuperà del lancio dell'assistente per l'utente. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso un Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultima, si rimanda al capitolo \ref{sec:gui}.
+\section{Creazione del Main Agent}
+L'agente principale si occuperà del lancio dell'assistente per l'utente. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso un Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultima, si rimanda al capitolo \ref{sec:gui}.\\
 
+\subsection{Conoscenza di partenza}
+Al suo interno, l'agente dichiara inizialmente la propria conoscenza di partenza. Essendo le Thing Description basate sull'ontologia SAREF, è possibile sfruttare questa intrinseca conoscenza per dichiarare all'agente alcune specifiche riguardanti Things che si può aspettare di avere. Si sottolinea comunque che, per essere completamente dinamici, l'agente potrebbe prendere come riferimenti ontologie meglio conosciute e richiedere direttamente ad esse classi di dispositivi di una cerca categoria.\\
+
+\begin{lstlisting}
+	guiStatus(false).						/* Gui is not ready yet */
+	endpoint('http://localhost:8080/').		/* Endpoint where to connect */
+	
+	lightingType('saref:LightingDevice').	/* Devices that can make light */
+	safetyAbility('saref:Safety').			/* Devices for safety */
+	comfortAbility('saref:Comfort').		/* Devices that cam make comfort*/
+\end{lstlisting}
+
+\subsection{Piani e Goal}
+Successivamente vengono dichiarati i piani. L'agente principale deve provvedere alla configurazione del sistema, che all'avvio deve poter visualizzare all'utente le Things connesse e interagire con esse. Si specifica quindi che si vogliono creare i due Artefatti di partenza e che si vuole attendere il completamento dell'avvio della GUI prima di procedere.
+
+\begin{lstlisting}
+/* Initial goal */
+!start.
+
+/* First goal: make Artifacts */
++!start : true
+<-  makeArtifact("c0","display.MainViewArtifact", [], MainArtifact);
+	focus(MainArtifact);
+	makeArtifact("c1","things.ThingArtifact", [], ThingArtifact);
+	focus(ThingArtifact).
+
+/* Second goal: wait for GUI and init all the system */
++guiStatus(Condition) : Condition == true & endpoint(URL)
+<-  .print("[AG] GUI is now ready: ", Condition);
+	getAllThingDescriptions(URL, TDs);
+	viewThingDescriptions(TDs).
+\end{lstlisting}
+
+L'interazione GUI-Utente avviene attraverso un Artefatto, che manda messaggi all'Agente per comunicargli gli eventi in arrivo. In questa parte verrà descritto soltanto il procedimento lato Agente, per quello relativo al \quotes{GUI Artifact} si rimanda al capitolo \ref{sec:gui}. Le richieste dell'utente vengono interpretate dall'Agente grazie ai messaggi contenenti la specifica funzionalità, in forma di una stringa testuale: ognuna di esse ha un piano base che esegue per completare la richiesta. Inoltre, per rendere il sistema completo di esempi, si eseguono le operazioni volute in tre modalità differenti:
+
+\begin{itemize}
+	\itemsep0em 
+	\item \texttt{LightUp} eseguirà l'operazione di illuminare la stanza. Essa prenderà \u{soltanto un} elemento di una certa \u{tipologia}; nel caso specifico di un \textit{saref:LightingDevice}.
+	\item \texttt{Safety} renderà la stanza più sicura. Essa prenderà \u{tutti i dispositivi} che servono per garantire una maggiore sicurezza; nel caso specifico, tutti i Device che hanno come proprietà \textit{saref:Safety}.
+	\item \texttt{GoodVibes} porterà alla stanza un po' di relax e comfort. Essa prenderà \u{tutti i dispositivi} che servono per garantire un maggiore comfort all'interno della stanza; nel caso specifico, tutti i device che hanno come proprietà \textit{saref:Comfort}.
+\end{itemize}
+
+\begin{lstlisting}
+/* Rsponding to GUI events */
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La)
+<-  .print("[AG] User wants to achieve something: ", Intention);
+	!achieveWithTypology(La, true).
+
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Safety" & safetyAbility(Ha)
+<-  .print("[AG] User wants to achieve something: ", Intention);
+	!achieveWithAbility(Ha, false).
+\end{lstlisting}
+
+I due sotto-goal servono per realizzare effettivamente la funzionalità richiesta. Entrambi funzionano similmente, chiedendo prima di tutto tutti i device corrispondenti al criterio scelto, per poi selezionarne uno specifico (se richiesto) e di conseguenza di eseguire l'azione sul (o sui) device richiesto(i).
+
+\begin{lstlisting}
++!achieveWithAbility(Ability, SelectOnlyOneThing) : endpoint(URL)
+<-  findThingWithAbility(Ability, Things);
+	selectBestThingForAbility(Ability, SelectOnlyOneThing, Things, SelectedThings);
+	doOperation(SelectedThings, URL).
+
++!achieveWithTypology(Typology, SelectOnlyOneThing) : endpoint(URL)
+<-  findThingWithTypology(Typology, Things);
+	selectBestThingForTypology(Typology, SelectOnlyOneThing, Things, SelectedThings);
+	doOperation(SelectedThings, URL).
+\end{lstlisting}
+
+Le operazioni definite in questi piani fanno riferimento all'Artefatto, descritto nel capitolo \ref{sec:things_artifact}
 
 \section{Creazione Artefatti}
 
@@ -2146,7 +2242,7 @@ fun onGuiStatusChange(status: Boolean) {
 
 Attraverso un controller è possibile avere la comunicazione view - Artefatto. Esso dev'essere un'istanza della classe \texttt{Controller} - nell'esempio sottostante del \texttt{MainViewController}. Durante la creazione della view, il builder farà un controllo sull'appartnenza della view alla classe \texttt{ControllableView}, la quale definisce un unico metodo comune, \texttt{.setupController()}.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=Java, label=lst:view_artifact]
 // Setting-up controller in the Artifact
 private val guiController = object : MainViewController() {
 	override fun onLightUpRoom() {
@@ -2180,6 +2276,41 @@ if (view is ControlledView<*>) {
 // View having its controller bounded to abstract class
 class MainView : ControlledView<MainViewController>() { ... }
 \end{lstlisting}
+
+La comunicazione Artefatto-Agente viene invece definita tramite un unico metodo, in quanto le intenzioni sono differenziate dal loro tipo, grazie ad una stringa testuale. È la view a specificare, ad esempio, di voler raggiungere l'intenzione \texttt{LightUp}, mentre l'artefatto cattura questo evento. Nel codice \ref{lst:view_artifact} è presente infatti il metodo che esegue l'operazione interna dell'Artefatto: il parametro passato è semplicemente il nome della funzione associata a quell'operazione:
+
+\begin{lstlisting}[language=Java]
+@INTERNAL_OPERATION
+fun onAchieveIntention(intention: String) {
+	signal(INTENTION_SIGNAL, intention)
+}
+\end{lstlisting}
+
+Per quanto riguarda invece le semplici interazioni oggetto-utente, senza intenzioni di alto livello, si predispone un'interfaccia essenziale con alcuni esempi di funzionalità. Non essendo lo scopo del progetto realizzare una GUI completamente funzionante, ma dimostrante le capacità, si implementano come esempio alcune delle possibile operazioni da svolgere. Si sottolinea come tutte le funzionalità che richiedono passaggi di parametri espliciti non sono state implementate.
+
+\begin{figure}[h]
+	\centering
+	\makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{eps/gui.png}}
+	\caption{GUI essenziale per il funzionamento basilare del programma.}
+	\label{fig:gui_implementation}
+\end{figure}
+
+Si sottolinea come tutte le funzionalità che richiedono passaggi di parametri espliciti non sono state implementate. Inoltre, per quanto riguarda le funzionalità base, quelle eseguite direttamente sulle Things, vi è un diretto passaggio da view a controller e l'esecuzione dell'operazione, senza il coinvolgimento (del tutto inutile) da parte dell'Artefatto e Agente. In un ottica più grande è ovvio che questo comportamento debba essere gestito dall'Agente stesso, in quanto è lui il responsabile del sistema; in un esempio di questo genere, si preferisce puntare sulla dimostrazione di funzionalità.
+
+\subsection{Things Artifact}
+L'artefatto responsabile all'ottenimento delle Things e comunicazione con esse. Anche se in principio vi era l'idea di utilizzare un Artefatto per ognuna delle Thing presenti in stanza, questa è stata abbandonata in favore di semplicità, anche grazie all'introduzione della semantica. Potenzialmente parlando, è possibile infatti  ricavare tutta la conoscenza necessaria direttamente dalla Thing Description: parametri da utilizzare, risorsa da chiamare e metodo con il quale farla. Avendo però fatto riferimento ad un'ontologia (SAREF) e avendo specificato tutte le Things all'interno di un modulo locale, si presuppone che esse vivano internamente all'ambiente di test e che quindi per la semplice dimostrazione delle funzionalità richieste è opportuno astrarre da questo aspetto, lasciando l'implementazione più dettagliata ad un eventuale approfondimento su questa tematica.\\
+
+Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovare:
+\begin{itemize}
+	\item \texttt{getAllThingDescriptions} - interroga l'endpoint per farsi dare tutti gli URL delle Things attualmente connesse. Successivamente, per ogni URL ottenuto, salva la Thing Description di quel particolare Device.
+	\item \texttt{doOperation} - esegue l'operazione (esempio GET o POST) sui Device indicati.
+	\item \texttt{findThingWithAbility} - trova le Things che hanno una certa \quotes{abilità} (ad esempio, quella di illuminare o garantire comfort), indipendente dal tipo di oggetto. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
+	\item \texttt{findThingWithTypology} - simile a quella precedente, ma le Things richieste saranno di un specifico tipo, indipendente dalle abilità di quelli oggetti.
+	\item \texttt{selectBestThingForAbility} - data una certa abilità, provvederà (se vi è necessità) la migliore Thing sulla quale eseguire l'azione, altrimenti, darà in risposta le Things trovate precedentemente. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
+	\item \texttt{selectBestThingForTypology} - simile a quella precedente, rispetto ad una certa tipologia di Device e non abilità.
+\end{itemize}
+
+È doveroso sottolineare che le funzionalità proposte servono per dimostrare le potenzialità di questo sistema e non ne rappresentano le piene capacità. È infatti possibile, grazie all'uso più esteso delle ontologie, a ricavare ancora più informazioni, anche grazie all'adozione di SWRL.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
