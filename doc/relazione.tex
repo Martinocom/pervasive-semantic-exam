@@ -1381,6 +1381,7 @@ Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto 
 
 
 \section{Criticità rilevate nel Framework}
+\label{sec:issues}
 Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
 
 \begin{itemize}
@@ -2312,27 +2313,35 @@ Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovar
 
 È doveroso sottolineare che le funzionalità proposte servono per dimostrare le potenzialità di questo sistema e non ne rappresentano le piene capacità. È infatti possibile, grazie all'uso più esteso delle ontologie, a ricavare ancora più informazioni, anche grazie all'adozione di SWRL.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Retrospettiva e commenti}           %crea il capitolo
+\chapter{Conclusioni}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
+Sin dai primi momenti di questa ricerca è stato chiara la volontà di poter coprire la maggior parte delle potenzialità offerte dal mondo analizzato: interoperabilità, sicurezza, funzionalità, dinamicità e conoscenza sono state le chiavi di tutta l'esplorazione eseguita. Il risultato ottenuto va ben oltre le specifiche che si possono ottenere in un semplice progetto-giocattolo, che tende soltanto a dimostrare alcune delle potenzialità del sistema per poi venir completamente dimenticato sia dal suo creatore che dalle persone che lo seguivano. Nel caso in discussione è stato possibile individuare molteplici proposte, difficoltà, soluzioni e alternative a problemi analizzati, contribuendo non solo a quello che risulta essere la realizzazione di prototipi in questo ambito, ma anche all'attiva partecipazione dello sviluppo delle librerie trattate durante lo studio.\\
 
+Sono molteplici le difficoltà riscontrate, per le quali non si era previsto il tempo necessario: partendo da banali problematiche relative al mondo degli Agenti, finendo sulle numerose \textit{issue}\footnote{Come definito nel capitolo \ref{sec:issues}} aperte nei repository dei relativi Framework. Ma la ricerca è anche questo: trovarsi di fronte a difficoltà che non sono state comunemente affrontate, per le quali è necessario inventare nuove soluzioni e provvedere, in qualche modo, al raggiungimento dell'obiettivo posto.\\
 
+Definire le Thing Description ha permesso di identificare le diversità che vi possono esistere tra oggetti e la necessità di avere un modo per capirne le funzionalità. L'aggiunta della semantica ha contribuito a valorizzare il significato e il peso della conoscenza del sistema, che ha permesso di identificare con estrema facilità i dispositivi di un certo tipo o quelli che svolgono una certa funzione, lasciando un campo tutto da esplorare per quel che riguarda ulteriori interrogazioni e inferenze di conoscenza.\\
 
-\begin{comment}
+Seguire un modello ad Agenti in un modo innovativo, configurato in maniera meno classica e seguendo un linguaggio meno comune, ma comunque compatibile, ha reso note le diverse difficoltà che è possibile incontrare durante lo sviluppo; scoperto però il procedimento corretto, è possibile far risparmiare tempo ad ulteriori programmatori che vorranno cimentarsi nella sperimentazione di questi framework, agevolando la configurazione e lo sviluppo di soluzioni sempre più innovative.\\
 
+Il progetto, nel complesso, dimostra quanto sia possibile ottenere unendo i mondi di Web Semantico, Web of Thing e Pervasive Computing, senza però toccarne nemmeno la cima: è chiaramente impossibile cercare di implementare ogni questione relativa alle singole parti analizzate, in quanto per ognuna di esse è necessario predisporre un progetto che va ben oltre una semplice dimostrazione. Nel campo, vi sono diversi enti, aziende e gruppi di lavoro che stanno continuamente pensando a nuovi standard e/o linee guida sul mondo interconnesso che si sta creando: è del tutto improbabile che un singolo studente possa abbracciare l'interezza di questo sistema. Di conseguenza, è necessario sottolineare come il tutto porti ad avere più domande che risposte: rimangono ancora numerosi campi da coprire e lacune da riempire per poter dichiarare un sistema autonomo, indipendente, facilmente configurabile e auto-descrivente: sicuramente, la Thing Description è il punto di partenza per tutto ciò, e grazie all'unione della semantica e della visione pervasiva, i risultati attesi in futuro possono essere promettenti.\\
 
+Comunque, la soddisfazione finale riguardante il progetto di ricerca e sviluppo va ben oltre le aspettative: nonostante i diversi cali subiti durante tutto l'iter, è possibile apprezzare come l'intero processo abbia portato ovunque a dei risultati anche non attesi:
 
-\newpage
-\vspace*{3mm}
-\section{Commenti finali}
-Al termine del progetto, tutti i membri del gruppo sono concordi nel constatare come esso si sia rivelato un ottimo modo per conoscere strumenti di pianificazione e collaborazione, anche a distanza. L'adozione di metodologie agili ha garantito un rapido avanzamento nell'implementazione di nuove funzionalità e un fluido e graduale rilascio di un'applicazione sempre più conforme ai requisiti posti. I relativi test, svolti al fine di verificare il corretto comportamento del codice in diversi scenari, hanno permesso di gestire l'avanzamento del processo nonostante una iniziale assenza del principale componente del gruppo incaricato dello sviluppo della View, dimostrando l'efficacia della metodologia Test Driven Developent per lo sviluppo di applicazioni di una certa complessità.
+\begin{itemize}
+	\item è stato possibile capire le difficoltà, le sfide e le possibilità che si hanno a disposizione nella progettazione di sistemi eterogenei;
+	\item è stato possibile constatare quanto la tecnologia attuale fatichi a perseguire l'obiettivo di interoperabilità abilitante anche alla semantica;
+	\item diversi Framework hanno ricevuto feedback diretto da un utilizzatore che chiedeva più di un esempio-giocattolo;
+	\item il mondo degli Agenti ha visto l'implementazione in Kotlin per una più efficiente prototipazione e realizzazione;
+	\item il progetto finale offre diversi spunti per ampliamenti e potenziamenti dello stesso.
+\end{itemize}
 
+Nel complesso, quindi, si ritiene che l'iter che ha portato alle soprastanti conclusioni sia stato complesso, difficile e a volte demoralizzante, ma anche produttivo, stimolante e offrente diversi spunti per quello che risulterà essere un ulteriore ampliamento delle conoscenze in questo vastissimo campo.
 
-Nonostante lo sforzo del team nella realizzazione di tutte le funzionalità, alla soluzione ottenuta sono mancati alcuni piccoli dettagli, dovuti ad una maggiore concentrazione sulle feature ritenute fondamentali per il funzionamento del programma e sulla ottimizzazione di quelle già esistenti. Il risultato, in linea generale, è soddisfacente, in quanto tutte le rimanenti componenti sono state ben implementate, grazie anche ad una buona progettazione e all'esperienza pregressa nell'ambito della programmazione.
-\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
