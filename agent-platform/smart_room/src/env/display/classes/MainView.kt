@@ -3,9 +3,7 @@ package display.classes
 import display.classes.ViewExtensions.Companion.BIG_TEXT_STYLE
 import javafx.application.Platform
 import javafx.geometry.Insets
-import javafx.scene.control.Alert
 import javafx.scene.layout.BorderPane
-import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -21,8 +19,8 @@ class MainView : ControlledView<MainViewController>() {
         private const val THINGS_TITLE = "Things"
 
         private const val BRIGHTNESS_INTENTION_TITLE = "Light up the room"
-        private const val NEWS_LISTEN_INTENTION_TITLE = "Listen to some news"
-        private const val MAKE_COMFORT_INTENTION_TITLE = "Make some comfort"
+        private const val NEWS_LISTEN_INTENTION_TITLE = "I'm not feeling safe"
+        private const val MAKE_COMFORT_INTENTION_TITLE = "Good Vibes"
 
         private val BORDERPANE_MARGIN = Insets(5.0, 10.0, 5.0, 10.0)
     }
@@ -55,12 +53,12 @@ class MainView : ControlledView<MainViewController>() {
                     button {
                         hgrow = Priority.ALWAYS
                         text = NEWS_LISTEN_INTENTION_TITLE
-                        action { controller.onListenNews() }
+                        action { controller.onNotFeelingSafe() }
                     }
                     button {
                         hgrow = Priority.ALWAYS
                         text = MAKE_COMFORT_INTENTION_TITLE
-                        action { controller.onMakeComfort() }
+                        action { controller.onGoodVibes() }
                     }
                 }
             }

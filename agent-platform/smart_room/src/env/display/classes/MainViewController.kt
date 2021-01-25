@@ -4,7 +4,7 @@ import tornadofx.Controller
 
 abstract class MainViewController : Controller() {
     abstract fun onLightUpRoom()
-    abstract fun onListenNews()
-    abstract fun onMakeComfort()
+    abstract fun onNotFeelingSafe()
+    abstract fun onGoodVibes()
     abstract fun onSignal(message: String)
 }
