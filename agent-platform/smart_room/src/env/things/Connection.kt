@@ -1,19 +1,26 @@
 package things
 
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import ru.gildor.coroutines.okhttp.await
 
 class Connection {
     private val client = OkHttpClient()
 
+
     suspend fun getFromUrlAsync(url: String) : Response {
         return getFromUrl(url).await()
     }
 
-    suspend fun postOnUrlAsync(url: String, params: String) : Response {
+    suspend fun postOnUrlAsync(url: String, params: String = "") : Response {
         return postOnUrl(url, params).await()
     }
+
+    suspend fun putOnUrlAsync(url: String, params: String = "") : Response {
+        return putOnUrl(url, params).await()
+    }
+
 
     fun getFromUrl(url: String) : Call {
         return executeOnUrl("GET", url)
@@ -21,6 +28,10 @@ class Connection {
 
     fun postOnUrl(url: String, params: String = "") : Call {
         return executeOnUrl("POST", url, params)
+    }
+
+    fun putOnUrl(url: String, params: String = "") : Call {
+        return executeOnUrl("PUT", url, params)
     }
 
 
@@ -40,7 +51,7 @@ class Connection {
                 Request.Builder()
                 .url(url)
                 .addHeader("Content-Type", "application/json")
-                .method("POST", "".toRequestBody())
+                .method(method, params.toRequestBody("application/json".toMediaType()))
                 .build()
             )
         }
