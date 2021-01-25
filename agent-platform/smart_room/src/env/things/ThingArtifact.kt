@@ -4,21 +4,24 @@ import cartago.Artifact
 import cartago.INTERNAL_OPERATION
 import cartago.OPERATION
 import cartago.OpFeedbackParam
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import okhttp3.Response
-import org.apache.jena.query.QueryExecution
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
+import org.apache.jena.query.ResultSet
 import org.apache.jena.rdf.model.ModelFactory
 import ru.gildor.coroutines.okhttp.await
 
 class ThingArtifact : Artifact() {
 
     private lateinit var connection: Connection
+    private val model by lazy {
+        ModelFactory
+            .createDefaultModel()
+            .read("https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/RDF/unified.xml")
+    }
 
     @OPERATION
     fun init() {
@@ -53,21 +56,41 @@ class ThingArtifact : Artifact() {
     }
 
     @OPERATION
-    fun doOperation(deviceName: String, endpointUrl: String, actionName: String, params: String) {
+    fun doOperation(deviceNames: Array<*>, endpointUrl: String) {
         runBlocking {
-            signalToAgent("${endpointUrl}${deviceName}/actions/$actionName")
-            connection.postOnUrlAsync("${endpointUrl}${deviceName}/actions/$actionName", params)
+            deviceNames.forEach {
+                val deviceName = it.toString()
+                val opType = when(deviceName) {
+                    "bulb" -> Pair("actions", "toggle")
+                    "fan" -> Pair("properties", "status")
+                    "tv" -> Pair("actions", "toggle")
+                    "shutter" -> Pair("actions", "close")
+                    else -> Pair("", "")
+                }
+
+                val params = when(deviceName) {
+                    "bulb" -> ""
+                    "fan" -> "3"
+                    "tv" -> ""
+                    "shutter" -> ""
+                    else -> ""
+                }
+
+                signalToAgent("Executing on ${endpointUrl}${deviceName}/${opType.first}/${opType.second} with params [$params]")
+
+                if (opType.first == "actions") {
+                    connection.postOnUrlAsync("${endpointUrl}${deviceName}/${opType.first}/${opType.second}", params)
+                } else {
+                    connection.putOnUrlAsync("${endpointUrl}${deviceName}/${opType.first}/${opType.second}", params)
+                }
+            }
+
         }
     }
 
     @OPERATION
-    fun findThingAccomplishing(sarefType: String, things: OpFeedbackParam<Array<String>>) {
-        // Create model from RDF
+    fun findThingWithAbility(sarefType: String, things: OpFeedbackParam<Array<String>>) {
         signalToAgent("[ART] Finding things that accomplishes $sarefType...")
-
-        val model = ModelFactory
-            .createDefaultModel()
-            .read("https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/RDF/unified.xml")
 
         val query = QueryFactory.create(
                 "PREFIX saref: <https://w3id.org/saref#>" +
@@ -78,7 +101,6 @@ class ThingArtifact : Artifact() {
 
         val exec = QueryExecutionFactory.create(query, model)
         val result = exec.execSelect()
-        signalToAgent("[ART] ...Query done!")
 
         val foundThings = mutableListOf<String>()
         while (result.hasNext()) {
@@ -87,74 +109,98 @@ class ThingArtifact : Artifact() {
         }
 
         exec.close()
-        model.close()
-
-        signalToAgent("[ART] Things found: $foundThings")
         things.set(foundThings.toTypedArray())
+        signalToAgent("[ART] Things found: ${things.get()}")
     }
 
     @OPERATION
-    fun selectBestThingFor(sarefType: String, things: Array<*>, thing: OpFeedbackParam<String>) {
+    fun findThingWithTypology(sarefType: String, things: OpFeedbackParam<Array<String>>) {
+        signalToAgent("[ART] Finding things that is of type $sarefType...")
 
-        signalToAgent("[ART] Selecting best thing for $sarefType")
-        val model = ModelFactory
-            .createDefaultModel()
-            .read("https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/RDF/unified.xml")
+        val query = QueryFactory.create(
+            "PREFIX saref: <https://w3id.org/saref#>" +
+                    "SELECT ?s\n" +
+                    "WHERE {\n" +
+                    "   ?s ?p $sarefType .\n" +
+                    "}")
 
-        things.forEach {
-            signalToAgent("...I'm $it")
+        val exec = QueryExecutionFactory.create(query, model)
+        val result = exec.execSelect()
+
+        val foundThings = mutableListOf<String>()
+        while (result.hasNext()) {
+            val solution = result.nextSolution()
+            foundThings.add(solution["s"].toString())
         }
 
+        exec.close()
+
+        things.set(foundThings.toTypedArray())
+        signalToAgent("[ART] Things found: $foundThings")
+    }
+
+    @OPERATION
+    fun selectBestThingForAbility(sarefType: String, selectOnlyOneThing: Boolean, things: Array<*>, selectedThings: OpFeedbackParam<Array<String>>) {
+
+        signalToAgent("[ART] Selecting best thing for $sarefType")
         val stringThings = things.map { it.toString().split("/").last() }
-        signalToAgent("[ART] ...Converted to $stringThings")
-        val mapped = stringThings.map { it to 0 }.toMap().toMutableMap()
-        signalToAgent("[ART] ...Mapped to $mapped")
 
-        val executionList = mutableListOf<QueryExecution>()
+        if (selectOnlyOneThing) {
+            val mapped = stringThings.map { it to 0 }.toMap().toMutableMap()
 
-        stringThings.forEach {
-            val query = QueryFactory.create(
-                "PREFIX saref: <https://w3id.org/saref#>" +
-                        "SELECT ?s ?o\n" +
-                        "WHERE {\n" +
-                        "   ?s saref:accomplishes ?o .\n" +
-                        "   FILTER REGEX(str(?s), \"${it}\", \"i\") .\n" +
-                        "}"
-            )
+            stringThings.forEach {
+                val query = QueryFactory.create(
+                    "PREFIX saref: <https://w3id.org/saref#>" +
+                            "SELECT ?s ?o\n" +
+                            "WHERE {\n" +
+                            "   ?s saref:accomplishes ?o .\n" +
+                            "   FILTER REGEX(str(?s), \"${it}\", \"i\") .\n" +
+                            "}"
+                )
 
-            signalToAgent("[ART] Query is $query")
-            val exec = (QueryExecutionFactory.create(query, model))
-            val result = exec.execSelect()
+                val exec = (QueryExecutionFactory.create(query, model))
+                val result = exec.execSelect()
 
-            while (result.hasNext()) {
-                val solution = result.next()
-                if (mapped[it] != null) {
-                    mapped[it] = mapped[it]!! + 1
+                while (result.hasNext()) {
+                    result.next()
+                    if (mapped[it] != null) {
+                        mapped[it] = mapped[it]!! + 1
+                    }
+                }
+
+                exec.close()
+            }
+
+            // Find the min
+            var min = Pair(stringThings[0], mapped[stringThings[0]]!!)
+
+            mapped.forEach {
+                if (it.value < min.second) {
+                    min = Pair(it.key, it.value)
                 }
             }
 
-            exec.close()
-        }
-        model.close()
-
-        // Find the min
-        var min = Pair(stringThings[0], mapped[stringThings[0]]!!)
-
-        mapped.forEach {
-            if (it.value < min.second) {
-                min = Pair(it.key, it.value)
-            }
+            selectedThings.set(listOf(min.first).toTypedArray())
+        } else {
+            // No condition, take them all and act!
+            selectedThings.set(stringThings.toTypedArray())
         }
 
-        thing.set(min.first)
+        signalToAgent("[ART] Found ${selectedThings.get()}")
+    }
 
+    @OPERATION
+    fun selectBestThingForTypology(sarefType: String, selectOnlyOneThing: Boolean, things: Array<*>, selectedThings: OpFeedbackParam<Array<String>>) {
+        val stringThings = things.map { it.toString().split("/").last() }
 
-        signalToAgent("[ART] Finally found ${thing.get()}")
+        if (selectOnlyOneThing) {
+            selectedThings.set(arrayOf(stringThings[0]))
+        } else {
+            selectedThings.set(stringThings.toTypedArray())
+        }
     }
 
     private fun signalToAgent(message: String) {
         execInternalOp("onSignal", "progressSignal", message)
     }
-
-
 }
