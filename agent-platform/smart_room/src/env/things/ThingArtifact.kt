@@ -10,7 +10,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.Response
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
-import org.apache.jena.query.ResultSet
 import org.apache.jena.rdf.model.ModelFactory
 import ru.gildor.coroutines.okhttp.await
 

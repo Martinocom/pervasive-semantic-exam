@@ -15,7 +15,7 @@ comfortAbility('saref:Comfort').
 
 /* Plans */
 
-/* First goal: make a view that user can use */
+/* First goal: make Artifacts */
 +!start : true
     <-  makeArtifact("c0","display.MainViewArtifact", [], MainArtifact);
         focus(MainArtifact);
@@ -23,11 +23,8 @@ comfortAbility('saref:Comfort').
         makeArtifact("c1","things.ThingArtifact", [], ThingArtifact);
         focus(ThingArtifact).
 
-+progressSignal(Message) : true
-    <-  .print(Message).
 
-
-/* Second goal: attend GUI; when ready print that is ready */
+/* Second goal: wait for GUI and init all the system */
 +guiStatus(Condition) : Condition == true & endpoint(URL)
     <-  .print("[AG] GUI is now ready: ", Condition);
         getAllThingDescriptions(URL, TDs);
@@ -46,9 +43,6 @@ comfortAbility('saref:Comfort').
 +achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "GoodVibes" & comfortAbility(Na)
     <- .print("[AG] User wants to achieve something: ", Intention);
        !achieveWithAbility(Na, false).
-
-
-
 
 
 
@@ -75,6 +69,8 @@ comfortAbility('saref:Comfort').
 
 
 
++progressSignal(Message) : true
+    <-  .print(Message).
 
 
 
