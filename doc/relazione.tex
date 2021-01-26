@@ -305,22 +305,20 @@ sorting=ynt
 \pagenumbering{arabic} 
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter{Introduzione}
-Il crescente interesse verso Internet of Things e un'esponenziale crescita nell'utilizzo di apparecchiature elettroniche onnipresenti eterogenee permette l'esplorazione e l'adattamento di diversi approcci per la realizzazione e lo sviluppo di soluzioni Smart. Questo studio si pone come l'obiettivo quello di analizzare le possibilità date e realizzare un progetto che unisca il mondo del Web Semantico e quello di Pervasive Computing, circoscritti nei contesti Smart quotidiani (quali ad esempio ambienti casalinghi o aziendali).\\
+Il crescente interesse verso Internet of Things e un'esponenziale crescita nell'utilizzo di apparecchiature elettroniche onnipresenti eterogenee permette l'esplorazione e l'adattamento di diversi approcci per la realizzazione e lo sviluppo di soluzioni Smart. Questo studio si pone come l'obiettivo quello di analizzare le possibilità date e realizzare un progetto che unisca il mondo del Web Semantico e quello di Pervasive Computing, circoscritti nei contesti Smart quotidiani.\\
 
-Avendo come caratteristica quella di essere una via di mezzo tra lo studio ed effettiva prototipazione, la seguente relazione si comporrà di diversi punti trattanti in modo dettagliato ogni aspetto che incide sulle decisioni da intraprendere. Le conclusioni tratte da ogni analisi effettuata permetteranno poi la realizzazione di un applicativo dimostrante le capacità di un sistema progettato per sfruttare la conoscenza a priori. 
-
-I seguenti punti riassumono la scaletta individuata:
+Avendo come caratteristica quella di essere una via di mezzo tra la ricerca ed effettiva prototipazione, la seguente relazione si comporrà di diversi punti trattanti in modo dettagliato ogni aspetto che incide sulle decisioni da intraprendere. Le conclusioni tratte da ogni analisi effettuata permetteranno poi la realizzazione di un applicativo dimostrante le capacità di un sistema progettato tenendo conto della conoscenza acquisita. I seguenti punti riassumono la scaletta individuata:
 
 \begin{itemize}
 	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Things, Conoscenza, Agenti);
 	
 	\item analisi nel campo del Semantic Web per descrivere la conoscenza relativa agli oggetti e all'ambiente in cui si trovano;
 	
-	\item analisi nel campo dello sviluppo per scoprire framework disponibili per la creazione delle Things,
+	\item analisi nel campo dello sviluppo per scoprire framework disponibili per la creazione/prototipazione delle Things,
 	
-	\item creazione degli oggetti (virtualmente o fisicamente) aventi caratteristiche rilevate nei precedenti punti;
+	\item creazione degli oggetti (virtualmente o fisicamente) aventi caratteristiche rilevate nei precedenti punti, utilizzando il (o i) framework scoperto(i);
 	
-	\item focus sulle metodologie a disposizione per sfruttare la conoscenza descritta;
+	\item focus sulle metodologie a disposizione per usufruire della conoscenza lato sperimentale e lato codice (anche in maniera innovativa e/o abilitante verso ulteriori approfondimenti);
 	
 	\item creazione di un progetto sfruttante tutte le conclusioni pregresse, avente come l'obiettivo la dimostrazione della capacità di un sistema di scoprire dinamicamente oggetti e capirne le potenzialità, grazie all'uso della descrizione semantica di oggetti.
 	
@@ -354,7 +352,7 @@ Esistono diversi ambiti di studio che confermano sia le potenzialità che i risc
 
 Oltre ai diversi protocolli, ogni produttore di Smart Things implementa uno standard proprietario di comunicazione, il quale generalmente richiede l'utilizzo di un'app o hub apposta, non parlante con dispositivi dei competitor. Si ritrova quindi molto spesso a dover rimanere legati ad un singolo manufacturer, nonostante le varie alternative, a volte nettamente migliori, presenti sul mercato.\\
 
-I principali problemi di natura umana, invece, risulta essere quello della privacy e della proprietà, ovvero di chi alla fine possiede i dati. Tenendo in considerazione una visione ampia, nella quale tutti i dispositivi parlano tra di loro, inevitabilmente di mezzo vi sono dati riguardanti ogni individuo. Facendo un esempio classico, i dati biometrici di un individuo potrebbero essere benevolmente usati per monitorare lo stato della salute (ad esempio, si pensi agli anziani): un'automazione potrebbe essere fatta quando vi è necessità di chiamare soccorsi o informare urgentemente la famiglia di un accaduto. Questi dati sono sensibili, e dev'essere garantito un loro corretto utilizzo congruo con l'obiettivo che hanno da raggiungere: ciò che, alla fine, è stato tentato dal \href{https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=uriserv:OJ.L_.2016.119.01.0001.01.ITA&toc=OJ:L:2016:119:TOC}{GDPR}.\\
+I principali problemi di natura umana, invece, risulta essere quello della privacy e della proprietà, ovvero di chi alla fine possiede i dati. Tenendo in considerazione una visione ampia, nella quale tutti i dispositivi parlano tra di loro, inevitabilmente di mezzo vi sono dati riguardanti ogni individuo. Facendo un esempio classico, i dati biometrici di un individuo potrebbero essere benevolmente usati per monitorare lo stato della salute (ad esempio, si pensi agli anziani): un'automazione potrebbe essere fatta quando vi è necessità di chiamare soccorsi o informare urgentemente la famiglia di un accaduto. Questi dati sono sensibili, e dev'essere garantito un loro corretto utilizzo congruo con l'obiettivo che hanno da raggiungere: ciò che, alla fine, è stato tentato con l'introduzione del  \href{https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=uriserv:OJ.L_.2016.119.01.0001.01.ITA&toc=OJ:L:2016:119:TOC}{GDPR}.\\
 
 Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio ad una macchina agricola smart, nella quale vi sono diversi sensori che comunicano il loro stato all'utilizzatore. Parlando dunque di privacy e proprietà, vi è un acceso dibattito sul chi effettivamente possiede quei dati, in quanto potrebbe averne accesso anche il produttore della macchina agricola: in questo caso si assisterebbe ad un'analisi comportamentale degli individui, favorendo la prevenzione dei guasti e l'ottimizzazione delle features più richieste a discapito del monitoraggio delle abitudini degli utilizzatori, le quali, dipendentemente dal contesto, potrebbero rendere identificabile un soggetto, anche se in partenza i dati risulterebbero anonimi.\\
 
@@ -390,9 +388,9 @@ Un elevato numero di dispositivi componenti immerso all'interno di un ambiente c
 Il lavoro così svolto permette quindi di avere un'astrazione molto più completa di quello che era il risultato dell'IoT: il WoT ne rappresenta quindi una conseguente evoluzione ed estensione, capace di offrire non solo maggiori potenzialità in campo puramente tecnologico, ma anche semantico. Le Things, infatti, potrebbero essere viste non solo come semplici oggetti che monitorano o agiscono sull'ambiente, ma che interagiscono tra di loro per raggiungere obiettivi stabiliti; diventerebbero quinti entità intelligenti, connesse, pro-attive e reattive, capaci di offrire la propria conoscenza disponibile non solo per umani, ma anche per altre Things: il tutto il più possibilmente compatibile e compliant a standard definiti.
 
 \section{Smart Room}
-Una stanza "Smart" \cite{smartroom} è un ambiente che utilizza al suo interno più oggetti smart, interconnessi tra di loro. Grazie all'Internet of Things, essi sono capaci di fornire features di diverso tipo, partendo da quelle semplici richiedenti l'input dell'utente, arrivando a quelle intelligenti senza che vi sia un'esplicita richiesta per l'attuazione. Nel caso di studio in Pervasive Computing, non si tratta di avere due entità separate, bensì un sistema unico dove Thing eterogenee e ulteriori entità (quali umani o altri device) convivono e interagiscono tra di loro.
+Una stanza "Smart" \cite{smartroom} è un ambiente che utilizza al suo interno più oggetti smart, interconnessi tra di loro. Grazie all'Internet of Things, essi sono capaci di fornire features di diverso tipo, partendo da quelle semplici richiedenti l'input dell'utente, arrivando a quelle intelligenti senza che vi sia un'esplicita richiesta per l'attuazione.\\
 
-Una Smart Room fornisce features personalizzabili in base all'utente che ne usufruisce. L'interazione oggetto-utente è generalmente stabilita grazie all'uso di un terminale, oggetto dedicato o smartphone, e permette in modo semplice, intuitivo e veloce di configurare tutti i parametri richiesti. Le Things al'interno di una Smart Room devono riuscire ad essere interoperabili tra di loro e non dipendere da una soluzione proprietaria per la loro gestione. Un utente è inoltre libero di aggiungere un numero virtualmente infinito di oggetti all'interno della stanza, senza rompere la stabilità del sistema o comprometterne le funzionalità, anzi, fornendo più possibilità alle cose di interagire e creare nuove funzionalità, anche non previste al momento della creazione della Thing.
+Una Smart Room può fornire features personalizzabili in base all'utente che ne usufruisce. L'interazione oggetto-utente è generalmente stabilita grazie all'uso di un terminale, oggetto dedicato o smartphone, e permette in modo semplice, intuitivo e veloce di configurare tutti i parametri richiesti. Le Things al'interno di una Smart Room devono riuscire ad essere interoperabili tra di loro e non dipendere da una soluzione proprietaria per la loro gestione. Un utente è inoltre libero di aggiungere un numero virtualmente infinito di oggetti all'interno della stanza, senza rompere la stabilità del sistema o comprometterne le funzionalità, anzi, fornendo più possibilità alle cose di interagire e creare nuove funzionalità, anche non previste al momento della creazione della Thing.
 
 \subsection{Problematiche}
 Le stesse problematiche che riguardano il mondo dell'IoT possono essere trovate all'interno di una Smart Room, ad esempio considerando classico problema dell'interoperabilità tra oggetti eterogenei e i diversi modi nei quali essi potrebbero voler comunicare.\\
@@ -408,9 +406,9 @@ Un oggetto Smart \cite{smartthing} è un'entità connessa, facente intrinsecamen
 \section{Conoscenza, ontologie e RDF}
 L'eterogeneità delle informazioni è intrinsecamente presente in ogni ambiente preso in considerazione: vi sono infatti molteplici eventi, entità, proprietà di esse e azioni che possono essere eseguite. Per un umano è quasi immediato riconoscere immagini o situazioni, contestualizzando ogni volta l'evento osservato per poter trarne conclusioni corrette. La cosa non si rende vera per quanto riguarda le macchine o sistemi automatici: i contenuti resi a disposizione sono perlopiù human-readable, ma non sono immediatamente capibili dai calcolatori; essi, infatti, spesso non possiedono un background sufficiente, tale da poter individuare situazioni, oggetti o eventi particolari senza essere prima preaddestrati in un set determinato e limitato di riconoscimenti da svolgere.\\
 
-Una mancanza di contesto e di informazioni collegabili tra di loro rende il lavoro dei computer, per quanto riguarda l'analisi del mondo che circonda gli umani, complessa e macchinosa. Per questo motivo sin dall'anno 2007 vi sono diversi movimenti per spingere l'adozione sempre più grande dei \quotes{Linked Data} \cite{linkeddata}: dati sui quali si possono eseguire query semantiche. Quest'ultime non sono nient'altro che un modo per le macchine di ragionare sulla conoscenza che hanno a disposizione, non più scritta in modo da essere capita soltanto da un umano. La rappresentazione dei dati dunque, non riguarda più soltanto quello che si può sapere, ma anche la derivazione di nuovi dati a partire da quelli esistenti, per creare una fonte potenzialmente infinitamente profonda di collegamenti tra tutte le informazioni che si hanno a disposizione, abbattendo i cosiddetti muri virtuali che separano attualmente la conoscenza posseduta.\\
+Per quanto riguarda l'analisi del mondo che circonda gli umani, una mancanza di contesto e di informazioni collegabili tra di loro rende il lavoro dei computer complesso e macchinoso. Per questo motivo sin dall'anno 2007 vi sono diversi movimenti per spingere l'adozione sempre più grande dei \quotes{Linked Data} \cite{linkeddata}: dati sui quali si possono eseguire query semantiche. Quest'ultime non sono nient'altro che un modo per le macchine di ragionare sulla conoscenza che hanno a disposizione, non più scritta in modo da essere capita soltanto da un umano. La rappresentazione dei dati dunque, non riguarda più soltanto quello che si può sapere, ma anche la derivazione di nuovi dati a partire da quelli esistenti, per creare una fonte potenzialmente infinitamente profonda di collegamenti tra tutte le informazioni che si hanno a disposizione, abbattendo i cosiddetti muri virtuali che separano attualmente la conoscenza posseduta.\\
 
-Le ontologie \cite{ontology} sono la raccolta dei concetti dato un determinato ambito, mentre il formato più comune per scrivere conoscenza è RDF \cite{rdf}. L'obiettivo di questi è poter mantenere un modello di dati semplici, che permetta a chiunque la rappresentazione di un qualsiasi concetto. Il tutto è basato sul principio di \quotes{\textit{triplette}}, le quali possiedono il \textit{"soggetto"}, \textit{"predicato"} e \textit{"l'oggetto"} interessato, in quello che può essere definito come un grafo etichettato che esprime dunque le relazioni che intercorrono tra le cose. La localizzazione delle risorse deve avvenire tramite l'uso di URI ed è possibile specificare tipi di dati (anche nuovi). Globalmente parlando, ogni risorsa creata può essere referenziata da altre, in modo tale da creare una struttura connessa e unica, con tutta la conoscenza che fino a quel momento si aveva.
+Le \textbf{ontologie} \cite{ontology} sono la raccolta dei concetti dato un determinato ambito, mentre uno dei formati più comuni per scrivere conoscenza è RDF \cite{rdf}. L'obiettivo di questi è poter mantenere un modello di dati semplici, che permetta a chiunque la rappresentazione di un qualsiasi concetto. Il tutto è basato sulla formazione di triplette \textit{"soggetto-predicato-oggetto"}, che forma un grafo etichettato esprimente le relazioni che intercorrono tra le cose. La localizzazione delle risorse deve avvenire tramite l'uso di URI ed è possibile specificare tipi di dati (anche nuovi). Globalmente parlando, ogni risorsa creata può essere referenziata da altre, in modo tale da creare una struttura connessa e unica, con tutta la conoscenza che fino a quel momento si aveva.
 
 \subsection{Conoscenza in WoT}
 \label{knowledge-wot}
@@ -514,7 +512,7 @@ Una \textbf{Thing Description} \cite{td} è il blocco centrale di costruzione de
 \end{itemize}
 
 La descrizione dell'oggetto Smart può quindi finire ad essere da una parte molto estesa, dall'altra, grazie proprio alla sua completezza, permettere di coprire aspetti non banali come protocolli di sicurezza e forme di espressione dei dati e/o protocolli di comunicazione.
-Generalmente una Thing Description viene creata utilizzando il linguaggio JSON. Un esempio di una descrizione può essere trovato nel Codice \ref{lst:td}.
+Generalmente una Thing Description viene creata utilizzando il linguaggio JSON-LD. Un esempio di una descrizione può essere trovato nel Codice \ref{lst:td}.
 
 \begin{lstlisting}[language=json,caption={Esempio di una Thing Description},label=lst:td]
 {
@@ -552,7 +550,7 @@ Essendo strutturato secondo il modello JSON (un formato ampiamente sfruttato e s
 
 Di conseguenza, anche se di primo impatto essa non sembra legata al mondo del Web Semantico, in un certo senso ne rappresenta l'estensione: si può considerarla come un \quotes{utilizzatore} di una conoscenza già posseduta che può essere tranquillamente riutilizzata per Smart Things simili fra loro. La somiglianza può, di conseguenza, essere un buon punto di partenza per ricavare nuova conoscenza, anche in casi di assenza della Thing Description: infatti, si potrebbe ad esempio assumere che, qualsiasi oggetto avente la funzionalità di impostare una luminosità, possa effettivamente essere una fonte di luce che, opportunamente regolata, può portare all'effetto voluto dall'utilizzatore: questo indipendentemente dalla natura dell'oggetto stesso, che potrebbe benissimo essere una semplice radiosveglia con dei LED.\\
 
-Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD11 \cite{json-ld}. Inoltre, esiste effettivamente uno modello che definisce le linee guida per la Thing Description, considerata come ontologia (\textbf{Thing Description Ontology} \cite{td}), che però risulta al momento essere soltanto una bozza. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
+Si può notare che la prima riga del documento faccia riferimento ad un \quotes{contesto}: esso è la rappresentazione della serializzazione per il mondo dei Linked Data. Con essa, infatti, si annota che l'oggetto in atto è potenzialmente convertibile direttamente in uno schema RDF, grazie allo standard JSON-LD 1.1 \cite{json-ld}. Inoltre, è proprio nella prima riga che viene specificata la \textbf{Thing Description Ontology} \cite{td} (al momento in bozza) che, effettivamente, rappresenta l'oggetto descritto tramite una vera e propria ontologia. Grazie allo stesso contesto è anche possibile specificare più ontologie che sono utilizzate all'interno della TD stessa, in modo da definire in modo standard ulteriori parametri e/o campi, per essere ancora più interoperabile e permettere una ancor più completa conoscenza sull'oggetto definito.\\
 
 Come ulteriore approfondimento alla Thing Description, è utile citare \quotes{\textit{On Modeling the Physical World as a Collection of Things: The W3C Thing Description Ontology}} \cite{td-paper}, nel quale si possono trovare riferimenti all'importanza di avere dati standardizzati e strutturati. Nello stesso documento vengono inoltre citati altri enti, proponenti uno stack di sviluppo diverso \cite{open-connectivity}, dal quale è possibile derivare la Thing Description.\\
 
@@ -569,7 +567,7 @@ Già questi due aspetti abilitano automaticamente l'idea di una descrizione dell
 
 È esattamente che a questo punto entra in merito la questione di \quotes{semantica}: infatti, dare semantica alle cose non vuol dire semplicemente descriverle (o di renderle visibili), ma permettere una conoscenza tale da rendere possibile un reasoning su quello che è non soltanto la cosa descritta, ma l'intero ambiente di cui quella cosa fa parte.\\
 
-Aggiungendo semantica è possibile progettare sistemi che non dipendono, di principio, da nessuna variabile: ne da \quotes{\textit{come}} sono gli oggetti ne \quotes{\textit{cosa}} effettivamente sono; quello che importa, a quel punto, è quanto e come un oggetto riesce a descriversi per far capire quello che è capace di ottenere come risultato di un'operazione. È quindi molto verosimile immaginarsi sistemi che non usano più comandi diretti come \textit{accendere una lampadina X}, ma piuttosto istruzioni di alto livello come \textit{raggiungi l'obiettivo di illuminare la stanza}: è poi compito del sistema capire quali oggetti possano essere capaci di raggiungere tale scopo, senza l'esplicita attivazione di una particolare Thing. In questo modo si crea un layer di astrazione, tra quello che è il mondo reale e virtuale: questo livello però non è un ostacolo, bensì un modo per capire e conoscere l'ambiente con tutte le sue potenzialità.\\
+Aggiungendo semantica è possibile progettare sistemi che non dipendono, di principio, da nessuna variabile: ne da \quotes{\textit{come}} sono gli oggetti ne \quotes{\textit{cosa}} effettivamente sono; quello che importa, a quel punto, è quanto e come un oggetto riesce a descriversi per far capire quello che è capace di ottenere come risultato di un'operazione. È quindi molto verosimile immaginarsi sistemi che non usano più comandi diretti come \textit{accendere una determinata lampadina}, ma piuttosto istruzioni di alto livello come \textit{raggiungi l'obiettivo di illuminare la stanza}: è poi compito del sistema capire quali oggetti possano essere capaci di raggiungere tale scopo, senza l'esplicita attivazione di una particolare Thing. In questo modo si crea un layer di astrazione, tra quello che è il mondo reale e virtuale: questo livello però non è un ostacolo, bensì un modo per capire e conoscere l'ambiente con tutte le sue potenzialità.\\
 
 Questo abilita anche un potenziale campo di ricerca su quello che risulta essere la scoperta dinamica delle funzionalità, e non solo degli oggetti: mettendo in fila alcune lampadine è possibile dedurre che accendendo e spegnendole in un certo ordine, è possibile ottenere un effetto luminoso che una singola lampadina non poteva raggiungere.\\
 
@@ -594,12 +592,9 @@ Le principali ontologie che possono essere incluse all'interno di una Thing Desc
 
 Per i dettagli relativi a queste ontologie, si può far riferimento a  \quotes{\textit{Introducing Thing Descriptions and Interactions: An Ontology for the Web of Things}} \cite{td-paper2}, dove ad esempio nel capitolo 2.1 del sono descritti anche modi nei quali queste ontologie furono utilizzate. Sempre nello stesso documento esistono riferimenti a raccolte come \textit{OWL-IoT-S} \cite{owliot}, per le quali però non vi sono, al giorno di oggi, riferimenti facilmente accessibili e recuperabili, se non l'ontologia stessa: queste possono essere usata per un ulteriore confronto, ma non verranno utilizzate al fine di realizzare il progetto finale.\\
 
-Rimanendo nel tema delle caratteristiche di una Thing, si potrebbero ontologie standardizzanti ulteriori parametri, ad esempio:
-\begin{itemize}
-	\item \textbf{OM} - Ontology of unit of Measure, che spazia all'interno del terreno appartenente alle unità di misura, quantità e dimensioni.
-\end{itemize}
+Rimanendo nel tema delle caratteristiche di una Thing, si potrebbero includere ontologie standardizzanti ulteriori parametri, ad esempio, le unità di misura definiti dalle ontologie come \textbf{OM} (Ontology of Unit of Measure).\\
 
-Uscendo dal mondo strettamente WoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description, come \textbf{DBpedia} \cite{dbpedia}, che per motivi di semplicità non verrà inclusa nelle definizioni delle Things.
+Uscendo invece dal mondo strettamente WoT, è possibile individuare ulteriori ontologie integrabili all'interno della Thing Description, come \textbf{DBpedia} \cite{dbpedia}.
 
 
 \subsection{Ontologie utilizzate}
@@ -607,7 +602,7 @@ Per scopi di questo progetto, è impensabile poter includere tutte le ontologie,
 
 L'ontologia meglio definita e mantenuta dal punto di vista di WoT risulta essere \textbf{SAREF}, in quanto le altre due proposte non sono mantenute adeguatamente. Ciò ovviamente non toglie nessun credito sulle ontologie create, ma pone alcune riflessioni sull'effettiva adozione di queste all'interno del Web Semantico: è alquanto inutile aggiungere della conoscenza di cui nessuno potrà usufruire. Onde evitare di dedicare tempo per usare ontologie non ampiamente diffuse, risulta essere più fruttuoso esplorarne una definita in modo migliore e mantenuta adeguatamente. Inoltre, SAREF copre una vastità di concetti che sono semplicemente rappresentati diversamente sulle altre due proposte: ad esempio, il concetto di \textit{Function}\footnote{\url{https://w3id.org/saref\#Function}} di SAREF e quello di \textit{Operation}\footnote{\url{https://www.irit.fr/recherches/MELODI/ontologies/IoT-O.html\#Operation}} di IoT-O sono molto simili; la differenza sta soltanto nella possibilità di scendere nei dettagli relativi alla funzione stessa, che nel caso di SAREF può essere ulteriormente precisata.\\
 
-Per dimostrare quindi le capacità di un sistema descritto, si includerà l'ontologia di SAREF all'interno delle Thing Description, utilizzando in modo estensivo, ma comunque a livello dimostrativo, le potenzialità che essa può avere.\\
+Per dimostrare quindi le capacità di un sistema descritto, si includerà l'ontologia di SAREF all'interno delle Thing Description, utilizzando le potenzialità che essa può portare.\\
 
 
 
@@ -687,10 +682,10 @@ Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di q
 	\item \textbf{Tapparella}: \texttt{attachments/td/shutter.json}
 \end{itemize}
 
-La \textbf{lampadina} verrà presa come riferimento per la definizione dei successivi oggetti: non vi sarà, infatti, una ripetizione nella descrizione del procedimento per gli oggetti indicati nelle successive sezioni; verranno analizzati soltanto i punti cruciali ed eventuali differenze e/o difficoltà incontrate nella definizione di esse.
+La \textbf{lampadina} verrà presa come riferimento d'esempio per tutte le Thing successivamente trattate. Nei seguenti capitoli, di conseguenza, si sottolineeranno soltanto differenze tra la lampadina e le altre Thing, ove questo risultasse necessario.
 
 \subsection{Definizione base}
-Si parte da una descrizione basilare senza considerare eventuali ontologie da aggiungere, indicando soltanto quella che definisce a priori le caratteristiche di una Thing Description (ovvero, il contesto). Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base alla futura implementazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{https://mywebthingserver.com/}).\\
+Si parte da una descrizione basilare senza considerare eventuali ontologie da aggiungere, indicando soltanto quella che definisce a priori le caratteristiche di una Thing Description. Vengono indicati subito anche parametri necessari all'identificazione della Thing all'interno di un ambiente: un identificatore (in forma di URI), un titolo e una descrizione dell'oggetto. Si vuole notare come il campo \textit{id} della TD possa variare in base all'implementazione e collocazione del gateway, nella parte in cui specifica l'indirizzo base (\texttt{http://localhost:8080/}).\\
 
 \begin{lstlisting}[language=json,caption={Inizio di una TD della lampadina},label=lst:start-td-lamp]
 	"@context": "https://www.w3.org/2019/wot/td/v1",
@@ -700,7 +695,7 @@ Si parte da una descrizione basilare senza considerare eventuali ontologie da ag
 	[...]
 \end{lstlisting}
 
-Successivamente, si definisco le proprietà che una generica lampadina possiede: queste vengono specificate nel documento ufficiale nel capitolo \textit{\href{https://www.w3.org/TR/wot-thing-description/\#propertyaffordance}{5.3.1.1 - PropertyAffordance}}. Una PropertyAffordance è una sottoclasse di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#interactionaffordance}{InteractionAffordance}} e un'istanza di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}}: è importante sottolineare questa gerarchia, perchè grazie ad essa vengono definiti campi opzionali e obbligatori da inserire in ogni proprietà.
+Successivamente, si definisco le proprietà che una generica lampadina possiede: queste vengono specificate nella documentazione ufficiale nel capitolo \textit{\href{https://www.w3.org/TR/wot-thing-description/\#propertyaffordance}{5.3.1.1 - PropertyAffordance}}. Una PropertyAffordance è una sottoclasse di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#interactionaffordance}{InteractionAffordance}} e un'istanza di \textit{\href{https://www.w3.org/TR/wot-thing-description/\#dataschema}{DataSchema}}: è importante sottolineare questa gerarchia, perchè grazie ad essa vengono definiti campi opzionali e obbligatori da inserire in ogni proprietà.
 
 \clearpage
 \begin{lstlisting}[language=json,caption={Proprietà di una lampadina},label=lst:start3-td-lamp]
@@ -796,28 +791,33 @@ Per includere ontologie nella Thing Description, occorre specificarle nell'attri
 ]
 \end{lstlisting}
 
-Nell'ontologia di SAREF esiste una definizione di \textit{LightingSwitch}: questo possiede però alcune proprietà che non riguardano l'esempio, per cui si preferisce aggiungere della semantica che effettivamente rappresenti il caso analizzato. Vengono aggiunti quindi attributi che descrivono a cosa serve l'oggetto, che azioni può svolgere e che proprietà possiede:
+Nell'ontologia di SAREF esiste una definizione di \textit{LightingSwitch}: questo possiede però alcune proprietà che non riguardano l'esempio della lampadina considerato, per cui si preferisce aggiungere della semantica che effettivamente rappresenti il caso analizzato. Vengono aggiunti quindi attributi che descrivono a cosa serve l'oggetto, che azioni può svolgere e che proprietà possiede:
 
 \begin{lstlisting}[language=json,caption={Aggiunta di semantica per la lampadina},label=lst:semantic-td2]
 "saref:isUsedFor": "saref:Lighting",
 "saref:accomplishes": "saref:Lighting",
-"saref:hasFunction": [{	
-		"@id": "http://localhost:8080/bulb/toggle",
-		"@type": "saref:OnOffFunction",
-		"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
-	}, {
-		"@id": "http://localhost:8080/bulb/fade",
-		"@type": "saref:LevelControlFunction",
-		"saref:hasDescription": "Fade the lamp to a given level."
-	}
-],
+	"saref:hasFunction": [{	
+	"@id": "http://localhost:8080/bulb/toggle",
+	"@type": "saref:OnOffFunction",
+	"saref:hasCommand": "saref:ToggleCommand",
+	"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
+}, {
+	"@id": "http://localhost:8080/bulb/fade",
+	"@type": "saref:LevelControlFunction",
+	"saref:hasCommand": "saref:SetAbsoluteLevelCommand",
+	"saref:hasDescription": "Fade the lamp to a given level."
+}],
 "saref:hasState": {
 	"@id": "http://localhost:8080/bulb/status",
 	"@type": "saref:OnOffState"
 },
 \end{lstlisting}
 
-Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate le seguenti affermazioni: riguardanti tutte le Thing Description Semantiche create:
+
+\subsection{Dettagli su ulteriori Thing Descriptions}
+Alcune delle Thing Description trattate possono essere più o meno semplici rispetto alla lampadina presa come descrizione di riferimento. Il formato, comunque, rimane sempre lo stesso e si definiscono proprietà e azioni, specificandoli anche usando l'ontologia SAREF.\\
+
+Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate le seguenti affermazioni riguardanti tutte le Thing Description Semantiche create:
 
 \begin{itemize}
 	\item per identificare i dispositivi che in qualche modo regolano la luminosità della stanza, senza però avere un sensore che effettivamente misuri il livello di luminosità, i dispositivi quali \textbf{lampadina}, \textbf{TV} e \textbf{tapparella} sono stati segnati come \quotes{\textit{oggetti capaci di illuminare}}\footnote{\texttt{"saref:accomplishes": "saref:Lighting"}}. Ovviamente il discorso non è del tutto preciso, in quanto la tapparella può \quotes{illuminare} solo in presenza di luce esterna e la TV non è un dispositivo utilizzato per illuminare la stanza: sono comunque tutti e tre responsabili a variarne la luminosità.
@@ -830,12 +830,6 @@ Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate
 	
 	\item si suppone che tutte le Thing definite vengano create e gestite in una rete locale. L'identificativo, infatti, prende come riferimento il \textit{localhost:8080} come indirizzo di partenza. Ciò ovviamente può cambiare in base all'esigenza.
 \end{itemize}
-
-
-\subsection{Dettagli su ulteriori Thing Descriptions}
-Alcune delle Thing Description trattate possono essere più o meno semplici rispetto alla lampadina presa come descrizione di riferimento. Il formato, comunque, rimane sempre lo stesso e si definiscono proprietà e azioni, specificandoli anche usando l'ontologia SAREF.\\
-
-Non vi sono ulteriori particolarità riguardanti le Thing Description.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
@@ -881,13 +875,13 @@ Per essere il più possibile compliant a quello che definisce il documento citat
 
 \begin{itemize}	
 	% Confirmed to work but has something that isn't working
-	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare linguaggi come Java, Python o Node.js.
+	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare diversi linguaggi come Java, Python o Node.js.
 	
 	\item \textbf{Arena Web Hub} \cite{arenawh}: framework proposto dalla commissione europea, facende parte del progetto \href{https://www.f-interop.eu/}{F-Interop}.
 	
 	
 	% Candidates
-	\item \textbf{ThingWeb.io} \cite{thingweb}: framework proposto dal gruppo di sviluppo Eclipse che abbraccia le definizioni del WoT specificate dal documento ufficiale del W3C
+	\item \textbf{ThingWeb.io} \cite{thingweb}: framework proposto dal gruppo di sviluppo Eclipse che abbraccia le definizioni del WoT specificate dal documento ufficiale del W3C,
 	
 	
 	% Cited but they won't work for our purpose
@@ -917,7 +911,7 @@ L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben d
 \begin{itemize}
 	\item Il framework di \textbf{\texttt{WebThings.io}} specifica\footnote{\url{https://webthings.io/api/\#context-member}} che il contesto di una Thing Description debba essere un campo indicante un URI, che punta essenzialmente ad un'ontologia nota per definire i membri di una Thing.
 	
-	\item Le specifiche del W3C specificano\footnote{\url{https://www.w3.org/TR/wot-thing-description/\#thing}} \footnote{\url{https://www.w3.org/TR/wot-thing-description/\#sec-context-extensions}}, invece, che vi possono esistere più contesti nei quali l'oggetto può essere definito, in modo da garantire una descrizione ancora più completa e standard, utilizzando diverse ontologie, anche meno collegate all'ambito di WoT (esempio, ontologia che definisce le unità di misura standard.)
+	\item Le specifiche del W3C indicano\footnote{\url{https://www.w3.org/TR/wot-thing-description/\#thing}} \footnote{\url{https://www.w3.org/TR/wot-thing-description/\#sec-context-extensions}}, invece, che vi possono esistere più contesti nei quali l'oggetto può essere definito, in modo da garantire una descrizione ancora più completa e standard, utilizzando diverse ontologie, anche meno collegate all'ambito di WoT (esempio, ontologia che definisce le unità di misura standard.)
 \end{itemize}
 
 \begin{figure}[h]
@@ -940,7 +934,7 @@ Framework \cite{arenawh} basato su Node.js contenente esempi di backend e fronte
 Il problema di questa implementazione è simile a quello descritto nella sezione \ref{sec:webthingsio}, trattante del framework di Web Things. Infatti, anche in questa implementazione non è chiaro il supporto per le annotazioni di ontologie diverse da quella standard. L'unica cosa citata nella documentazione è:
 
 \begin{quote}
-\textit{Note that the examples include a client-side Web of Things library (see "client/wot.js") with an adaptation layer for different Web of Things platforms. A further library is planned \ul{to make it easy to work with semantic annotations that describe the kinds of things (e.g. a light), their capabilities (e.g. dimmable), and the context in which they reside (e.g. my kitchen)}.}
+\textit{Note that the examples include a client-side Web of Things library (see "client/wot.js") with an adaptation layer for different Web of Things platforms. \ul{A \textbf{further library} is planned to make it easy to work with semantic annotations that describe the kinds of things (e.g. a light), their capabilities (e.g. dimmable), and the context in which they reside (e.g. my kitchen)}.}
 \end{quote}
 
 Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-webhub/blob/master/webhub.js}}, disponibile su GitHub e visibile in figura \ref{fig:context-overwritten}, è possibile comprendere che il supporto alle annotazioni è infatti \textbf{assente}, ma tecnicamente previsto. Il metodo \texttt{.produce()} sovrascrive tutti i parametri della Thing Description in modo da renderla conforme alle specifiche della libreria stessa, puntando il contesto a quello ufficiale specificato dall'ente W3C. In questo modo, ancora una volta, viene impedita la possibilità di collegarvi ulteriori ontologie e di definire una maggiore conoscenza sulla Thing descritta: infatti, non vi è alcun modo per aggiungerle successivamente e nell'oggetto che definisce la struttura delle Thing vi è una completa assenza del riferimento al contesto.\\
@@ -996,7 +990,7 @@ Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tut
 
 \section{Introduzione}
 
-Si scelgono come strumenti di sviluppo i seguenti programmi:
+Si scelgono come attuali strumenti di sviluppo i seguenti programmi:
 
 \begin{itemize}
 	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma è sufficientemente ricco di feature per snellire il lavoro.
