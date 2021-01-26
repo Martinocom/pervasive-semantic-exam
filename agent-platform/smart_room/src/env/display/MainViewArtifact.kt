@@ -19,7 +19,7 @@ class MainViewArtifact : Artifact() {
     companion object {
         // View things
         private const val GUI_TITLE = "Personal Agent"
-        private val GUI_DIMENSION = Pair(600.0, 400.0)                          // Width + Height
+        private val GUI_DIMENSION = Pair(1000.0, 600.0)                          // Width + Height
 
         // Properties
         private const val GUI_STATUS_PROPERTY = "guiStatus"
