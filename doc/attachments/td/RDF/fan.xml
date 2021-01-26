@@ -6,47 +6,47 @@
   xmlns:saref1="https://w3id.org/saref#"
 >
   <saref1:HVAC rdf:about="http://localhost:8080/fan">
-    <saref1:accomplishes>saref:WellBeing</saref1:accomplishes>
+    <dct:title>Fan</dct:title>
     <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="Nc9234960fceb4e2fba9664bf3ef5ed60">
+      <rdf:Description rdf:nodeID="Ncaeb098c2d4248acafe035467daea599">
         <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</td:maximum>
-        <td:type>number</td:type>
-        <dct:description>The level of intensity from 0 to 3. At 0 fan is off, at 3 at full speed.</dct:description>
         <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="N1432cdd8b2b2462faf66966f1f537411">
+          <rdf:Description rdf:nodeID="N53805e348c5441e08bed74e890ba3121">
             <td:href>http://localhost:8080/fan/status</td:href>
           </rdf:Description>
         </td:hasForm>
         <dct:title>Status</dct:title>
+        <td:type>number</td:type>
+        <dct:description>The level of intensity from 0 to 3. At 0 fan is off, at 3 at full speed.</dct:description>
       </rdf:Description>
     </td:hasPropertyAffordance>
-    <dct:description>A simple fan that can be remotely controlled.</dct:description>
     <td:hasSecurityConfiguration rdf:resource="https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/nosec_sc"/>
-    <dct:title>Fan</dct:title>
     <saref1:hasFunction>
-      <saref1:ActuatingFunction rdf:about="http://localhost:8080/fan/cool-down">
+      <saref1:ActuatingFunction rdf:about="http://localhost:8080/fan/speed-up">
         <saref1:hasDescription>Make the fan cool work above its maximum level for some time, preventing then to burn the motor if abused.</saref1:hasDescription>
       </saref1:ActuatingFunction>
     </saref1:hasFunction>
+    <saref1:accomplishes>saref:WellBeing</saref1:accomplishes>
     <saref1:accomplishes>saref:Comfort</saref1:accomplishes>
-    <td:securityDefinitions>
-      <rdf:Description rdf:nodeID="N9421fe782ada4b138aa5d7b2e4140b1b">
-        <td:scheme>nosec</td:scheme>
-      </rdf:Description>
-    </td:securityDefinitions>
+    <dct:description>A simple fan that can be remotely controlled.</dct:description>
     <saref1:hasState>
       <saref1:MultiLevelState rdf:about="http://localhost:8080/fan/status"/>
     </saref1:hasState>
+    <td:securityDefinitions>
+      <rdf:Description rdf:nodeID="N7d2d9f48b8e54a18b6d4b51bb73e3800">
+        <td:scheme>nosec</td:scheme>
+      </rdf:Description>
+    </td:securityDefinitions>
     <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N731df1e0433f4acab70083356fad83af">
+      <rdf:Description rdf:nodeID="N0b244235250c4364adf9ec1597146836">
         <dct:description>Make the fan spin faster than normally possible for short time. Has controls to prevent abusing this command.</dct:description>
+        <dct:title>Speed Up</dct:title>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="N48259b2842794431ba7cd552a237034d">
-            <td:href>http://localhost:8080/fan/actions/cool-down</td:href>
+          <rdf:Description rdf:nodeID="N986a959f314c45b8bf4d991326859a4d">
+            <td:href>http://localhost:8080/fan/actions/speed-up</td:href>
           </rdf:Description>
         </td:hasForm>
-        <dct:title>Speed Up</dct:title>
       </rdf:Description>
     </td:hasActionAffordance>
   </saref1:HVAC>
