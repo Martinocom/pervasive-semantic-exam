@@ -30,7 +30,7 @@
 			"saref:hasCommand": "saref:OpenCommand"
 		}, {	
 			"@id": "http://localhost:8080/shutter/close",
-			"@type": "saref:LevelControlFunction",
+			"@type": "saref:OpenCloseFunction",
 			"saref:hasDescription": "Close the shutter to the treshold.",
 			"saref:hasCommand": "saref:CloseCommand"
 		}
