@@ -4,8 +4,12 @@ import display.classes.ViewExtensions.Companion.MEDIUM_TEXT_STYLE
 import display.classes.ViewModel.Property
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
+import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
+import javafx.geometry.Orientation
 import javafx.scene.control.Alert
+import javafx.stage.Modality
+import javafx.stage.StageStyle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
@@ -48,6 +52,9 @@ class ThingView(td: JsonObject) : View() {
         label { text = PROPERTIES_TITLE }
         listview(propertyList) {
             prefHeightProperty().bind(Bindings.size(propertyList).multiply(LIST_CELL_HEIGHT))
+            onDoubleClick {
+                setParameter(this.selectedItem)
+            }
         }
 
         label { text = ACTION_TITLE }
@@ -95,6 +102,43 @@ class ThingView(td: JsonObject) : View() {
                 connection.postOnUrlAsync("${thingId}/actions/${name}", params)
                 fetchPropertyData()
             }
+        }
+    }
+
+    private fun setParameter(property: Property?, params: String = "") {
+        property?.let {
+            Platform.runLater {
+                dialog("Indicate value to set") {
+                    val model = ViewModel()
+                    val note = model.bind { SimpleStringProperty() }
+
+                    field("Body") {
+                        textarea(note) {
+                            required()
+                            whenDocked { requestFocus() }
+                        }
+                    }
+
+                    buttonbar {
+                        button("Send").action {
+                            model.commit {
+                                GlobalScope.launch {
+                                    val connection = Connection()
+                                    connection.putOnUrlAsync("${thingId}/properties/${it.name}", note.value)
+                                    fetchPropertyData()
+                                    Platform.runLater {
+                                        close()
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
         }
     }
 
