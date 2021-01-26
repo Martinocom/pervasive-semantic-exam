@@ -1008,35 +1008,31 @@ Si vuole inoltre notare che tutto il successivo capitolo fa riferimento al siste
 		\textbf{Motherboard} & MSI Z270 M7                        \\ \hline
 		\textbf{CPU}         & Intel i7-7700k                     \\ \hline
 		\textbf{GPU}         & Gigabyte GTX 1080Ti                \\ \hline
-		\textbf{RAM}         & Ballistix DDR4 @ 2400MHz           \\ \hline
+		\textbf{RAM}         & 16GB of Ballistix DDR4 @ 2400MHz           \\ \hline
 		\textbf{Disk}        & SSD Samsung Evo Pro 750 1TB                \\ \hline
 	\end{tabular}
 	\caption{\label{tab:pc-spec} Configurazione del PC in considerazione.}
 \end{table}
 Gli eventuali codici sorgenti possono essere trovati nella cartella:\\ \texttt{attachments/src}.
 
-\clearpage
-
-
 \section{Configurazione Framework}
-La procedura di configurazione del framework può essere seguita direttamente sul suo \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. In questa relazione verrà preso in considerazione il metodo descritto sul repository come \textit{\quotes{As a standalone application}}.
+La procedura di configurazione del framework può essere seguita direttamente dalla documentazione del \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. In questa relazione verrà preso in considerazione il metodo descritto come \textit{\quotes{As a standalone application}}.
 
 Si procede dunque all'installazione di dipendenze con il comando:
 \begin{lstlisting}[language=bash]
-	# Installazione dipendenze
 	npm install -g --production windows-build-tools
 \end{lstlisting}
 
 Successivamente, viene seguito il tutorial per lanciare il progetto:
 \begin{lstlisting}[language=bash]
-	# Clonazione progetto
+	# Cloning
 	git clone https://github.com/eclipse/thingweb.node-wot
 	
-	# Installazione dipendenze
+	# Installing
 	cd .\thingweb.node-wot\
 	npm install
 	
-	# Lancio dell'applicazione
+	# Launching
 	npm run build
 \end{lstlisting}
 
@@ -1045,7 +1041,7 @@ Se il framework non dovesse funzionare o presentare problemi all'avvio, si può 
 
 \section{Configurazione della Web Thing}
 \label{sec:configuring:wt}
-Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework i file \texttt{.js} che contiene qualche riga di codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
+Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework un file \texttt{.js} che contiene il codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
 
 Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
 
@@ -1086,13 +1082,12 @@ Prendendo come esempio sempre la lampadina, è necessario copiare la \texttt{sem
 Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possibile lanciare l'applicazione con:
 
 \begin{lstlisting}[language=bash]
-	# Avvio dell'applicazione leggente il file di lancio della lampadina
 	npm start ./res/bulb.js
 \end{lstlisting}
 
 È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita attraverso il protocollo di \texttt{ThingWeb.io}, richiamando \texttt{.produce()} e poi \texttt{.expose()} sulla Thing \textit{\quotes{prodotta}}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.\\
+Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita richiamando \texttt{.produce()} e \texttt{.expose()} attraverso il protocollo di \texttt{ThingWeb.io}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.\\
 
 Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni alla creazione delle Things. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.\\
 
@@ -1181,13 +1176,13 @@ localRef.thing.observeProperty(localRef.status.name, async(data) => {
 [...]
 \end{lstlisting}
 
-Un'importante nota va proprio in merito a questa funzione: per quanto comoda, essa viene richiamata ogni tal volta che una proprietà viene cambiata. Non è possibile infatti differenziare da un cambiamento proveniente \quotes{dall'interno} della Thing da quello proveniente da un utente esterno. Questo può causare comportamenti indesiderati, soprattutto quando si vanno ad aggiornare più proprietà insieme o quando vi si comincia a creare una dipendenza circolare tra le due proprietà:\\
+Un'importante nota va proprio in merito a questa funzione: per quanto comoda, essa viene richiamata ogni tal volta che una proprietà viene cambiata. Non è possibile infatti differenziare un cambiamento proveniente \quotes{\textit{dall'interno}} della Thing da quello proveniente \quotes{\textit{dall'esterno}}. Questo può causare comportamenti indesiderati, soprattutto quando si vanno ad aggiornare più proprietà insieme o quando vi si comincia a creare una dipendenza circolare tra le due proprietà:\\
 
 	\textit{La diminuzione della luminosità a 0 scatta lo spegnimento della lampadina, ma lo spegnimento della lampadina scatta il cambiamento sulla luminosità che dev'essere impostata a 0, che a sua volta scatta lo spegnimento della lampadina che causa l'impostazione della luminosità...}\\
 	
 Nel caso del codice \ref{lst:Circular} la catena viene spezzata grazie al controllo sul dato in arrivo: se la lampadina è accesa, il suo valore viene modificato solo se la luminosità è minore o uguale a zero, altrimenti non viene effettuata alcuna operazione. Senza questo controllo, la proprietà verrebbe impostata inutilmente, richiamando oltretutto l'\textit{observer} stesso, causando un ciclo infinito.\\ 
 	
-È necessario notare che \texttt{.writeProperty()} è una funzione che permette la scrittura dei parametri sia interni che esterni della thing. È formata nel seguente modo:
+È necessario notare che \texttt{.writeProperty()} è una funzione creata appositamente che permette la scrittura dei parametri sia locali che remoti della thing. È formata nel seguente modo:
 
 \begin{lstlisting}[language=JavaScript]]
 function writeProperty(name, value) {
@@ -1223,7 +1218,10 @@ Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footno
 Di conseguenza, \texttt{WebThing.io} non possiede\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.\\
 
 \subsection{Test di REST API}
-Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{\url{https://www.postman.com/downloads/}} per simulare l'invio e la ricezione dei pacchetti. Si procede dunque al lancio della Thing ampliata di handler con \texttt{npm start ./res/bulb.js} e si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
+Al lato pratico, per controllare la risposta della Thing in merito alle chiamate REST, è possibile utilizzare \textbf{Postman}\footnote{\url{https://www.postman.com/downloads/}} per simulare l'invio e la ricezione dei pacchetti. L'avvio della Thing avviene con il comando:\\
+\texttt{npm start ./res/bulb.js}\\
+
+Da qui si performano una serie di operazioni sulla Thing riconosciuta, una volta che quest'ultima risulta essere pienamente operativa. Nel caso della lampadina si possono considerare i seguenti esempi:
 
 \begin{itemize}
 	\item \texttt{GET http://localhost:8080/bulb/properties/status}\\
@@ -1530,11 +1528,37 @@ Per interrogare la conoscenza, vengono proposti esempi più significativi, rappr
 		?s ?p saref:Actuator
 	}
 	\end{lstlisting}
+
+	\item Ottenimento di azioni di una lampadina (\textit{bulb}) che sono di tipo \textit{OpenCloseFunction} e che permettono l'azionamento del comando \textit{open}.
+	\begin{lstlisting}[language=XML]
+    SELECT ?thing ?actionName ?command ?actionType
+	WHERE {
+		?thing saref:hasFunction ?actionName .
+		?actionName saref:hasCommand ?command .
+		?actionName rdf:type ?actionType .
+		FILTER REGEX(str(?actionType), "OpenCloseFunction", "i") .
+		FILTER REGEX(str(?command), "open", "i") .
+		FILTER REGEX(str(?thing), "bulb", "i") .
+	}
+	\end{lstlisting}
+
+	\item Ottenimento di tutte le proprietà del ventilatore (\textit{fan}) che possono impostare lo stato.
+	\begin{lstlisting}[language=XML]
+    SELECT ?s ?o ?c
+	WHERE {
+		?s saref:hasState ?o .
+		?o rdf:type ?c .
+		FILTER REGEX(str(?c), "MultiLevelState", "i") .
+		FILTER REGEX(str(?s), "fan", "i") .
+	}
+	\end{lstlisting}
 \end{itemize}
 
 
 \subsection{SWRL}
 La potenzialità di poter includere delle regole all'interno della conoscenza rende possibile ad un potenziale \textit{reasoner} di inferire ulteriore conoscenza, a partire da quella base. Potenzialmente quindi, è possibile definire delle regole attraverso le quali, anche se non esplicitamente indicato, è possibile dedurre la tipologia o le azioni di una Thing in base a quello che essa riesce a fare. L'uso di ontologie note permette di semplificare questo procedimento, in quanto vi possono esistere dei pattern che caratterizzano un gruppo di specifici device, i quali hanno, ad esempio, proprietà o azioni comuni. Tutto questo è possibile grazie a SWRL \cite{swrl}, che esprime i legami che esistono tra classi. Alcuni esempi teorici, che utilizzano come riferimento l'ontologia SAREF, possono essere trovati di seguito:
+
+\clearpage
 
 \begin{itemize}
 	\item {\textit{Un qualsiasi oggetto che altera la luminosità e che ha uno stato e possiede due azioni di regolazione del suo stato è un \textit{saref:LightingDevice}}}
@@ -1597,7 +1621,7 @@ Come si può notare dalla figura \ref{fig:use-case-diagram-high-agent}, la proge
 
 L'utilizzo del modello ad Agenti, inoltre, non riguarda soltanto semplici contesti come la Smart Room: vi sono infatti presenti studi che spaziano argomenti riguardanti sistemi di evacuazione \cite{evacuation} o addirittura l'osservazione delle api \cite{bee}.
 
-\section{Perchè Semantica?}
+\section{Perchè Semantica con Agenti?}
 Come affrontato nel capitolo \ref{sec:semantic}, è importante poter specificare non solo una semplice descrizione, ma anche una parte semantica a quello che risulta essere l'oggetto osservato. Calandosi più nel dettaglio dell'implementazione, è possibile infatti immaginarsi un Agente capace di ragionare su un obiettivo imposto (illuminare la stanza), capendo autonomamente con quali oggetti può interagire per conseguire quell'obiettivo. La semantica sblocca inoltre ulteriori aree di sviluppo, quali prevedono del reasoning per scoprire dinamicamente non solo nuovi oggetti, ma funzionalità legate ad essi che, ad esempio, se combinanti in un certo modo, possono raggiungere un obiettivo che non era possibile soddisfare in principio. Utilizzare Agenti per questi scopi risulta essere naturale, in quanto questo è intrinsecamente scritto nella natura BDI, dove a partire da una conoscenza si vogliono ottenere dei risultati, motivando così ancor di più la scelta degli Agenti come piattaforma di progetto finale.
 
 
@@ -1612,11 +1636,11 @@ La possibilità di strutturare funzionalità definendo dei piani d'azione risult
 
 Inoltre, l'utilizzo del sistema ad Agenti offre nuove potenziali applicazioni per quanto riguarda il \textit{reasoning} sull'ambiente osservato: essendo un'entità proattiva-reattiva, l'Agente, se configurato, può in autonomia eseguire azioni per garantire il massimo comfort e la sicurezza agli utilizzatori che ne usufruiscono, interagendo con tutte le Thing che esso può avere a disposizione, capendone eventualmente man mano le potenzialità. È di indubbia importanza sottolineare che sia giusto definire come \quotes{dispositivo illuminante} una qualsiasi Thing che abbia la capacità di cambiare la luminosità di un ambiente, ma che tale definizione potrebbe portare ad un eventuale fraintendimento del vero scopo di quel Device: è infatti assurdo pensare che per illuminare la stanza si debba accendere una TV oppure una lavatrice, soltanto perchè al loro interno esistono dispositivi in grado di produrre luce.\\
 
-Uno spunto per quanto riguarda l'approfondimento sull'applicazione più estensivo del modello BDI è invece quello legato all'integrazione della conoscenza della Thing Description (o la sua corrispettiva versione RDF/XML) \textbf{direttamente} all'interno dei \textit{belief} dell'Agente, sfruttandola in maniera completamente indipendente da un endpoint ed eventuali\textit{reasoner} esterni. Non solo; è infatti possibile pensare, come definito nel capitolo \ref{sec:thing_status}, di avere non solo la parte statica, ma anche quella dinamica delle cose, osservando direttamente i parametri delle Things e interagendo con loro.\\
+Uno spunto per quanto riguarda l'approfondimento sull'applicazione più estensivo del modello BDI è invece quello legato all'integrazione della conoscenza della Thing Description (o la sua corrispettiva versione RDF/XML) \textbf{direttamente} all'interno dei \textit{belief} dell'Agente, sfruttandola in maniera completamente indipendente da un endpoint ed eventuali \textit{reasoner} esterni. Non solo; è infatti possibile pensare, come definito nel capitolo \ref{sec:thing_status}, di avere non solo la parte statica, ma anche quella dinamica delle cose, osservando direttamente i parametri delle Things e interagendo con loro.\\
 
 Tutto questo giustifica l'uso degli Agenti: anche per il semplice motivo di essere abilitante per una serie di funzionalità che con una classica programmazione risulterebbero complesse da progettare e da gestire.\\
 
-
+\clearpage
 \subsection{Ordine ed esecuzione delle azioni}
 La capacità degli Agenti ad essere predisposti a interagire tra di loro, anche autonomamente, risulta essere un netto (teorico) vantaggio per quanto riguarda l'implementazione di un sistema Smart: il modello a scambio di messaggi abbraccia completamente la natura asincrona negli eventi che possono capitare all'interno di un ambiente, ma bisogna essere precisi nello specifico sulle priorità dei messaggi in arrivo. Di default, infatti, non vi è implementato un modo per ordinare i messaggi che un Agente si vede arrivare.\\
 
@@ -1654,7 +1678,7 @@ Gli Agenti hanno necessità di ritrovarsi all'interno di un ambiente per poter f
 	\item \ul{Moise} definisce l'organizzazione degli agenti attraverso l'uso di file \textit{.xml}.
 \end{itemize}
 
-Tutto il pacchetto è strutturato in modo tale da far collaborare sempre un modulo con l'altro: si possono infatti mischiare i concetti ed estendere funzionalità degli agenti definendo alcune features a livello di Java e non solo tramite Jason. Bisogna però porre attenzione a non violare i principi di una buona programmazione ad agenti e trattare sempre le cose non-agent come delle blackbox da utilizzare soltanto in caso di estrema necessità, quando è impossibile scomporre ulteriormente il problema (ad esempio, una GUI non dovrebbe essere utilizzata direttamente all'interno di un Agente, ma necessita di essere un vero Agente/Artefatto con il quale gli altri agenti possono interfacciarsi).\\
+Tutto il pacchetto è strutturato in modo tale da far collaborare sempre un modulo con l'altro: si possono infatti mischiare i concetti ed estendere funzionalità degli agenti definendo alcune features a livello di Java e non soltanto tramite l'utilizzo di Jason. Bisogna però porre attenzione a non violare i principi di una buona programmazione ad agenti e trattare sempre le cose non-agent come delle blackbox da utilizzare soltanto in caso di estrema necessità, quando è impossibile scomporre ulteriormente il problema (ad esempio, una GUI non dovrebbe essere utilizzata direttamente all'interno di un Agente, ma necessita di essere un vero Agente/Artefatto con il quale gli altri agenti possono interfacciarsi).\\
 
 
 
@@ -1689,12 +1713,10 @@ Essendo questo caso di studio più concentrato sulle possibilità della semantic
 	\end{itemize}
 \end{enumerate}
 
-Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire all'istanziamento di una nuova Thing nell'ambito di una Smart Room Agent-Based. Per semplicità di implementazione si vogliono comunque sottolineare alcune cose:
+Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire all'istanziamento di una nuova Thing nell'ambito di una Smart Room Agent-Based. Si vogliono comunque sottolineare alcune cose:
 
 \begin{itemize}
 	\item \textbf{Limiti di JaCaMo a Runtime}: anche se esistono (o comunque possono essere implementati) metodi per il parsing della Thing Description, attualmente l'ambiente di JaCaMo non offre nessuna possibilità di aggiungere proprietà e azioni eseguibili a runtime; non è possibile quindi al momento creare ad esempio un Artefatto che abbia a tempo di esecuzione stabilite le funzionalità che debba avere.
-	
-	\item \textbf{Necessità dell'intervento umano}: l'approvazione da parte dell'utente potrebbe essere macchinosa, soprattutto se si dovessero aggiungere centinaia di Things. In ambiente casalinghi questo può essere anche supportato, ma in ambiti industriali è ovviamente impensabile. È però curioso sottolineare che il poter testare e/o modificare comportamenti delle Things potrebbe essere una feature interessante, soprattutto in ambiti sensibili agli errori.
 	
 	\item \textbf{Necessità del punto di collezione}: l'intero processo potrebbe essere semplificato, se le Smart Things avessero modo di collegarsi automaticamente ad un endpoint. Ovviamente, è possibile pensare ad un tale raccoglitore, ma il problema consiste nel come le Things possano individuare tale entità in un ambiente connesso e come (e con quali criteri di sicurezza) ci possono scrivere dentro.
 	
@@ -1743,9 +1765,9 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 \section{Requisiti}
 
 \subsection{Descrizione ad alto livello}
-\textsl{Si vuole realizzare un sistema capace di governare su una Stanza Smart, tenendo in considerazione una possibile visione più ampia per estendere le funzionalità al di fuori del contesto della stanza e poterlo gestire all'interno di un'appartamento, oppure, astraendo dall'environment, funzionante generalmente all'interno di un ambiente nel quale si vogliono controllare automaticamente alcuni parametri. La Smart Room dev'essere capace di governare dei device connessi alla rete, i quali dovranno gestire autonomamente alcune situazioni.\\}
+\textsl{Si vuole realizzare un sistema capace di governare su una Stanza Smart, tenendo in considerazione una possibile visione più ampia per estendere le funzionalità al di fuori del contesto della stanza e poterlo gestire all'interno di un'appartamento, oppure, astraendo dall'environment, funzionante generalmente all'interno di un ambiente nel quale si vogliono controllare alcuni parametri.\\}
 
-\textsl{In particolare, per semplicità, si vuole predisporre la stanza di quattro oggetti smart: lampadina, televisore, ventilatore e tapparella. L'utente è libero di scegliere, in base alle proprie esigenze, se eseguire comandi specifici o intenzioni da far raggiungere (ad esempio, differenziando tra \ul{accendi una lampadina particolare} e \ul{illumina la stanza}). Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo (installata ad esempio su uno Smartphone).}
+\textsl{In particolare, si vuole predisporre la stanza di quattro oggetti smart: lampadina, televisore, ventilatore e tapparella. L'utente è libero di scegliere, in base alle proprie esigenze, se eseguire comandi specifici o intenzioni da far raggiungere (ad esempio, differenziando tra \ul{accendi una lampadina particolare} e \ul{illumina la stanza}). Non ci dev'essere un processo di configurazione, facendo funzionare il sistema in modalità "Plug and Play", con il risultato di avere immediatamente disponibili tutte le funzionalità offerte dai singoli device in un applicazione di controllo.}
 
 \subsection{Business Requirements}
 \begin{enumerate}
@@ -1755,7 +1777,7 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	
 	\item Riuscire a mettere in atto un sistema utilizzando le più innovative tecnologie (anche emergenti).
 	
-	\item Contribuire alla realizzazione di prototipi che usufruiscono delle tecnologie innovative nel campo di Pervasive Computing, Web Semantico e Wot.
+	\item Contribuire alla realizzazione di prototipi ed esempi che utilizzano le tecnologie innovative nel campo di Pervasive Computing, Web Semantico e WoT.
 \end{enumerate}
 
 \subsection{User Requirements}
@@ -1769,7 +1791,7 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	\item L'utente interagisce con gli oggetti tramite un unico terminale.
 	\begin{enumerate}[label*=\arabic*.]
 		\item Il terminale potrà essere virtuale (interfaccia grafica su un device come PC o Smartphone) o reale (una Thing).
-		\item Il terminale dev'essere l'unica interfaccia abilitata a gestire le Things nell'ambiente, senza ausilio di nessun'altro programma (proprietario o open).
+		\item Il terminale deve permettere (anche solo potenzialmente) di governare su tutte le Things, senza alcun ausilio di programmi esterni e/o proprietari, utilizzando protocolli di comunicazione standard.
 	\end{enumerate}
 \end{enumerate}
 
@@ -1784,8 +1806,8 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 	
 	\item L'interazione tra le cose deve avvenire sia come specifico comando che come intenzione.
 	\begin{enumerate}[label*=\arabic*.]
-		\item Per \textit{comando} si intende una qualsiasi interazione direttamente con una Thing (ad esempio, accendere una particolare lampadina o una TV).
-		\item Per \textit{intenzione} si intende una qualsiasi volontà di raggiungere un determinato obiettivo (esempio, illuminare la stanza o ascoltare notizie).
+		\item Per \textit{comando} si intende una qualsiasi interazione direttamente con una Thing (ad esempio, accendere una particolare lampadina o una TV, interagendo direttamente con la Thing interessata).
+		\item Per \textit{intenzione} si intende una qualsiasi volontà di raggiungere un determinato obiettivo (esempio, illuminare la stanza o garantire più comfort, non specificando alcuna Thing particolare sulla quale l'azione debba essere eseguita).
 	\end{enumerate}
 \end{enumerate}
 
@@ -1804,15 +1826,13 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 		\item è necessario interfacciarsi con il Framework individuato in precedenza per la simulazione delle Web Things tramite il protocollo REST.
 	\end{enumerate}
 	
-	\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, calata sul sistema ad Agenti, ma un innovativo modo per poter sfruttare alcune delle potenzialità offerte dalla Thing Description.
+	\item \textbf{Utilizzo di metodologie innovative}. Il progetto non dev'essere risultare una banale centralina di comando per oggetti Smart, calata sul sistema ad Agenti, ma un innovativo modo per poter sfruttare le potenzialità offerte dal mondo degli Agenti uniti alla Thing Description.
 	
 	\item \textbf{Utilizzo di un sistema di versioning}. Per facilitare lo sviluppo sarà necessario utilizzare un sistema che permette un'agevole sviluppo, considerando come possibilità Git e l'uso della piattaforma GitHub.
 	
 	\item \textbf{Prototipazione}. Essendo un progetto dimostrativo, è necessario disporre più risorse nella ricerca delle metodologie disponibili e al loro testing piuttosto che nella realizzazione dei minimi dettagli relativi ad un certo aspetto del programma.
 	\begin{enumerate}[label*=\arabic*.]
-		\item di conseguenza alcuni aspetti \textbf{non cruciali} dell'applicazione possono essere implementati per il solo scopo dimostrativo e non perfettamente ingegnerizzati secondo un vero reale e complesso sistema;
-		
-		\item questo permette di risparmiare tempo sulle questioni relative alla parte del Software Engineering, concentrandosi più sull'aspetto di ricerca.
+		\item di conseguenza alcuni aspetti \textbf{non cruciali} dell'applicazione possono essere implementati per il solo scopo dimostrativo e non perfettamente ingegnerizzati secondo un vero reale e complesso sistema.
 	\end{enumerate}
 	
 	\item \textbf{Budget}. La realizzazione del sistema deve avvenire senza comportare dispendi temporali ed economici.
@@ -1854,7 +1874,9 @@ Per poter soddisfare il requisito per l'uso di tecnologie innovative, Java non p
 
 Scala risulta essere un linguaggio che punta più sulla programmazione funzionale. Ridefinisce in modo sostanziale quelle che sono le classi e interfacce di Java, ponendole più secondo il suo stile. Per i programmatori non esperti, il linguaggio può sin dall'inizio sembrare più difficile, ma a lungo andare offre funzionalità molto potenti che permettono di abbreviare e semplificare il codice Java. Kotlin risulta essere più una via di mezzo, che non punta ad essere puramente funzionale; esso conserva di più lo stile java-like di classi e interfacce, introducendo soltanto qualche novità. Offre però una gestione di quest'ultime decisamente migliore, nonchè aggiungendo anche la null-safe e l'uso diretto di tipi opzionali.\\
 
-Entrambi i linguaggi rimangono compatibili con Java ed entrambi offrono funzionalità non presenti nativamente: essendo però Kotlin più vicino allo stile di Java, si preferisce di non puntare il tutto sul funzionale e rimanere più al livello base, per non incorrere a problemi implementativi, anche a causa della scarsa esperienza con i linguaggi funzionali. Rimanendo quindi JaCaMo perfettamente funzionante, il riferimento per la programmazione \quotes{classica} sarà Kotlin.
+Entrambi i linguaggi rimangono compatibili con Java ed entrambi offrono funzionalità non presenti nativamente: essendo però Kotlin più vicino allo stile di Java, si preferisce di non puntare il tutto sul funzionale e rimanere più al livello base, per non incorrere a problemi implementativi, anche a causa della scarsa esperienza con i linguaggi funzionali. Dato inoltre l'obiettivo di perseguire le scelte innovative in questo campo, si vuole dimostrare che un linguaggio Java-compatibile sia utilizzabile anche dove questo non era previsto in partenza.\\
+
+La scelta finale per il linguaggio principale cade quindi su \textbf{Kotlin}.
 
 \subsubsection{Secondari}
 JaCaMo, oltre a Java, utilizza internamente due linguaggi che permettono:
@@ -1899,6 +1921,13 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 \subsection{Casi d'uso}
 L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso abilita l'utente a interagire con le Things. I casi d'uso possono essere ricavati direttamente dalla figura \ref{fig:use-case-diagram-high-agent} e sono disponibili nella figura \ref{fig:use-case}
 
+\begin{figure}[h]
+	\centering
+	\makebox[\textwidth][c]{\includegraphics[scale=0.7]{eps/use-case-simple.png}}
+	\caption{Casi d'uso del sistema in progettazione.}
+	\label{fig:use-case}
+\end{figure}
+
 Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di astrazione. Si definiscono quindi anche alcuni esempi di azioni che possono essere eseguite all'interno di un sistema, indipendenti dalle Things attualmente posizionate nella stanza. Ovviamente, l'esito di un'operazione dipenderà se effettivamente vi sono Things capaci di raggiungere quell'obiettivo.
 
 \begin{itemize}
@@ -1907,28 +1936,13 @@ Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di a
 	\item \textbf{modalità relax} - comando che, se portato a termine, aziona tutti i dispositivi che aiutano, in quell'istante, a rendere l'atmosfera più piacevole.
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\makebox[\textwidth][c]{\includegraphics[scale=0.7]{eps/use-case-simple.png}}
-	\caption{Casi d'uso del sistema in progettazione.}
-	\label{fig:use-case}
-\end{figure}
-
-\clearpage
 \section{Design di Dettaglio}
 
 \subsection{Agenti}
-Si prevede l'uso di un agente principale, il quale sarà responsabile dell'interazione tra l'utente e le Things aggiunte. Esso sarà in poche parole il terminale che attraverso un'interfaccia grafica permetterà la visualizzazione e la gestione delle entità rilevate e connesse. Si prevede quindi:
-
-\begin{itemize}
-	\setlength\itemsep{-0.3em}
-	\item un'interfaccia grafica per visualizzare le Things,
-	\item metodi per interagire sia tramite comandi che intenzioni.
-\end{itemize}
-
-Non vi sono particolari requisiti per quanto riguarda l'uso più ampio di agenti, essendo questo un esempio di sviluppo. Per sottostare comunque al \textit{Single Responsibility Principle}, lavori sottostanti come capire le Things attualmente connesse al sistema o l'esecuzione di azioni, passeranno agli Artefatti sottostanti all'agente.
+Si prevede l'uso di un agente principale, il quale sarà responsabile dell'interazione tra l'utente e le Things aggiunte. Esso sarà in poche parole l'entità che gestisce l'attuale situazione nella stanza: attraverso dei piani raggiungerà gli obiettivi posti, sia quelli specifici che generici, in modo da accontentare l'utilizzatore. L'agente dovrà poter comunicare con un'interfaccia grafica per la gestione di questi comandi. Oltre ai piani, non vi sono particolari esigenze per ciò che riguarda il mondo degli Agenti, in quanto, come dalla sezione \ref{sec:artifacts} è previsto l'utilizzo di Artefatti per alcune funzionalità interne, anche per sottostare al \textit{Single Responsibility Principle}.
 
 \subsection{Artefatti}
+\label{sec:artifacts}
 Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i quali svolgeranno i ruoli di:
 
 \begin{itemize}
@@ -1939,7 +1953,7 @@ Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i qua
 
 Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per semplicità si presuppone l'atto di aggiunta come l'avvio del sistema stesso. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto più in dettaglio: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo della configurazione pienamente automatica.\\
 
-Quindi, per ragioni di semplicità e per dimostrare perlopiù le potenzialità del framework, piuttosto che concentrarsi sugli aspetti di configurazione, si intendono le Things già presenti all'interno della stanza.
+Quindi, per concentrarsi più sulla dimostrazione delle potenzialità del framework, piuttosto che sugli aspetti di configurazione, si intendono le Things già presenti all'interno della stanza, ottenibili da un endpoint pre-configurato.
 
 
 
@@ -1957,7 +1971,7 @@ Dati i requisiti e la volontà di utilizzare Kotlin come linguaggio di sviluppo,
 È necessario verificare che tutti i sottostanti requisiti siano soddisfatti:
 
 \begin{itemize}
-	\item si deve essere sicuri del fatto che Kotlin e JavaFX siano la strada che si vuole percorrere nella realizzazione di questo progetto;
+	\item si deve essere sicuri del fatto che Kotlin e JavaFX (in particolare, TornadoFX) siano la strada che si vuole percorrere nella realizzazione di questo progetto;
 	
 	\item aver installato e lanciato almeno una volta \textbf{IntelliJ} e \textbf{Eclipse}: le versioni sulle quali è stata configurata l'app sono rispettivamente 2020.2.3 e 4.16.0;
 	\begin{itemize}
@@ -1976,7 +1990,7 @@ Dati i requisiti e la volontà di utilizzare Kotlin come linguaggio di sviluppo,
 		\item se l'applicazione non si avvia nemmeno in questa modalità, è abbastanza inutile procede;
 	\end{itemize}
 	
-	\item è importante iniziare questa guida \textbf{prima} di modificare il codice.
+	\item è importante iniziare questa guida \textbf{prima} di creare del codice con JaCaMo.
 \end{itemize}
 
 \subsection{Configurazione progetto Eclipse + IntelliJ}
@@ -1995,13 +2009,13 @@ Anche se la guida ufficiale su come installare JaCaMo indica due modalità di cr
 	
 	\item \label{item:eclipse}lanciare \textit{Eclipse} \textbf{senza} aprire il progetto creato: avviare soltanto il programma;
 	
-	\item andare nella prospettiva di JaCaMo e creare un nuovo progetto JaCaMo da \textit{File/New/JaCaMo Project};
+	\item andare nella prospettiva di JaCaMo e creare un nuovo progetto JaCaMo da \textit{File > New > JaCaMo Project};
 	
 	\item nel campo \textit{Project Name} inserire \textbf{lo stesso identico nome} del progetto creato con \texttt{gradle} (in questo caso \textit{smart\_room}); assicurarsi inoltre che \textit{Agent} e \textit{Environment} siano impostati al valore \textit{centralized};
 	
 	\item dare conferma ed attendere la sua creazione;
 	\begin{itemize}
-		\item se Eclipse dovesse rispondere che esiste già un progetto così configurato, la soluzione più semplice è creare un workspace nuovo nel quale successivamente configurare questo progetto, seguendo le istruzioni dal punto \ref{item:eclipse};
+		\item se Eclipse dovesse rispondere che esiste già un progetto così configurato, la soluzione più semplice è creare un workspace nuovo nel quale successivamente configurare questo progetto, ripercorrendo le istruzioni dal punto \ref{item:eclipse};
 	\end{itemize}
 	
 	\item recarsi nella cartella dove il progetto \textit{Eclipse} è stato creato (in linea generale esso dovrebbe trovarsi nel workspace precedentemente utilizzato) e copiare tutti gli elementi presenti dentro la cartella del progetto;
