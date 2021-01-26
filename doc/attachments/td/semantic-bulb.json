@@ -18,10 +18,12 @@
 	"saref:hasFunction": [{	
 			"@id": "http://localhost:8080/bulb/toggle",
 			"@type": "saref:OnOffFunction",
+			"saref:hasCommand": "saref:ToggleCommand",
 			"saref:hasDescription": "Switch the state of the bulb: turn it off if on or turn it on when off."
 		}, {
 			"@id": "http://localhost:8080/bulb/fade",
 			"@type": "saref:LevelControlFunction",
+			"saref:hasCommand": "saref:SetAbsoluteLevelCommand",
 			"saref:hasDescription": "Fade the lamp to a given level."
 		}
 	],

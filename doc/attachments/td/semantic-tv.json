@@ -25,9 +25,23 @@
 	},
 
 	"saref:hasFunction": [{	
-		"@id": "http://localhost:8080/tv/toggle",
-		"@type": "saref:OnOffFunction",
-		"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off."
+			"@id": "http://localhost:8080/tv/toggle",
+			"@type": "saref:OnOffFunction",
+			"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off."
+		},{	
+			"@id": "http://localhost:8080/tv/set-channel",
+			"@type": "saref:Function",
+			"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off."
+		},{	
+			"@id": "http://localhost:8080/tv/set-brightness",
+			"@type": "saref:LevelControlFunction",
+			"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off.",
+			"saref:hasCommand": "saref:SetAbsoluteLevelCommand"
+		},{	
+			"@id": "http://localhost:8080/tv/set-volume",
+			"@type": "saref:LevelControlFunction",
+			"saref:hasDescription": "Switch the state of the TV: turn it off if on or turn it on when off.",
+			"saref:hasCommand": "saref:SetAbsoluteLevelCommand"
 		}
 	],
   

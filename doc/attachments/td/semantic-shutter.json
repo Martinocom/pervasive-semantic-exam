@@ -22,7 +22,8 @@
 	"saref:hasFunction": [{	
 			"@id": "http://localhost:8080/shutter/move",
 			"@type": "saref:LevelControlFunction",
-			"saref:hasDescription": "Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0))."
+			"saref:hasDescription": "Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0)).",
+			"saref:hasCommand": "saref:SetRelativeLevelCommand"
 		}, {	
 			"@id": "http://localhost:8080/shutter/open",
 			"@type": "saref:OpenCloseFunction",
