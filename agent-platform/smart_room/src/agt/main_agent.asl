@@ -1,19 +1,26 @@
 // Agent sample_agent in project smart_room
 
+/* --------------------------------------------------------------------------------- */
 /* Initial beliefs and rules */
+/* --------------------------------------------------------------------------------- */
 guiStatus(false).
 endpoint('http://localhost:8080/').
 
-lightingType('saref:LightingDevice').
-safetyAbility('saref:Safety').
-comfortAbility('saref:Comfort').
+/* Types of devices or comodities to achieve + actions to do them */
+lightingType('saref:LightingDevice', ['OnOffFunction']).
+safetyAbility('saref:Safety', ['OpenCloseFunction']).
+comfortAbility('saref:Comfort', ['OnOffFunction', 'MultiLevelState']).
 
 
+/* --------------------------------------------------------------------------------- */
 /* Initial goals */
-
+/* --------------------------------------------------------------------------------- */
 !start.
 
+
+/* --------------------------------------------------------------------------------- */
 /* Plans */
+/* --------------------------------------------------------------------------------- */
 
 /* First goal: make Artifacts */
 +!start : true
@@ -32,21 +39,21 @@ comfortAbility('saref:Comfort').
 
 
 /* Rsponding to GUI events */
-+achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La)
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La, AffordanceTypes)
     <- .print("[AG] User wants to achieve something: ", Intention);
-       !achieveWithTypology(La, true).
+       !achieveWithTypology(La, true, AffordanceTypes).
 
-+achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Safety" & safetyAbility(Ha)
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Safety" & safetyAbility(Ha, AffordanceTypes)
     <- .print("[AG] User wants to achieve something: ", Intention);
-       !achieveWithAbility(Ha, false).
+       !achieveWithAbility(Ha, false, AffordanceTypes).
 
-+achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "GoodVibes" & comfortAbility(Na)
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "GoodVibes" & comfortAbility(Na, AffordanceTypes)
     <- .print("[AG] User wants to achieve something: ", Intention);
-       !achieveWithAbility(Na, false).
+       !achieveWithAbility(Na, false, AffordanceTypes).
 
 
 
-+!achieveWithAbility(Ability, SelectOnlyOneThing) : endpoint(URL)
++!achieveWithAbility(Ability, SelectOnlyOneThing, AffordanceTypes) : endpoint(URL)
     <-  .print("[AG] Achieving with ability: ", Ability);
         findThingWithAbility(Ability, Things);
 
@@ -54,18 +61,17 @@ comfortAbility('saref:Comfort').
         selectBestThingForAbility(Ability, SelectOnlyOneThing, Things, SelectedThings);
 
         .print("[AG] Doing operation for: ", Ability);
-        doOperation(SelectedThings, URL).
+        doOperation(SelectedThings, URL, AffordanceTypes).
 
-
-+!achieveWithTypology(Typology, SelectOnlyOneThing) : endpoint(URL)
++!achieveWithTypology(Typology, SelectOnlyOneThing, AffordanceTypes) : endpoint(URL)
     <-  .print("[AG] Achieving with typology: ", Typology);
         findThingWithTypology(Typology, Things);
 
-        .print("[AG] Selecting best things for: ", Ability, Things);
+        .print("[AG] Selecting best things for: ", Typology, Things);
         selectBestThingForTypology(Typology, SelectOnlyOneThing, Things, SelectedThings);
 
-        .print("[AG] Doing operation for: ", Ability);
-        doOperation(SelectedThings, URL).
+        .print("[AG] Doing operation for: ", Typology);
+        doOperation(SelectedThings, URL, AffordanceTypes).
 
 
 
