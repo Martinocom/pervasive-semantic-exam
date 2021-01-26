@@ -6,154 +6,171 @@
   xmlns:saref1="https://w3id.org/saref#"
 >
   <saref1:Multimedia rdf:about="http://localhost:8080/tv">
-    <td:securityDefinitions>
-      <rdf:Description rdf:nodeID="Nc19b209e6c1f402093f7f666bd9d4c2f">
-        <td:scheme>nosec</td:scheme>
-      </rdf:Description>
-    </td:securityDefinitions>
-    <saref1:hasState>
-      <saref1:OnOffState rdf:about="http://localhost:8080/tv/status"/>
-    </saref1:hasState>
-    <dct:description>A simple (not-so) Smart TV that can be controlled remotely.</dct:description>
     <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N9c6bbcfd471d44f594348d965375dc9a">
-        <dct:description>Change to desired channel. Must be a number from 0 to 255.</dct:description>
+      <rdf:Description rdf:nodeID="Ne4130d9276b74a39a1abf7322022a6e5">
+        <dct:title>Set Volume</dct:title>
+        <td:hasInputSchema>
+          <rdf:Description rdf:nodeID="N79d289312268415fa8aa40a5f9291331">
+            <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+            <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+            <td:type>number</td:type>
+            <dct:title>Volume value</dct:title>
+            <dct:description>The volume value from 0 to 100</dct:description>
+          </rdf:Description>
+        </td:hasInputSchema>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="N015169ab84644cc4be28efabcbc0a55d">
+          <rdf:Description rdf:nodeID="N9e88c03ca78647f1a17cab0a3174725a">
+            <td:href>/set-volume</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:description>Change to desired Volume. Must be a number from 0 to 100.</dct:description>
+      </rdf:Description>
+    </td:hasActionAffordance>
+    <saref1:hasFunction>
+      <saref1:LevelControlFunction rdf:about="http://localhost:8080/tv/set-volume">
+        <saref1:hasDescription>Switch the state of the TV: turn it off if on or turn it on when off.</saref1:hasDescription>
+        <saref1:hasCommand>saref:SetAbsoluteLevelCommand</saref1:hasCommand>
+      </saref1:LevelControlFunction>
+    </saref1:hasFunction>
+    <dct:title>TV</dct:title>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="Nf06a755e25fc4d57910c799e608dfbfd">
+        <dct:title>Brightness</dct:title>
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+        <dct:description>The value of the Brightness</dct:description>
+        <td:type>number</td:type>
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="N124ca7a2e1364817ad98ce291c860cad">
+            <td:href>/brightness</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
+    <saref1:accomplishes>saref:Lighting</saref1:accomplishes>
+    <td:hasActionAffordance>
+      <rdf:Description rdf:nodeID="N2c73ae962dc9405eb50ce9e29a7da9ba">
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nc7543151b45b46a1a7aa1e70aa30ab8f">
             <td:href>/set-channel</td:href>
           </rdf:Description>
         </td:hasForm>
         <td:hasInputSchema>
-          <rdf:Description rdf:nodeID="N53040246186b41f0918547a856ee5a99">
-            <dct:title>Channel Number</dct:title>
+          <rdf:Description rdf:nodeID="Ne8b347e0a8b445ba96ecee0f62df0a25">
             <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-            <dct:description>The number of the channel from 0 to 255</dct:description>
             <td:type>number</td:type>
+            <dct:description>The number of the channel from 0 to 255</dct:description>
             <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</td:maximum>
+            <dct:title>Channel Number</dct:title>
           </rdf:Description>
         </td:hasInputSchema>
         <dct:title>Set Channel</dct:title>
-      </rdf:Description>
-    </td:hasActionAffordance>
-    <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N904b664c88394511939733ad066ea79a">
-        <td:hasInputSchema>
-          <rdf:Description rdf:nodeID="N9b20542ad7f34bd3972a456ffc245c71">
-            <dct:description>Brightness value (in percentage) from 0 to 100</dct:description>
-            <td:type>number</td:type>
-            <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-            <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-            <dct:title>Brightness value</dct:title>
-          </rdf:Description>
-        </td:hasInputSchema>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="Nf4deb41b3bf24824b8ed866c4780a57a">
-            <td:href>/set-brightness</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <dct:title>Set Brightness</dct:title>
-        <dct:description>Change to desired Brightness. Must be a number from 0 to 100.</dct:description>
+        <dct:description>Change to desired channel. Must be a number from 0 to 255.</dct:description>
       </rdf:Description>
     </td:hasActionAffordance>
     <saref1:accomplishes>saref:WellBeing</saref1:accomplishes>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N92530d247d47442fbc8dd58a7504ca6e">
+        <dct:title>Channel</dct:title>
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</td:maximum>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nb3aac9021a3e4a8d8fda06052c591162">
+            <td:href>/channel</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
+        <dct:description>The number of the channel</dct:description>
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <td:type>number</td:type>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
+    <td:hasSecurityConfiguration rdf:resource="https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/nosec_sc"/>
+    <dct:description>A simple (not-so) Smart TV that can be controlled remotely.</dct:description>
+    <saref1:hasState>
+      <saref1:OnOffState rdf:about="http://localhost:8080/tv/status"/>
+    </saref1:hasState>
+    <saref1:hasFunction>
+      <saref1:Function rdf:about="http://localhost:8080/tv/set-channel">
+        <saref1:hasDescription>Switch the state of the TV: turn it off if on or turn it on when off.</saref1:hasDescription>
+      </saref1:Function>
+    </saref1:hasFunction>
     <saref1:hasFunction>
       <saref1:OnOffFunction rdf:about="http://localhost:8080/tv/toggle">
         <saref1:hasDescription>Switch the state of the TV: turn it off if on or turn it on when off.</saref1:hasDescription>
       </saref1:OnOffFunction>
     </saref1:hasFunction>
+    <saref1:accomplishes>saref:Comfort</saref1:accomplishes>
     <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="Nf627dbf0d99d46729d1a04b419c144c8">
-        <dct:title>Set Volume</dct:title>
+      <rdf:Description rdf:nodeID="N087f1560cbee4a8bbc688ac5ba7e1fe4">
+        <dct:title>Set Brightness</dct:title>
+        <dct:description>Change to desired Brightness. Must be a number from 0 to 100.</dct:description>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="N7a836691d3404c4a95eef525d7ed4c66">
-            <td:href>/set-volume</td:href>
+          <rdf:Description rdf:nodeID="N723458dc5b234afdb57093bb8883c444">
+            <td:href>/set-brightness</td:href>
           </rdf:Description>
         </td:hasForm>
         <td:hasInputSchema>
-          <rdf:Description rdf:nodeID="N5726aabc0f1f43d1878af610c891658b">
+          <rdf:Description rdf:nodeID="N8decb4cfd4ed4c50bb152c96f343ba26">
             <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-            <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-            <dct:description>The volume value from 0 to 100</dct:description>
-            <dct:title>Volume value</dct:title>
+            <dct:description>Brightness value (in percentage) from 0 to 100</dct:description>
             <td:type>number</td:type>
+            <dct:title>Brightness value</dct:title>
+            <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
           </rdf:Description>
         </td:hasInputSchema>
-        <dct:description>Change to desired Volume. Must be a number from 0 to 100.</dct:description>
       </rdf:Description>
     </td:hasActionAffordance>
-    <td:hasSecurityConfiguration rdf:resource="https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/nosec_sc"/>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="Nbe62510c2dbc4446a5d50a4e03c8c953">
-        <dct:title>Channel</dct:title>
-        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-        <dct:description>The number of the channel</dct:description>
-        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</td:maximum>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N76408c43ec12424bb3fe0b44bbd26145">
-            <td:href>/channel</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
-        <td:type>number</td:type>
+    <saref1:hasFunction>
+      <saref1:LevelControlFunction rdf:about="http://localhost:8080/tv/set-brightness">
+        <saref1:hasDescription>Switch the state of the TV: turn it off if on or turn it on when off.</saref1:hasDescription>
+        <saref1:hasCommand>saref:SetAbsoluteLevelCommand</saref1:hasCommand>
+      </saref1:LevelControlFunction>
+    </saref1:hasFunction>
+    <td:securityDefinitions>
+      <rdf:Description rdf:nodeID="N591f557aa49e434d8ad7c3da08c4ba9d">
+        <td:scheme>nosec</td:scheme>
       </rdf:Description>
-    </td:hasPropertyAffordance>
+    </td:securityDefinitions>
     <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N459f196b35be4631a9f034aaac4786c9">
+      <rdf:Description rdf:nodeID="Nc5cbaf6c4a5842fd8462fe1701db7f8c">
         <dct:title>Toggle</dct:title>
+        <dct:description>Turn on the TV if it's off or turn the TV off when it's on.</dct:description>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="Nbe254700626a4f98b5d794c85cfa5547">
+          <rdf:Description rdf:nodeID="Nba8de3d0f73940309a003410c6e01312">
             <td:href>/toggle</td:href>
           </rdf:Description>
         </td:hasForm>
-        <dct:description>Turn on the TV if it's off or turn the TV off when it's on.</dct:description>
       </rdf:Description>
     </td:hasActionAffordance>
-    <dct:title>TV</dct:title>
     <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="N57f0c8daa11e45dab1e2482458f6cfeb">
-        <dct:title>Brightness</dct:title>
-        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-        <dct:description>The value of the Brightness</dct:description>
+      <rdf:Description rdf:nodeID="N67a68eca5c984b258baedc64ca16f999">
         <td:hasForm>
-          <rdf:Description rdf:nodeID="N8f158d6b5fea48c0a44cb46293c12852">
-            <td:href>/brightness</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
-        <td:type>number</td:type>
-        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-      </rdf:Description>
-    </td:hasPropertyAffordance>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="Ne8c0153edfa14f8aafb7dde0c8ab1193">
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="Ndac30199a11f4364936f2d23ec477ed6">
-            <td:href>/volume</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-        <dct:description>The value of the volume</dct:description>
-        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
-        <td:type>number</td:type>
-        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-        <dct:title>Volume</dct:title>
-      </rdf:Description>
-    </td:hasPropertyAffordance>
-    <saref1:accomplishes>saref:Comfort</saref1:accomplishes>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="N11fc108769f14e6b8fa233361559e8a1">
-        <dct:description>It's true when the TV is on; it's false when turned off</dct:description>
-        <td:type>boolean</td:type>
-        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N4f15a0bfff1741ebaaf8498159de3cb0">
+          <rdf:Description rdf:nodeID="Ndaed4735a5a64155a10f642bd8c53ba4">
             <td:href>/status</td:href>
           </rdf:Description>
         </td:hasForm>
-        <dct:title>On/Off</dct:title>
         <td:isObservable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:isObservable>
+        <dct:description>It's true when the TV is on; it's false when turned off</dct:description>
+        <dct:title>On/Off</dct:title>
+        <td:type>boolean</td:type>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
       </rdf:Description>
     </td:hasPropertyAffordance>
-    <saref1:accomplishes>saref:Lighting</saref1:accomplishes>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N00ba0ae6301d41ef9884e48d4b3b22f8">
+        <dct:title>Volume</dct:title>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Ndced50fb8db7489badf63767faf604c5">
+            <td:href>/volume</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+        <dct:description>The value of the volume</dct:description>
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <td:type>number</td:type>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
   </saref1:Multimedia>
 </rdf:RDF>

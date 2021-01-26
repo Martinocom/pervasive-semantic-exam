@@ -6,113 +6,114 @@
   xmlns:saref1="https://w3id.org/saref#"
 >
   <saref1:Actuator rdf:about="http://localhost:8080/shutter">
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="Nf32cdf80e0ed4611a49d9bd7135adb99">
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+        <dct:title>Openess Treshold</dct:title>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="N6290b771a9f04785bc61393946941cd6">
+            <td:href>http://localhost:8080/bulb/openess-treshold</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <td:type>number</td:type>
+        <dct:description>Value (in percentage) when to consider the shutter closed. 0 means always opened, 100 means always closed. A value of 20 means that shutter needs to roll 20% of his length to be considered open.</dct:description>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
     <saref1:hasFunction>
       <saref1:OpenCloseFunction rdf:about="http://localhost:8080/shutter/open">
-        <saref1:hasCommand>saref:OpenCommand</saref1:hasCommand>
         <saref1:hasDescription>Open the shutter to the max level (100).</saref1:hasDescription>
+        <saref1:hasCommand>saref:OpenCommand</saref1:hasCommand>
       </saref1:OpenCloseFunction>
     </saref1:hasFunction>
     <dct:description>A simple shutter that can be regulated to dimm or block external light.</dct:description>
-    <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N0e93577f7dcd4c98b463238e9b9d2f36">
-        <dct:description>Set the level of the shutter to 100.</dct:description>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N8d6b1236cf294421a9b2ce39c59d6e40">
+        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
+        <dct:description>Value (in percentage) of the current aperture of the shutter. 0 means it's all down (no light), 100 means it's all up (full light)</dct:description>
+        <td:type>number</td:type>
         <td:hasForm>
-          <rdf:Description rdf:nodeID="Nc646709a17084b5ea18d12ee8b1634ef">
-            <td:href>http://localhost:8080/bulb/actions/open</td:href>
+          <rdf:Description rdf:nodeID="N70c4d17525114ee5a10c9f24947c501b">
+            <td:href>http://localhost:8080/bulb/level</td:href>
           </rdf:Description>
         </td:hasForm>
-        <dct:title>Open</dct:title>
+        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
+        <dct:title>Level of aperture of shutter (in percentage)</dct:title>
       </rdf:Description>
-    </td:hasActionAffordance>
+    </td:hasPropertyAffordance>
+    <td:hasPropertyAffordance>
+      <rdf:Description rdf:nodeID="N00773c51375f4acb9b510dd942b4b47c">
+        <td:type>boolean</td:type>
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="N28381f94b995462eb9e2a0380f86a832">
+            <td:href>http://localhost:8080/bulb/is-open</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:title>Is open</dct:title>
+        <dct:description>Value is true if 'level' major than the openess treshold. Read-only: cannot write. Writing will cause refreshing this variable.</dct:description>
+        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
+      </rdf:Description>
+    </td:hasPropertyAffordance>
+    <saref1:accomplishes>saref:Safety</saref1:accomplishes>
+    <saref1:hasFunction>
+      <saref1:LevelControlFunction rdf:about="http://localhost:8080/shutter/move">
+        <saref1:hasDescription>Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0)).</saref1:hasDescription>
+        <saref1:hasCommand>saref:SetRelativeLevelCommand</saref1:hasCommand>
+      </saref1:LevelControlFunction>
+    </saref1:hasFunction>
     <saref1:hasFunction>
       <saref1:OpenCloseFunction rdf:about="http://localhost:8080/shutter/close">
         <saref1:hasDescription>Close the shutter to the treshold.</saref1:hasDescription>
         <saref1:hasCommand>saref:CloseCommand</saref1:hasCommand>
       </saref1:OpenCloseFunction>
     </saref1:hasFunction>
-    <saref1:accomplishes>saref:Safety</saref1:accomplishes>
+    <td:hasActionAffordance>
+      <rdf:Description rdf:nodeID="N96b5548f5fa94a589a13abfd65b4ccf2">
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="N82698dde7b3d44ce9509600bf52cd5dd">
+            <td:href>http://localhost:8080/bulb/actions/open</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:description>Set the level of the shutter to 100.</dct:description>
+        <dct:title>Open</dct:title>
+      </rdf:Description>
+    </td:hasActionAffordance>
+    <saref1:accomplishes>saref:Lighting</saref1:accomplishes>
     <td:securityDefinitions>
-      <rdf:Description rdf:nodeID="N4684d1e383cf4b758b8342e5d03d66b2">
+      <rdf:Description rdf:nodeID="N203aa60fa82b4161afe1c277cd189c1c">
         <td:scheme>nosec</td:scheme>
       </rdf:Description>
     </td:securityDefinitions>
     <td:hasSecurityConfiguration rdf:resource="https://raw.githubusercontent.com/Martinocom/pervasive-semantic-exam/main/doc/attachments/td/nosec_sc"/>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="Ndab8f9af41704ba7971ab6ed06e37fbf">
-        <td:type>number</td:type>
-        <dct:title>Level of aperture of shutter (in percentage)</dct:title>
-        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-        <dct:description>Value (in percentage) of the current aperture of the shutter. 0 means it's all down (no light), 100 means it's all up (full light)</dct:description>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N3bf8a3634b8a4a07945fb69d8f767017">
-            <td:href>http://localhost:8080/bulb/level</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-      </rdf:Description>
-    </td:hasPropertyAffordance>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="N33d7564162b042f6b1b2f34256d0449d">
-        <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</td:minimum>
-        <dct:description>Value (in percentage) when to consider the shutter closed. 0 means always opened, 100 means always closed. A value of 20 means that shutter needs to roll 20% of his length to be considered open.</dct:description>
-        <dct:title>Openess Treshold</dct:title>
-        <td:type>number</td:type>
-        <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N161dbaa4f6ee4adfadbb3763103a63f1">
-            <td:href>http://localhost:8080/bulb/openess-treshold</td:href>
-          </rdf:Description>
-        </td:hasForm>
-      </rdf:Description>
-    </td:hasPropertyAffordance>
-    <td:hasPropertyAffordance>
-      <rdf:Description rdf:nodeID="Na4e6dee3bdcf4a35a80016ca10df9d28">
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N7d313149fcd94f75820a719f50f27a1d">
-            <td:href>http://localhost:8080/bulb/is-open</td:href>
-          </rdf:Description>
-        </td:hasForm>
-        <td:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</td:readOnly>
-        <td:type>boolean</td:type>
-        <dct:title>Is open</dct:title>
-        <dct:description>Value is true if 'level' major than the openess treshold. Read-only: cannot write. Writing will cause refreshing this variable.</dct:description>
-      </rdf:Description>
-    </td:hasPropertyAffordance>
-    <dct:title>Shutter</dct:title>
-    <saref1:accomplishes>saref:Lighting</saref1:accomplishes>
-    <saref1:hasFunction>
-      <saref1:LevelControlFunction rdf:about="http://localhost:8080/shutter/move">
-        <saref1:hasDescription>Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0)).</saref1:hasDescription>
-      </saref1:LevelControlFunction>
-    </saref1:hasFunction>
     <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="N316d55e810284486a49702a980736281">
-        <dct:title>Move</dct:title>
+      <rdf:Description rdf:nodeID="Nd5611f6bf1a74b998006a6ca9b10d18b">
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nc1c3b3fe6ca24b9886ca121480a425a9">
+            <td:href>http://localhost:8080/bulb/actions/close</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:description><![CDATA[Set the level of the shutter to <openess-treshold>.]]></dct:description>
+        <dct:title>Close</dct:title>
+      </rdf:Description>
+    </td:hasActionAffordance>
+    <td:hasActionAffordance>
+      <rdf:Description rdf:nodeID="Nba8c7616b26a47bbb25e021bd2c42c9e">
+        <td:hasForm>
+          <rdf:Description rdf:nodeID="Nf09b932e30bf4a6c9570e6b975897f29">
+            <td:href>http://localhost:8080/bulb/actions/move</td:href>
+          </rdf:Description>
+        </td:hasForm>
+        <dct:description>Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0)).</dct:description>
         <td:hasInputSchema>
-          <rdf:Description rdf:nodeID="N000602b40f244452b042170e728eb44d">
+          <rdf:Description rdf:nodeID="Nb8e781c32025439699e766f2c0fc3d0e">
             <td:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-100</td:minimum>
             <td:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</td:maximum>
             <td:type>number</td:type>
           </rdf:Description>
         </td:hasInputSchema>
-        <dct:description>Move the shutter relatively to his current position. Negative values will close the shutter, positive will open. Eventual overflow will be rounded (min(offset, 100) or max(offset, 0)).</dct:description>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="Neb40bc8eb1594d73801349b2e3066c74">
-            <td:href>http://localhost:8080/bulb/actions/move</td:href>
-          </rdf:Description>
-        </td:hasForm>
+        <dct:title>Move</dct:title>
       </rdf:Description>
     </td:hasActionAffordance>
-    <td:hasActionAffordance>
-      <rdf:Description rdf:nodeID="Nde44635474574ba480552793a9bb79c1">
-        <dct:description><![CDATA[Set the level of the shutter to <openess-treshold>.]]></dct:description>
-        <dct:title>Close</dct:title>
-        <td:hasForm>
-          <rdf:Description rdf:nodeID="N9faeb9cc631343f59fd164d543d4eddd">
-            <td:href>http://localhost:8080/bulb/actions/close</td:href>
-          </rdf:Description>
-        </td:hasForm>
-      </rdf:Description>
-    </td:hasActionAffordance>
+    <dct:title>Shutter</dct:title>
   </saref1:Actuator>
 </rdf:RDF>
