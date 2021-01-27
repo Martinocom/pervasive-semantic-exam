@@ -1994,7 +1994,7 @@ Dati i requisiti e la volontà di utilizzare Kotlin come linguaggio di sviluppo,
 \end{itemize}
 
 \subsection{Configurazione progetto Eclipse + IntelliJ}
-Anche se la guida ufficiale su come installare JaCaMo indica due modalità di creazione del progetto (sia da \texttt{gradle} che da \textit{Eclipse}), soltanto quella creata con \texttt{gradle} può essere letta correttamente da \textit{IntelliJ}, presentato però problemi di lettura da \textit{Eclipse}. Per affrontare questo problema bisogna impostare due progetti contemporaneamente (uno da \texttt{gradle} e l'altro da \textit{Eclipse}) e unirli subito dopo averli creati. Di seguito i passaggi elencanti in modo esaustivo:
+Anche se la guida ufficiale su come installare JaCaMo indica due modalità di creazione del progetto (sia da \texttt{gradle} che da \textit{Eclipse}), soltanto quella creata con \texttt{gradle} può essere letta correttamente da \textit{IntelliJ}, presentato però problemi di lettura da \textit{Eclipse}. Per affrontare questo problema bisogna impostare due progetti, identificati successivamente come \texttt{progetto gradle} e \textit{progetto Eclipse}), e unirli subito dopo averli creati. Di seguito i passaggi elencanti in modo esaustivo:
 
 \begin{enumerate}
 	\item effettuare il download del file di configurazione del progetto\footnote{al momento il file risulta essere disponibile su \url{http://jacamo.sourceforge.net/nps/np09.zip}} direttamente dalla guida ufficiale \cite{jacamo};
@@ -2018,22 +2018,22 @@ Anche se la guida ufficiale su come installare JaCaMo indica due modalità di cr
 		\item se Eclipse dovesse rispondere che esiste già un progetto così configurato, la soluzione più semplice è creare un workspace nuovo nel quale successivamente configurare questo progetto, ripercorrendo le istruzioni dal punto \ref{item:eclipse};
 	\end{itemize}
 	
-	\item recarsi nella cartella dove il progetto \textit{Eclipse} è stato creato (in linea generale esso dovrebbe trovarsi nel workspace precedentemente utilizzato) e copiare tutti gli elementi presenti dentro la cartella del progetto;
+	\item recarsi nella cartella dove il \textit{progetto Eclipse} è stato creato (in linea generale esso dovrebbe trovarsi nel workspace precedentemente utilizzato) e copiare tutti gli elementi presenti dentro la cartella del progetto;
 	
-	\item recarsi nella cartella dove il progetto \texttt{gradle} è stato creato (in questo esempio, su \texttt{C:/utenti/user/Desktop/np09}) e incollare dentro la cartella col nome del progetto (in questo esempio \textit{smart\_room}) i file copiati nel punto precedente;
+	\item recarsi nella cartella dove il \texttt{progetto gradle} è stato creato (in questo esempio, su \texttt{C:/utenti/user/Desktop/np09}) e incollare dentro la cartella col nome del progetto (in questo esempio \textit{smart\_room}) i file copiati nel punto precedente;
 	
 	\item quando richiesto, \textbf{sovrascrivere i file};
 	
 	\item tornare su Eclipse (o riaprilo) ed \textbf{eliminare} il progetto creato con Eclipse, sia dall'anteprima del programma che dal disco: rimuovere ogni traccia dell'esistenza di questo progetto è essenziale;
 	
-	\item sempre su Eclipse, selezionare \textit{File/Open Projects from File System...} e recarsi all'interno della cartella del progetto \texttt{gradle}, dentro la cartella con il nome del progetto (in questo esempio si fa riferimento a \texttt{C:/utenti/user/Desktop/np09/smart\_room}): di conseguenza aprire il progetto e lasciare che l'importazione di esso abbia esito positivo;
+	\item sempre su Eclipse, selezionare \textit{File/Open Projects from File System...} e recarsi all'interno della cartella del \texttt{progetto gradle}, dentro la cartella con il nome del progetto (in questo esempio si fa riferimento a \texttt{C:/utenti/user/Desktop/np09/smart\_room}): di conseguenza aprire il progetto e lasciare che l'importazione di esso abbia esito positivo;
 	\begin{itemize}
 		\item è essenziale eseguire questa operazione da \quotes{\textit{Open Projects from File System...}} in quanto \textit{Import} non funziona;
 	\end{itemize}
 	
 	\item una volta caricato dovrebbe essere ben visibile nel visualizer di JaCaMo per Eclipse;
 	\begin{itemize}
-		\item questo non accade se importato direttamente dal progetto \texttt{gradle};
+		\item questo non accade se importato direttamente dal \texttt{progetto gradle} senza aver copiato i file del \textit{progetto Eclipse};
 	\end{itemize}
 	
 	\item impostare il comando di lancio: sotto \textit{Run As} selezionare \textit{Run Configurations} e successivamente andare su \textit{Gradle Task}. All'interno di questa voce, immettere come \textit{Gradle Task} semplicemente \texttt{run} e come \\textit{Working Directory} indicare il valore\\
@@ -2047,35 +2047,34 @@ Anche se la guida ufficiale su come installare JaCaMo indica due modalità di cr
 La libreria sfrutta nativamente il linguaggio Java per cui sono necessari alcuni passaggi extra per poter utilizzare Kotlin come linguaggio di sviluppo. La seguente configurazione permette la compilazione Kotlin sia a livello di IntelliJ che Eclipse e non richiede la chiusura forzata dei programmi eventualmente aperti: essi verranno sincronizzati automaticamente.
 
 \begin{enumerate}
-	\item avviare IntelliJ e selezionare \textit{File/Open}: aprire di conseguenza la cartella col nome del progetto, situata all'interno della directory con il progetto \texttt{gradle} configurato in precedenza (in questo caso il path da aprire è  \texttt{C:/utenti/user/Desktop/np09/smart\_room});
+	\item Avviare IntelliJ e selezionare \textit{File/Open}: aprire di conseguenza la cartella col nome del progetto, situata all'interno della directory con il progetto \texttt{gradle} configurato in precedenza (in questo caso il path da aprire è  \texttt{C:/utenti/user/Desktop/np09/smart\_room});
 	
 	\begin{itemize}
-		\item se richiesto, aprire la soluzione come progetto \textbf{gradle} e non Eclipse;
+		\item se richiesto, aprire la soluzione come progetto \textbf{gradle} (e non Eclipse);
 		
-		\item sotto Windows IntelliJ potrebbe chiedere se migliorare le performance escludendo la cartella del progetto dall'antivirus: acconsentire o rifiutare in base alle proprie preferenze
+		\item sotto Windows, IntelliJ potrebbe chiedere se migliorare le performance escludendo la cartella del progetto dallo scan dell'antivirus: acconsentire o rifiutare in base alle proprie preferenze.
 	\end{itemize}
 
-	\item dentro IntelliJ aprire il file \texttt{build.gradle}: se richiesto effettuare il \textit{fix}, dopodiché eseguirlo;
+	\item Dentro IntelliJ aprire il file \texttt{build.gradle}: se richiesto effettuare il \textit{fix}, dopodiché eseguirlo;
 	\begin{itemize}
-		\item se l'agente risponde \textit{Hello World!} si può procedere;
+		\item se l'agente risponde \textit{Hello World!} si può procedere.
 	\end{itemize}
 
-	\item sempre dentro IntelliJ, seguendo la struttura del progetto, recarsi dentro \textit{src/env/tools} e creare una nuova classe Kotlin, chiamata ad esempio \textit{SampleClass};
+	\item Sempre dentro IntelliJ, seguendo la struttura del progetto, recarsi dentro \textit{src/env/tools} e creare una nuova classe Kotlin, chiamata ad esempio \textit{SampleClass}.
 	
-	\item il programma chiederà in basso a destra se si vuole configurare il progetto per essere supportato da Kotlin: acconsentire selezionando la voce \quotes{\textit{as Kotlin (Java with Gradle module)}}, assicurandosi che nella successiva finestra sia abilitata l'opzione \textit{All modules containing Kotlin files} e che il compilatore Kotlin selezionato non sia sperimentale.
+	\item Il programma chiederà (generalmente apparirà un avviso in basso a destra) se si vuole configurare il progetto per essere supportato da Kotlin: acconsentire selezionando la voce \quotes{\textit{as Kotlin (Java with Gradle module)}}, assicurandosi che nella successiva finestra sia abilitata l'opzione \textit{All modules containing Kotlin files} e che il compilatore Kotlin selezionato non sia sperimentale.
 	\begin{itemize}
-		\item in questo modo il file di \texttt{gradle} verrà automaticamente impostato per supportare Kotlin;
+		\item in questo modo il file di \texttt{gradle} verrà automaticamente impostato per supportare Kotlin.
 	\end{itemize}
 
-	\item lanciare l'applicazione per controllare se tutto funziona correttamente;
+	\item Lanciare l'applicazione per controllare se tutto funziona correttamente;
 	\begin{itemize}
 		\item il primo lancio potrebbe essere più lungo, in quanto è possibile che delle dipendenze debbano essere scaricate;
 		\item se non dovesse funzionare, si può provare ad aggiornare il valore di \textit{ext.kotlin\_version} a quello suggerito dall'IDE.
 	\end{itemize}
-
-Una nota importante riguardante l'intera procedura è che, mentre IntelliJ ha un supporto migliore per quanto riguarda Kotllin, Eclipse è più adatto per la gestione degli Agenti. Inoltre, per eseguire l'applicazione si dovrà utilizzare sempre \texttt{gradle}, in quanto provando a lanciare da Eclipse in modo tradizionale, le classi scritte in Kotlin mostreranno diversi errori di compilazione.
 \end{enumerate}
 
+Una nota importante riguardante l'intera procedura è che, mentre IntelliJ ha un supporto migliore per quanto riguarda Kotllin, Eclipse è più adatto per la gestione degli Agenti. Inoltre, per eseguire l'applicazione si dovrà utilizzare sempre \texttt{gradle}, in quanto provando a lanciare da Eclipse in modo tradizionale, le classi scritte in Kotlin mostreranno diversi errori di compilazione.
 
 
 \subsection{Configurazione JavaFx + TornatoFX}
@@ -2137,18 +2136,19 @@ Se qualcosa non dovesse funzionare, controllare se ogni punto della procedura è
 
 
 \section{Creazione del Main Agent}
-L'agente principale si occuperà del lancio dell'assistente per l'utente. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso un Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultima, si rimanda al capitolo \ref{sec:gui}.\\
+L'agente principale si occuperà del lancio dell'assistente per l'utente e di creare due Artefatti di supporto. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso uno specifico Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultimi, si rimanda ai capitoli \ref{sec:gui} e \ref{sec:things_artifact}.\\
 
 \subsection{Conoscenza di partenza}
-Al suo interno, l'agente dichiara inizialmente la propria conoscenza di partenza. Essendo le Thing Description basate sull'ontologia SAREF, è possibile sfruttare questa intrinseca conoscenza per dichiarare all'agente alcune specifiche riguardanti Things che si può aspettare di avere. Si sottolinea comunque che, per essere completamente dinamici, l'agente potrebbe prendere come riferimenti ontologie meglio conosciute e richiedere direttamente ad esse classi di dispositivi di una cerca categoria.\\
+Al suo interno, l'agente dichiara inizialmente la propria conoscenza di partenza. Essendo le Thing Description basate sull'ontologia SAREF, è possibile sfruttare questa intrinseca conoscenza per dichiarare all'agente alcune specifiche riguardanti Things che si può aspettare di avere. Si sottolinea comunque che, per essere completamente dinamici, l'agente potrebbe prendere direttamente riferimenti alle ontologie e chiedere le informazioni a loro per quanto riguarda le operazioni da eseguire. In questo esempio vengono invece indicate esplicitamente sia il device (o lo scopo del device), sia il tipo di azione da eseguire.\\
 
 \begin{lstlisting}
-	guiStatus(false).						/* Gui is not ready yet */
-	endpoint('http://localhost:8080/').		/* Endpoint where to connect */
-	
-	lightingType('saref:LightingDevice').	/* Devices that can make light */
-	safetyAbility('saref:Safety').			/* Devices for safety */
-	comfortAbility('saref:Comfort').		/* Devices that cam make comfort*/
+guiStatus(false).
+endpoint('http://localhost:8080/').
+
+/* Types of devices or comodities to achieve + actions to do them */
+lightingType('saref:LightingDevice', ['OnOffFunction']).
+safetyAbility('saref:Safety', ['OpenCloseFunction']).
+comfortAbility('saref:Comfort', ['OnOffFunction', 'MultiLevelState']).
 \end{lstlisting}
 
 \subsection{Piani e Goal}
@@ -2176,34 +2176,55 @@ L'interazione GUI-Utente avviene attraverso un Artefatto, che manda messaggi all
 
 \begin{itemize}
 	\itemsep0em 
-	\item \texttt{LightUp} eseguirà l'operazione di illuminare la stanza. Essa prenderà \u{soltanto un} elemento di una certa \u{tipologia}; nel caso specifico di un \textit{saref:LightingDevice}.
-	\item \texttt{Safety} renderà la stanza più sicura. Essa prenderà \u{tutti i dispositivi} che servono per garantire una maggiore sicurezza; nel caso specifico, tutti i Device che hanno come proprietà \textit{saref:Safety}.
-	\item \texttt{GoodVibes} porterà alla stanza un po' di relax e comfort. Essa prenderà \u{tutti i dispositivi} che servono per garantire un maggiore comfort all'interno della stanza; nel caso specifico, tutti i device che hanno come proprietà \textit{saref:Comfort}.
+	\item \texttt{LightUp} eseguirà l'operazione di illuminare la stanza. Essa prenderà \ul{soltanto un elemento di una certa tipologia}; nel caso specifico di un \textit{saref:LightingDevice}.
+	\item \texttt{Safety} renderà la stanza più sicura. Essa prenderà \ul{tutti i dispositivi che servono per garantire una maggiore sicurezza}; nel caso specifico, tutti i Device che hanno come proprietà \textit{saref:Safety}.
+	\item \texttt{GoodVibes} porterà alla stanza un po' di relax e comfort. Essa prenderà \ul{tutti i dispositivi che servono per garantire un maggiore comfort all'interno della stanza}; nel caso specifico, tutti i device che hanno come proprietà \textit{saref:Comfort}.
+\end{itemize}
+
+Nei piani vengono specificate alcune condizioni:
+\begin{itemize}
+	\item l'agente deve sapere che la GUI è stata correttamente lanciata ed è operativa;\\
+	\texttt{guiStatus(X) \& X == true}
+	
+	\item il tipo di intenzione (LightUp, Safety, GoodVibes) deve corrispondere;\\
+	\texttt{Intention == "LightUp"}
+	
+	\item l'agente deve sapere che tipi di dispositivi e azioni deve ricercare nell'ambiente, utilizzando la conoscenza;\\
+	\texttt{lightingType(La, AffordanceTypes)}
 \end{itemize}
 
 \begin{lstlisting}
-/* Rsponding to GUI events */
-+achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La)
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La, AffordanceTypes)
 <-  .print("[AG] User wants to achieve something: ", Intention);
-	!achieveWithTypology(La, true).
+	!achieveWithTypology(La, true, AffordanceTypes).
 
-+achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Safety" & safetyAbility(Ha)
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "Safety" & safetyAbility(Ha, AffordanceTypes)
 <-  .print("[AG] User wants to achieve something: ", Intention);
-	!achieveWithAbility(Ha, false).
+	!achieveWithAbility(Ha, false, AffordanceTypes).
+
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "GoodVibes" & comfortAbility(Na, AffordanceTypes)
+<-  .print("[AG] User wants to achieve something: ", Intention);
+	!achieveWithAbility(Na, false, AffordanceTypes).
 \end{lstlisting}
 
 I due sotto-goal servono per realizzare effettivamente la funzionalità richiesta. Entrambi funzionano similmente, chiedendo prima di tutto tutti i device corrispondenti al criterio scelto, per poi selezionarne uno specifico (se richiesto) e di conseguenza di eseguire l'azione sul (o sui) device richiesto(i).
 
 \begin{lstlisting}
-+!achieveWithAbility(Ability, SelectOnlyOneThing) : endpoint(URL)
-<-  findThingWithAbility(Ability, Things);
++!achieveWithAbility(Ability, SelectOnlyOneThing, AffordanceTypes) : endpoint(URL)
+<-  .print("[AG] Achieving with ability: ", Ability);
+	findThingWithAbility(Ability, Things);
+	.print("[AG] Selecting best things for: ", Ability, Things);
 	selectBestThingForAbility(Ability, SelectOnlyOneThing, Things, SelectedThings);
-	doOperation(SelectedThings, URL).
+	.print("[AG] Doing operation for: ", Ability);
+	doOperation(SelectedThings, URL, AffordanceTypes).
 
-+!achieveWithTypology(Typology, SelectOnlyOneThing) : endpoint(URL)
-<-  findThingWithTypology(Typology, Things);
++!achieveWithTypology(Typology, SelectOnlyOneThing, AffordanceTypes) : endpoint(URL)
+<-  .print("[AG] Achieving with typology: ", Typology);
+	findThingWithTypology(Typology, Things);
+	.print("[AG] Selecting best things for: ", Typology, Things);
 	selectBestThingForTypology(Typology, SelectOnlyOneThing, Things, SelectedThings);
-	doOperation(SelectedThings, URL).
+	.print("[AG] Doing operation for: ", Typology);
+	doOperation(SelectedThings, URL, AffordanceTypes).
 \end{lstlisting}
 
 Le operazioni definite in questi piani fanno riferimento all'Artefatto, descritto nel capitolo \ref{sec:things_artifact}
@@ -2286,7 +2307,7 @@ if (view is ControlledView<*>) {
 class MainView : ControlledView<MainViewController>() { ... }
 \end{lstlisting}
 
-La comunicazione Artefatto-Agente viene invece definita tramite un unico metodo, in quanto le intenzioni sono differenziate dal loro tipo, grazie ad una stringa testuale. È la view a specificare, ad esempio, di voler raggiungere l'intenzione \texttt{LightUp}, mentre l'artefatto cattura questo evento. Nel codice \ref{lst:view_artifact} è presente infatti il metodo che esegue l'operazione interna dell'Artefatto: il parametro passato è semplicemente il nome della funzione associata a quell'operazione:
+La comunicazione Artefatto-Agente viene invece definita tramite un unico metodo, in quanto le intenzioni sono differenziate dal loro tipo, grazie ad una stringa testuale. È la view a specificare, ad esempio, di voler raggiungere l'intenzione \texttt{LightUp}, mentre l'artefatto cattura questo evento. Nel codice \ref{lst:view_artifact} è presente infatti il metodo \texttt{execInternalOp} che esegue l'operazione interna dell'Artefatto: il parametro passato è semplicemente il nome della funzione associata a quell'operazione:
 
 \begin{lstlisting}[language=Java]
 @INTERNAL_OPERATION
@@ -2295,18 +2316,36 @@ fun onAchieveIntention(intention: String) {
 }
 \end{lstlisting}
 
-Per quanto riguarda invece le semplici interazioni oggetto-utente, senza intenzioni di alto livello, si predispone un'interfaccia essenziale con alcuni esempi di funzionalità. Non essendo lo scopo del progetto realizzare una GUI completamente funzionante, ma dimostrante le capacità, si implementano come esempio alcune delle possibile operazioni da svolgere. Si sottolinea come tutte le funzionalità che richiedono passaggi di parametri espliciti non sono state implementate.
+Per quanto riguarda invece le semplici interazioni oggetto-utente, senza intenzioni di alto livello, si predispone un'interfaccia essenziale con alcuni esempi di funzionalità. Non essendo lo scopo del progetto realizzare una GUI completamente funzionante, ma dimostrante le capacità, si implementano come esempio alcune delle possibile operazioni da svolgere:
+
+\begin{itemize}
+	\item È possibile visualizzare i parametri attualmente impostati nelle Thing;
+		\begin{itemize}
+			\item è però doveroso sottolineare che questi \textbf{non} sono osservati, in quanto l'implementazione di un protocollo permettente l'osservazione delle Thing avrebbe richiesto più tempo del dovuto, sia lato Agenti sia lato Framework ThingWeb.io. Per questo motivo è predisposto un botone \texttt{Refresh} che chiede di aggiornare tutti i parametri.
+		\end{itemize}
+	
+	\item È possibile impostare le proprietà delle Thing;
+		\begin{itemize}
+			\item è però necessario porre attenzione in quanto questa funzionalità non presenta alcun controllo sui parametri inseriti. Unendo questa affermazione con l'assenza di una validazione dei dati all'interno delle Thing, si possono creare stati non coerenti o indesiderati all'interno del sistema.
+		\end{itemize}
+	
+	\item È possibile richiamare le azioni sulle Thing;
+		\begin{itemize}
+			\item per semplicità, sono richiamabili soltanto quelle senza necessità di parametri al loro intento.
+		\end{itemize}
+\end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{eps/gui.png}}
+	\includegraphics[scale=0.4]{eps/gui.png}
 	\caption{GUI essenziale per il funzionamento basilare del programma.}
 	\label{fig:gui_implementation}
 \end{figure}
 
-Si sottolinea come tutte le funzionalità che richiedono passaggi di parametri espliciti non sono state implementate. Inoltre, per quanto riguarda le funzionalità base, quelle eseguite direttamente sulle Things, vi è un diretto passaggio da view a controller e l'esecuzione dell'operazione, senza il coinvolgimento (del tutto inutile) da parte dell'Artefatto e Agente. In un ottica più grande è ovvio che questo comportamento debba essere gestito dall'Agente stesso, in quanto è lui il responsabile del sistema; in un esempio di questo genere, si preferisce puntare sulla dimostrazione di funzionalità.
+Si sottolinea che per quanto riguarda le funzionalità base, quelle eseguite direttamente sulle Things, vi è un diretto passaggio da view a controller e l'esecuzione dell'operazione, senza il coinvolgimento (del tutto inutile) da parte dell'Artefatto e Agente. In un ottica più grande è ovvio che questo comportamento debba essere gestito dall'Agente stesso, in quanto è lui il responsabile del sistema; in un esempio di questo genere, si preferisce puntare sulla dimostrazione di funzionalità.
 
 \subsection{Things Artifact}
+\label{sec:things_artifact}
 L'artefatto responsabile all'ottenimento delle Things e comunicazione con esse. Anche se in principio vi era l'idea di utilizzare un Artefatto per ognuna delle Thing presenti in stanza, questa è stata abbandonata in favore di semplicità, anche grazie all'introduzione della semantica. Potenzialmente parlando, è possibile infatti  ricavare tutta la conoscenza necessaria direttamente dalla Thing Description: parametri da utilizzare, risorsa da chiamare e metodo con il quale farla. Avendo però fatto riferimento ad un'ontologia (SAREF) e avendo specificato tutte le Things all'interno di un modulo locale, si presuppone che esse vivano internamente all'ambiente di test e che quindi per la semplice dimostrazione delle funzionalità richieste è opportuno astrarre da questo aspetto, lasciando l'implementazione più dettagliata ad un eventuale approfondimento su questa tematica.\\
 
 Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovare:
@@ -2322,33 +2361,73 @@ Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovar
 È doveroso sottolineare che le funzionalità proposte servono per dimostrare le potenzialità di questo sistema e non ne rappresentano le piene capacità. È infatti possibile, grazie all'uso più esteso delle ontologie, a ricavare ancora più informazioni, anche grazie all'adozione di SWRL.
 
 
+\subsubsection{Uso della conoscenza}
+L'utilizzo di un'unica entità per gestire tutte le Things connesse è possibile grazie alla semantica: in base alla tipologia del dispositivo ricercato (o delle sue funzionalità) e del tipo di operazione da eseguire, è possibile astrarre da una qualsiasi presunzione sulle Thing attualmente presenti e connesse. Il sistema quindi è capace di selezionare la o le Thing che potranno raggiungere l'obiettivo desiderato. Come esempio si prende in considerazione l'azione di \textit{LightUp}, che vuole illuminare la stanza. Di seguito viene descritto l'iter che viene eseguito per completare tale operazione\\
+
+\begin{enumerate}
+	\item L'utente richiama la funzione: premendo il bottone il controller della view cattura l'evento, che viene gestito dall'Artefatto, che a sua volta fa scattare un piano all'interno dell'Agente per gestire l'evento. In particolare viene aziono il seguente piano:
+	
+	\begin{lstlisting}
++achieveIntention(Intention) : guiStatus(X) & X == true & Intention == "LightUp" & lightingType(La, AffordanceTypes)
+<-  .print("[AG] User wants to achieve something: ", Intention);
+	!achieveWithTypology(La, true, AffordanceTypes).
+	\end{lstlisting}
+
+	\item Lo scopo di questo piano è di raggiungere l'obiettivo di illuminare la stanza, prendendo in considerazione tutti i dispositivi che sono dei \textit{saref:LightingDevice}. L'agente quindi farà partire il piano, ricercando tutti gli oggetti che soddisfano tale requisito, richiamando la funzione \texttt{findThingWithTypology}.
+	
+	\item Attraverso l'uso di SPARQL viene eseguita una query sulla conoscenza nella stanza: seleziona tutti i dispositivi che sono dei \textit{saref:LightingDevice}. Vengono accettati, al momento, tutti quelli che appartengono a tale categoria, sia nel caso in cui questa fosse l'unica presente, sia nel caso in cui la Thing appartiene a più categorie.
+	
+	\item Una volta ottenuti tutti i dispositivi, l'Agente sa che deve trovarne solo uno. Viene richiamato il metodo \texttt{selectBestThingForTypology}, che in questo caso seleziona il dispositivo avente come l'unica categoria quella di \textit{saref:LightingDevice}. Nel caso in cui vi siano più dispositivi, seleziona semplicemente il primo restituito dalla query.
+	
+	\item Il risultato, ovvero il singolo nome del dispositivo, viene passato poi al metodo \texttt{doAction}. Esso considera tutti i device i quali sono stati passati ed esegue le stesse operazioni per ognuno di essi:
+	
+	\begin{enumerate}[label*=\arabic*.]
+		\item prende il suo nome;
+		\item simula il fatto di sapere quale sia l'azione corretta da eseguire (nel caso specifico, \textit{toggle} della lampadina è l'unica azione che può accenderla/spegnerla);
+		\item simula il fatto di sapere se questa sia un'azione eseguire o una proprietà da cambiare (nel caso specifico, se il valore della variabile \texttt{wantedAction} non è presente, si tratta di una proprietà, altrimenti di un'azione);
+		\item attraverso l'uso di SPARQL vengono ricercate nel dispositivo selezionato tutte le azioni annotate nel nodo \textit{saref:hasFunction} che abbiano impostato un valore in \textit{saref:hasCommand}. I risultati vengono filtrati: in questo esempio, sono presi in considerazione solo dispositivi con funzioni \textit{OnOffFunction} che hanno un comando \textit{toggle} sul dispositivo identificato come \textit{bulb}.
+		\item anche in questo caso viene considerato il nome della prima azione corrispondente ai criteri di ricerca.
+	\end{enumerate}
+
+	\item Di conseguenza, viene impostato l'URL sul quale eseguire l'operazione, gli eventuali parametri, e viene eseguita l'azione sulla Thing.
+\end{enumerate}
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter{Conclusioni}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-Sin dai primi momenti di questa ricerca è stato chiara la volontà di poter coprire la maggior parte delle potenzialità offerte dal mondo analizzato: interoperabilità, sicurezza, funzionalità, dinamicità e conoscenza sono state le chiavi di tutta l'esplorazione eseguita. Il risultato ottenuto va ben oltre le specifiche che si possono ottenere in un semplice progetto-giocattolo, che tende soltanto a dimostrare alcune delle potenzialità del sistema per poi venir completamente dimenticato sia dal suo creatore che dalle persone che lo seguivano. Nel caso in discussione è stato possibile individuare molteplici proposte, difficoltà, soluzioni e alternative a problemi analizzati, contribuendo non solo a quello che risulta essere la realizzazione di prototipi in questo ambito, ma anche all'attiva partecipazione dello sviluppo delle librerie trattate durante lo studio.\\
+Sin dai primi momenti di questa ricerca è stata chiara la volontà di poter coprire la maggior parte delle potenzialità offerte dal mondo analizzato: interoperabilità, sicurezza, funzionalità, dinamicità e conoscenza sono state le chiavi di tutta l'esplorazione eseguita. Il risultato ottenuto va ben oltre le specifiche che si possono ottenere in un semplice progetto-giocattolo, che tende soltanto a dimostrare alcune delle potenzialità del sistema per poi venir completamente dimenticato sia dal suo creatore che dalle persone che lo seguivano. Nel caso in discussione, è stato possibile individuare molteplici proposte, difficoltà, soluzioni e alternative a problemi analizzati, contribuendo non solo a quello che risulta essere la realizzazione di prototipi in questo ambito, ma anche allo sviluppo delle librerie trattate durante lo studio. Agire nel campo sperimentale e della ricerca è anche questo: trovarsi di fronte a difficoltà che non sono state comunemente affrontate, per le quali è necessario inventare nuove soluzioni e provvedere, in qualche modo, al raggiungimento dell'obiettivo posto.\\
 
-Sono molteplici le difficoltà riscontrate, per le quali non si era previsto il tempo necessario: partendo da banali problematiche relative al mondo degli Agenti, finendo sulle numerose \textit{issue}\footnote{Come definito nel capitolo \ref{sec:issues}} aperte nei repository dei relativi Framework. Ma la ricerca è anche questo: trovarsi di fronte a difficoltà che non sono state comunemente affrontate, per le quali è necessario inventare nuove soluzioni e provvedere, in qualche modo, al raggiungimento dell'obiettivo posto.\\
+Le difficoltà incontrate durante lo sviluppo hanno notevolmente allungato i tempi di realizzazione, ma il tempo ad esse dedicato non dev'essere considerato perso. Infatti, grazie alle numerose \textit{issue}\footnote{Come definito nel capitolo \ref{sec:issues}} aperte nei repository dei relativi Framework è stato possibile partecipare attivamente a quello che risulta essere a tutti gli effetti lo sviluppo \textbf{reale} delle soluzioni attualmente presenti sul mercato per quanto riguarda Web Of Things. L'analisi dei vari modelli e del relativo codice ha fatto emergere diverse incongruenze che sono state prontamente segnalate: alcune di esse sono già state risolte e pubblicate nei relativi repository; altre sono in attesa di essere prese in considerazione, in quanto molto più difficili da progettare e realizzare.\\
 
 Definire le Thing Description ha permesso di identificare le diversità che vi possono esistere tra oggetti e la necessità di avere un modo per capirne le funzionalità. L'aggiunta della semantica ha contribuito a valorizzare il significato e il peso della conoscenza del sistema, che ha permesso di identificare con estrema facilità i dispositivi di un certo tipo o quelli che svolgono una certa funzione, lasciando un campo tutto da esplorare per quel che riguarda ulteriori interrogazioni e inferenze di conoscenza.\\
 
-Seguire un modello ad Agenti in un modo innovativo, configurato in maniera meno classica e seguendo un linguaggio meno comune, ma comunque compatibile, ha reso note le diverse difficoltà che è possibile incontrare durante lo sviluppo; scoperto però il procedimento corretto, è possibile far risparmiare tempo ad ulteriori programmatori che vorranno cimentarsi nella sperimentazione di questi framework, agevolando la configurazione e lo sviluppo di soluzioni sempre più innovative.\\
+Seguire un modello ad Agenti in un modo innovativo, configurato in maniera meno classica e seguendo un linguaggio meno comune, ma comunque compatibile, ha contribuito allo sviluppo del framework di JaCaMo, abilitandolo a tecnologie per le quali non era inizialmente pensato. Inoltre, l'impostazione del progetto permette eventuali estensioni dello stesso per esplorare ancora più a fondo argomenti che uno singolo studente non può fisicamente coprire in un elaborato.\\
 
-Il progetto, nel complesso, dimostra quanto sia possibile ottenere unendo i mondi di Web Semantico, Web of Thing e Pervasive Computing, senza però toccarne nemmeno la cima: è chiaramente impossibile cercare di implementare ogni questione relativa alle singole parti analizzate, in quanto per ognuna di esse è necessario predisporre un progetto che va ben oltre una semplice dimostrazione. Nel campo, vi sono diversi enti, aziende e gruppi di lavoro che stanno continuamente pensando a nuovi standard e/o linee guida sul mondo interconnesso che si sta creando: è del tutto improbabile che un singolo studente possa abbracciare l'interezza di questo sistema. Di conseguenza, è necessario sottolineare come il tutto porti ad avere più domande che risposte: rimangono ancora numerosi campi da coprire e lacune da riempire per poter dichiarare un sistema autonomo, indipendente, facilmente configurabile e auto-descrivente: sicuramente, la Thing Description è il punto di partenza per tutto ciò, e grazie all'unione della semantica e della visione pervasiva, i risultati attesi in futuro possono essere promettenti.\\
+Il progetto, nel complesso, dimostra quanto sia possibile ottenere unendo i mondi di Web Semantico, Web of Thing e Pervasive Computing, senza però toccarne nemmeno la cima: è chiaramente impossibile cercare di implementare ogni questione relativa alle singole parti analizzate, in quanto per ognuna di esse è necessario predisporre un progetto che va ben oltre una semplice dimostrazione. Nel campo vi lavorano infatti diversi enti, aziende e gruppi di lavoro che stanno continuamente pensando a nuovi standard e/o linee guida sul mondo interconnesso che si sta creando: è del tutto improbabile che un singolo studente possa abbracciare l'interezza di questo sistema. Di conseguenza, è necessario sottolineare che la strada per un sistema completamente autoconfigurate e autonomo è tracciata, ma è ancora tutta da percorrere: esistono infatti già tutte le tecnologie abilitanti a tale scopo, ma bisogna essere capaci di coglierle nella loro completezza, impossibile da trattare in un unico singolo progetto.\\
 
-Comunque, la soddisfazione finale riguardante il progetto di ricerca e sviluppo va ben oltre le aspettative: nonostante i diversi cali subiti durante tutto l'iter, è possibile apprezzare come l'intero processo abbia portato ovunque a dei risultati anche non attesi:
+Comunque, la soddisfazione finale riguardante l'elaborato contenente elementi di ricerca e sviluppo va ben oltre le aspettative: infatti, è possibile apprezzare come l'intero processo abbia portato ovunque a dei risultati anche non attesi:
 
 \begin{itemize}
 	\item è stato possibile capire le difficoltà, le sfide e le possibilità che si hanno a disposizione nella progettazione di sistemi eterogenei;
+	
 	\item è stato possibile constatare quanto la tecnologia attuale fatichi a perseguire l'obiettivo di interoperabilità abilitante anche alla semantica;
+	
 	\item diversi Framework hanno ricevuto feedback diretto da un utilizzatore che chiedeva più di un esempio-giocattolo;
+	
 	\item il mondo degli Agenti ha visto l'implementazione in Kotlin per una più efficiente prototipazione e realizzazione;
+	
 	\item il progetto finale offre diversi spunti per ampliamenti e potenziamenti dello stesso.
 \end{itemize}
 
-Nel complesso, quindi, si ritiene che l'iter che ha portato alle soprastanti conclusioni sia stato complesso, difficile e a volte demoralizzante, ma anche produttivo, stimolante e offrente diversi spunti per quello che risulterà essere un ulteriore ampliamento delle conoscenze in questo vastissimo campo.
+Nel complesso, quindi, si ritiene che l'iter che ha portato alle soprastanti conclusioni sia stato complesso e difficile, ma anche produttivo, stimolante e offrente diversi spunti per quello che risulterà essere un ulteriore ampliamento delle conoscenze in questo vastissimo campo.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
