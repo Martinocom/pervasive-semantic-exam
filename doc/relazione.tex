@@ -274,7 +274,7 @@ sorting=ynt
 		{\small{\textit{\url{https://github.com/Martinocom/pervasive-semantic-exam}}}}\\
 		
 		\vspace*{4mm}
-		{\Large{Progettazione, creazione e l'uso delle Web Things all'interno di una stanza, utilizzando Agenti e metodologie di descrizione semantica}}\\
+		{\Large{Progettazione, creazione e l'uso delle Web Thing all'interno di una stanza, utilizzando Agenti e metodologie di descrizione semantica}}\\
 		
 		\vspace{10mm}
 		{\Large{Marcin Pabich\\}}
@@ -310,13 +310,13 @@ Il crescente interesse verso Internet of Things e un'esponenziale crescita nell'
 Avendo come caratteristica quella di essere una via di mezzo tra la ricerca ed effettiva prototipazione, la seguente relazione si comporrà di diversi punti trattanti in modo dettagliato ogni aspetto che incide sulle decisioni da intraprendere. Le conclusioni tratte da ogni analisi effettuata permetteranno poi la realizzazione di un applicativo dimostrante le capacità di un sistema progettato tenendo conto della conoscenza acquisita. I seguenti punti riassumono la scaletta individuata:
 
 \begin{itemize}
-	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Things, Conoscenza, Agenti);
+	\item introduzione ai concetti trattati in questa relazione (IoT, Smart Room, Thing, Conoscenza, Agenti);
 	
 	\item analisi nel campo del Semantic Web per descrivere la conoscenza relativa agli oggetti e all'ambiente in cui si trovano;
 	
-	\item analisi nel campo dello sviluppo per scoprire framework disponibili per la creazione/prototipazione delle Things,
+	\item analisi nel campo dello sviluppo per scoprire Framework disponibili per la creazione/prototipazione delle Thing,
 	
-	\item creazione degli oggetti (virtualmente o fisicamente) aventi caratteristiche rilevate nei precedenti punti, utilizzando il (o i) framework scoperto(i);
+	\item creazione degli oggetti (virtualmente o fisicamente) aventi caratteristiche rilevate nei precedenti punti, utilizzando il (o i) Framework scoperto(i);
 	
 	\item focus sulle metodologie a disposizione per usufruire della conoscenza lato sperimentale e lato codice (anche in maniera innovativa e/o abilitante verso ulteriori approfondimenti);
 	
@@ -339,34 +339,34 @@ L'ambito di Internet of Things \cite{iot} risulta essere particolarmente interes
 
 Già nel 2010 i dispositivi connessi in rete erano più del doppio del numero della popolazione mondiale: la costante esponenziale crescita di questo fenomeno sottolinea l'importanza che esso assume nel tempo, non solo per quanto riguarda l'ambito user, ma anche le aziende e le città.\\
 
-L'internet delle cose (Internet of Things) è un concetto rappresentate una possibile evoluzione del web: le cose (Things) all'interno di un sistema si rendono scopribili ed accessibili, in modo da garantire l'interoperabilità e il continuo flusso dei dati. Gli oggetti così connessi possono diventare intelligenti e acquisire a loro volta dati provenienti da fonti eterogenee, altri oggetti compresi. L'insieme delle informazioni percepite diventa quindi conoscenza, e può essere sfruttata sia da calcolatori che da umani.\\
+L'internet delle cose (Internet of Things) è un concetto rappresentate una possibile evoluzione del web: le cose (Thing) all'interno di un sistema si rendono scopribili ed accessibili, in modo da garantire l'interoperabilità e il continuo flusso dei dati. Gli oggetti così connessi possono diventare intelligenti e acquisire a loro volta dati provenienti da fonti eterogenee, altri oggetti compresi. L'insieme delle informazioni percepite diventa quindi conoscenza, e può essere sfruttata sia da calcolatori che da umani.\\
 
 Per "oggetti" \cite{smartthing} si può intendere una qualsiasi cosa capace di rendersi visibile e comunicante all'interno di una rete: si parla quindi di "Smart Things" quando questi possiedono le capacità di comunicare e di essere scoperti da altri.\\
 
-La definizione di cosa sia effettivamente l'IoT ha passato diversi stage di revisione, nella quale si è potuto osservare una graduale progressione verso una visione sempre più ampia e complessa. Partendo infatti da semplici oggetti smart, come un condizionatore connesso, si è arrivati ad un sistema in cui è il termostato ad osservare l'ambiente; esso reagisce quindi ai cambiamenti e, comunicando poi le azioni da attuare ad una serie di oggetti connessi, mantiene un certo stato dell'environment in cui si trova. Un ulteriore evoluzione è quella dell'integrazione di questi sistemi con assistenti virtuali, oggetti eterogenei e entità esterne alla propria casa: il tutto in una visione più ampia di un mondo completamente connesso, nel quale l'interazione con i device smart sarà sempre di più facente parte della vita di un singolo e della società nella quale vive.\\
+La definizione di cosa sia effettivamente l'IoT ha passato diversi stage di revisione, nella quale si è potuto osservare una graduale progressione verso una visione sempre più ampia e complessa. Partendo infatti da semplici oggetti Smart, come un condizionatore connesso, si è arrivati ad un sistema in cui è il termostato ad osservare l'ambiente; esso reagisce quindi ai cambiamenti e, comunicando poi le azioni da attuare ad una serie di oggetti connessi, mantiene un certo stato dell'environment in cui si trova. Un ulteriore evoluzione è quella dell'integrazione di questi sistemi con assistenti virtuali, oggetti eterogenei e entità esterne alla propria casa: il tutto in una visione più ampia di un mondo completamente connesso, nel quale l'interazione con i device Smart sarà sempre di più facente parte della vita di un singolo e della società nella quale vive.\\
 
 IoT risulta essere una rete capace di creare un estratto virtuale del mondo reale, nel quale le cose collaborano tra di loro estrapolando ed acquisendo conoscenza, interagendo tra di loro e modificando l'ambiente nel quale si trovano. Attraverso l'uso estensivo di sensori, attuatori e oggetti eterogenei si procederà alla racconta di un enorme quantità di dati: a fronte di una profonda analisi di quest'ultimi si creerà un modello sempre più ottimizzato di ambienti nei quali si vive o si lavora, rendendo le azioni quotidiane più organizzate e ottimizzate da diversi punti di vista, quali costi, tempi e fatica. L'interazione tra le cose avverrà in maniera sempre più invisibile, tale da rendere le Smart Things parte integrante della vita quotidiana, non accorgendosi nemmeno quando e dove esse vengono sfruttate. Un progresso graduale permetterà quindi di ottenere un'unica rete, formata da uomini, cose e intelligenze artificiali, collaboranti tra di loro.
 
 \subsection{Problematiche}
-Esistono diversi ambiti di studio che confermano sia le potenzialità che i rischi legati all'applicaione estensiva dell IoT. Il principale problema tecnico è quello relativo all'eterogeneità delle Things che possono essere interconnesse tra di loro e i relativi standard di comunicazione (emergenti e presenti) che vi possono essere. Esistono infatti diversi protocolli di comunicazione già esistenti e definiti, ognuno dei quali possiede i propri vantaggi e svantaggi. Il problema che ne deriva è l'impossibilità di averli implementati tutti all'interno di un singolo dispositivo. Inoltre, per utilizzarne alcuni, come ZigBee, vi è necessità di possedere un hub centrale.\\
+Esistono diversi ambiti di studio che confermano sia le potenzialità che i rischi legati all'applicazione estensiva dell'IoT. Il principale problema tecnico è quello relativo all'eterogeneità delle Thing che possono essere interconnesse tra di loro e i relativi standard di comunicazione (emergenti e presenti) che vi possono essere. Esistono infatti diversi protocolli di comunicazione già esistenti e definiti, ognuno dei quali possiede i propri vantaggi e svantaggi. Il problema che ne deriva è l'impossibilità di averli implementati tutti all'interno di un singolo dispositivo. Inoltre, per utilizzarne alcuni, come ZigBee, vi è necessità di possedere un hub centrale.\\
 
 Oltre ai diversi protocolli, ogni produttore di Smart Things implementa uno standard proprietario di comunicazione, il quale generalmente richiede l'utilizzo di un'app o hub apposta, non parlante con dispositivi dei competitor. Si ritrova quindi molto spesso a dover rimanere legati ad un singolo manufacturer, nonostante le varie alternative, a volte nettamente migliori, presenti sul mercato.\\
 
 I principali problemi di natura umana, invece, risulta essere quello della privacy e della proprietà, ovvero di chi alla fine possiede i dati. Tenendo in considerazione una visione ampia, nella quale tutti i dispositivi parlano tra di loro, inevitabilmente di mezzo vi sono dati riguardanti ogni individuo. Facendo un esempio classico, i dati biometrici di un individuo potrebbero essere benevolmente usati per monitorare lo stato della salute (ad esempio, si pensi agli anziani): un'automazione potrebbe essere fatta quando vi è necessità di chiamare soccorsi o informare urgentemente la famiglia di un accaduto. Questi dati sono sensibili, e dev'essere garantito un loro corretto utilizzo congruo con l'obiettivo che hanno da raggiungere: ciò che, alla fine, è stato tentato con l'introduzione del  \href{https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=uriserv:OJ.L_.2016.119.01.0001.01.ITA&toc=OJ:L:2016:119:TOC}{GDPR}.\\
 
-Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio ad una macchina agricola smart, nella quale vi sono diversi sensori che comunicano il loro stato all'utilizzatore. Parlando dunque di privacy e proprietà, vi è un acceso dibattito sul chi effettivamente possiede quei dati, in quanto potrebbe averne accesso anche il produttore della macchina agricola: in questo caso si assisterebbe ad un'analisi comportamentale degli individui, favorendo la prevenzione dei guasti e l'ottimizzazione delle features più richieste a discapito del monitoraggio delle abitudini degli utilizzatori, le quali, dipendentemente dal contesto, potrebbero rendere identificabile un soggetto, anche se in partenza i dati risulterebbero anonimi.\\
+Collegandosi poi al tema della proprietà dei dati, si può pensare ad esempio ad una macchina agricola Smart, nella quale vi sono diversi sensori che comunicano il loro stato all'utilizzatore. Parlando dunque di privacy e proprietà, vi è un acceso dibattito sul chi effettivamente possiede quei dati, in quanto potrebbe averne accesso anche il produttore della macchina agricola: in questo caso si assisterebbe ad un'analisi comportamentale degli individui, favorendo la prevenzione dei guasti e l'ottimizzazione delle features più richieste a discapito del monitoraggio delle abitudini degli utilizzatori, le quali, dipendentemente dal contesto, potrebbero rendere identificabile un soggetto, anche se in partenza i dati risulterebbero anonimi.\\
 
 
 \section{Web of Things}
 \label{sec:w3c}
 \label{sec:wot}
-W3C {\cite{w3c}} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo ta redigere modelli open per un web moderno. Grazie a questo ente si possono apprezzare standard moderni che promuovono un Web sicuro, interoperabile e veloce.\\
+W3C {\cite{w3c}} è un ente che si occupa di standardizzare quello che risulta essere a tutti gli effetti un internet in continua evoluzione: insieme a grandi aziende, gruppi e organizzazioni fanno in modo da redigere modelli open per un web moderno. Grazie a questo ente si possono apprezzare standard moderni che promuovono un Web sicuro, interoperabile e veloce.\\
 
-La nascita del \textbf{Web of Things} \cite{wot} è trascinata dall'inefficienza e frammentazione che l'industria dell IoT ha portato negli anni, sia in case che industrie. L'eterogeneità delle Smart Things e i diversi protocolli di comunicazione hanno causato una fragile struttura connessa, difficilmente mantenibile e non scalabile, perlopiù legata ad un unico fornitore.\\
+La nascita del \textbf{Web of Things} \cite{wot} è trascinata dall'inefficienza e frammentazione che l'industria dell'IoT ha portato negli anni, sia in case che industrie. L'eterogeneità delle Smart Things e i diversi protocolli di comunicazione hanno causato una fragile struttura connessa, difficilmente mantenibile e non scalabile, perlopiù legata ad un unico fornitore.\\
 
-Il gruppo di ricerca ha così cominciato a definire norme che potessero in qualche modo rappresentare uno standard, o almeno, ottime raccomandazioni, sul come costruire il mondo di domani in questo ambito: come definito nel \quotes{\textit{A resource oriented architecture for the Web of Things}} \cite{resource-oriented-wot}, Internet delle cose è letteralmente esploso e per poter affrontare un problema di dimensioni elevate si è fatto ricorso al ben noto e vastamente utilizzato protocollo di comunicazione \textbf{REST}. Grazie all'adozione di uno standard definito, che tratta ogni cosa come una risorsa, è stato possibile identificare, delimitare e incapsulare le funzionalità delle Thing all'iterno di una rete complessa a piacere, definendo un'architettura di base composta da alcuni \quotes{\textit{building blocks}}.\\
+Il gruppo di ricerca ha così cominciato a definire norme che potessero in qualche modo rappresentare uno standard, o almeno, ottime raccomandazioni, sul come costruire il mondo di domani in questo ambito: come definito nel \quotes{\textit{A resource oriented architecture for the Web of Things}} \cite{resource-oriented-wot}, Internet delle cose è letteralmente esploso e per poter affrontare un problema di dimensioni elevate si è fatto ricorso al ben noto e vastamente utilizzato protocollo di comunicazione \textbf{REST}. Grazie all'adozione di uno standard definito, che tratta ogni cosa come una risorsa, è stato possibile identificare, delimitare e incapsulare le funzionalità delle Thing all'interno di una rete complessa a piacere, definendo un'architettura di base composta da alcuni \quotes{\textit{building blocks}}.\\
 
-Un elevato numero di dispositivi componenti immerso all'interno di un ambiente comporta però indubbiamente nuove sfide per chiunque decida di cimentarsi nello sviluppo di questi sistemi: affrontarle tutte potrebbe diventare problematico, in quanto la generale predisposizione all'eterogeneità delle Things e loro caratteristiche non facilita ne la progettazione ne l'effettiva realizzazione dei sistemi connessi. In  \quotes{\textit{The Web of Things: Challenges and Opportunities}} \cite{wot-challenges} sono ben descritte le caratteristiche di un sistema open che abbraccia l'espressività di REST e le sfide da affrontare:
+Un elevato numero di dispositivi componenti immerso all'interno di un ambiente comporta però indubbiamente nuove sfide per chiunque decida di cimentarsi nello sviluppo di questi sistemi: affrontarle tutte potrebbe diventare problematico, in quanto la generale predisposizione all'eterogeneità delle Thing e loro caratteristiche non facilita ne la progettazione ne l'effettiva realizzazione dei sistemi connessi. In  \quotes{\textit{The Web of Things: Challenges and Opportunities}} \cite{wot-challenges} sono ben descritte le caratteristiche di un sistema open che abbraccia l'espressività di REST e le sfide da affrontare:
 
 {\itshape
 \begin{myquote}
@@ -385,12 +385,12 @@ Un elevato numero di dispositivi componenti immerso all'interno di un ambiente c
 \end{myquote}
 }
 
-Il lavoro così svolto permette quindi di avere un'astrazione molto più completa di quello che era il risultato dell'IoT: il WoT ne rappresenta quindi una conseguente evoluzione ed estensione, capace di offrire non solo maggiori potenzialità in campo puramente tecnologico, ma anche semantico. Le Things, infatti, potrebbero essere viste non solo come semplici oggetti che monitorano o agiscono sull'ambiente, ma che interagiscono tra di loro per raggiungere obiettivi stabiliti; diventerebbero quinti entità intelligenti, connesse, pro-attive e reattive, capaci di offrire la propria conoscenza disponibile non solo per umani, ma anche per altre Things: il tutto il più possibilmente compatibile e compliant a standard definiti.
+Il lavoro così svolto permette quindi di avere un'astrazione molto più completa di quello che era il risultato dell'IoT: il WoT ne rappresenta quindi una conseguente evoluzione ed estensione, capace di offrire non solo maggiori potenzialità in campo puramente tecnologico, ma anche semantico. Le Thing, infatti, potrebbero essere viste non solo come semplici oggetti che monitorano o agiscono sull'ambiente, ma che interagiscono tra di loro per raggiungere obiettivi stabiliti; diventerebbero quinti entità intelligenti, connesse, pro-attive e reattive, capaci di offrire la propria conoscenza disponibile non solo per umani, ma anche per altre Thing: il tutto il più possibilmente compatibile e compliant a standard definiti.
 
 \section{Smart Room}
-Una stanza "Smart" \cite{smartroom} è un ambiente che utilizza al suo interno più oggetti smart, interconnessi tra di loro. Grazie all'Internet of Things, essi sono capaci di fornire features di diverso tipo, partendo da quelle semplici richiedenti l'input dell'utente, arrivando a quelle intelligenti senza che vi sia un'esplicita richiesta per l'attuazione.\\
+Una stanza "Smart" \cite{smartroom} è un ambiente che utilizza al suo interno più oggetti Smart, interconnessi tra di loro. Grazie all'Internet of Things, essi sono capaci di fornire features di diverso tipo, partendo da quelle semplici richiedenti l'input dell'utente, arrivando a quelle intelligenti senza che vi sia un'esplicita richiesta per l'attuazione.\\
 
-Una Smart Room può fornire features personalizzabili in base all'utente che ne usufruisce. L'interazione oggetto-utente è generalmente stabilita grazie all'uso di un terminale, oggetto dedicato o smartphone, e permette in modo semplice, intuitivo e veloce di configurare tutti i parametri richiesti. Le Things al'interno di una Smart Room devono riuscire ad essere interoperabili tra di loro e non dipendere da una soluzione proprietaria per la loro gestione. Un utente è inoltre libero di aggiungere un numero virtualmente infinito di oggetti all'interno della stanza, senza rompere la stabilità del sistema o comprometterne le funzionalità, anzi, fornendo più possibilità alle cose di interagire e creare nuove funzionalità, anche non previste al momento della creazione della Thing.
+Una Smart Room può fornire features personalizzabili in base all'utente che ne usufruisce. L'interazione oggetto-utente è generalmente stabilita grazie all'uso di un terminale, oggetto dedicato o smartphone, e permette in modo semplice, intuitivo e veloce di configurare tutti i parametri richiesti. Le Thing all'interno di una Smart Room devono riuscire ad essere interoperabili tra di loro e non dipendere da una soluzione proprietaria per la loro gestione. Un utente è inoltre libero di aggiungere un numero virtualmente infinito di oggetti all'interno della stanza, senza rompere la stabilità del sistema o comprometterne le funzionalità, anzi, fornendo più possibilità alle cose di interagire e creare nuove funzionalità, anche non previste al momento della creazione della Thing.
 
 \subsection{Problematiche}
 Le stesse problematiche che riguardano il mondo dell'IoT possono essere trovate all'interno di una Smart Room, ad esempio considerando classico problema dell'interoperabilità tra oggetti eterogenei e i diversi modi nei quali essi potrebbero voler comunicare.\\
@@ -406,7 +406,7 @@ Un oggetto Smart \cite{smartthing} è un'entità connessa, facente intrinsecamen
 \section{Conoscenza, ontologie e RDF}
 L'eterogeneità delle informazioni è intrinsecamente presente in ogni ambiente preso in considerazione: vi sono infatti molteplici eventi, entità, proprietà di esse e azioni che possono essere eseguite. Per un umano è quasi immediato riconoscere immagini o situazioni, contestualizzando ogni volta l'evento osservato per poter trarne conclusioni corrette. La cosa non si rende vera per quanto riguarda le macchine o sistemi automatici: i contenuti resi a disposizione sono perlopiù human-readable, ma non sono immediatamente capibili dai calcolatori; essi, infatti, spesso non possiedono un background sufficiente, tale da poter individuare situazioni, oggetti o eventi particolari senza essere prima preaddestrati in un set determinato e limitato di riconoscimenti da svolgere.\\
 
-Per quanto riguarda l'analisi del mondo che circonda gli umani, una mancanza di contesto e di informazioni collegabili tra di loro rende il lavoro dei computer complesso e macchinoso. Per questo motivo sin dall'anno 2007 vi sono diversi movimenti per spingere l'adozione sempre più grande dei \quotes{Linked Data} \cite{linkeddata}: dati sui quali si possono eseguire query semantiche. Quest'ultime non sono nient'altro che un modo per le macchine di ragionare sulla conoscenza che hanno a disposizione, non più scritta in modo da essere capita soltanto da un umano. La rappresentazione dei dati dunque, non riguarda più soltanto quello che si può sapere, ma anche la derivazione di nuovi dati a partire da quelli esistenti, per creare una fonte potenzialmente infinitamente profonda di collegamenti tra tutte le informazioni che si hanno a disposizione, abbattendo i cosiddetti muri virtuali che separano attualmente la conoscenza posseduta.\\
+Per quanto riguarda l'analisi del mondo che circonda gli umani, una mancanza di contesto e di informazioni collegabili tra di loro rende il lavoro dei computer complesso e macchinoso. Per questo motivo sin dall'anno 2007 vi sono diversi movimenti per spingere l'adozione sempre più grande dei \quotes{Linked Data} \cite{linkeddata}: dati sui quali si possono eseguire query semantiche. Queste ultime non sono nient'altro che un modo per le macchine di ragionare sulla conoscenza che hanno a disposizione, non più scritta in modo da essere capita soltanto da un umano. La rappresentazione dei dati dunque, non riguarda più soltanto quello che si può sapere, ma anche la derivazione di nuovi dati a partire da quelli esistenti, per creare una fonte potenzialmente infinitamente profonda di collegamenti tra tutte le informazioni che si hanno a disposizione, abbattendo i cosiddetti muri virtuali che separano attualmente la conoscenza posseduta.\\
 
 Le \textbf{ontologie} \cite{ontology} sono la raccolta dei concetti dato un determinato ambito, mentre uno dei formati più comuni per scrivere conoscenza è RDF \cite{rdf}. L'obiettivo di questi è poter mantenere un modello di dati semplici, che permetta a chiunque la rappresentazione di un qualsiasi concetto. Il tutto è basato sulla formazione di triplette \textit{"soggetto-predicato-oggetto"}, che forma un grafo etichettato esprimente le relazioni che intercorrono tra le cose. La localizzazione delle risorse deve avvenire tramite l'uso di URI ed è possibile specificare tipi di dati (anche nuovi). Globalmente parlando, ogni risorsa creata può essere referenziata da altre, in modo tale da creare una struttura connessa e unica, con tutta la conoscenza che fino a quel momento si aveva.
 
@@ -459,7 +459,7 @@ L'utilizzo di un Agente BDI ha bisogno di una sua codifica: per poter programmar
 \chapter{Web Semantico e Things}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
-In questo capitolo verranno analizzati le possibilità date a disposizione per descrivere le Things, in modo da poter utilizzare in modo interoperabile la conoscenza che presentano.
+In questo capitolo verranno analizzati le possibilità date a disposizione per descrivere le Thing, in modo da poter utilizzare in modo interoperabile la conoscenza che presentano.
 
 
 \section{Parametri della conoscenza}
@@ -477,7 +477,7 @@ Per essere considerata valida, una conoscenza dev'essere descritta in modo tale 
 
 È importante sottolineare questi aspetti, in quanto anche una banale descrizione testuale di un oggetto può essere ritenuta inizialmente come una conoscenza che riguarda quell'oggetto. Purtroppo il commento del produttore contiene di solito un linguaggio indirizzato verso il consumatore, per convincerlo delle potenzialità di quel dispositivo rispetto alla concorrenza, ma non descrivente (o nascondente) alcuni importantissimi dettagli riguardanti l'implementazione effettiva delle sue feature.\\
 
-Di conseguenza, è già possibile definire a priori che linguaggi naturali non possono essere utilizzati per descrivere le things in modo univoco e leggibile da parte di tutti.
+Di conseguenza, è già possibile definire a priori che linguaggi naturali non possono essere utilizzati per descrivere le Thing in modo univoco e leggibile da parte di tutti.
 
 \section{Modelli conosciuti}
 In letteratura sono noti diversi modi per trascrivere e trasmettere conoscenza. Un esempio banale è semplicemente questa relazione, dentro la quale l'utilizzo di un linguaggio noto permette ad altri umani (capaci di leggere la lingua utilizzata) di esplorare il testo ed estrarre informazioni da esso. Ovviamente, per una macchina è difficile poter analizzare un linguaggio naturale, presentante oltretutto diverse ambiguità e criticità; a volte vi è l'assenza di un esplicito contesto, altre volte vi possono essere diverse interpretazioni dello stesso testo letto da individui diversi e/o traduzioni non esatte in altri linguaggi, a causa di forme sintattiche differenti.\\
@@ -487,7 +487,7 @@ Esistono di conseguenza alcuni modelli definiti e conosciuti per poter ovviare a
 \begin{itemize}
 	\item Un modo per poter descrivere la conoscenza rispettando tutti i parametri indicati è l'utilizzo di \textbf{RDF} e \textbf{RDFS}: col primo, si possono esprimere concetti base per la descrizione e/o definizione di \textit{istanze} delle classi, nel secondo i concetti per la descrizione e/o definizione di queste classi.
 	
-	\item Un'altro modo può essere quello di utilizzare \textbf{OWL}, che utilizza una semantica simile a RDFS, ma che aggiunge alcune funzionalità e restrizioni per rendere l'esplorazione e l'inferenza di conoscenza in modo più agevole.
+	\item Un altro modo può essere quello di utilizzare \textbf{OWL}, che utilizza una semantica simile a RDFS, ma che aggiunge alcune funzionalità e restrizioni per rendere l'esplorazione e l'inferenza di conoscenza in modo più agevole.
 	
 	\item Infine, è possibile definire un proprio standard per la definizione della conoscenza, in modo da essere facilmente scrivibile e leggibile in un formato standard (come XML-based o JSON-based).
 \end{itemize}
@@ -559,11 +559,11 @@ Per ulteriori dettagli sul modello, si rimanda alla \underline{documentazione uf
 
 \section{L'importanza della semantica}
 \label{sec:semantic}
-Di per se la sola Thing Description è più che sufficiente nella maggior parte dei casi per coprire quello che si vuole ottenere per avere Things interoperabili ed eterogenee: la descrizione fornisce proprietà, funzioni ed eventi che possono essere osservate nell'entità e di conseguenza usarle, stando conformi ai protocolli che la Thing Description stessa definisce al suo interno. Vi è quindi la necessità di sottolineare per quale motivo è importante non banalizzare la possibilità di includere anche della semantica all'interno della Thing Description.\\
+Di per se la sola Thing Description è più che sufficiente nella maggior parte dei casi per coprire quello che si vuole ottenere per avere Thing interoperabili ed eterogenee: la descrizione fornisce proprietà, funzioni ed eventi che possono essere osservate nell'entità e di conseguenza usarle, stando conformi ai protocolli che la Thing Description stessa definisce al suo interno. Vi è quindi la necessità di sottolineare per quale motivo è importante non banalizzare la possibilità di includere anche della semantica all'interno della Thing Description.\\
 
 In principio, si deve porre particolare attenzione a quello che risulta essere la dinamicità di un sistema: la disponibilità di oggetti che si configurano da soli, una volta inseriti dentro un contesto, potrebbe ridurre notevolmente tempi di installazione e manutenzione. Inoltre, il fatto di poter conoscere dinamicamente tutte le Thing attualmente operanti all'interno di un ambiente potrebbe portare all'implementazione di soluzioni che non necessitano per forza di essere progettare per lavorare con un certo tipo di Device e, di conseguenza, essere sfruttate in diversi ambiti.\\
 
-Già questi due aspetti abilitano automaticamente l'idea di una descrizione dell'ambiente: ma questo risulta essere un aspeto che prescinde da eventuali contesti nei quali definire l'oggetto attraverso delle ontologie. La Thing Description abilita il riconoscimento automatico di proprietà, funzioni ed eventi che possono essere scaturite da una Thing tramite protocolli di comunicazione ben noti (ed eventualmente descritti). Vi è però una leggera e poco significativa concezione di semantica: infatti, un qualsiasi file \texttt{.xml} o \texttt{.json} potrebbe semplicemente descrivere l'oggetto dicendo di che tipo fosse e a quali protocolli corrisponde.\\
+Già questi due aspetti abilitano automaticamente l'idea di una descrizione dell'ambiente: ma questo risulta essere un aspetto che prescinde da eventuali contesti nei quali definire l'oggetto attraverso delle ontologie. La Thing Description abilita il riconoscimento automatico di proprietà, funzioni ed eventi che possono essere scaturite da una Thing tramite protocolli di comunicazione ben noti (ed eventualmente descritti). Vi è però una leggera e poco significativa concezione di semantica: infatti, un qualsiasi file \texttt{.xml} o \texttt{.json} potrebbe semplicemente descrivere l'oggetto dicendo di che tipo fosse e a quali protocolli corrisponde.\\
 
 È esattamente che a questo punto entra in merito la questione di \quotes{semantica}: infatti, dare semantica alle cose non vuol dire semplicemente descriverle (o di renderle visibili), ma permettere una conoscenza tale da rendere possibile un reasoning su quello che è non soltanto la cosa descritta, ma l'intero ambiente di cui quella cosa fa parte.\\
 
@@ -612,21 +612,21 @@ Per dimostrare quindi le capacità di un sistema descritto, si includerà l'onto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-In questo capitolo verrà definita l'entità di prima classe (la Thing) e verrano progettate ad alto livello le funzionalità delle Thing scelte per la successiva implementazione.
+In questo capitolo verrà definita l'entità di prima classe (la Thing) e verranno progettate ad alto livello le funzionalità delle Thing scelte per la successiva implementazione.
 
 
 \section{Web Thing}
 \label{sec:webthing}
 È utile definire in modo preciso cosa viene inteso per "Thing" (o "Smart Thing") in questo contesto.\\
 
-Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Web Thing} non è un semplice oggetto connesso: facendo parte del Web Of Things (riferimenti nel capitolo \ref{sec:wot}) è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite il protocollo standard HTTP. L'oggetto così definito \mbox{dev'essere} descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile.\\
+Un primo accenno a cos'è una Smart Thing si può trovare nel capitolo \ref{sec:smart_thing}, ma una \textbf{Web Thing} non è un semplice oggetto connesso: facendo parte del Web Of Things (riferimenti nel capitolo \ref{sec:wot}) è un'entità capace di rendere la propria presenza partecipe al sistema, offrendo la possibilità di essere automaticamente scoperta e capita in tutti i suoi punti di vista; che si tratti di funzionalità, proprietà o eventi, essi devono essere accessibili dall'esterno tramite il protocollo standard HTTP. L'oggetto così definito \mbox{dev'essere} descritto tramite una Thing Description, che include tutti gli aspetti sottolineati. Inoltre, la Thing così creata, deve rispettare gli standard definiti dall'ente W3C per essere il più possibile compatibile e interoperabile.\\
 
-Come ulteriore aggiunta a quello che è la descrizione generale, si richiede alle Things di poter offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono così utilizzare sia le informazioni basilari, offerte intrinsecamente dalla descrizione in un formato standard, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (abilitando inoltre possibilità di ricavare conoscenza dal sistema).\\
+Come ulteriore aggiunta a quello che è la descrizione generale, si richiede alle Thing di poter offrire conoscenza su di esse, grazie all'inclusione di ontologie nella Thing Description. Gli utilizzatori finali possono così utilizzare sia le informazioni basilari, offerte intrinsecamente dalla descrizione in un formato standard, sia la conoscenza aggiuntiva grazie alla quale è possibile comprendere di più sull'oggetto stesso (abilitando inoltre possibilità di ricavare conoscenza dal sistema).\\
 
 Da questo momento in poi quindi, non ha più senso di parlare di Smart Things: ogni qual volta si incontrerà il termine \quotes{\textit{Thing}} si farà riferimento alla \textbf{Web Thing}, se non indicato diversamente.
 
 
-\section{Selezione delle Things}
+\section{Selezione delle Thing}
 \label{sec:modellazione-things}
 Prima di passare alla progettazione, è opportuno selezionare alcuni oggetti della vita quotidiana che potrebbero essere in qualche modo rappresentativi per il modello che si vuole simulare. Trattandosi di un'esplorazione che ha come obiettivo quello di mettere il focus su una Smart Room, è di notevole importanza selezionare oggetti e le relative funzionalità ad alto livello, in modo che risultino importanti per le analisi svolte.\\
 
@@ -670,7 +670,7 @@ All'interno di una stanza è infatti possibile trovare diversi oggetti di uso qu
 
 
 \section{Creazione della Thing Description}
-Indipendentemente dalle successive scelte, è già possibile definire a priori la conoscenza che potrà essere inclusa alle Thing scelte. I framework che poi utilizzeranno la conoscenza posseduta dovranno, di conseguenza, supportare quelli che sono gli standard definiti dalle raccomandazioni del W3C, riguardanti la Thing Description, disponibile come guida all'indirizzo \url{https://www.w3.org/TR/wot-thing-description/}. Quest'ultima deve comprendere tutte le caratteristiche definite nella sezione \ref{sec:modellazione-things} e come già definito nel capitolo \ref{sec:ontologie_note}, è doveroso potervi includere delle ontologie per essere più vicini al mondo dei Linked Data.
+Indipendentemente dalle successive scelte, è già possibile definire a priori la conoscenza che potrà essere inclusa alle Thing scelte. I Framework che poi utilizzeranno la conoscenza posseduta dovranno, di conseguenza, supportare quelli che sono gli standard definiti dalle raccomandazioni del W3C, riguardanti la Thing Description, disponibile come guida all'indirizzo \url{https://www.w3.org/TR/wot-thing-description/}. Quest'ultima deve comprendere tutte le caratteristiche definite nella sezione \ref{sec:modellazione-things} e come già definito nel capitolo \ref{sec:ontologie_note}, è doveroso potervi includere delle ontologie per essere più vicini al mondo dei Linked Data.
 
 Per non occupare inutilmente lo spazio con tutte le descrizioni all'interno di questa relazione, si indicano come allegati le seguenti descrizioni degli oggetti:
 
@@ -838,17 +838,17 @@ Si vuole sottolineare inoltre che, per motivi di praticità, vengono considerate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
-Considerando l'imminente programmazione delle things, si procede all'analisi dei framework a disposizione del programmatore per la creazione delle Web Things.
+Considerando l'imminente programmazione delle Thing, si procede all'analisi dei Framework a disposizione del programmatore per la creazione delle Web Thing.
 
 \section{Requisiti per la piattaforma}
 \label{sec:iot_platform}
-Una piattaforma per la creazione delle Things deve possedere alcune importanti caratteristiche:
+Una piattaforma per la creazione delle Thing deve possedere alcune importanti caratteristiche:
 
 \begin{itemize}
 	\setlength\itemsep{0em}
-	\item \textbf{aperta}: non per forza nel senso dell'open-soruce, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti. Un esempio di \quotes{apertura} potrebbe esser semplicemente quello di implementare delle REST API sfruttabili da chiunque;
+	\item \textbf{aperta}: non per forza nel senso dell'open-source, ma avente come caratteristica quella di poter essere sfruttata da tutti i potenziali utilizzatori, in modo da rendere possibile l'interoperabilità tra i singoli oggetti. Un esempio di \quotes{apertura} potrebbe esser semplicemente quello di implementare delle REST API sfruttabili da chiunque;
 
-	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
+	\item \textbf{funzionante}: è impensabile utilizzare una piattaforma custom o nata recentemente, a causa di rischi che comporta l'uso di un Framework instabile e costantemente a rischio di cambiamenti e/o chiusura; è però importante tenere conto di eventuali piattaforme open-source che, anche se chiuse e non più supportate, possono essere corrette e/o reimplementate a piacimento;
 	
 	\item \textbf{standard}: deve garantire l'interoperabilità tra diverse piattaforme che utilizzano lo stesso standard;
 \end{itemize}
@@ -857,7 +857,7 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 
 \begin{itemize}
 	\setlength\itemsep{0em}
-	\item \textbf{supporto alla \textit{Thing Description}}: il framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
+	\item \textbf{supporto alla \textit{Thing Description}}: il Framework deve garantire la possibilità di creare oggetti che includono al loro interno la loro descrizione
 	\begin{itemize}
 		\setlength\itemsep{0em}
 		\item A sua volta, la Thing Description dev'essere conforme agli standard raccomandati dal W3C, soprattutto per quanto riguarda la possibilità di far riferimenti a diverse ontologie per abilitare il supporto ai Linked Data.
@@ -865,35 +865,35 @@ Una piattaforma per la creazione delle Things deve possedere alcune importanti c
 
 	\item \textbf{supporto alla \textit{prototipazione}}: essendo questo lavoro una ricerca, è possibile incontrare diverse problematiche (anche non risolvibili) per le quali potrebbe essere poco pratico l'acquisto dell'occorrente, soprattutto se l'effettiva spesa risulterà essere elevata; la \textit{virtualizzazione} delle Thing, ad esempio, offre una pratica soluzione a questo problema.
 	
-	\item \textbf{supporto nativo per gli standard}: un potenziale framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
+	\item \textbf{supporto nativo per gli standard}: un potenziale Framework che si interfaccia direttamente con gli standard definiti nei capitoli precedenti può facilitare notevolmente lo sviluppo, nonché garantire nativamente l'interoperabilità.
 \end{itemize}
 
 \section{Piattaforme disponibili}
 Parlando di un contesto nel quale vi è una presenza della descrizione di ciò che è l'oggetto tramite la Thing Description, il modello nel quale quest'ultimo è calato risulta essere il Web of Things. La descrizione di quest'ultimo è disponibile direttamente nel documento specificante la sua architettura \cite{wot}.\\
 
-Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti framework offrenti diversi approcci per la realizzazione di una rete Smart: alcuni di essi sono indicati direttamente nel documento di implementazione dello standard W3C\footnote{\url{https://w3c.github.io/wot-thing-description/testing/report.html}}, altri reperibili online.
+Per essere il più possibile compliant a quello che definisce il documento citato, occorre selezionare una piattaforma di coprire se non tutte, la maggior parte delle caratteristiche sia per l'environment che per l'oggetto stesso, in modo da poter sfruttare al massimo le potenzialità definite dallo standard. In campo si possono trovare differenti Framework offrenti diversi approcci per la realizzazione di una rete Smart: alcuni di essi sono indicati direttamente nel documento di implementazione dello standard W3C\footnote{\url{https://w3c.github.io/wot-thing-description/testing/report.html}}, altri reperibili online.
 
 \begin{itemize}	
 	% Confirmed to work but has something that isn't working
 	\item \textbf{WebThings} \cite{webthings}: piattaforma open-source creata in origine da Mozilla per la definizione delle Web Things; WebThings Gateway rappresenta il punto di raccolta degli oggetti, mentre WebThings Framework permette la loro creazione. Per definire quest'ultimi è possibile utilizzare diversi linguaggi come Java, Python o Node.js.
 	
-	\item \textbf{Arena Web Hub} \cite{arenawh}: framework proposto dalla commissione europea, facende parte del progetto \href{https://www.f-interop.eu/}{F-Interop}.
+	\item \textbf{Arena Web Hub} \cite{arenawh}: Framework proposto dalla commissione europea, facente parte del progetto \href{https://www.f-interop.eu/}{F-Interop}.
 	
 	
 	% Candidates
-	\item \textbf{ThingWeb.io} \cite{thingweb}: framework proposto dal gruppo di sviluppo Eclipse che abbraccia le definizioni del WoT specificate dal documento ufficiale del W3C,
+	\item \textbf{ThingWeb.io} \cite{thingweb}: Framework proposto dal gruppo di sviluppo Eclipse che abbraccia le definizioni del WoT specificate dal documento ufficiale del W3C,
 	
 	
 	% Cited but they won't work for our purpose
 	\item \textbf{SmartThings} \cite{smartthings}: piattaforma mantenuta da Samsung per la gestione delle Smart Things grazie ad un hub. Permette di interfacciare gran parte degli oggetti attualmente esistenti all'interno di un unico ambiente, per interagire con essi.
 	
-	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Things. Necessita di un modulo WiFi per essere utilizzato dalla board.
+	\item \textbf{jpasqua-WebThing} \cite{jpasqua} e \textbf{webthing-arduino} \cite{wtarduino}: piattaforme sviluppata appositamente per Arduino per creare in modo semplice le Thing. Necessita di un modulo WiFi per essere utilizzato dalla board.
 	
 	\item \textbf{Node Red Nodegen} \cite{nodered}: tool a linea di comando che può generare dei nodi Node-RED, basato su diverse descrizioni, tra le quali la Thing Description.
 \end{itemize}
 
 
-Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso.\\
+Basandosi sui criteri definiti nella sezione precedente, è quindi possibile scartare in principio il Framework per lo sviluppo su \textbf{Arduino}: nonostante si rilevi essere un ottimo modo per la prototipazione, necessita l'acquisto di uno o più dispositivi (con l'annessa scheda per il WiFi), comportando una spesa non banale. Cadendo su questa scelta, inoltre, si avrebbe il lock-in verso un unica piattaforma (appunto, quella di Arduino), uscendo dalla quale bisognerà reimplementare tutte le caratteristiche dell'oggetto stesso.\\
 
 \textbf{SmartThings} \cite{smartthings} di Samsung risulta essere un'ottima piattaforma per sviluppatori per integrare Smart Thing esistenti all'interno di un unica applicazione. Vi è un modo per creare oggetti virtuali, ma l'oggetto così creato risulta essere legato all'app SmartThings stessa, senza possibilità di interagire con qualcosa di esterno. SmartThings di conseguenza risulta essere una buona scelta se si hanno già dispositivi che si vogliono aggiungere e/o integrare, con l'annessa possibilità di creare schemi \textit{IFTTT} \cite{ifttt}, ma non permettendo la creazione di nuovi oggetti, compliant agli standard definiti e compatibili non solo con una soluzione proprietaria, dev'essere necessariamente scartata.\\
 
@@ -904,12 +904,12 @@ A disposizione rimangono ulteriori candidati, non scartabili semplicemente da un
 
 \subsection{WebThings.io}
 \label{sec:webthingsio}
-\texttt{WebThings.io} \cite{webthings}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un framework capace di gestire sia il punto d'ingresso delle things (il gateway) e la creazione delle thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le things possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
+\texttt{WebThings.io} \cite{webthings}, con il suo \textbf{WebThings}, risulta essere una piattaforma (tecnicamente) completa sotto tutti i punti di vista, anche dei requisiti richiesti nel capitolo \ref{sec:iot_platform}. Si tratta infatti di un Framework capace di gestire sia il punto d'ingresso delle Thing (il gateway) e la creazione delle Thing stesse: a differenza del modulo della Samsung, Mozilla offre la possibilità di creare gli oggetti Smart attraverso l'uso di librerie, sia sviluppate dal team interno, sia dalla community \cite{webthings}. Lo sviluppatore ha quindi di fronte diverse scelte, sia nel campo dei linguaggi, nei quali le Thing possono essere implementate (Java, Python, Arduino per citare i più famosi, per passare anche da C\#, Go e PHP), sia per quanto riguarda la virtualizzazione delle stesse: non vi è infatti alcuna necessità di possedere board o schede dedicate per la prototipazione.\\
 
-L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Things. Purtroppo la documentazione si discosta da quello che è lo standard ufficiale per la Thing Description:
+L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben documentato, con un sito dedicato all'utilizzo sia della parte del Gateway che del Framework per le Thing. Purtroppo la documentazione si discosta da quello che è lo standard ufficiale per la Thing Description:
 
 \begin{itemize}
-	\item Il framework di \textbf{\texttt{WebThings.io}} specifica\footnote{\url{https://webthings.io/api/\#context-member}} che il contesto di una Thing Description debba essere un campo indicante un URI, che punta essenzialmente ad un'ontologia nota per definire i membri di una Thing.
+	\item Il Framework di \textbf{\texttt{WebThings.io}} specifica\footnote{\url{https://webthings.io/api/\#context-member}} che il contesto di una Thing Description debba essere un campo indicante un URI, che punta essenzialmente ad un'ontologia nota per definire i membri di una Thing.
 	
 	\item Le specifiche del W3C indicano\footnote{\url{https://www.w3.org/TR/wot-thing-description/\#thing}} \footnote{\url{https://www.w3.org/TR/wot-thing-description/\#sec-context-extensions}}, invece, che vi possono esistere più contesti nei quali l'oggetto può essere definito, in modo da garantire una descrizione ancora più completa e standard, utilizzando diverse ontologie, anche meno collegate all'ambito di WoT (esempio, ontologia che definisce le unità di misura standard.)
 \end{itemize}
@@ -923,15 +923,15 @@ L'approccio considerato da \texttt{WebThings.io} risulta essere semplice e ben d
 
 Come da figura \ref{fig:specification-conflict}, entrambe le definizioni collidono, e per puntualizzare il problema, si vuole sottolineare come \href{https://www.w3.org/TR/wot-thing-description/#example-28}{\ul{l'esempio 28}} del \href{https://www.w3.org/TR/wot-thing-description/#semantic-annotations}{\ul{capitolo 7.1}} della descrizione del W3C \textbf{\uline{NON}} sia compatibile con le specifiche di \texttt{WebThings.io}, e che quindi risulterebbe essere completamente illeggibile e inutilizzabile.\\
 
-Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 157 - \url{https://github.com/WebThingsIO/api/issues/157}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
+Rendere impossibile l'uso di ontologie, diverse da quella base, vanifica completamente l'obiettivo di questo progetto, per cui il Framework di \texttt{WebThings.io} dev'essere necessariamente scartato. Si sottolinea però che direttamente sul suo repository ufficiale, è stato aperto un ticket di supporto\footnote{Issue 157 - \url{https://github.com/WebThingsIO/api/issues/157}} per richiedere questa funzionalità, che sarà probabilmente integrata in un prossimo futuro.
 
 Come ultima nota, le differenze possono essere trovate sul seguente collegamento: \url{https://github.com/WebThingsIO/wiki/wiki/Mozilla-W3C-Differences}
 
 
 \subsection{Arena Web Hub}
-Framework \cite{arenawh} basato su Node.js contenente esempi di backend e frontend. È un tentativo di standardizzare protocolli differenti, in modo da creare interoperabilità tra essi: infatti, al suo interno, vengono implementati ben tre gateway (Web Hub, Mozilla Gateway e Eclipse Thing Web) che possono essere creati in modo da supportare differenti soluzioni. Le Things vengono create dopo che uno dei tre gateway è stato istanziato, chiamando il metodo \texttt{.produce()}, il quale come l'unico argomento prende in considerazione la Thing Description.\\
+Framework \cite{arenawh} basato su Node.js contenente esempi di backend e frontend. È un tentativo di standardizzare protocolli differenti, in modo da creare interoperabilità tra essi: infatti, al suo interno, vengono implementati ben tre gateway (Web Hub, Mozilla Gateway e Eclipse Thing Web) che possono essere creati in modo da supportare differenti soluzioni. Le Thing vengono create dopo che uno dei tre gateway è stato istanziato, chiamando il metodo \texttt{.produce()}, il quale come l'unico argomento prende in considerazione la Thing Description.\\
 
-Il problema di questa implementazione è simile a quello descritto nella sezione \ref{sec:webthingsio}, trattante del framework di Web Things. Infatti, anche in questa implementazione non è chiaro il supporto per le annotazioni di ontologie diverse da quella standard. L'unica cosa citata nella documentazione è:
+Il problema di questa implementazione è simile a quello descritto nella sezione \ref{sec:webthingsio}, trattante del Framework di Web Thing. Infatti, anche in questa implementazione non è chiaro il supporto per le annotazioni di ontologie diverse da quella standard. L'unica cosa citata nella documentazione è:
 
 \begin{quote}
 \textit{Note that the examples include a client-side Web of Things library (see "client/wot.js") with an adaptation layer for different Web of Things platforms. \ul{A \textbf{further library} is planned to make it easy to work with semantic annotations that describe the kinds of things (e.g. a light), their capabilities (e.g. dimmable), and the context in which they reside (e.g. my kitchen)}.}
@@ -946,14 +946,14 @@ Analizzando il codice sorgente\footnote{\url{https://github.com/draggett/arena-w
 	\label{fig:context-overwritten}
 \end{figure}
 
-Similmente al framework di WebThings, nonostante un vasto supporto alle specifiche di W3C, non vi sono quelle richieste dai requisiti posti. Per questo motivo anche Arena Web Hub dev'essere scartato.
+Similmente al Framework di WebThings, nonostante un vasto supporto alle specifiche di W3C, non vi sono quelle richieste dai requisiti posti. Per questo motivo anche Arena Web Hub dev'essere scartato.
 
 
 \clearpage
 \subsection{ThingWeb.io}
-Similmente ai framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} \cite{thingweb} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Things create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Things virtuali. La documentazione esiste sia sul repository, sia nella pagina ufficiale del progetto.\\
+Similmente ai Framework trattati, come WebThings.io e Arena Web Hub, anche \textbf{ThingWeb.io} \cite{thingweb} tenta di implementare gli standard raccomandati dal W3C. L'approccio in questo caso parte da un'implementazione Node.js: attraverso di quello si crea un endpoint, il quale poi potrà creare e o vedere Thing create. Non vi sono particolari nozioni sul supporto alle ontologie aggiuntive (il problema maggiore delle precedenti soluzioni) e pare avere il supporto per la prototipazione e il lancio di Thing virtuali. La documentazione esiste sia sul repository, sia nella pagina ufficiale del progetto.\\
 
-Esistono due concetti importanti per quanto riguarda il framework di ThingWeb.io:
+Esistono due concetti importanti per quanto riguarda il Framework di ThingWeb.io:
 \begin{itemize}
 	\item \textbf{Thing \textit{esposta}} è l'effettiva implementazione della Thing, con le sue proprietà, metodi ed eventi. Risulta essere quindi l'effettiva Thing Virtuale che il programmatore può eseguire attraverso un file di lancio\footnote{La questione è spiegata meglio nel capitolo \ref{sec:configuring:wt}}.
 	
@@ -979,12 +979,12 @@ Per specificare meglio il supporto alla Thing Description, si può far riferimen
 \end{figure}
 
 
-Al momento, ThingWeb.io risulta essere l'unico framework capace di includere tutte le caratteristiche richieste dal progetto, per risulta essere la scelta definitiva.
+Al momento, ThingWeb.io risulta essere l'unico Framework capace di includere tutte le caratteristiche richieste dal progetto, per risulta essere la scelta definitiva.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
-\chapter{Implementazione delle Web Things}           %crea il capitolo
+\chapter{Implementazione delle Web Thing}           %crea il capitolo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
@@ -995,7 +995,7 @@ Si scelgono come attuali strumenti di sviluppo i seguenti programmi:
 \begin{itemize}
 	\item \textbf{Visual Studio Code}: per la sua versatilità in ambito di programmazione, coprendo quasi tutti i linguaggi meglio conosciuti (anche attraverso l'uso di plugin) risulta essere un'ottima scelta per sviluppare qualsiasi programma. Non presenta particolari aiuti per quanto riguarda suggerimenti intelligenti, ma è sufficientemente ricco di feature per snellire il lavoro.
 	
-	\item \textbf{Postman}: per mandare i messaggi di test secondo il protocollo REST alle Web Things create, per testare il loro funzionamento e risposte senza necessità di creare applicazioni ad hoc.
+	\item \textbf{Postman}: per mandare i messaggi di test secondo il protocollo REST alle Web Thing create, per testare il loro funzionamento e risposte senza necessità di creare applicazioni ad hoc.
 \end{itemize}
 
 Si vuole inoltre notare che tutto il successivo capitolo fa riferimento al sistema operativo Windows 10, eseguito su una macchina aventi le caratteristiche espresse nella tabella \ref{tab:pc-spec}.\\
@@ -1016,7 +1016,7 @@ Si vuole inoltre notare che tutto il successivo capitolo fa riferimento al siste
 Gli eventuali codici sorgenti possono essere trovati nella cartella:\\ \texttt{attachments/src}.
 
 \section{Configurazione Framework}
-La procedura di configurazione del framework può essere seguita direttamente dalla documentazione del \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. In questa relazione verrà preso in considerazione il metodo descritto come \textit{\quotes{As a standalone application}}.
+La procedura di configurazione del Framework può essere seguita direttamente dalla documentazione del \href{https://github.com/eclipse/thingweb.node-wot/}{repository} \cite{thingweb}. In questa relazione verrà preso in considerazione il metodo descritto come \textit{\quotes{As a standalone application}}.
 
 Si procede dunque all'installazione di dipendenze con il comando:
 \begin{lstlisting}[language=bash]
@@ -1036,12 +1036,12 @@ Successivamente, viene seguito il tutorial per lanciare il progetto:
 	npm run build
 \end{lstlisting}
 
-Se il framework non dovesse funzionare o presentare problemi all'avvio, si può eseguire anche l'installazione del \texttt{\quotes{CLI Tool}} utilizzando il comando \texttt{npm i @node-wot/cli -g}. 
+Se il Framework non dovesse funzionare o presentare problemi all'avvio, si può eseguire anche l'installazione del \texttt{\quotes{CLI Tool}} utilizzando il comando \texttt{npm i @node-wot/cli -g}. 
 
 
 \section{Configurazione della Web Thing}
 \label{sec:configuring:wt}
-Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al framework un file \texttt{.js} che contiene il codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
+Una volta verificato che l'applicazione si apre senza maggiori problemi, è possibile procedere con la definizione dell'oggetto che verrà lanciato. Per creare una Thing, a partire dalle Thing Description, è necessario indicare al Framework un file \texttt{.js} che contiene il codice permettente all'oggetto esposto di funzionare correttamente, di essere osservato e di reagire ai cambiamenti. A questo punto è utile sottolineare la presenza di uno strumento di WebThing.io, chiamato \href{http://plugfest.thingweb.io/playground/}{\textbf{Playground}}, il quale permette la creazione e la validazione di una Thing Description.\\
 
 Prima di creare un file \textit{launcher} per una Thing, occorre aver installato il pacchetto di NodeJS che permette la lettura di un file. Per ottenerlo, è necessario recarsi nella cartella \texttt{./thingweb.node-wot/} ed eseguire il comando \texttt{npm install fs}.\\
 
@@ -1085,17 +1085,17 @@ Recandosi successivamente nella cartella \texttt{./thingweb.node-wot/} è possib
 	npm start ./res/bulb.js
 \end{lstlisting}
 
-È importante sottolineare come l'esplorazione del framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle things; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
+È importante sottolineare come l'esplorazione del Framework ha riportato già una minuscola criticità: non è possibile infatti passare direttamente la Thing Description al costruttore delle Thing; è necessario convertirla prima in un oggetto, per poi utilizzarlo. Questo deriva da una feature del Framework stesso, prevedente di creare la TD direttamente al suo interno, a partire dall'oggetto passato, non prevedendo che una possibile descrizione potrebbe già esistere. Come però sottolineato, si tratta di una criticità minore, in quanto un oggetto JSON è facilmente deserializzabile e convertibile in un oggetto.\\
 
-Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita richiamando \texttt{.produce()} e \texttt{.expose()} attraverso il protocollo di \texttt{ThingWeb.io}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso framework.\\
+Si precisa, inoltre, che esiste un metodo \texttt{.consume()} che parte da una Thing Description per creare un oggetto: risulta però essere un metodo che presuppone l'esistenza della Thing costruita richiamando \texttt{.produce()} e \texttt{.expose()} attraverso il protocollo di \texttt{ThingWeb.io}; \texttt{.consume()} tenterà semplicemente di connettersi e mappare le funzioni e proprietà dell'oggetto remoto creato, in modo da facilitarne l'utilizzo all'interno dello stesso Framework.\\
 
-Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni alla creazione delle Things. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.\\
+Per permettere una facile configurazione di ulteriori Thing in futuro, si procede alla creazione di un modulo \texttt{common} nel quale raggruppare le funzioni comuni alla creazione delle Thing. Il codice di questo file è disponibile negli allegati: \texttt{/attachments/src/common.js}.\\
 
 
 \section{Test della Web Thing}
 Dopo aver lanciato correttamente l'applicazione, e il relativo oggetto, è possibile controllare il suo effettivo funzionamento andandolo a cercare direttamente da un browser: infatti, la Thing sarà esposta all'indirizzo:\\ \texttt{localhost:8080/<thing\_title\_lowercase>}.\\ Ad esempio, nel caso della lampadina, l'indirizzo sarà:\\ \texttt{localhost:8080/bulb}.\\ L'oggetto restituito da questa chiamata risulterà essere proprio la Thing Description passata durante la sua fase di creazione.\\
 
-Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal framework: dopo la chiamata del metodo \texttt{.produce()} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.\\
+Per completare il test, è necessario verificare se vi è possibilità di interagire con la Thing in modo virtuale. È necessario, a tal proposito, aggiungere al file di lancio metodi che permettono un corretto \textit{handling} degli eventi che possono capitare. Questa azione è resa disponibile dalle API offerte dal Framework: dopo la chiamata del metodo \texttt{.produce()} si può infatti configurare la Thing utilizzando metodi che impostano le callback per la lettura/scrittura delle proprietà e il richiamo delle azioni ed eventi.\\
 
 \subsection{Operazioni preliminari}
 
@@ -1184,7 +1184,7 @@ Nel caso del codice \ref{lst:Circular} la catena viene spezzata grazie al contro
 	
 È necessario notare che \texttt{.writeProperty()} è una funzione creata appositamente che permette la scrittura dei parametri sia locali che remoti della thing. È formata nel seguente modo:
 
-\begin{lstlisting}[language=JavaScript]]
+\begin{lstlisting}[language=JavaScript]
 function writeProperty(name, value) {
 	// Write object locally
 	for (const key of Object.keys(localRef)) {
@@ -1213,7 +1213,7 @@ localRef.thing.setActionHandler("toggle", async(params) => {
 \end{lstlisting}
 
 
-Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373\#issuecomment-758490819}} quelli che possono essere i modi per interagire con la Thing, per cui ogni framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
+Vi è da sottolineare che lo standard W3C definisce in maniera molto vaga\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373\#issuecomment-758490819}} quelli che possono essere i modi per interagire con la Thing, per cui ogni Framework è sostanzialmente libero di interpretare i vuoti non colmati con soluzioni proprie. Nel caso del protocollo HTTP, utilizzato in questo caso, si può far riferimento alla tabella nel capitolo \textit{8.3.1 Protocol Binding based on HTTP}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}} dello standard per la Thing Description, nella quale vi sono specificati soltanto metodi GET, PUT e POST e i relativi utilizzi in base alla proprietà \texttt{op} del campo \texttt{form}.\\
 
 Di conseguenza, \texttt{WebThing.io} non possiede\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} al momento una completa definizione delle API REST che si possono usare, ma queste risultano essere deducibili nella maggior parte dei casi: questo purtroppo significa che vi è necessità di spendere tempo per scoprire le possibili combinazioni di chiamate.\\
 
@@ -1243,7 +1243,7 @@ Da qui si performano una serie di operazioni sulla Thing riconosciuta, una volta
 
 Postman permette l'esportazione della configurazione dell'API: per questo motivo questa è interamente disponibile come allegato nella cartella:\\ \texttt{/attachments/utils/webthings\_postman\_collection.json}.\\
 
-Si sottolinea ancora una volta come i limiti del framework possano rallentare l'intero sviluppo: manca infatti tutta la documentazione relativa al protocollo REST che si può usare per interagire con la Thing. Anche la validazione dei dati in ingresso non è documentata, benchè fattibile: soltanto un'apertura di un \texttt{issue}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} all'interno del repository ha fatto emergere entrambe le cose. Data la possibilità di controllare l'input in arrivo è stata scoperta in uno stadio avanzato del progetto, dove si era fatta ormai l'assunzione dell'assenza di tale feature, si predispone semplicemente un esempio, prendendo la lampadina come oggetto di riferimento e \texttt{fade} come azione per la quale controllare l'input:
+Si sottolinea ancora una volta come i limiti del Framework possano rallentare l'intero sviluppo: manca infatti tutta la documentazione relativa al protocollo REST che si può usare per interagire con la Thing. Anche la validazione dei dati in ingresso non è documentata, benchè fattibile: soltanto un'apertura di un \texttt{issue}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/373}} all'interno del repository ha fatto emergere entrambe le cose. Data la possibilità di controllare l'input in arrivo è stata scoperta in uno stadio avanzato del progetto, dove si era fatta ormai l'assunzione dell'assenza di tale feature, si predispone semplicemente un esempio, prendendo la lampadina come oggetto di riferimento e \texttt{fade} come azione per la quale controllare l'input:
 
 \begin{lstlisting}[language=JavaScript]
 "input": {
@@ -1278,7 +1278,7 @@ Una volta apportato che è possibile creare, avviare e interagire con una singol
 
 \section{Note aggiuntive sulle ulteriori Thing}
 \label{sec:other-things}
-In questa sezione verranno trattate solo maggiori differenze o dettagli degni di nota sulle things diverse dalla lampadina utilizzata come \quotes{\textit{Thing Esempio}}.
+In questa sezione verranno trattate solo maggiori differenze o dettagli degni di nota sulle Thing diverse dalla lampadina utilizzata come \quotes{\textit{Thing Esempio}}.
 
 
 \subsection{Dettagli sulla TV}
@@ -1323,7 +1323,7 @@ localRef.thing.setPropertyWriteHandler(localRef.channel.name, async(data) => {
 ...
 \end{lstlisting}
 
-Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa.\\
+Per aggravare però la situazione, si vuole notare che la soluzione proposta dal codice \ref{lst:solution} \textbf{non funziona}, in quanto vi è un probabile bug, già segnalato ai creatori del Framework\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376}}: il problema deriva dal fatto che cercando di eseguire il metodo \texttt{.readProperty()}, il suo valore sarà ancora impostato su quello precedente, come se l'\texttt{observer} venisse azionato prima di scrivere effettivamente il valore. Nell'esempio del codice \ref{lst:solution}, nella riga 21, la variabile \texttt{isTvOn} risulterà essere quindi \texttt{false}, anche se l'\texttt{observer} ha già rilevato che la TV fosse accesa.\\
 
 Il problema descritto dunque viene affrontato in maniera diversa: anziché utilizzare le proprietà per impostare lo stato della TV, si ridefinisce la Thing Description in modo da prevedere azioni che modificano lo stato. Le proprietà diventano tutte di sola lettura e l'unica ad essere osservata rimane quella relativa allo stato, il quale definisce se la TV si trova in uno stato \quotes{accesa} o \quotes{spenta}. L'allegato \texttt{tv.js} contiene la soluzione  al problema, definendo le specifiche azioni (e relativi controlli) per garantire l'integrità della Thing: anche se minimale, il cambiamento risolve completamente il problema.\\
 
@@ -1363,25 +1363,25 @@ localRef.thing.setActionHandler("set-channel", async(params) => {
 })
 \end{lstlisting}
 
-Nel mentre questa soluzione veniva implementata, il framework si era aggiornato e ha corretto il problema, confermando che si trattasse di un richiamo all'observer prima che il valore fosse effettivamente impostato. L'iter della correzione è consultabile nella Issue numero 376 sul repository ufficiale\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376\#issuecomment-762111754}}.
+Nel mentre questa soluzione veniva implementata, il Framework si era aggiornato e ha corretto il problema, confermando che si trattasse di un richiamo all'observer prima che il valore fosse effettivamente impostato. L'iter della correzione è consultabile nella Issue numero 376 sul repository ufficiale\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376\#issuecomment-762111754}}.
 
 \subsection{Problemi della Tapparella}
 Un'assunzione importante per quanto riguarda la \textbf{tapparella} è il fatto che ogni azione effettuata produce un effetto immediato: l'abbassamento o l'innalzamento della Thing non ha il tempo di delay e applica il valore desiderato senza considerare l'eventuale tempo di movimento dovuto a reali parti meccaniche. Questa semplificazione è utile per presentare le potenzialità della Thing, senza andare troppo in dettaglio su come affrontare alcune problematiche intrinseche alla programmazione della Thing stessa.\\
 
-È utile sottolineare che questa cosa vale anche per tutte le altre Things prese in considerazione; la tapparella però risulta quella più evidente, in quanto parti meccaniche in movimento non attuano mai all'istante.
+È utile sottolineare che questa cosa vale anche per tutte le altre Thing prese in considerazione; la tapparella però risulta quella più evidente, in quanto parti meccaniche in movimento non attuano mai all'istante.
 
 
 
 \section{Criticità rilevate nel Framework}
 \label{sec:issues}
-Nonostante il fatto di aver scelto un framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
+Nonostante il fatto di aver scelto un Framework supportante la Thing Description, essa non vi è pienamente implementata. Esistono infatti alcune problematiche aperte, in sviluppo o da rivedere, che i creatori stanno cercando progressivamente di affrontare. Come per \texttt{WebThings}, dove è stato segnalato un potenziale problema\footnote{\url{https://github.com/WebThingsIO/api/issues/157}} riguardante l'impossibilità di usare più contesti, anche in \texttt{ThingWeb.io} le criticità non sono mancante e hanno causato notevoli ritardi sulla linea di sviluppo predefinita. Si vuole sottolineare che alcuni di questi problemi probabilmente sono stati già citati, ma vengono riportati qui per comodità
 
 \begin{itemize}
-	\item \textbf{Creazione di una Thing a partire da Thing Description testuale impossibile}: vi è necessità infatti di passare un oggetto creato appositamente: è quello che poi pensa alla creazione della Thing vera e propria. Esiste quindi questo \quotes{doppio passaggio}, nel quale viene fatto il parsing della Thing Description da un file, poi ne viene creato l'oggetto in Node.js dal quale poi il framework si ricava a sua volta la Thing Description.
+	\item \textbf{Creazione di una Thing a partire da Thing Description testuale impossibile}: vi è necessità infatti di passare un oggetto creato appositamente: è quello che poi pensa alla creazione della Thing vera e propria. Esiste quindi questo \quotes{doppio passaggio}, nel quale viene fatto il parsing della Thing Description da un file, poi ne viene creato l'oggetto in Node.js dal quale poi il Framework si ricava a sua volta la Thing Description.
 	
-	\item \textbf{Assenza di dettagliata documentazione}: il framework spesso fa riferimenti alla documentazione generica fornita come linee guida del W3C; generalmente questo non causa problemi con progetti piccoli, ma comincia a diventare complesso da gestire quando le variabili in campo sono molteplici:
+	\item \textbf{Assenza di dettagliata documentazione}: il Framework spesso fa riferimenti alla documentazione generica fornita come linee guida del W3C; generalmente questo non causa problemi con progetti piccoli, ma comincia a diventare complesso da gestire quando le variabili in campo sono molteplici:
 		\begin{itemize}
-			\item Non vi è una chiara documentazione RESTful, in quanto viene indicato come riferimento soltanto il \href{https://w3c.github.io/wot-thing-description/#http-binding-assertions}{\textit{Protocol Binding Based on HTTP}}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}}. Esso specifica comandi differenziando per il tipo di \texttt{op} del \texttt{Form} della Thing Description, ma non menziona ad esempio in nessun modo come viene composto l'URL che permette la lettura e/o scrittura di proprietà. Uno standard ben definito avrebbe sicuramente risparmiato del tempo in fase di esplorazione e creazione delle Things.
+			\item Non vi è una chiara documentazione RESTful, in quanto viene indicato come riferimento soltanto il \href{https://w3c.github.io/wot-thing-description/#http-binding-assertions}{\textit{Protocol Binding Based on HTTP}}\footnote{\url{https://w3c.github.io/wot-thing-description/\#http-binding-assertions}}. Esso specifica comandi differenziando per il tipo di \texttt{op} del \texttt{Form} della Thing Description, ma non menziona ad esempio in nessun modo come viene composto l'URL che permette la lettura e/o scrittura di proprietà. Uno standard ben definito avrebbe sicuramente risparmiato del tempo in fase di esplorazione e creazione delle Thing.
 			
 			\item Esiste una piccola confusione per quanto riguarda variabili locali e della Thing Stessa: è più indicato infatti usare le seconde, asincrone, direttamente collegate alla Thing Stessa, piuttosto che quelle locali, come da alcuni esempi\footnote{\url{https://github.com/eclipse/thingweb.node-wot/blob/master/examples/testthing/testthing.js}} che sono reperibili nel \textit{repository} ufficiale. Dall'altro canto, in una delle discussioni aperte nelle Issue, è emerso che nel prossimo futuro verrà consigliato l'approcio considerante le variabili \textit{locali}\footnote{\url{https://github.com/eclipse/thingweb.node-wot/issues/376\#issuecomment-762111754}}.
 			
@@ -1397,7 +1397,7 @@ Nonostante il fatto di aver scelto un framework supportante la Thing Description
 	\item \textbf{Esempi di codice non sufficienti}: quelli forniti sono per la maggior parte piccoli o contrastanti; mentre in uno la Thing utilizza solo variabili interne al codice, in un altro fa uso soltanto di metodi come \texttt{thing.readProperty()} asincroni che cambiano completamente la struttura del programma. Inoltre, non è specificato in nessun modo che non vi è un \texttt{binding} tra parametri \quotes{locali} e quelli della thing, portando ad una errata conclusione sul fatto di poter utilizzare solo i primi per definirla completamente.
 \end{itemize}
 
-Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono essere prese necessariamente come una nota negativa: si vuole notare infatti la volontà sia dell'utilizzo di queste piattaforme, sia al contribuire alla loro crescita segnalando potenziali problemi, rischi e mancanze. È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, essa continua a mantenere e sviluppare nuove funzionalità di questo framework. Le \textit{issues} aperte  hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
+Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono essere prese necessariamente come una nota negativa: si vuole notare infatti la volontà sia dell'utilizzo di queste piattaforme, sia al contribuire alla loro crescita segnalando potenziali problemi, rischi e mancanze. È da sottolineare però l'impegno della comunità a risolvere questi problemi: infatti, essa continua a mantenere e sviluppare nuove funzionalità di questo Framework. Le \textit{issues} aperte  hanno ricevuto un'immediata risposta e il messaggio subliminale mandato da chi rispondeva tramandava una forte volontà di risolvere le problematiche poste.
 
 È comunque un'importante fattore che ha segnato notevolmente il progetto, per cui si preferiscono esplicitamente elencare le \textit{issues} aperte:
 
@@ -1422,25 +1422,25 @@ Le seguenti \textit{issue} segnalate sui relativi \textit{repository} non devono
 
 
 
-\section{Criticità nell'implementazione delle Things}
-La maggior parte delle cose qui elencate risulta essere frutto di compromesso tra funzionalità e API del framework usato parzialmente disponibili e/o scarsamente documentate. Si tratta perlopiù di piccoli accorgimenti che avrebbero portato via del tempo e non avrebbero incluso nel progetto una significativa quantità e qualità di informazioni.
+\section{Criticità nell'implementazione delle Thing}
+La maggior parte delle cose qui elencate risulta essere frutto di compromesso tra funzionalità e API del Framework usato parzialmente disponibili e/o scarsamente documentate. Si tratta perlopiù di piccoli accorgimenti che avrebbero portato via del tempo e non avrebbero incluso nel progetto una significativa quantità e qualità di informazioni.
 
 \begin{itemize}
-	\item Nelle Things è possibile trovare una semplificazione per quanto riguarda gli eventi che durano nel tempo: ad esempio, nella lampadina, chiamando la funzione \texttt{fade} ed eseguendo successivamente uno spegnimento della stessa, l'azione di \texttt{fade} non si fermerà e vorrà comunque raggiungere il proprio valore (di default 60). L'intensità luminosa quindi verrà impostata a 0 a causa dello spegnimento, ma poi continuerà a crescere fino al valore stabilito dalla funzione di \texttt{fade}. La correzione richiede un controllo su chi esegue la scrittura sulla proprietà \texttt{brightness}: se è l'utente ad aggiornarla, l'azione deve fermarsi; se è la lampadina stessa, l'azione deve continuare;  
+	\item Nelle Thing è possibile trovare una semplificazione per quanto riguarda gli eventi che durano nel tempo: ad esempio, nella lampadina, chiamando la funzione \texttt{fade} ed eseguendo successivamente uno spegnimento della stessa, l'azione di \texttt{fade} non si fermerà e vorrà comunque raggiungere il proprio valore (di default 60). L'intensità luminosa quindi verrà impostata a 0 a causa dello spegnimento, ma poi continuerà a crescere fino al valore stabilito dalla funzione di \texttt{fade}. La correzione richiede un controllo su chi esegue la scrittura sulla proprietà \texttt{brightness}: se è l'utente ad aggiornarla, l'azione deve fermarsi; se è la lampadina stessa, l'azione deve continuare;  
 	come specificato però nel capitolo \ref{sec:observe_react}, differenziare tra azione \textit{interna} ed \textit{esterna} è al momento impossibile.
 	
 	\item Non vi è un controllo esplicito e intrinseco sulla correttezza dei parametri passati. È quindi erroneamente possibile, ad esempio, impostare la luminosità di una lampadina come una stringa (\texttt{"esempio"}), senza che la Thing se ne accorga. Come già sottolineato più volte però, questo è risolvibile applicando manualmente il controllo con la libreria \texttt{ajv}.
 	
-	\item Non vi sono criteri di sicurezza implementati, anche se è possibile definirli all'interno della Thing Description stessa. Questo è solo per semplificare il lavoro e dimostrare le potenzialità del framework e della Thing Description: per coprire ogni aspetto non vi sono tempo e risorse necessarie all'esplorazione e documentazione.
+	\item Non vi sono criteri di sicurezza implementati, anche se è possibile definirli all'interno della Thing Description stessa. Questo è solo per semplificare il lavoro e dimostrare le potenzialità del Framework e della Thing Description: per coprire ogni aspetto non vi sono tempo e risorse necessarie all'esplorazione e documentazione.
 	
-	\item Per ognuna delle Thing viene supposto un valore di \textit{default} che si imposta automaticamente ad ogni accensione e spegnimento del dispositivo. Generalmente, si tratta di valori nulli, booleani \texttt{false} e interi pari a 0 quando le Things risultano essere spente, mentre valori di default predefiniti quando vengono accese. Una miglioria delle stesse potrebbe essere quella di includere un file di configurazione che salva automaticamente l'ultima impostazione dell'utente; di conseguenza alla riaccensione del dispositivo i valori verrebbero presi da questo file (e non impostati \textit{di default}).
+	\item Per ognuna delle Thing viene supposto un valore di \textit{default} che si imposta automaticamente ad ogni accensione e spegnimento del dispositivo. Generalmente, si tratta di valori nulli, booleani \texttt{false} e interi pari a 0 quando le Thing risultano essere spente, mentre valori di default predefiniti quando vengono accese. Una miglioria delle stesse potrebbe essere quella di includere un file di configurazione che salva automaticamente l'ultima impostazione dell'utente; di conseguenza alla riaccensione del dispositivo i valori verrebbero presi da questo file (e non impostati \textit{di default}).
 	
 	\item Come scritto nel capitolo \ref{sec:adding-semantic}, la costruzione delle Thing ha fatto emergere la necessità di sviluppare e/o estendere ontologie, in quanto vi sono alcuni aspetti intrinseci delle cose che potrebbero essere rappresentate con maggior dettaglio, ma sempre per motivi di mancanza di tempo e risorse non è possibile coprire ogni aspetto riguardante la Thing Description: il campo della semantica è troppo vasto per poterlo coprire all'interno di un progetto che già mira ad esplorare diversi aspetti.
 \end{itemize} 
 
 
-\section{Endpoint delle Things}
-Partendo dalla cartella \texttt{./thingweb.node-wot/} il lancio delle Things avviene tramite un unico comando:
+\section{Endpoint delle Thing}
+Partendo dalla cartella \texttt{./thingweb.node-wot/} il lancio delle Thing avviene tramite un unico comando:
 
 \begin{lstlisting}[language=bash]
 	npm start ./res/bulb.js ./res/tv.js ./res/shutter.js ./res/fan.js
@@ -1456,7 +1456,7 @@ Le Thing così create vengono automaticamente istanziate e inserite all'interno 
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}  
 
 \section{Configurazione}
-La conoscenza delle Things è intrinseca alla Thing Descritpion legata agli oggetti creati. In una visione completamente Pervasive, ogni Thing nuova aggiunta al sistema fa in modo da pubblicare, in qualche modo, la sua descrizione, in modo tale da contribuire alla creazione di un'unica descrizione più grande, riguardante l'environment nel quale è attualmente situata. Esiste quindi una raccolta completa di tutte le Thing Descriptions che può essere trattata come se fosse una descrizione (anche semantica) della stanza della quale si vogliono conoscere le Things e le loro relative proprietà e/o azioni.\\
+La conoscenza delle Thing è intrinseca alla Thing Descritpion legata agli oggetti creati. In una visione completamente Pervasive, ogni Thing nuova aggiunta al sistema fa in modo da pubblicare, in qualche modo, la sua descrizione, in modo tale da contribuire alla creazione di un'unica descrizione più grande, riguardante l'environment nel quale è attualmente situata. Esiste quindi una raccolta completa di tutte le Thing Descriptions che può essere trattata come se fosse una descrizione (anche semantica) della stanza della quale si vogliono conoscere le Thing e le loro relative proprietà e/o azioni.\\
 
 \subsection{Conoscenza unificata}
 Per motivi di semplicità si suppone che questa conoscenza sia già a disposizione, considerando le Thing Description create. Per usufruirne a pieno, però, occorrono alcuni semplici passaggi.\\
@@ -1508,7 +1508,7 @@ Per interrogare la conoscenza, vengono proposti esempi più significativi, rappr
 	}
 	\end{lstlisting}
 
-	\item Ottenimento di tutte le funzionalità di tutte le Things:
+	\item Ottenimento di tutte le funzionalità di tutte le Thing:
 	\begin{lstlisting}[language=XML]
 	SELECT ?s ?p ?o WHERE {
 		?s saref:hasFunction ?o .
@@ -1588,7 +1588,7 @@ Si sottolinea come con semplici dichiarazioni sia possibile definire conoscenza 
 \section{Perchè Agenti?}
 Il sistema ad Agenti nasce per diverse esigenze, che comprendono diversi ambiti. Il principale motivo per cui è più utile pensare ad un sistema eterogeneo organizzandolo più in modo Agent-Oriented è la completa indipendenza dell'esecuzione di ogni singolo componente (Agenti incapsulano anche il controllo, il ciclo di vita di uno è indipendente dagli altri) e la possibilità di astrarre a livello ancora più elevato rispetto alla OOP. Inoltre il modello ad Agenti offre la possibilità di rappresentare ancor da più vicino il mondo reale che ci circonda, in quanto questo è effettivamente formato da diverse entità (umani e/o macchine) che interagiscono continuamente tra di loro.\\
 
-Parlando quindi soltanto in termini di praticità e progettazione, è già molto più facile per un programmatore immaginarsi le Web Things come delle entità immerse dentro una stanza (Environment) che interagiscono tra di loro ed, eventualmente, hanno una gerarchia tale da permettere un pieno controllo delle azioni che vengono svolte all'interno dell'ambiente. Immaginando dunque di dover realizzare un sistema WoT, si pone davanti ad un problema di organizzazione delle Web Things e della comunicazione tra di loro. Davanti ad uno studio di una Smart Room, si presuppone di avere alcuni oggetti Smart con le loro caratteristiche, con le quali l'utente può interagire. Dovendo pensare ad un modello ad alto livello, si può a produrre lo schema, visibile nella figura \ref{fig:use-case-diagram-high}, come illustrazione di ciò che potrebbe avvenire dentro questo ambiente.\\
+Parlando quindi soltanto in termini di praticità e progettazione, è già molto più facile per un programmatore immaginarsi le Web Thing come delle entità immerse dentro una stanza (Environment) che interagiscono tra di loro ed, eventualmente, hanno una gerarchia tale da permettere un pieno controllo delle azioni che vengono svolte all'interno dell'ambiente. Immaginando dunque di dover realizzare un sistema WoT, si pone davanti ad un problema di organizzazione delle Web Thing e della comunicazione tra di loro. Davanti ad uno studio di una Smart Room, si presuppone di avere alcuni oggetti Smart con le loro caratteristiche, con le quali l'utente può interagire. Dovendo pensare ad un modello ad alto livello, si può a produrre lo schema, visibile nella figura \ref{fig:use-case-diagram-high}, come illustrazione di ciò che potrebbe avvenire dentro questo ambiente.\\
 
 \begin{figure}[h]
 	\centering
@@ -1613,7 +1613,7 @@ Si può volgere di conseguenza lo sguardo alla descrizione presente sopra e cala
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{eps/use-case-jacamo.png}
-	\caption{Esempio di astrazione della realtà Agent-Based secondo il framework JaCaMo.}
+	\caption{Esempio di astrazione della realtà Agent-Based secondo il Framework JaCaMo.}
 	\label{fig:use-case-diagram-high-agent}
 \end{figure}
 
@@ -1625,7 +1625,7 @@ L'utilizzo del modello ad Agenti, inoltre, non riguarda soltanto semplici contes
 Come affrontato nel capitolo \ref{sec:semantic}, è importante poter specificare non solo una semplice descrizione, ma anche una parte semantica a quello che risulta essere l'oggetto osservato. Calandosi più nel dettaglio dell'implementazione, è possibile infatti immaginarsi un Agente capace di ragionare su un obiettivo imposto (illuminare la stanza), capendo autonomamente con quali oggetti può interagire per conseguire quell'obiettivo. La semantica sblocca inoltre ulteriori aree di sviluppo, quali prevedono del reasoning per scoprire dinamicamente non solo nuovi oggetti, ma funzionalità legate ad essi che, ad esempio, se combinanti in un certo modo, possono raggiungere un obiettivo che non era possibile soddisfare in principio. Utilizzare Agenti per questi scopi risulta essere naturale, in quanto questo è intrinsecamente scritto nella natura BDI, dove a partire da una conoscenza si vogliono ottenere dei risultati, motivando così ancor di più la scelta degli Agenti come piattaforma di progetto finale.
 
 
-\section{BDI e Web Things}
+\section{BDI e Web Thing}
 Il modello BDI si basa sui concetti di \textit{\textbf{b}eliefs}, \textit{\textbf{d}esires} e \textit{\textbf{i}ntentions}. Vi è necessità di analisi per quanto riguarda le seguenti affermazioni e quali sono i vantaggi (e/o svantaggi) di utilizzare questa metodologia per lo sviluppo di un sistema WoT.\\
 
 Come citato da \textit{\quotes{MATCH: MultiAgent-based Tactful CooperationScheme for Heterogeneous IoT Devices}} \cite{masiot}, utilizzare agenti può determinare una semplificazione della gestione per quanto riguarda l'eterogeneità delle cose naturalmente presenti in un ambiente, dati diversi contesti nei quali un sistema ad Agenti può essere applicato. Bisogna però saper specificare con criteri rigorosi i comportamenti che le cose debbano avere, in modo da garantire sia la sicurezza delle persone che il risultato atteso, portando ad una collaborazione (e non competizione) tra le cose che si hanno a disposizione.\\
@@ -1636,7 +1636,7 @@ La possibilità di strutturare funzionalità definendo dei piani d'azione risult
 
 Inoltre, l'utilizzo del sistema ad Agenti offre nuove potenziali applicazioni per quanto riguarda il \textit{reasoning} sull'ambiente osservato: essendo un'entità proattiva-reattiva, l'Agente, se configurato, può in autonomia eseguire azioni per garantire il massimo comfort e la sicurezza agli utilizzatori che ne usufruiscono, interagendo con tutte le Thing che esso può avere a disposizione, capendone eventualmente man mano le potenzialità. È di indubbia importanza sottolineare che sia giusto definire come \quotes{dispositivo illuminante} una qualsiasi Thing che abbia la capacità di cambiare la luminosità di un ambiente, ma che tale definizione potrebbe portare ad un eventuale fraintendimento del vero scopo di quel Device: è infatti assurdo pensare che per illuminare la stanza si debba accendere una TV oppure una lavatrice, soltanto perchè al loro interno esistono dispositivi in grado di produrre luce.\\
 
-Uno spunto per quanto riguarda l'approfondimento sull'applicazione più estensivo del modello BDI è invece quello legato all'integrazione della conoscenza della Thing Description (o la sua corrispettiva versione RDF/XML) \textbf{direttamente} all'interno dei \textit{belief} dell'Agente, sfruttandola in maniera completamente indipendente da un endpoint ed eventuali \textit{reasoner} esterni. Non solo; è infatti possibile pensare, come definito nel capitolo \ref{sec:thing_status}, di avere non solo la parte statica, ma anche quella dinamica delle cose, osservando direttamente i parametri delle Things e interagendo con loro.\\
+Uno spunto per quanto riguarda l'approfondimento sull'applicazione più estensivo del modello BDI è invece quello legato all'integrazione della conoscenza della Thing Description (o la sua corrispettiva versione RDF/XML) \textbf{direttamente} all'interno dei \textit{belief} dell'Agente, sfruttandola in maniera completamente indipendente da un endpoint ed eventuali \textit{reasoner} esterni. Non solo; è infatti possibile pensare, come definito nel capitolo \ref{sec:thing_status}, di avere non solo la parte statica, ma anche quella dinamica delle cose, osservando direttamente i parametri delle Thing e interagendo con loro.\\
 
 Tutto questo giustifica l'uso degli Agenti: anche per il semplice motivo di essere abilitante per una serie di funzionalità che con una classica programmazione risulterebbero complesse da progettare e da gestire.\\
 
@@ -1650,13 +1650,13 @@ Non bisogna però intendere questo come una carta bianca per gli Agenti ad esegu
 
 Sempre in caso di JaCaMo, è importante sottolineare che sia l'esecuzione di operazioni all'interno dello scope dell'Agente stesso (quindi le cosiddette \textit{Internal Functions}) che quelle legate ad un Artefatto, risultano essere bloccanti fino a quando non finiscono il loro ciclo di esecuzione. Eseguendo quindi una potenziale lunga operazione, come lettura di un file o l'ottenimento dei dati da una sorgente remota, il piano relativo all'esecuzione di tale procedura viene sospeso fino alla suo completamento. Le eventuali incongruenze di questa generale procedura nascono principalmente da due problematiche, correlate tra di loro: la prima, è la natura asincrona degli Agenti che vedendosi arrivare più messaggi non per forza li interpretano nell'ordine ricevuto; la seconda, in caso di malfunzionamento di una delle funzioni interne, ad esempio a causa di un'eccezione nel codice Java, porta al proseguimento dell'esecuzione del piano, ricevendo in alcuni cas l'errore soltanto in un secondo momento. Attraverso la console di log è quindi possibile notare che l'Agente abbia continuato la sua esecuzione, mentre il messaggio dell'Artefatto specificante il problema arrivi in un successivo istante dell'esecuzione, dando l'impressione di aver proseguito il piano senza attendere il completamento della procedura richiamata.\\
 
-\subsection{Things come Agenti}
+\subsection{Thing come Agenti}
 \label{sec:agentthings}
 Non solo la \textit{belief}, ma anche \textit{desires} e \textit{intentions} riguardano da vicino l'analisi che dev'essere affrontata. Mentre è logico infatti pensare all'agente centrale che si pone come desiderio e/o intenzione quella di voler illuminare la stanza, è più difficile calarsi a più basso livello supponendo che una lampadina abbia il desiderio e/o intenzione di accendersi o cambiare la sua intensità.\\
 
-È necessario però differenziare l'obiettivo di questo progetto con quello che idealmente si vorrebbe ottenere. Nel contesto attuale si vuole realizzare un Agente capace di sfruttare le Web Things esistenti in modo intelligente e semantico, in modo da poter dimostrare le potenzialità che derivano dall'unione dei mondi della Semantica, del WoT e degli Agenti.\\
+È necessario però differenziare l'obiettivo di questo progetto con quello che idealmente si vorrebbe ottenere. Nel contesto attuale si vuole realizzare un Agente capace di sfruttare le Web Thing esistenti in modo intelligente e semantico, in modo da poter dimostrare le potenzialità che derivano dall'unione dei mondi della Semantica, del WoT e degli Agenti.\\
 
-In una visione più ampia, in realtà, si potrebbe partire direttamente dal concetto di realizzare Things come Agenti, immettendole subito all'interno di un MAS\footnote{Multi Agent System}; ciò però comporta problemi di interoperabilità: si deve avere per forza un sistema ad Agenti per poter interagire con la soluzione, mentre l'obiettivo è quello di abbracciare sia l'eterogeneità che interoperabilità delle Things e vincolarsi ad un unico sistema di gestione va contro gli obiettivi di questa esplorazione.
+In una visione più ampia, in realtà, si potrebbe partire direttamente dal concetto di realizzare Thing come Agenti, immettendole subito all'interno di un MAS\footnote{Multi Agent System}; ciò però comporta problemi di interoperabilità: si deve avere per forza un sistema ad Agenti per poter interagire con la soluzione, mentre l'obiettivo è quello di abbracciare sia l'eterogeneità che interoperabilità delle Thing e vincolarsi ad un unico sistema di gestione va contro gli obiettivi di questa esplorazione.
 
 \subsection{Blackboxes}
 Si ricorda che, come accade nella OOP, anche nel mondo degli Agenti non bisogna mischiare i concetti di mondi differenti; quando, infatti, si parla di Agenti, vige il principio di \textit{\quotes{Everything is an Agent}}: che si tratti di una GUI, stampante o Web Thing, essa viene vista come entità con la quale gli altri agenti possono parlare e scambiare messaggi. È importante dover nascondere quello che è l'oggetto nella realtà, per rimanere in linea con gli standard di una buona definizione dell'architettura.\\
@@ -1687,9 +1687,9 @@ In una visione completa di un sistema, nel quale si può immaginare un numero po
 
 Della \textbf{Thing Description} e dei suoi vantaggi si era già parlato in precedenza. Si vuole sottolineare però che come definito nella sezione \ref{sec:agentthings}, è difficile trovare soluzioni esistenti basate sull'implementazione di Agent-Based Things: infatti, nella maggior parte dei casi, l'agente diventa il \quotes{\textit{wrapper}} di una tecnologia già esistente, o nel caso studiato, di una Thing collocata in un ambiente. Grazie però alla semantica, è possibile astrarre dal dover creare Agenti/Artefatti ad-hoc, basandosi invece su quella che risulta essere la Thing Description delle cose.\\
 
-In un caso pratico e reale si vorrebbe che le Things si auto-configurassero, una volta inserite dentro un ambiente. Ciò comporta però un problema per quanto riguarda la standardizzazione di dove vengono collocate poi le Thing Description e sul come avviene l'effettiva scoperta di una nuova cosa aggiunta. Ogni Thing, infatti, dovrebbe avere un metodo standard che permette di specificare l'endpoint sul quale aggiungersi e da lì poter essere scoperta grazie all'identificativo univoco che possiede all'interno della Thing Description.\\
+In un caso pratico e reale si vorrebbe che le Thing si auto-configurassero, una volta inserite dentro un ambiente. Ciò comporta però un problema per quanto riguarda la standardizzazione di dove vengono collocate poi le Thing Description e sul come avviene l'effettiva scoperta di una nuova cosa aggiunta. Ogni Thing, infatti, dovrebbe avere un metodo standard che permette di specificare l'endpoint sul quale aggiungersi e da lì poter essere scoperta grazie all'identificativo univoco che possiede all'interno della Thing Description.\\
 
-Essendo questo caso di studio più concentrato sulle possibilità della semantica all'interno delle Things, si preferisce presupporre che le Things siano già aggiunte all'interno del sistema stesso. Dipendentemente poi dal framework, è possibile stabilire criteri con i quali i Device possano configurarsi e risultare attivi per un'entità esterna che gli osserva e colleziona. Un esempio di procedimento per la configurazione e l'esecuzione di un'operazione sul sistema studiato potrebbe essere il seguente:
+Essendo questo caso di studio più concentrato sulle possibilità della semantica all'interno delle Thing, si preferisce presupporre che le Thing siano già aggiunte all'interno del sistema stesso. Dipendentemente poi dal Framework, è possibile stabilire criteri con i quali i Device possano configurarsi e risultare attivi per un'entità esterna che gli osserva e colleziona. Un esempio di procedimento per la configurazione e l'esecuzione di un'operazione sul sistema studiato potrebbe essere il seguente:
 
 \begin{enumerate}
 	\item \textbf{Utente installa la Thing}: l'oggetto viene per la prima volta collocato all'interno dell'ambiente e acceso;
@@ -1698,7 +1698,7 @@ Essendo questo caso di studio più concentrato sulle possibilità della semantic
 	\begin{itemize}
 		\item si può pensare alla Thing stessa che esegue un broadcast di un messaggio di configurazione: questo però si porta dietro il problema di come un endpoint possa riconoscere un tale messaggio e su quale protocollo di comunicazione questo è possibile;
 		
-		\item si può pensare all'endpoint che effettua uno scan verificando se non ci siano nuove Things aggiunte: questo però risulterebbe essere molto meno dinamico e comunque porterebbe il problema di come una nuova Thing si rende visibile.
+		\item si può pensare all'endpoint che effettua uno scan verificando se non ci siano nuove Thing aggiunte: questo però risulterebbe essere molto meno dinamico e comunque porterebbe il problema di come una nuova Thing si rende visibile.
 	\end{itemize}
 	
 	\item \textbf{Aggiunta dell'oggetto}: una volta connesso all'oggetto, l'Agente colloca l'oggetto all'interno dell'ambiente in cui si trova, contestualizzando la sua area di influenza;
@@ -1718,7 +1718,7 @@ Questi passaggi risultano essere una proposta di algoritmo che potrebbe servire 
 \begin{itemize}
 	\item \textbf{Limiti di JaCaMo a Runtime}: anche se esistono (o comunque possono essere implementati) metodi per il parsing della Thing Description, attualmente l'ambiente di JaCaMo non offre nessuna possibilità di aggiungere proprietà e azioni eseguibili a runtime; non è possibile quindi al momento creare ad esempio un Artefatto che abbia a tempo di esecuzione stabilite le funzionalità che debba avere.
 	
-	\item \textbf{Necessità del punto di collezione}: l'intero processo potrebbe essere semplificato, se le Smart Things avessero modo di collegarsi automaticamente ad un endpoint. Ovviamente, è possibile pensare ad un tale raccoglitore, ma il problema consiste nel come le Things possano individuare tale entità in un ambiente connesso e come (e con quali criteri di sicurezza) ci possono scrivere dentro.
+	\item \textbf{Necessità del punto di collezione}: l'intero processo potrebbe essere semplificato, se le Smart Things avessero modo di collegarsi automaticamente ad un endpoint. Ovviamente, è possibile pensare ad un tale raccoglitore, ma il problema consiste nel come le Thing possano individuare tale entità in un ambiente connesso e come (e con quali criteri di sicurezza) ci possono scrivere dentro.
 	
 	\item \textbf{Mancanza di standard evoluti/in uso/noti}: anche se si disponesse di tutte le tecnologie che permettono la realizzazione di tutti i punti precedenti, un'ultima nota dolente, per quanto riguarda la situazione attuale, è la completa mancanza delle Thing Description per le Smart Things correntemente esistenti. Essendo uno standard nuovo e non particolarmente usato (anche perchè ogni brand vuole tenersi l'utente stretto alle proprie soluzioni), vi è necessità di creazione manuale delle TD per gli oggetti che si vogliono creare.
 \end{itemize}
@@ -1732,7 +1732,7 @@ Mentre è possibile definire interamente le proprietà e azioni di una Thing att
 
 Non esistono attualmente standard che permettono di definire lo stato attuale di una Thing. Si può immaginare però, ad esempio, che tutte le proprietà osservabili di un Artefatto, che una Thing di conseguenza possiede, possano essere in qualche modo tradotte in un formato standard, ad esempio sfruttando sempre le potenzialità di JSON-LD. Utilizzando il modello così definito, ogni entità presente all'interno di un ambiente potrebbe fornire non solo la sua descrizione, intesa come il \quotes{\textit{cosa so fare}} ma anche il \quotes{\textit{come sto ora}}.\\
 
-La questione, inizialmente, risulta essere banale se osservata da solo un punto di vista: le Things hanno già modo di dire al sistema in che situazione attualmente si trovano e di comunicare i cambiamenti in Real Time grazie ad uno scambio di messaggi. Servire un ulteriore modo per descrivere ciò di cui si ha già disposizione sembra un controsenso, eppure vista dall'alto può essere uno strumento utile per diversi motivi:
+La questione, inizialmente, risulta essere banale se osservata da solo un punto di vista: le Thing hanno già modo di dire al sistema in che situazione attualmente si trovano e di comunicare i cambiamenti in Real Time grazie ad uno scambio di messaggi. Servire un ulteriore modo per descrivere ciò di cui si ha già disposizione sembra un controsenso, eppure vista dall'alto può essere uno strumento utile per diversi motivi:
 
 \begin{itemize}
 	\item \textbf{Utilizzo standard di dati}: avendo a disposizione l'informazione su tutto il sistema in un formato unico e standard, è possibile sfruttare la conoscenza in possesso per eseguire ulteriori analisi, ottimizzazioni, statistiche e quant'altro. In poche parole, l'utilizzo di una rappresentazione comune a tutti facilita quello che è l'osservazione continua del sistema, dal puro punto di vista dei dati e risultati ottenuti.
@@ -1741,7 +1741,7 @@ La questione, inizialmente, risulta essere banale se osservata da solo un punto 
 	
 	\item \textbf{Scoperta nuove funzionalità}: un sistema descritto in modo tale da permettere ad una macchina di fare del reasoning sopra, rende possibile la scoperta di ulteriori funzionalità (o proprietà) del sistema, non inizialmente previste. Sapendo, ad esempio, di avere 4 lampadine connesse in fila, si può dedurre che accendendo e spegnendole in un certo ordine si possono creare sequenze di luci. Nel caso di un entità centrale, ad esempio, il reasoning potrebbe essere fatto ogni tal volta che un nuovo oggetto viene aggiunto al sistema, ragionando su quelle che sono le azioni e proprietà di quell'oggetto.
 	
-	\item \textbf{Sicurezza}: analizzando i dati a disposizione, eventualmente derivandone nuovi, si possono individuare pattern comportamentali di individui che utilizzano quotidianamente oggetti Smart. Grazie alla descrizione dello stato, essa è univoca e osservabile sempre: se un malintenzionato volesse procedere in modo molto contrastante con quelle che sono le solite abitudini degli utilizzatori, il sistema potrebbe provvedere all'avviso o addirittura blocco delle azioni malevole. Inoltre, la verifica sui comportamenti dei singoli oggetti, analizzando il loro stato, porta ad un'incremento dell'affidabilità degli stessi, nonché aggiunge uno strato di protezione contro Things malevole, che senza un monitoraggio attivo del loro stato attuale, potrebbero essere immerse nel sistema e risultare invisibili e/o camuffate; ad esempio, conoscendo un classico comportamento di una lampadina, se essa cominciasse ad eseguire azioni non comuni a questa tipologia di oggetto, il sistema potrebbe avvisare l'utente e/o bloccare un tale azione.
+	\item \textbf{Sicurezza}: analizzando i dati a disposizione, eventualmente derivandone nuovi, si possono individuare pattern comportamentali di individui che utilizzano quotidianamente oggetti Smart. Grazie alla descrizione dello stato, essa è univoca e osservabile sempre: se un malintenzionato volesse procedere in modo molto contrastante con quelle che sono le solite abitudini degli utilizzatori, il sistema potrebbe provvedere all'avviso o addirittura blocco delle azioni malevole. Inoltre, la verifica sui comportamenti dei singoli oggetti, analizzando il loro stato, porta ad un'incremento dell'affidabilità degli stessi, nonché aggiunge uno strato di protezione contro Thing malevole, che senza un monitoraggio attivo del loro stato attuale, potrebbero essere immerse nel sistema e risultare invisibili e/o camuffate; ad esempio, conoscendo un classico comportamento di una lampadina, se essa cominciasse ad eseguire azioni non comuni a questa tipologia di oggetto, il sistema potrebbe avvisare l'utente e/o bloccare un tale azione.
 	
 	\item \textbf{Individuazione oggetti}: nel caso in cui la Thing Description non fosse disponibile, oppure nel caso in cui non sia completa, avendo a disposizione una quantità di dati sufficiente, è possibile non solo individuare pattern comportamentali di oggetti, ma anche oggetti stessi, permettendo la loro corretta classificazione. Questo aspetto può portare ad una semplificazione di interrogazioni che potrebbero essere fatte all'interno dell'ambiente, chiedendo, ad esempio, di elencare tutti i dispositivi le cui funzionalità corrispondono ad una determinata interessata caratteristica. Questo aspetto è comunque strettamente legato a tutto quello che è descritto già nel punto soprastante, riguardante la sicurezza.
 	
@@ -1784,14 +1784,14 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 \begin{enumerate}
 	\item Possibilità di funzionamento Plug\&Play.
 	\begin{enumerate}[label*=\arabic*.]
-		\item Le Smart Things devono essere autoconfiguranti. In alternativa, richiedere una configurazione essenziale e non invasiva, basata sulal Thing Description.
+		\item Le Smart Thing devono essere autoconfiguranti. In alternativa, richiedere una configurazione essenziale e non invasiva, basata sulal Thing Description.
 		\item L'utente deve poter aggiungere un numero virtualmente infinito di oggetti.
 	\end{enumerate}
 	
 	\item L'utente interagisce con gli oggetti tramite un unico terminale.
 	\begin{enumerate}[label*=\arabic*.]
 		\item Il terminale potrà essere virtuale (interfaccia grafica su un device come PC o Smartphone) o reale (una Thing).
-		\item Il terminale deve permettere (anche solo potenzialmente) di governare su tutte le Things, senza alcun ausilio di programmi esterni e/o proprietari, utilizzando protocolli di comunicazione standard.
+		\item Il terminale deve permettere (anche solo potenzialmente) di governare su tutte le Thing, senza alcun ausilio di programmi esterni e/o proprietari, utilizzando protocolli di comunicazione standard.
 	\end{enumerate}
 \end{enumerate}
 
@@ -1841,7 +1841,7 @@ Nel seguente capitolo verrà descritto il procedimento che si è svolto per la r
 
 \section{Metodologia di sviluppo}
 \label{sec:Metodologia}
-Il lavoro svolto durante il processo di sviluppo verrà organizzato adottando la meodologia \textit{a fontana}. Nell'accezione di questo framework è previsto uno sviluppo tendente al classico \textit{Waterfall}, con la possibilità di tornare indietro nei vari step che compongono l'intero processo. Questo approccio risulta essere quindi il più adeguato per il lavoro svolto in singolo, offrendo al soggetto più flessibilità: infatti, nonostante la lettura di questa relazione possa sembrare più \quotes{a cascata}, vi sono state effettuate diverse interazioni tra le fasi di stesura, sia per confronto che per raggiungere un buon livello di esposizione.
+Il lavoro svolto durante il processo di sviluppo verrà organizzato adottando la meodologia \textit{a fontana}. Nell'accezione di questo Framework è previsto uno sviluppo tendente al classico \textit{Waterfall}, con la possibilità di tornare indietro nei vari step che compongono l'intero processo. Questo approccio risulta essere quindi il più adeguato per il lavoro svolto in singolo, offrendo al soggetto più flessibilità: infatti, nonostante la lettura di questa relazione possa sembrare più \quotes{a cascata}, vi sono state effettuate diverse interazioni tra le fasi di stesura, sia per confronto che per raggiungere un buon livello di esposizione.
 
 
 \section{Architettura}
@@ -1919,7 +1919,7 @@ Oltre alla definizione di linguaggi e architettura generale, si vogliono definir
 \end{itemize}
 
 \subsection{Casi d'uso}
-L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso abilita l'utente a interagire con le Things. I casi d'uso possono essere ricavati direttamente dalla figura \ref{fig:use-case-diagram-high-agent} e sono disponibili nella figura \ref{fig:use-case}
+L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart Things tramite un unico terminale. Previa una configurazione, esso abilita l'utente a interagire con le Thing. I casi d'uso possono essere ricavati direttamente dalla figura \ref{fig:use-case-diagram-high-agent} e sono disponibili nella figura \ref{fig:use-case}
 
 \begin{figure}[h]
 	\centering
@@ -1928,7 +1928,7 @@ L'architettura deve permettere all'utente di interfacciarsi con tutte le Smart T
 	\label{fig:use-case}
 \end{figure}
 
-Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di astrazione. Si definiscono quindi anche alcuni esempi di azioni che possono essere eseguite all'interno di un sistema, indipendenti dalle Things attualmente posizionate nella stanza. Ovviamente, l'esito di un'operazione dipenderà se effettivamente vi sono Things capaci di raggiungere quell'obiettivo.
+Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di astrazione. Si definiscono quindi anche alcuni esempi di azioni che possono essere eseguite all'interno di un sistema, indipendenti dalle Thing attualmente posizionate nella stanza. Ovviamente, l'esito di un'operazione dipenderà se effettivamente vi sono Thing capaci di raggiungere quell'obiettivo.
 
 \begin{itemize}
 	\item \textbf{illumina la stanza} - comando che, se portato a termine, deve aumentare la luminosità della stanza;
@@ -1939,7 +1939,7 @@ Ciò però risulta essere un livello \textit{base} e non prevede alcun tipo di a
 \section{Design di Dettaglio}
 
 \subsection{Agenti}
-Si prevede l'uso di un agente principale, il quale sarà responsabile dell'interazione tra l'utente e le Things aggiunte. Esso sarà in poche parole l'entità che gestisce l'attuale situazione nella stanza: attraverso dei piani raggiungerà gli obiettivi posti, sia quelli specifici che generici, in modo da accontentare l'utilizzatore. L'agente dovrà poter comunicare con un'interfaccia grafica per la gestione di questi comandi. Oltre ai piani, non vi sono particolari esigenze per ciò che riguarda il mondo degli Agenti, in quanto, come dalla sezione \ref{sec:artifacts} è previsto l'utilizzo di Artefatti per alcune funzionalità interne, anche per sottostare al \textit{Single Responsibility Principle}.
+Si prevede l'uso di un agente principale, il quale sarà responsabile dell'interazione tra l'utente e le Thing aggiunte. Esso sarà in poche parole l'entità che gestisce l'attuale situazione nella stanza: attraverso dei piani raggiungerà gli obiettivi posti, sia quelli specifici che generici, in modo da accontentare l'utilizzatore. L'agente dovrà poter comunicare con un'interfaccia grafica per la gestione di questi comandi. Oltre ai piani, non vi sono particolari esigenze per ciò che riguarda il mondo degli Agenti, in quanto, come dalla sezione \ref{sec:artifacts} è previsto l'utilizzo di Artefatti per alcune funzionalità interne, anche per sottostare al \textit{Single Responsibility Principle}.
 
 \subsection{Artefatti}
 \label{sec:artifacts}
@@ -1947,13 +1947,13 @@ Si prevede l'utilizzo di alcuni Artefatti collegati all'agente principale, i qua
 
 \begin{itemize}
 	\setlength\itemsep{-0.3em}
-	\item ottenimento e l'interazione con le Things del sistema,
+	\item ottenimento e l'interazione con le Thing del sistema,
 	\item visualizzazione dell'output (GUI).
 \end{itemize}
 
-Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per semplicità si presuppone l'atto di aggiunta come l'avvio del sistema stesso. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto più in dettaglio: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Things possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Things inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Things e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo della configurazione pienamente automatica.\\
+Dovrebbe essere inoltre possibile l'auto-configurazione delle Thing inserite all'interno del sistema, ma per semplicità si presuppone l'atto di aggiunta come l'avvio del sistema stesso. Utilizzando poi le funzionalità del Framework scelto si possono definire modi per catturare anche questo aspetto più in dettaglio: utilizzando sempre \texttt{ThingWeb.io} è possibile progettare un Artefatto (o Agente) che faccia da endpoint per l'aggiunta (o creazione) di nuove Thing, utilizzando il protocollo REST. Si può, ad esempio, progettare un ulteriore file \texttt{.js} rispetto a quelli già presenti per le Thing implementate che, attraverso una chiamata \texttt{POST} su un ipotetico \textit{manager/things/create} esegui la funzionalità richiesta, simulando in modo più autentico il mondo reale. Rimarrebbe comunque il problema di come le Thing possano raggiungere questo endpoint in modalità automatica, senza nessuna indicazione da parte dell'utente (o al contrario, di come l'endpoint possa accorgersi di nuove Thing inserite all'interno del sistema): per fare un esempio, vi è comunque necessità di indicare la password della rete WiFi alla qual si vogliono connettere le Thing e l'endpoint; a questo punto però vi è necessariamente un bisogno di configurarle manualmente, vanificando l'obiettivo della configurazione pienamente automatica.\\
 
-Quindi, per concentrarsi più sulla dimostrazione delle potenzialità del framework, piuttosto che sugli aspetti di configurazione, si intendono le Things già presenti all'interno della stanza, ottenibili da un endpoint pre-configurato.
+Quindi, per concentrarsi più sulla dimostrazione delle potenzialità del Framework, piuttosto che sugli aspetti di configurazione, si intendono le Thing già presenti all'interno della stanza, ottenibili da un endpoint pre-configurato.
 
 
 
@@ -2136,10 +2136,10 @@ Se qualcosa non dovesse funzionare, controllare se ogni punto della procedura è
 
 
 \section{Creazione del Main Agent}
-L'agente principale si occuperà del lancio dell'assistente per l'utente e di creare due Artefatti di supporto. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Things riconosciute dal sistema. La GUI è gestita attraverso uno specifico Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultimi, si rimanda ai capitoli \ref{sec:gui} e \ref{sec:things_artifact}.\\
+L'agente principale si occuperà del lancio dell'assistente per l'utente e di creare due Artefatti di supporto. Esso conterrà intenzioni le quali permetteranno di eseguire sia le volontà generiche dell'utente che le specifiche operazioni sulle Thing riconosciute dal sistema. La GUI è gestita attraverso uno specifico Artefatto, seguendo un buon esempio di \textit{blackboxing} delle funzionalità, in quanto l'Agente non può parlare direttamente con altre entità se non ulteriori Agenti o, appunto, gli Artefatti. Per la descrizione di quest'ultimi, si rimanda ai capitoli \ref{sec:gui} e \ref{sec:things_artifact}.\\
 
 \subsection{Conoscenza di partenza}
-Al suo interno, l'agente dichiara inizialmente la propria conoscenza di partenza. Essendo le Thing Description basate sull'ontologia SAREF, è possibile sfruttare questa intrinseca conoscenza per dichiarare all'agente alcune specifiche riguardanti Things che si può aspettare di avere. Si sottolinea comunque che, per essere completamente dinamici, l'agente potrebbe prendere direttamente riferimenti alle ontologie e chiedere le informazioni a loro per quanto riguarda le operazioni da eseguire. In questo esempio vengono invece indicate esplicitamente sia il device (o lo scopo del device), sia il tipo di azione da eseguire.\\
+Al suo interno, l'agente dichiara inizialmente la propria conoscenza di partenza. Essendo le Thing Description basate sull'ontologia SAREF, è possibile sfruttare questa intrinseca conoscenza per dichiarare all'agente alcune specifiche riguardanti Thing che si può aspettare di avere. Si sottolinea comunque che, per essere completamente dinamici, l'agente potrebbe prendere direttamente riferimenti alle ontologie e chiedere le informazioni a loro per quanto riguarda le operazioni da eseguire. In questo esempio vengono invece indicate esplicitamente sia il device (o lo scopo del device), sia il tipo di azione da eseguire.\\
 
 \begin{lstlisting}
 guiStatus(false).
@@ -2152,7 +2152,7 @@ comfortAbility('saref:Comfort', ['OnOffFunction', 'MultiLevelState']).
 \end{lstlisting}
 
 \subsection{Piani e Goal}
-Successivamente vengono dichiarati i piani. L'agente principale deve provvedere alla configurazione del sistema, che all'avvio deve poter visualizzare all'utente le Things connesse e interagire con esse. Si specifica quindi che si vogliono creare i due Artefatti di partenza e che si vuole attendere il completamento dell'avvio della GUI prima di procedere.
+Successivamente vengono dichiarati i piani. L'agente principale deve provvedere alla configurazione del sistema, che all'avvio deve poter visualizzare all'utente le Thing connesse e interagire con esse. Si specifica quindi che si vogliono creare i due Artefatti di partenza e che si vuole attendere il completamento dell'avvio della GUI prima di procedere.
 
 \begin{lstlisting}
 /* Initial goal */
@@ -2342,19 +2342,19 @@ Per quanto riguarda invece le semplici interazioni oggetto-utente, senza intenzi
 	\label{fig:gui_implementation}
 \end{figure}
 
-Si sottolinea che per quanto riguarda le funzionalità base, quelle eseguite direttamente sulle Things, vi è un diretto passaggio da view a controller e l'esecuzione dell'operazione, senza il coinvolgimento (del tutto inutile) da parte dell'Artefatto e Agente. In un ottica più grande è ovvio che questo comportamento debba essere gestito dall'Agente stesso, in quanto è lui il responsabile del sistema; in un esempio di questo genere, si preferisce puntare sulla dimostrazione di funzionalità.
+Si sottolinea che per quanto riguarda le funzionalità base, quelle eseguite direttamente sulle Thing, vi è un diretto passaggio da view a controller e l'esecuzione dell'operazione, senza il coinvolgimento (del tutto inutile) da parte dell'Artefatto e Agente. In un ottica più grande è ovvio che questo comportamento debba essere gestito dall'Agente stesso, in quanto è lui il responsabile del sistema; in un esempio di questo genere, si preferisce puntare sulla dimostrazione di funzionalità.
 
 \subsection{Things Artifact}
 \label{sec:things_artifact}
-L'artefatto responsabile all'ottenimento delle Things e comunicazione con esse. Anche se in principio vi era l'idea di utilizzare un Artefatto per ognuna delle Thing presenti in stanza, questa è stata abbandonata in favore di semplicità, anche grazie all'introduzione della semantica. Potenzialmente parlando, è possibile infatti  ricavare tutta la conoscenza necessaria direttamente dalla Thing Description: parametri da utilizzare, risorsa da chiamare e metodo con il quale farla. Avendo però fatto riferimento ad un'ontologia (SAREF) e avendo specificato tutte le Things all'interno di un modulo locale, si presuppone che esse vivano internamente all'ambiente di test e che quindi per la semplice dimostrazione delle funzionalità richieste è opportuno astrarre da questo aspetto, lasciando l'implementazione più dettagliata ad un eventuale approfondimento su questa tematica.\\
+L'artefatto responsabile all'ottenimento delle Thing e comunicazione con esse. Anche se in principio vi era l'idea di utilizzare un Artefatto per ognuna delle Thing presenti in stanza, questa è stata abbandonata in favore di semplicità, anche grazie all'introduzione della semantica. Potenzialmente parlando, è possibile infatti  ricavare tutta la conoscenza necessaria direttamente dalla Thing Description: parametri da utilizzare, risorsa da chiamare e metodo con il quale farla. Avendo però fatto riferimento ad un'ontologia (SAREF) e avendo specificato tutte le Thing all'interno di un modulo locale, si presuppone che esse vivano internamente all'ambiente di test e che quindi per la semplice dimostrazione delle funzionalità richieste è opportuno astrarre da questo aspetto, lasciando l'implementazione più dettagliata ad un eventuale approfondimento su questa tematica.\\
 
 Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovare:
 \begin{itemize}
-	\item \texttt{getAllThingDescriptions} - interroga l'endpoint per farsi dare tutti gli URL delle Things attualmente connesse. Successivamente, per ogni URL ottenuto, salva la Thing Description di quel particolare Device.
+	\item \texttt{getAllThingDescriptions} - interroga l'endpoint per farsi dare tutti gli URL delle Thing attualmente connesse. Successivamente, per ogni URL ottenuto, salva la Thing Description di quel particolare Device.
 	\item \texttt{doOperation} - esegue l'operazione (esempio GET o POST) sui Device indicati.
-	\item \texttt{findThingWithAbility} - trova le Things che hanno una certa \quotes{abilità} (ad esempio, quella di illuminare o garantire comfort), indipendente dal tipo di oggetto. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
-	\item \texttt{findThingWithTypology} - simile a quella precedente, ma le Things richieste saranno di un specifico tipo, indipendente dalle abilità di quelli oggetti.
-	\item \texttt{selectBestThingForAbility} - data una certa abilità, provvederà (se vi è necessità) la migliore Thing sulla quale eseguire l'azione, altrimenti, darà in risposta le Things trovate precedentemente. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
+	\item \texttt{findThingWithAbility} - trova le Thing che hanno una certa \quotes{abilità} (ad esempio, quella di illuminare o garantire comfort), indipendente dal tipo di oggetto. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
+	\item \texttt{findThingWithTypology} - simile a quella precedente, ma le Thing richieste saranno di un specifico tipo, indipendente dalle abilità di quelli oggetti.
+	\item \texttt{selectBestThingForAbility} - data una certa abilità, provvederà (se vi è necessità) la migliore Thing sulla quale eseguire l'azione, altrimenti, darà in risposta le Thing trovate precedentemente. Utilizza query SPARQL per interrogare un endpoint nel quale è contenuta la conoscenza complessiva della stanza, in formato RDF.
 	\item \texttt{selectBestThingForTypology} - simile a quella precedente, rispetto ad una certa tipologia di Device e non abilità.
 \end{itemize}
 
@@ -2362,7 +2362,7 @@ Di conseguenza, l'artefatto prevede 6 operazioni, tra le quali si possono trovar
 
 
 \subsubsection{Uso della conoscenza}
-L'utilizzo di un'unica entità per gestire tutte le Things connesse è possibile grazie alla semantica: in base alla tipologia del dispositivo ricercato (o delle sue funzionalità) e del tipo di operazione da eseguire, è possibile astrarre da una qualsiasi presunzione sulle Thing attualmente presenti e connesse. Il sistema quindi è capace di selezionare la o le Thing che potranno raggiungere l'obiettivo desiderato. Come esempio si prende in considerazione l'azione di \textit{LightUp}, che vuole illuminare la stanza. Di seguito viene descritto l'iter che viene eseguito per completare tale operazione\\
+L'utilizzo di un'unica entità per gestire tutte le Thing connesse è possibile grazie alla semantica: in base alla tipologia del dispositivo ricercato (o delle sue funzionalità) e del tipo di operazione da eseguire, è possibile astrarre da una qualsiasi presunzione sulle Thing attualmente presenti e connesse. Il sistema quindi è capace di selezionare la o le Thing che potranno raggiungere l'obiettivo desiderato. Come esempio si prende in considerazione l'azione di \textit{LightUp}, che vuole illuminare la stanza. Di seguito viene descritto l'iter che viene eseguito per completare tale operazione\\
 
 \begin{enumerate}
 	\item L'utente richiama la funzione: premendo il bottone il controller della view cattura l'evento, che viene gestito dall'Artefatto, che a sua volta fa scattare un piano all'interno dell'Agente per gestire l'evento. In particolare viene aziono il seguente piano:
@@ -2409,7 +2409,7 @@ Le difficoltà incontrate durante lo sviluppo hanno notevolmente allungato i tem
 
 Definire le Thing Description ha permesso di identificare le diversità che vi possono esistere tra oggetti e la necessità di avere un modo per capirne le funzionalità. L'aggiunta della semantica ha contribuito a valorizzare il significato e il peso della conoscenza del sistema, che ha permesso di identificare con estrema facilità i dispositivi di un certo tipo o quelli che svolgono una certa funzione, lasciando un campo tutto da esplorare per quel che riguarda ulteriori interrogazioni e inferenze di conoscenza.\\
 
-Seguire un modello ad Agenti in un modo innovativo, configurato in maniera meno classica e seguendo un linguaggio meno comune, ma comunque compatibile, ha contribuito allo sviluppo del framework di JaCaMo, abilitandolo a tecnologie per le quali non era inizialmente pensato. Inoltre, l'impostazione del progetto permette eventuali estensioni dello stesso per esplorare ancora più a fondo argomenti che uno singolo studente non può fisicamente coprire in un elaborato.\\
+Seguire un modello ad Agenti in un modo innovativo, configurato in maniera meno classica e seguendo un linguaggio meno comune, ma comunque compatibile, ha contribuito allo sviluppo del Framework di JaCaMo, abilitandolo a tecnologie per le quali non era inizialmente pensato. Inoltre, l'impostazione del progetto permette eventuali estensioni dello stesso per esplorare ancora più a fondo argomenti che uno singolo studente non può fisicamente coprire in un elaborato.\\
 
 Il progetto, nel complesso, dimostra quanto sia possibile ottenere unendo i mondi di Web Semantico, Web of Thing e Pervasive Computing, senza però toccarne nemmeno la cima: è chiaramente impossibile cercare di implementare ogni questione relativa alle singole parti analizzate, in quanto per ognuna di esse è necessario predisporre un progetto che va ben oltre una semplice dimostrazione. Nel campo vi lavorano infatti diversi enti, aziende e gruppi di lavoro che stanno continuamente pensando a nuovi standard e/o linee guida sul mondo interconnesso che si sta creando: è del tutto improbabile che un singolo studente possa abbracciare l'interezza di questo sistema. Di conseguenza, è necessario sottolineare che la strada per un sistema completamente autoconfigurate e autonomo è tracciata, ma è ancora tutta da percorrere: esistono infatti già tutte le tecnologie abilitanti a tale scopo, ma bisogna essere capaci di coglierle nella loro completezza, impossibile da trattare in un unico singolo progetto.\\
 
